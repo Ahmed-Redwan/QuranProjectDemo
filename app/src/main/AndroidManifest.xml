@@ -9,16 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QuranCenter_Reg"></activity>
-        <activity android:name=".RegisterAs" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".TeacherLogin"></activity>
+        <activity android:name=".TeacherRegister" />
+        <activity android:name=".QuranCenter_Login" />
+        <activity android:name=".QuranCenter_Reg" />
+        <activity android:name=".RegisterAs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SplashScreen" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -11,15 +11,155 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="قم بإنشاء حساب"
+        android:id="@+id/RegAs_tv_MakeAnAccount"
         android:textColor="@color/colorPrimary"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:textSize="@dimen/_33ssp"
         android:textStyle="bold"
         />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/RegAs_cvieew_QuranCenter"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/RegAs_tv_QuranCenter"
+            android:textSize="@dimen/_25ssp"
+            android:padding="@dimen/_15sdp"
+            android:textColor="@android:color/white"
+            android:text="مركز التحفيظ"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
+    </androidx.cardview.widget.CardView>
 
-    <Button
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/colorPrimary"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/RegAs_cvieew_teacher"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/RegAs_tv_teacher"
+        android:textSize="@dimen/_25ssp"
+        android:padding="@dimen/_15sdp"
+        android:textColor="@android:color/white"
+        android:text="محفظ"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        />
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/colorPrimary"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/RegAs_cvieew_guardian"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/RegAs_tv_guardian"
+            android:textSize="@dimen/_25ssp"
+            android:padding="@dimen/_15sdp"
+            android:textColor="@android:color/white"
+            android:text="ولي الأمر"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/colorPrimary"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="أو"
+        android:id="@+id/RegAs_tv_Or"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/RegAs_cvieew_AddRequest"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/RegAs_tv_AddRequest"
+            android:textSize="@dimen/_25ssp"
+            android:padding="@dimen/_15sdp"
+            android:textColor="@android:color/white"
+            android:text="إرسال طلب إنضمام"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
+    </androidx.cardview.widget.CardView>
+   <!-- <Button
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"
         android:id="@+id/RegAs_btn_QuranCenter"
@@ -100,5 +240,5 @@
         android:text="إرسال طلب إنضمام"
         android:textStyle="bold"
         android:background="@drawable/btn_background"
-        android:textAlignment="center"/>
+        android:textAlignment="center"/>-->
 </LinearLayout>
