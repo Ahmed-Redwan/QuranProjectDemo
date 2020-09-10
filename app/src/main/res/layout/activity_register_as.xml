@@ -154,7 +154,7 @@
             android:textSize="@dimen/_25ssp"
             android:padding="@dimen/_15sdp"
             android:textColor="@android:color/white"
-            android:text="إرسال طلب إنضمام"
+            android:text="إرسال طلب إلتحاق"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textAlignment="center"

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JoinRequest1"
+    android:orientation="vertical"
+    android:background="#DDE7F1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="إرسال طلب إلتحاق"
+        android:id="@+id/request1_tv_joinRequest"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:textSize="@dimen/_22ssp"
+        android:textStyle="bold"
+        />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:textAlignment="center">
+
+        <EditText
+            android:id="@+id/request1_et_Country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="الدولة"
+            android:padding="@dimen/_5sdp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_23ssp"
+            android:maxLength="15"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        >
+
+        <EditText
+            android:id="@+id/request1_et_City"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="المدينة"
+            android:padding="@dimen/_5sdp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_23ssp"
+            android:maxLength="20"
+            android:maxLines="1"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/request1_btn_Next"
+        android:background="@drawable/btn_background"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:text="التالي"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_24ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_4sdp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/fill_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/empty_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/empty_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

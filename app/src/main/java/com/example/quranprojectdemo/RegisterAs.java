@@ -58,6 +58,12 @@ public class RegisterAs extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(),GuardianReg.class));
             }
         });
+        crVAddRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(),JoinRequest1.class));
+            }
+        });
 
     }
 
