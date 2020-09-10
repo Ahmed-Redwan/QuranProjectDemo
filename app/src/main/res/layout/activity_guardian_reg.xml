@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TeacherRegister"
+    tools:context=".GuardianReg"
     android:background="#E3E9EF">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,11 +16,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="إنشاء حساب المحفظ"
-            android:id="@+id/TeacherReg_tv_newAccount"
+            android:text="إنشاء حساب ولي الأمر"
+            android:id="@+id/GurdianReg_tv_newAccount"
             android:textColor="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_23sdp"
             android:textSize="@dimen/_22ssp"
             android:textStyle="bold"
             />
@@ -34,11 +35,11 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/TeacherReg_et_TeacherName"
+                android:id="@+id/GurdianReg_et_StudentName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="إسم المحفظ"
+                android:hint="إسم الطالب"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
@@ -57,17 +58,18 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/TeacherReg_et_halakaName"
+                android:id="@+id/GurdianReg_et_StudentId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="إسم الحلقة"
+                android:hint="رقم الهوية"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="@dimen/_23ssp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -80,7 +82,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/TeacherReg_et_PhoneNum"
+                android:id="@+id/GurdianReg_et_PhoneNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -105,7 +107,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/TeacherReg_et_Email"
+                android:id="@+id/GurdianReg_et_Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -129,7 +131,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/TeacherReg_et_halakaNum"
+                android:id="@+id/GurdianReg_et_halakaNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -140,7 +142,8 @@
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="@dimen/_23ssp"
                 android:maxLength="15"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -163,7 +166,7 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/TeacherReg_et_Password"
+                android:id="@+id/GurdianReg_et_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -182,7 +185,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/TeacherReg_btn_CreateNewAcc"
+            android:id="@+id/GurdianReg_btn_CreateNewAcc"
             android:background="@drawable/btn_background"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_20sdp"
@@ -197,7 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="لدي حساب بالفعل"
-            android:id="@+id/TeacherReg_tv_iHaveAnAccount"
+            android:id="@+id/GurdianReg_tv_iHaveAnAccount"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/_15ssp"
             android:textColor="@color/colorPrimary"
@@ -206,7 +209,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/TeacherReg_tv_Login"
+            android:id="@+id/GurdianReg_tv_Login"
             android:text="تسجيل الدخول"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/_23ssp"
@@ -216,6 +219,5 @@
 
 
     </LinearLayout>
-
 
 </ScrollView>

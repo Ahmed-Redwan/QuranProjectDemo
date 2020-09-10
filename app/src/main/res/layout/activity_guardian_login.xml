@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuranCenter_Login"
+    tools:context=".GuardianLogin"
     android:background="#E3E9EF">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="تسجيل الدخول"
-            android:id="@+id/QuranCenterLogin_tv_login"
+            android:id="@+id/GuardianLogin_tv_login"
             android:textColor="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_30sdp"
@@ -45,7 +46,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/QuranCenterLogin_et_EmailOrphone"
+                android:id="@+id/GuardianLogin_et_EmailOrphone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -70,7 +71,7 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/QuranCenterLogin_et_Password"
+                android:id="@+id/GuardianLogin_et_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -89,7 +90,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/QuranCenterLogin_btn_Login"
+            android:id="@+id/GuardianLogin_btn_Login"
             android:background="@drawable/btn_background"
             android:layout_marginTop="@dimen/_60sdp"
             android:layout_marginStart="@dimen/_20sdp"
@@ -104,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ليس لدي حساب"
-            android:id="@+id/QuranCenterLogin_tv_iDontHaveAnAccount"
+            android:id="@+id/GuardianLogin_tv_iDontHaveAnAccount"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/_15ssp"
             android:textColor="@color/colorPrimary"
@@ -113,7 +114,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/QuranCenterLogin_tv_NewAccount"
+            android:id="@+id/GuardianLogin_tv_NewAccount"
             android:text="إنشاء حساب جديد"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/_23ssp"
@@ -124,5 +125,7 @@
 
 
     </LinearLayout>
+
+
 
 </ScrollView>
