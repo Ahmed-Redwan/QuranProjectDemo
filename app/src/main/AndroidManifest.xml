@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GuardianLogin"></activity>
+        <activity android:name=".JoinRequest3"></activity>
+        <activity android:name=".JoinRequest2" />
+        <activity android:name=".JoinRequest1" />
+        <activity android:name=".GuardianLogin" />
         <activity android:name=".GuardianReg" />
         <activity android:name=".TeacherLogin" />
         <activity android:name=".TeacherRegister" />

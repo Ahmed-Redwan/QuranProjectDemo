@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DDE7F1"
+    android:orientation="vertical"
+    tools:context=".JoinRequest2">
+
+    <TextView
+        android:id="@+id/request2_tv_listOfCenters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="@dimen/_55sdp"
+        android:layout_marginEnd="@dimen/_55sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:textSize="@dimen/_22ssp"
+        android:textStyle="bold"
+        android:text="قائمة المراكز القريبة منك قم بأختيار إحدى المراكز للانضمام اليها." />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/request2_rv_listOfCenters"
+        android:layout_weight="1"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/request2_btn_Next"
+        android:background="@drawable/btn_background"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:text="التالي"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_24ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_4sdp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/empty_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/fill_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/empty_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuardianReg"
-    android:background="#E3E9EF">
-
+    tools:context=".JoinRequest3"
+    android:orientation="vertical"
+    >
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="إنشاء حساب ولي الأمر"
+            android:text="إرسال طلب إلتحاق"
             android:id="@+id/GurdianReg_tv_newAccount"
             android:textColor="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
@@ -190,35 +194,39 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
-            android:text="إنشاء حساب جديد"
+            android:text="إرسال طلب الإلتحاق"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_24ssp"
             android:textStyle="bold"
             android:padding="@dimen/_4sdp"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="لدي حساب بالفعل"
-            android:id="@+id/GurdianReg_tv_iHaveAnAccount"
-            android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/_15ssp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/_6sdp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/GurdianReg_tv_Login"
-            android:text="تسجيل الدخول"
-            android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/_23ssp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/_6sdp"/>
 
 
     </LinearLayout>
-
-
 </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/empty_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/empty_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/fill_circle"
+            android:layout_margin="@dimen/_5sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
