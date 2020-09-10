@@ -9,24 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".JoinRequest3"></activity>
-        <activity android:name=".JoinRequest2" />
-        <activity android:name=".JoinRequest1" />
-        <activity android:name=".GuardianLogin" />
-        <activity android:name=".GuardianReg" />
-        <activity android:name=".TeacherLogin" />
-        <activity android:name=".TeacherRegister" />
-        <activity android:name=".QuranCenter_Login" />
-        <activity android:name=".QuranCenter_Reg" />
-        <activity android:name=".RegisterAs">
+        <activity android:name=".MainActivity2"></activity>
+        <activity android:name=".Main_student">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main_teacher"></activity>
+        <activity android:name=".GuardianLogin" />
+        <activity android:name=".GuardianReg" />
+        <activity android:name=".TeacherLogin" />
+        <activity android:name=".TeacherRegister" />
+        <activity android:name=".QuranCenter_Login" />
+        <activity android:name=".QuranCenter_Reg" />
+        <activity android:name=".RegisterAs" />
         <activity android:name=".SplashScreen" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".Main_center" />
     </application>
 
 </manifest>
