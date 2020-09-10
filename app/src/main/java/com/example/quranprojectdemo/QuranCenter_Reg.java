@@ -20,6 +20,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quran_center__reg);
+
+
         et_centerName = findViewById(R.id.QuranCenter_et_CenterName);
         et_ManagerName = findViewById(R.id.QuranCenter_et_ManagerName);
         et_Email = findViewById(R.id.QuranCenter_et_Email);
