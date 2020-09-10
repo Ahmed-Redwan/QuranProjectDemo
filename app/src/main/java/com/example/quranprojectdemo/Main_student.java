@@ -33,7 +33,7 @@ public class Main_student extends AppCompatActivity {
         tv_student_name_ring=findViewById(R.id.student_main_tv_name_ring);
         tv_student_phone=findViewById(R.id.student_main_tv_phone);
         tv_student_identity=findViewById(R.id.student_main_tv_identity);
-
+//
 //        toolbar_student=findViewById(R.id.student_main_tool);
 //        setSupportActionBar(toolbar_student);
 
