@@ -52,7 +52,7 @@ public class Main_center extends AppCompatActivity {
             }
         });
 
-
+//
     }
 
     @Override
