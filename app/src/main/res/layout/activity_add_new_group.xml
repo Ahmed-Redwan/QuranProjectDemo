@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNewGroup"
+    android:background="#E3E9EF">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="إضافة حلقة جديدة"
+        android:id="@+id/AddNewGroup_tv_Add"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:textSize="@dimen/_26ssp"
+        android:textStyle="bold"
+        />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:textAlignment="center">
+
+        <EditText
+            android:id="@+id/AddNewGroup_et_GroupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="إسم الحلقة"
+            android:padding="@dimen/_5sdp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_23ssp"
+            android:maxLength="15"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        >
+
+        <EditText
+            android:id="@+id/AddNewGroup_et_TeacherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="اسم المحفظ"
+            android:padding="@dimen/_5sdp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_23ssp"
+            android:maxLines="1"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddNewGroup_btn_Add"
+        android:background="@drawable/btn_background"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:text="إضافة حلقة جديدة"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_24ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_4sdp"
+        />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/AddNewGroup_btn_cancel"
+            android:background="@drawable/btn_background2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:text="إلغاء"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_24ssp"
+            android:textStyle="bold"
+            android:padding="@dimen/_4sdp"
+            />
+    </LinearLayout>
+</ScrollView>

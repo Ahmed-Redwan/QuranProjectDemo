@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity2"></activity>
-        <activity android:name=".Main_student">
-        </activity>
-        <activity android:name=".Main_teacher"></activity>
+        <activity android:name=".AddNewStudent"></activity>
+        <activity android:name=".AddNewGroup" />
+        <activity android:name=".MainActivity2" />
+        <activity android:name=".Main_student" />
+        <activity android:name=".Main_teacher" />
         <activity android:name=".GuardianLogin" />
         <activity android:name=".GuardianReg" />
         <activity android:name=".TeacherLogin" />
@@ -22,7 +23,7 @@
         <activity android:name=".RegisterAs" />
         <activity android:name=".SplashScreen" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Main_center" >
+        <activity android:name=".Main_center">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
