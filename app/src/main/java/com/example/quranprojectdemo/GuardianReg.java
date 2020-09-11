@@ -45,6 +45,14 @@ public class GuardianReg extends AppCompatActivity {
 
         btn_CreateNewA.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
 
+        btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(),Main_student.class));
+                finish();
+            }
+        });
+
         tv_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

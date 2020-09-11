@@ -21,14 +21,15 @@
         <activity android:name=".QuranCenter_Login" />
         <activity android:name=".QuranCenter_Reg" />
         <activity android:name=".RegisterAs" />
-        <activity android:name=".SplashScreen" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Main_center">
+        <activity android:name=".SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Main_center">
         </activity>
     </application>
 
