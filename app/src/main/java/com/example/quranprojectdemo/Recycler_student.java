@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,11 +15,15 @@ import java.util.ArrayList;
 public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.View_holder> {
 
     ArrayList<Student_data> arrayList_student;
+    int resourse ;
+    Context context;
 
+    public Recycler_student(ArrayList<Student_data> arrayList_student) {
+        this.arrayList_student = arrayList_student;
 
-    public Recycler_student (ArrayList<Student_data> arrayList_student){
-        this.arrayList_student=arrayList_student;
     }
+
+
 
 
     @NonNull
@@ -65,4 +70,5 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
             tv_save=itemView.findViewById(R.id.student_recycler_save);
         }
     }
+
 }
