@@ -300,25 +300,20 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
 
-
-                >
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:id="@+id/student_main_recycler"
-                    >
+                    android:layout_weight="1"
+                     >
 
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-            </androidx.core.widget.NestedScrollView>
 
 
 
