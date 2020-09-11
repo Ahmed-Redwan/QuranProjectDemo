@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 //asd
 public class Student_add_new extends AppCompatActivity {
-
+//jhklhkljh
      android.widget.Spinner spinner_saves   ,spinner_save_from   ,spinner_save_too;
     android.widget.Spinner spinner_reviews   ,spinner_reviews_from   ,spinner_reviews_too;
      android.widget.Spinner spinner_select_student;
