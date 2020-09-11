@@ -3,6 +3,7 @@ package com.example.quranprojectdemo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -33,8 +34,10 @@ public class Main_center extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.MenuCentreHomeAddGroub:
+                        startActivity(new Intent(getBaseContext(),AddNewGroup.class));
                         return true;
                     case R.id.MenuCentreHomeAddStudent:
+                        startActivity(new Intent(getBaseContext(),AddNewStudent.class));
                         return true;
                     case R.id.MenuCentreHomeShowInfo:
                         return true;
