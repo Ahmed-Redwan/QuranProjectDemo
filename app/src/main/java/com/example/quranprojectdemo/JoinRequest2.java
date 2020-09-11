@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class JoinRequest2 extends AppCompatActivity {
@@ -20,6 +21,8 @@ public class JoinRequest2 extends AppCompatActivity {
 
         btn_Next = findViewById(R.id.request2_btn_Next);
         tv_ListOfCenters = findViewById(R.id.request2_tv_listOfCenters);
+
+
 
         btn_Next.setTypeface(Typeface.createFromAsset(getAssets(),"Hacen_Tunisia.ttf"));
         tv_ListOfCenters.setTypeface(Typeface.createFromAsset(getAssets(),"Hacen_Tunisia_Bold.ttf"));

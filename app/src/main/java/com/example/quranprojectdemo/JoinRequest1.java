@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class JoinRequest1 extends AppCompatActivity {
@@ -24,6 +25,7 @@ Button btn_Next;
         et_Country=findViewById(R.id.request1_et_Country);
         btn_Next=findViewById(R.id.request1_btn_Next);
 
+
         TextView_EditFont(tv_JoinRequest,"Hacen_Tunisia_Bold.ttf");
         EditText_EditFont(et_City,"Hacen_Tunisia.ttf");
         EditText_EditFont(et_Country,"Hacen_Tunisia.ttf");
@@ -33,6 +35,7 @@ Button btn_Next;
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getBaseContext(),JoinRequest2.class));
+                finish();
             }
         });
     }

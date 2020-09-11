@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/MenuTeacherHomeAddStudent"
+        android:title="add new info"
+        android:icon="@drawable/ic_note_add_black_24dp"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/MenuTeacherHomeShowInfo"
+        android:title="Students list"
+        android:icon="@drawable/ic_content_paste_black_24dp"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/MenuTeacherHomeSettings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        app:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/MenuTeacherHomeAbout"
+        android:title="about us"
+        android:icon="@drawable/ic_info_black_24dp"
+        app:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/MenuTeacherHomeExit"
+        android:title="Exit"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        app:showAsAction="ifRoom"
+        />
+</menu>

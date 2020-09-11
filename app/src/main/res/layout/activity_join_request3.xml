@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".JoinRequest3"
     android:orientation="vertical"
+    android:background="#DDE7F1"
     >
 <ScrollView
     android:layout_width="match_parent"
@@ -21,11 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="إرسال طلب إلتحاق"
-            android:id="@+id/GurdianReg_tv_newAccount"
+            android:id="@+id/request3_tv_SendRequest"
             android:textColor="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_23sdp"
-            android:textSize="@dimen/_22ssp"
+            android:textSize="@dimen/_26ssp"
             android:textStyle="bold"
             />
 
@@ -39,7 +40,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/GurdianReg_et_StudentName"
+                android:id="@+id/request3_et_StudentName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -62,7 +63,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/GurdianReg_et_StudentId"
+                android:id="@+id/request3_et_StudentId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -86,7 +87,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/GurdianReg_et_PhoneNum"
+                android:id="@+id/request3_et_PhoneNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -111,7 +112,7 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/GurdianReg_et_Email"
+                android:id="@+id/request3_et_Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -135,11 +136,11 @@
             android:textAlignment="center">
 
             <EditText
-                android:id="@+id/GurdianReg_et_halakaNum"
+                android:id="@+id/request3_et_Grade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="رقم الحلقة"
+                android:hint="المستوى الدراسي"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
@@ -150,46 +151,96 @@
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_width="match_parent"
-            android:textColorHint="@color/colorPrimary"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/request3_et_day"
             android:layout_width="match_parent"
-            android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="يوم الميلاد"
+            android:padding="@dimen/_3sdp"
             android:textAlignment="center"
-            app:passwordToggleEnabled="true">
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_20ssp"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/GurdianReg_et_Password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="كلمة المرور"
-                android:inputType="textPassword"
-                android:padding="@dimen/_5sdp"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="@dimen/_23ssp"
-                android:maxLength="20"
-                android:maxLines="1"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_weight="1">
 
+        <EditText
+            android:id="@+id/request3_et_month"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="الشهر"
+            android:padding="@dimen/_3sdp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_20ssp"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/request3_et_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="السنة"
+            android:padding="@dimen/_3sdp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_20ssp"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/GurdianReg_btn_CreateNewAcc"
+            android:id="@+id/request3_btn_SendRequest"
             android:background="@drawable/btn_background"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_20sdp"
@@ -214,12 +265,14 @@
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_10sdp"
             android:src="@drawable/empty_circle"
-            android:layout_margin="@dimen/_5sdp"/>
+            android:layout_margin="@dimen/_5sdp"
+            android:id="@+id/request3_circle1"/>
         <ImageView
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_10sdp"
             android:src="@drawable/empty_circle"
-            android:layout_margin="@dimen/_5sdp"/>
+            android:layout_margin="@dimen/_5sdp"
+            android:id="@+id/request3_circle2"/>
 
         <ImageView
             android:layout_width="@dimen/_10sdp"

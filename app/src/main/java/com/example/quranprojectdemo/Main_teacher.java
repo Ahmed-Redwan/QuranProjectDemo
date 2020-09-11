@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,23 @@ public class Main_teacher extends AppCompatActivity {
         tv_teacher_count_student=findViewById(R.id.teacher_main_tv_count_student);
 
         toolbar_teacher=findViewById(R.id.teacher_main_tool);
-        setSupportActionBar(toolbar_teacher);
-
+        toolbar_teacher.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.MenuTeacherHomeAddStudent:
+                        return true;
+                    case R.id.MenuTeacherHomeShowInfo:
+                        return true;
+                    case R.id.MenuTeacherHomeSettings:
+                        return true;
+                    case R.id.MenuTeacherHomeAbout:
+                        return true;
+                    case R.id.MenuTeacherHomeExit:
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 }

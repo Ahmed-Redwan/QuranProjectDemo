@@ -11,11 +11,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity2"></activity>
         <activity android:name=".Main_student">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Main_teacher"></activity>
         <activity android:name=".GuardianLogin" />
@@ -27,7 +22,13 @@
         <activity android:name=".RegisterAs" />
         <activity android:name=".SplashScreen" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Main_center" />
+        <activity android:name=".Main_center" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
