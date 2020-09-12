@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Student_add_new"
+    tools:context=".Add_a_new_save"
     android:orientation="vertical"
     android:background="#E3E9EF"
     >

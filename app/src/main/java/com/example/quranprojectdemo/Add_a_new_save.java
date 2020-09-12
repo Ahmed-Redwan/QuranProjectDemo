@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 //asd
-public class Student_add_new extends AppCompatActivity {
+public class Add_a_new_save extends AppCompatActivity {
 //jhklhkljh
      android.widget.Spinner spinner_saves   ,spinner_save_from   ,spinner_save_too;
     android.widget.Spinner spinner_reviews   ,spinner_reviews_from   ,spinner_reviews_too;
@@ -15,7 +15,7 @@ public class Student_add_new extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_new_add);
+        setContentView(R.layout.student_add_a_new_save);
 
        spinner_select_student=findViewById(R.id.spinner_selection_student);
 
