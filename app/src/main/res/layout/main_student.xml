@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main_student"
+    android:background= "#E3E9EF"
     >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -308,7 +309,8 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:id="@+id/student_main_recycler"
-                    android:layout_weight="1"
+
+                    android:padding="@dimen/_3sdp"
                      >
 
 

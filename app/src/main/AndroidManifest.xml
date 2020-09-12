@@ -9,18 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Add_a_new_save">
+        <activity android:name=".Show_group_student">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Add_a_new_save">
+
+        </activity>
         <activity android:name=".AddNewStudent" />
         <activity android:name=".AddNewGroup" />
-
-        <activity android:name=".Main_student" >
-
+        <activity android:name=".Main_student">
 
         </activity>
         <activity android:name=".Main_teacher" />
@@ -33,9 +35,7 @@
         <activity android:name=".RegisterAs" />
         <activity android:name=".SplashScreen" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Main_center">
-
-        </activity>
+        <activity android:name=".Main_center"></activity>
     </application>
 
 </manifest>

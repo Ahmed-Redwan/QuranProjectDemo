@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Recycler_student_image_and_name extends BaseAdapter {
+public class Adabter_student_image_and_name extends BaseAdapter {
 
     Context context;
     int resourse;
     ArrayList<Student_imageand_name>student_imageand_names;
 
 
-    public Recycler_student_image_and_name(Context context, int resourse, ArrayList<Student_imageand_name> student_imageand_names) {
+    public Adabter_student_image_and_name(Context context, int resourse, ArrayList<Student_imageand_name> student_imageand_names) {
         this.context = context;
         this.resourse = resourse;
         this.student_imageand_names = student_imageand_names;

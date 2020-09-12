@@ -25,10 +25,10 @@ public class Add_a_new_save extends AppCompatActivity {
         student_imageand_names.add(new Student_imageand_name(" mohammed"));
 
 
-        Recycler_student_image_and_name recycler =new Recycler_student_image_and_name(this,
+        Adabter_student_image_and_name adabter =new Adabter_student_image_and_name(this,
                 R.layout.student_recycler_image_and_name,student_imageand_names);
 
-        spinner_select_student.setAdapter(recycler);
+        spinner_select_student.setAdapter(adabter);
 
 
 
