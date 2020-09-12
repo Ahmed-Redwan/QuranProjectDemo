@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowmeMorizationLoops"
+    android:orientation="vertical"
+    android:background="#E3E9EF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:menu="@menu/group_list"
+        app:title="اسم المركز"
+        app:titleTextColor="@android:color/white"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="إستعراض حلقات المركز"
+        android:id="@+id/ShowMemorizationLoops_tv_ShowMemorizationLoops"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:textSize="@dimen/_26ssp"
+        android:textStyle="bold"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ShowMemorizationLoops_Rv_List"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_5sdp"
+
+        tools:listitem="@layout/customgroup_recyclerview"/>
+
+
+</LinearLayout>

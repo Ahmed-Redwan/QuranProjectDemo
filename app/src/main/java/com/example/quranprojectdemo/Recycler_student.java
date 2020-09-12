@@ -57,7 +57,7 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
 
 
 
-    public  class  View_holder extends RecyclerView.ViewHolder{
+    public static class  View_holder extends RecyclerView.ViewHolder{
 
         TextView  tv_date  , tv_day  ,tv_attendess  ,tv_review  ,tv_save ;
         public View_holder(@NonNull View itemView) {
