@@ -44,12 +44,14 @@ public class Main_student extends AppCompatActivity {
         ArrayList<Student_data> datass =new ArrayList<>();
 
 datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
-datass.add(new Student_data("10/9/2020","السبت","غياب","-","-"));
-datass.add(new Student_data("10//2020","السبت","غياب","-","-"));
-datass.add(new Student_data("10//2020","السبت","غياب","-","-"));
-datass.add(new Student_data("10//2020","السبت","غياب","-","-"));
-datass.add(new Student_data("2020","السبت","غياب","-","-"));
-datass.add(new Student_data("/2020","السبت","غياب","-","-"));
+datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+
 
         for (Student_data c : datass) {
  Log.d(c.getDate__student(),c.getDay_student()+c.getAttendess_student()+c.getReview_student()+c.getSave_student());
@@ -68,3 +70,180 @@ datass.add(new Student_data("/2020","السبت","غياب","-","-"));
 
     }
 }
+
+
+//<?xml version="1.0" encoding="utf-8"?>
+//<LinearLayout
+//    xmlns:android="http://schemas.android.com/apk/res/android"
+//    android:layout_width="match_parent"
+//    android:layout_height="match_parent"
+//    xmlns:app="http://schemas.android.com/apk/res-auto"
+//    android:orientation="vertical"
+//    android:gravity="center">
+//
+//    <androidx.cardview.widget.CardView
+//        android:layout_width="match_parent"
+//        android:layout_height="@dimen/_50sdp"
+//        app:cardElevation="@dimen/_7sdp"
+//        app:cardCornerRadius="@dimen/_7sdp"
+//        android:layout_marginTop="@dimen/_3sdp"
+//        android:layout_marginBottom="@dimen/_3sdp"
+//        app:cardBackgroundColor="#D1D4D6"
+//
+//        >
+//        <LinearLayout
+//            android:layout_width="match_parent"
+//            android:layout_height="match_parent"
+//            android:orientation="horizontal"
+//            android:layout_gravity="center"
+//            android:layout_marginEnd="@dimen/_10sdp"
+//            android:layout_marginStart="@dimen/_10sdp"
+//             >
+//            <androidx.cardview.widget.CardView
+//                android:layout_width="match_parent"
+//                android:layout_height="match_parent"
+//                android:layout_weight="1"
+//                app:cardBackgroundColor="#D1D4D6"
+//                app:cardCornerRadius="@dimen/_6sdp"
+//                app:cardElevation="@dimen/_6sdp"
+//
+//                >
+//
+//                <TextView
+//                    android:layout_width="match_parent"
+//                    android:layout_height="match_parent"
+//                    android:text="التاريخ"
+//                    android:gravity="center"
+//                    android:textColor="@color/colorPrimary"
+//                    android:textSize="@dimen/_13ssp"
+//                    android:textStyle="bold"
+//
+//                    android:layout_marginStart="@dimen/_3sdp"
+//                    android:layout_marginEnd="@dimen/_3sdp"
+//
+//                    android:id="@+id/student_recycler_date"
+//                    />
+//
+//            </androidx.cardview.widget.CardView>
+//
+//            <androidx.cardview.widget.CardView
+//                android:layout_width="match_parent"
+//                android:layout_height="match_parent"
+//                android:layout_weight="1"
+//                 app:cardCornerRadius="@dimen/_6sdp"
+//                app:cardElevation="@dimen/_6sdp"
+//                app:cardBackgroundColor="#D1D4D6"
+//
+//                >
+//
+//
+//                    <TextView
+//                        android:layout_width="match_parent"
+//                        android:layout_height="match_parent"
+//                        android:text="اليوم"
+//                        android:textStyle="bold"
+//                        android:gravity="center"
+//                        android:textColor="@color/colorPrimary"
+//                        android:textSize="@dimen/_13ssp"
+//
+//                        android:layout_marginStart="@dimen/_3sdp"
+//                        android:layout_marginEnd="@dimen/_3sdp"
+//
+//                        android:id="@+id/student_recycler_day"
+//                        />
+//
+//
+//
+//            </androidx.cardview.widget.CardView>
+//
+//            <androidx.cardview.widget.CardView
+//                android:layout_width="match_parent"
+//                android:layout_height="match_parent"
+//                android:layout_weight="1"
+//                 app:cardCornerRadius="@dimen/_6sdp"
+//                app:cardElevation="@dimen/_6sdp"
+//                app:cardBackgroundColor="#D1D4D6"
+//
+//                >
+//
+//                <TextView
+//                    android:layout_width="match_parent"
+//                    android:layout_height="match_parent"
+//                    android:text="الحضور"
+//                    android:gravity="center"
+//                    android:textColor="@color/colorPrimary"
+//                    android:textSize="@dimen/_13ssp"
+//                    android:textStyle="bold"
+//
+//                    android:layout_marginStart="@dimen/_3sdp"
+//                    android:layout_marginEnd="@dimen/_3sdp"
+//
+//                    android:id="@+id/student_recycler_attendess"
+//                    />
+//
+//            </androidx.cardview.widget.CardView>
+//
+//            <androidx.cardview.widget.CardView
+//                android:layout_width="match_parent"
+//                android:layout_height="match_parent"
+//                android:layout_weight="1"
+//                 app:cardCornerRadius="@dimen/_6sdp"
+//                app:cardElevation="@dimen/_6sdp"
+//                app:cardBackgroundColor="#D1D4D6"
+//
+//                >
+//
+//                <TextView
+//                    android:layout_width="match_parent"
+//                    android:layout_height="match_parent"
+//                    android:text="المراجعه"
+//                    android:gravity="center"
+//                    android:textColor="@color/colorPrimary"
+//                    android:textSize="@dimen/_13ssp"
+//                    android:textStyle="bold"
+//                    android:layout_marginStart="@dimen/_3sdp"
+//                    android:layout_marginEnd="@dimen/_3sdp"
+//
+//                    android:id="@+id/student_recycler_review"
+//                    />
+//
+//            </androidx.cardview.widget.CardView>
+//
+//            <androidx.cardview.widget.CardView
+//                android:layout_width="match_parent"
+//                android:layout_height="match_parent"
+//                android:layout_weight="1"
+//                 app:cardCornerRadius="@dimen/_6sdp"
+//                app:cardElevation="@dimen/_6sdp"
+//                app:cardBackgroundColor="#D1D4D6"
+//
+//
+//                >
+//                <TextView
+//                    android:layout_width="match_parent"
+//                    android:layout_height="match_parent"
+//                    android:text="الحفظ"
+//                    android:gravity="center"
+//                    android:layout_marginStart="@dimen/_3sdp"
+//                    android:layout_marginEnd="@dimen/_3sdp"
+//
+//                    android:textColor="@color/colorPrimary"
+//                    android:textSize="@dimen/_13ssp"
+//                    android:textStyle="bold"
+//
+//
+//                    android:id="@+id/student_recycler_save"
+//                    />
+//
+//
+//            </androidx.cardview.widget.CardView>
+//
+//
+//
+//
+//        </LinearLayout>
+//    </androidx.cardview.widget.CardView>
+//
+//
+//
+//</LinearLayout>
