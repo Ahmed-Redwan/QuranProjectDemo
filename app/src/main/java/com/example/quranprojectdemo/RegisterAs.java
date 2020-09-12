@@ -61,13 +61,14 @@ public class RegisterAs extends AppCompatActivity {
         crVAddRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),JoinRequest1.class));
+                Intent intent =new Intent(getBaseContext(),JoinRequest1.class);
+              startActivity(intent);
             }
         });
 
     }
 
-
+//  startActivity(new Intent(getBaseContext(),JoinRequest1.class));
     //change font type for textview.
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
