@@ -11,7 +11,7 @@ public class Group {
         TeacherName = teacherName;
     }
 
-    public int getImg() {
+    public int getImg() {//
         return img;
     }
 
