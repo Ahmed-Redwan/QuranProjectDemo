@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.quranprojectdemo.R;
 
 public class JoinRequest3 extends AppCompatActivity {
     TextView tv_JoinRequest;

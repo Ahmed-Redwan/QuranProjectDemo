@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Other;
 
 public class Student_data {
 

@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Other;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
 

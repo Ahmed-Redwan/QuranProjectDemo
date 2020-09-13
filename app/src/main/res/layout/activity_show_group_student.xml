@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Show_group_student"
+    tools:context=".Activities.Show_group_student"
     android:orientation="vertical"
     android:background= "#E3E9EF"
     >
@@ -29,6 +29,7 @@
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:gravity="center"
+        android:id="@+id/ShowStudentsList_tv_show"
          />
 
     <androidx.recyclerview.widget.RecyclerView

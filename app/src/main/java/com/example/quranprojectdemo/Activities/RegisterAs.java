@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -7,8 +7,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.quranprojectdemo.R;
 
 public class RegisterAs extends AppCompatActivity {
 
@@ -61,14 +62,13 @@ public class RegisterAs extends AppCompatActivity {
         crVAddRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(getBaseContext(),JoinRequest1.class);
-              startActivity(intent);
+                startActivity(new Intent(getBaseContext(),JoinRequest1.class));
             }
         });
 
     }
 
-//  startActivity(new Intent(getBaseContext(),JoinRequest1.class));
+
     //change font type for textview.
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));

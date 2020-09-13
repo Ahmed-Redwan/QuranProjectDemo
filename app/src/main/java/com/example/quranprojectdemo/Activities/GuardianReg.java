@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,37 +10,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class QuranCenter_Reg extends AppCompatActivity {
+import com.example.quranprojectdemo.R;
 
-    EditText et_centerName, et_ManagerName, et_Phone, et_Email, et_Password,et_country,et_city;
+public class GuardianReg extends AppCompatActivity {
+    EditText et_StudentName, et_StudentId, et_Phone, et_Email, et_Password,et_HalakaNum;
     TextView tv_newAccount, tv_I_Have_A_A, tv_Login;
     Button btn_CreateNewA;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quran_center__reg);
+        setContentView(R.layout.activity_guardian_reg);
 
+        et_StudentName=findViewById(R.id.GurdianReg_et_StudentName);
+        et_StudentId=findViewById(R.id.GurdianReg_et_StudentId);
+        et_Email=findViewById(R.id.GurdianReg_et_Email);
+        et_Phone=findViewById(R.id.GurdianReg_et_PhoneNum);
+        et_HalakaNum=findViewById(R.id.GurdianReg_et_halakaNum);
+        et_Password=findViewById(R.id.GurdianReg_et_Password);
 
-        et_centerName = findViewById(R.id.QuranCenter_et_CenterName);
-        et_ManagerName = findViewById(R.id.QuranCenter_et_ManagerName);
-        et_Email = findViewById(R.id.QuranCenter_et_Email);
-        et_Phone = findViewById(R.id.QuranCenter_et_PhoneNum);
-        et_country=findViewById(R.id.QuranCenter_et_Country);
-        et_city=findViewById(R.id.QuranCenter_et_City);
-        et_Password = findViewById(R.id.QuranCenter_et_Password);
-        btn_CreateNewA = findViewById(R.id.QuranCenter_btn_CreateNewAcc);
-        tv_Login = findViewById(R.id.QuranCenter_tv_Login);
-        tv_newAccount = findViewById(R.id.QuranCenter_tv_newAccount);
-        tv_I_Have_A_A = findViewById(R.id.QuranCenter_tv_iHaveAnAccount);
+        tv_newAccount=findViewById(R.id.GurdianReg_tv_newAccount);
+        tv_I_Have_A_A=findViewById(R.id.GurdianReg_tv_iHaveAnAccount);
+        tv_Login=findViewById(R.id.GurdianReg_tv_Login);
 
-        EditText_EditFont(et_centerName, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_ManagerName, "Hacen_Tunisia.ttf");
+        btn_CreateNewA=findViewById(R.id.GurdianReg_btn_CreateNewAcc);
+
+        EditText_EditFont(et_StudentName, "Hacen_Tunisia.ttf");
+        EditText_EditFont(et_StudentId, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_Password, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_Phone, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_country, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_city, "Hacen_Tunisia.ttf");
+        EditText_EditFont(et_HalakaNum, "Hacen_Tunisia.ttf");
 
         TextView_EditFont(tv_newAccount, "Hacen_Tunisia_Bold.ttf");
         TextView_EditFont(tv_Login, "Hacen_Tunisia.ttf");
@@ -51,7 +50,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),Main_center.class));
+                startActivity(new Intent(getBaseContext(),Main_student.class));
                 finish();
             }
         });
@@ -59,13 +58,13 @@ public class QuranCenter_Reg extends AppCompatActivity {
         tv_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),QuranCenter_Login.class));
+                startActivity(new Intent(getBaseContext(),GuardianLogin.class));
                 finish();
             }
         });
 
-    }
 
+    }
 
     //change font type for textview.
     public void TextView_EditFont(TextView textView, String path) {

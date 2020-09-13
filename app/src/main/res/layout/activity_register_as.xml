@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegisterAs"
+    tools:context=".Activities.RegisterAs"
     android:background="#DDE7F1">
 
     <TextView

@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.quranprojectdemo.Activities.Add_a_new_save;
+import com.example.quranprojectdemo.R;
 
 public class Main_teacher extends AppCompatActivity {
 
@@ -33,7 +36,7 @@ public class Main_teacher extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.MenuTeacherHomeAddStudent:
-                        startActivity(new Intent(getBaseContext(),Add_a_new_save.class));
+                        startActivity(new Intent(getBaseContext(), Add_a_new_save.class));
                         return true;
                     case R.id.MenuTeacherHomeShowInfo:
                         return true;
@@ -42,6 +45,7 @@ public class Main_teacher extends AppCompatActivity {
                     case R.id.MenuTeacherHomeAbout:
                         return true;
                     case R.id.MenuTeacherHomeExit:
+                        finish();
                         return true;
                 }
                 return false;

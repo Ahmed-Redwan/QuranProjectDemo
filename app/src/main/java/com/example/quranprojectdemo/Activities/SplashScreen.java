@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import com.example.quranprojectdemo.R;
 
 public class SplashScreen extends AppCompatActivity {
     TextView tv_Title;
@@ -26,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), RegisterAs.class));
                 finish();
             }
-        }, 5000);
+        }, 6000);
     }
 
     public void blink(View view) {

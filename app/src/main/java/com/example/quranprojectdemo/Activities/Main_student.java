@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,8 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.quranprojectdemo.R;
+import com.example.quranprojectdemo.Other.Recycler_student;
+import com.example.quranprojectdemo.Other.Student_data;
 
 import java.util.ArrayList;
 
@@ -34,8 +39,25 @@ public class Main_student extends AppCompatActivity {
         tv_student_phone=findViewById(R.id.student_main_tv_phone);
         tv_student_identity=findViewById(R.id.student_main_tv_identity);
 //
-//        toolbar_student=findViewById(R.id.student_main_tool);
+        toolbar_student=findViewById(R.id.student_main_tool);
 //        setSupportActionBar(toolbar_student);
+        toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.MenuStudentHomeSettings:
+
+                        return true;
+                        case R.id.MenuStudentHomeAbout:
+
+                        return true;
+                        case R.id.MenuStudentHomeExit:
+                            finish();
+                        return true;
+                }
+                return false;
+            }
+        });
 
 
         rv=findViewById(R.id.student_main_recycler);

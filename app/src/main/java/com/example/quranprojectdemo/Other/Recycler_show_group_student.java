@@ -1,6 +1,7 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Other;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.quranprojectdemo.Activities.StudentDetails;
+import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
 
@@ -48,7 +52,7 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),position+"", Toast.LENGTH_SHORT).show();
-                view.getContext().startActivity(new Intent(view.getContext(),StudentDetails.class).putExtra("name",holder.name.getText()));
+                view.getContext().startActivity(new Intent(view.getContext(), StudentDetails.class).putExtra("name",holder.name.getText()));
                /* ShowmeMorizationLoops showmeMorizationLoops=new ShowmeMorizationLoops();
                 showmeMorizationLoops.intent(JoinRequest3.class);*/
             }
@@ -78,8 +82,10 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
 
             imageView=itemView.findViewById(R.id.student_recycler_image_and_name_iv);
             name=itemView.findViewById(R.id.student_recycler_image_and_name_n);
+            name.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
 
 
         }
+
     }
 }

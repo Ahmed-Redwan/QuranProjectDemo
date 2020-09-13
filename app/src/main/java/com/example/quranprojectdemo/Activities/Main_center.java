@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.quranprojectdemo.R;
 
 public class Main_center extends AppCompatActivity {
 
@@ -34,7 +36,7 @@ public class Main_center extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.MenuCentreHomeAddGroub:
-                        startActivity(new Intent(getBaseContext(),AddNewGroup.class));
+                        startActivity(new Intent(getBaseContext(), AddNewGroup.class));
                         return true;
                     case R.id.MenuCentreHomeAddStudent:
                         startActivity(new Intent(getBaseContext(),AddNewStudent.class));
@@ -42,7 +44,11 @@ public class Main_center extends AppCompatActivity {
                     case R.id.MenuCentreHomeShowInfo:
                         startActivity(new Intent(getBaseContext(),ShowmeMorizationLoops.class));
                         return true;
-                    case R.id.MenuCenterHomeExit:
+                    case R.id.MenuCentreHomeRequestsList:
+                        startActivity(new Intent(getBaseContext(), JoinRequests.class));
+                        return true;
+                        case R.id.MenuCenterHomeExit:
+                        finish();
                         return true;
                     case R.id.MenuCenterHomeSettings:
                         return true;

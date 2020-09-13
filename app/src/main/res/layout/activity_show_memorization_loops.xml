@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShowmeMorizationLoops"
+    tools:context=".Activities.ShowmeMorizationLoops"
     android:orientation="vertical"
     android:background="#E3E9EF">
 
@@ -14,6 +14,7 @@
         android:background="@color/colorPrimary"
         app:menu="@menu/group_list"
         app:title="اسم المركز"
+        android:id="@+id/ShowMemorizationLoops_ToolBar"
         app:titleTextColor="@android:color/white"
         />
     <TextView

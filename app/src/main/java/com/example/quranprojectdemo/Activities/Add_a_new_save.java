@@ -1,9 +1,13 @@
- package com.example.quranprojectdemo;
+ package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+
+import com.example.quranprojectdemo.Other.Adabter_student_image_and_name;
+import com.example.quranprojectdemo.R;
+import com.example.quranprojectdemo.Other.Student_imageand_name;
 
 import java.util.ArrayList;
 //asd

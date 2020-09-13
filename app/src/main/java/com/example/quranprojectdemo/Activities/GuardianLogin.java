@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.quranprojectdemo.R;
 
 public class GuardianLogin extends AppCompatActivity {
     TextView tv_Login,tv_iDontHaveAnAccount,tv_NewAccount;

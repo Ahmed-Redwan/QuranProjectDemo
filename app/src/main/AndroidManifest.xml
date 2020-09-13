@@ -9,32 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentDetails"></activity>
-        <activity android:name=".Add_a_new_save"></activity>
-        <activity android:name=".AddNewStudent" />
-        <activity android:name=".AddNewGroup" />
-        <activity android:name=".Main_student"></activity>
-        <activity android:name=".Main_teacher" />
-        <activity android:name=".GuardianLogin" />
-        <activity android:name=".GuardianReg" />
-        <activity android:name=".TeacherLogin" />
-        <activity android:name=".TeacherRegister" />
-        <activity android:name=".QuranCenter_Login" />
-        <activity android:name=".QuranCenter_Reg" />
-        <activity android:name=".RegisterAs" />
-        <activity android:name=".SplashScreen"></activity>
-        <activity android:name=".Main_center" />
-        <activity android:name=".JoinRequest1" />
-        <activity android:name=".JoinRequest2" />
-        <activity android:name=".JoinRequest3" />
-        <activity android:name=".Show_group_student" />
-        <activity android:name=".ShowmeMorizationLoops">
+        <activity android:name=".Activities.JoinRequests"></activity>
+        <activity android:name=".Activities.StudentDetails" />
+        <activity android:name=".Activities.Add_a_new_save" />
+        <activity android:name=".Activities.AddNewStudent" />
+        <activity android:name=".Activities.AddNewGroup" />
+        <activity android:name=".Activities.Main_student" />
+        <activity android:name=".Activities.Main_teacher" />
+        <activity android:name=".Activities.GuardianLogin" />
+        <activity android:name=".Activities.GuardianReg" />
+        <activity android:name=".Activities.TeacherLogin" />
+        <activity android:name=".Activities.TeacherRegister" />
+        <activity android:name=".Activities.QuranCenter_Login" />
+        <activity android:name=".Activities.QuranCenter_Reg" />
+        <activity android:name=".Activities.RegisterAs" />
+        <activity android:name=".Activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.Main_center" />
+        <activity android:name=".Activities.JoinRequest1" />
+        <activity android:name=".Activities.JoinRequest2" />
+        <activity android:name=".Activities.JoinRequest3" />
+        <activity android:name=".Activities.Show_group_student" />
+        <activity android:name=".Activities.ShowmeMorizationLoops" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
