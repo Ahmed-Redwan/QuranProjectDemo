@@ -1,10 +1,12 @@
 package com.example.quranprojectdemo;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.View_holder> {
+
+
+
 
     ArrayList<Student_data> arrayList_student;
     int resourse ;
@@ -68,7 +73,20 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
             tv_attendess=itemView.findViewById(R.id.student_recycler_attendess);
             tv_review=itemView.findViewById(R.id.student_recycler_review);
             tv_save=itemView.findViewById(R.id.student_recycler_save);
+
+
+           /* JoinRequest3 joinRequest3=new JoinRequest3();
+            joinRequest3.TextView_EditFont(tv_date,"Hacen_Tunisia.ttf");
+            joinRequest3.TextView_EditFont(tv_attendess,"Hacen_Tunisia.ttf");
+            joinRequest3.TextView_EditFont(tv_day,"Hacen_Tunisia.ttf");
+            joinRequest3.TextView_EditFont(tv_review,"Hacen_Tunisia.ttf");
+            joinRequest3.TextView_EditFont(tv_save,"Hacen_Tunisia.ttf");*/
+
+
         }
+
     }
 
 }
+
+

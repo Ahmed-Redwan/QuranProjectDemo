@@ -10,6 +10,16 @@
     android:background= "#E3E9EF"
     >
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/StudentsList_ToolBar"
+        app:menu="@menu/group_list"
+        android:background="@color/colorPrimary"
+        app:title="اسم المركز"
+        app:titleTextColor="@android:color/white"/>
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

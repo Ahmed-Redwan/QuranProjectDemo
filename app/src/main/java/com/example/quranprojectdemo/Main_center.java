@@ -40,6 +40,7 @@ public class Main_center extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(),AddNewStudent.class));
                         return true;
                     case R.id.MenuCentreHomeShowInfo:
+                        startActivity(new Intent(getBaseContext(),ShowmeMorizationLoops.class));
                         return true;
                     case R.id.MenuCenterHomeExit:
                         return true;

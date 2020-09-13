@@ -1,11 +1,17 @@
 package com.example.quranprojectdemo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,12 +27,12 @@ RecyclerView rv_List;
         rv_List=findViewById(R.id.ShowMemorizationLoops_Rv_List);
 
         ArrayList<Group> data =new ArrayList<>();
-        data.add(new Group(R.drawable.empty_circle,"ابو بكر الصديق","احمد عبد الغفور"));
-        data.add(new Group(R.drawable.empty_circle,"ابو بكر الصديق","احمد عبد الغفور"));
-        data.add(new Group(R.drawable.empty_circle,"ابو بكر الصديق","احمد عبد الغفور"));
-        data.add(new Group(R.drawable.empty_circle,"ابو بكر الصديق","احمد عبد الغفور"));
+        data.add(new Group(R.drawable.main_center_image,"ابو بكر الصديق","احمد عبد الغفور"));
+        data.add(new Group(R.drawable.fill_circle,"عمر بن الخطاب","أحمد اليعقوبي"));
+        data.add(new Group(R.drawable.btn_background2,"ابو بكر الصديق","مصطفى الأسطل"));
+        data.add(new Group(R.drawable.empty_circle,"ابو بكر الصديق","معتز ماضي"));
 
-        CustomGroupRecyclerView customGroupRecyclerView=new CustomGroupRecyclerView(data);
+        final CustomGroupRecyclerView customGroupRecyclerView=new CustomGroupRecyclerView(data);
 
         rv_List.setHasFixedSize(true);
         rv_List.setAdapter(customGroupRecyclerView);
@@ -34,4 +40,6 @@ RecyclerView rv_List;
         rv_List.setLayoutManager(layoutManager);
 
     }
+
+
 }

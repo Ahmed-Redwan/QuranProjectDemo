@@ -1,11 +1,13 @@
 package com.example.quranprojectdemo;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +35,7 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
     }
 
     @Override
-    public void onBindViewHolder(@NonNull View_holder holder, int position) {
+    public void onBindViewHolder(@NonNull final View_holder holder, final int position) {
 
         Student_imageand_name studentImageandName =student_imageand_names.get(position);
 
@@ -41,6 +43,24 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
 
         if (studentImageandName.getImage()!=null)
         holder.imageView.setImageURI(Uri.parse(studentImageandName.getImage()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(),position+"", Toast.LENGTH_SHORT).show();
+                view.getContext().startActivity(new Intent(view.getContext(),StudentDetails.class).putExtra("name",holder.name.getText()));
+               /* ShowmeMorizationLoops showmeMorizationLoops=new ShowmeMorizationLoops();
+                showmeMorizationLoops.intent(JoinRequest3.class);*/
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(view.getContext(),position+"", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
     }
 
     @Override

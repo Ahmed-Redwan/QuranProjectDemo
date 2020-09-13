@@ -29,6 +29,7 @@ Button btn_Next;
         TextView_EditFont(tv_JoinRequest,"Hacen_Tunisia_Bold.ttf");
         EditText_EditFont(et_City,"Hacen_Tunisia.ttf");
         EditText_EditFont(et_Country,"Hacen_Tunisia.ttf");
+
         btn_Next.setTypeface(Typeface.createFromAsset(getAssets(),"Hacen_Tunisia.ttf"));
 
         btn_Next.setOnClickListener(new View.OnClickListener() {

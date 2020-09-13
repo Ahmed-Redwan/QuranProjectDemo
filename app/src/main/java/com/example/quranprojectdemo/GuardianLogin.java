@@ -45,7 +45,7 @@ public class GuardianLogin extends AppCompatActivity {
         tv_NewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),QuranCenter_Reg.class));
+                startActivity(new Intent(getBaseContext(),GuardianReg.class));
                 finish();
             }
         });
