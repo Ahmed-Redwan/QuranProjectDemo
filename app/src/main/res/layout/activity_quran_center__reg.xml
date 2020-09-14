@@ -233,7 +233,8 @@
                 android:textSize="@dimen/_23ssp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/_6sdp"/>
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_10sdp"/>
 
 
         </LinearLayout>

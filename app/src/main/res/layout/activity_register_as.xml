@@ -29,8 +29,14 @@
         android:layout_marginEnd="@dimen/_30sdp"
         app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_30sdp"
         >
+        <ImageView
+            android:layout_width="@dimen/_47sdp"
+            android:layout_height="@dimen/_47sdp"
+            android:src="@drawable/quran2"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/_10sdp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,6 +48,8 @@
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textAlignment="center"
+            android:layout_marginEnd="@dimen/_10sdp"
+
             />
     </androidx.cardview.widget.CardView>
 
@@ -65,10 +73,16 @@
         android:layout_marginEnd="@dimen/_30sdp"
         app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="@dimen/_5sdp"
-
+        app:cardCornerRadius="@dimen/_30sdp"
+        app:cardPreventCornerOverlap="true"
         >
-    <TextView
+        <ImageView
+            android:layout_width="@dimen/_47sdp"
+            android:layout_height="@dimen/_47sdp"
+            android:src="@drawable/sheikh"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/_10sdp"/>
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/RegAs_tv_teacher"
@@ -101,9 +115,15 @@
         android:layout_marginEnd="@dimen/_30sdp"
         app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_30sdp"
 
         >
+        <ImageView
+            android:layout_width="@dimen/_47sdp"
+            android:layout_height="@dimen/_47sdp"
+            android:src="@drawable/person3"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/_10sdp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,19 +167,26 @@
         android:layout_marginEnd="@dimen/_30sdp"
         app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_30sdp"
         >
+        <ImageView
+            android:layout_width="@dimen/_47sdp"
+            android:layout_height="@dimen/_47sdp"
+            android:src="@drawable/request_ic"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/_10sdp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/RegAs_tv_AddRequest"
-            android:textSize="@dimen/_25ssp"
+            android:textSize="@dimen/_23ssp"
             android:padding="@dimen/_15sdp"
             android:textColor="@android:color/white"
             android:text="إرسال طلب إلتحاق"
             android:textStyle="bold"
-            android:layout_gravity="center"
+            android:layout_gravity="start|center"
             android:textAlignment="center"
+            android:layout_marginStart="@dimen/_16sdp"
             />
     </androidx.cardview.widget.CardView>
    <!-- <Button

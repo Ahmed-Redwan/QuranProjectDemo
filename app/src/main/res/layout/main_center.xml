@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Main_center">
+    tools:context=".Activities.Main_center"
+    android:background="#E3E9EF">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
              app:contentScrim="@color/colorPrimary"
              app:expandedTitleMarginEnd="26dp"
              app:expandedTitleMarginStart="10dp"
+
              >
 
              <com.makeramen.roundedimageview.RoundedImageView
@@ -78,11 +80,20 @@
                 app:cardUseCompatPadding="true"
                 app:cardBackgroundColor="@color/colorPrimary"
                 >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="#9B006997"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/unnamed"/>
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     >
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
