@@ -4,16 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     >
-<androidx.cardview.widget.CardView
+
+
+
+    <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_10sdp"
     app:cardElevation="@dimen/_10sdp"
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginStart="@dimen/_2sdp"
     android:layout_marginEnd="@dimen/_2sdp"
     >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,20 +27,41 @@
         android:layout_marginEnd="5dp">
 
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/arabian"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="30dip"
+            app:riv_border_width="@dimen/_3sdp"
+            app:riv_border_color="#D1D4D6"
+            app:riv_oval="true"
+            android:layout_gravity="start"
+            app:layout_collapseMode="parallax"
             android:id="@+id/CustomGroup_iv_Image"
-            android:src="@color/colorPrimary"
+            android:padding="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_10sdp"
             />
+
+        <ImageView
+            android:id="@+id/guideline2"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:background="@color/colorPrimary"
+            android:layout_toEndOf="@id/CustomGroup_iv_Image"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_toEndOf="@id/CustomGroup_iv_Image">
+            android:layout_toEndOf="@id/guideline2"
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

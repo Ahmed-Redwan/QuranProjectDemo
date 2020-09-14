@@ -43,10 +43,10 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         tv_ShowMemorizationLoops.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
 
         ArrayList<Group> data = new ArrayList<>();
-        data.add(new Group(R.drawable.main_center_image, "ابو بكر الصديق", "احمد عبد الغفور"));
-        data.add(new Group(R.drawable.fill_circle, "عمر بن الخطاب", "أحمد اليعقوبي"));
-        data.add(new Group(R.drawable.btn_background2, "ابو بكر الصديق", "مصطفى الأسطل"));
-        data.add(new Group(R.drawable.empty_circle, "ابو بكر الصديق", "معتز ماضي"));
+        data.add(new Group(R.drawable.arabian, "ابو بكر الصديق", "احمد عبد الغفور"));
+        data.add(new Group(R.drawable.student, "عمر بن الخطاب", "أحمد اليعقوبي"));
+        data.add(new Group(R.drawable.student2, "ابو بكر الصديق", "مصطفى الأسطل"));
+        data.add(new Group(R.drawable.ic_person, "ابو بكر الصديق", "معتز ماضي"));
 
         final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data);
 
