@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.RegisterAs"
-    android:background="#DDE7F1">
+    android:background="#ECF1F6">
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,9 +27,9 @@
         android:layout_marginTop="@dimen/_22sdp"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_30sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/_5sdp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -63,9 +63,10 @@
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_30sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/_5sdp"
+
         >
     <TextView
         android:layout_width="wrap_content"
@@ -98,9 +99,10 @@
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_30sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/_5sdp"
+
         >
         <TextView
             android:layout_width="wrap_content"
@@ -143,9 +145,9 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_30sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_20sdp"
         app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/_5sdp"
         >
         <TextView
             android:layout_width="wrap_content"
