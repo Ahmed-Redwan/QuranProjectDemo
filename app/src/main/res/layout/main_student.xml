@@ -30,7 +30,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/masged"
+                android:src="#90006997"
+                android:background="@drawable/student2"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
                 android:layout_gravity="center"
@@ -44,6 +45,8 @@
                 app:layout_collapseMode="pin"
                 android:id="@+id/student_main_tool"
                 app:menu="@menu/studente_home_menu"
+                app:title="اسم الطالب"
+                app:titleTextColor="@android:color/white"
                 />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -69,21 +72,27 @@
 
                 app:cardBackgroundColor="@color/colorPrimary"
                 >
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="#AE006997"
+    android:background="@drawable/student"
+    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     >
 
 
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
                         android:src="@drawable/ic_masged"
                         android:scaleType="fitCenter"
                         app:riv_corner_radius="30dip"
+                        android:layout_margin="@dimen/_10sdp"
                         app:riv_border_width="@dimen/_3sdp"
                         app:riv_border_color="@color/colorAccent"
                         app:riv_oval="true"
@@ -97,6 +106,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:layout_margin="@dimen/_5sdp"
                         >
                         <TextView
                             android:layout_width="match_parent"

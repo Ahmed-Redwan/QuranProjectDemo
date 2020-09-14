@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.Main_teacher"
+    android:fitsSystemWindows="true"
+    android:background= "#E3E9EF"
     >
 
 
@@ -24,17 +26,18 @@
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginEnd="26dp"
             app:expandedTitleMarginStart="10dp"
+
             >
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/masged"
+                android:src="#90006997"
                 android:scaleType="centerCrop"
                android:fitsSystemWindows="true"
                 android:layout_gravity="center"
                 app:layout_collapseMode="parallax"
-
+                android:background="@drawable/qurangroup"
                 android:id="@+id/teacher_main_image_center"
                 />
 
@@ -63,32 +66,37 @@
             >
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_300sdp"
+                android:layout_height="@dimen/_310sdp"
                 app:cardElevation="@dimen/_15sdp"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="@dimen/_15sdp"
               app:cardBackgroundColor="@color/colorPrimary"
                 >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="#9B006997"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/quran_group"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     >
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
                         android:src="@drawable/ic_masged"
                         android:scaleType="fitCenter"
                         app:riv_corner_radius="30dip"
                         app:riv_border_width="@dimen/_3sdp"
                         app:riv_border_color="@color/colorAccent"
                         app:riv_oval="true"
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_gravity="center"
                         app:layout_collapseMode="parallax"
-
-
                         android:id="@+id/teacher_main_image_teacher"
                         />
                     <LinearLayout
