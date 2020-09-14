@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -59,7 +60,19 @@ public class Main_center extends AppCompatActivity {
             }
         });
 
-//
+
+        TextView_EditFont(tv_center_count_ring,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_count_student,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_name,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_name_maneger,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_phone,"Hacen_Tunisia.ttf");
+
+
+    }
+
+    //change font type for textview.
+    public void TextView_EditFont(TextView textView, String path) {
+        textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
     @Override

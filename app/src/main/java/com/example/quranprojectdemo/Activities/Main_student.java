@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -74,7 +75,6 @@ datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسا�
 datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
 datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
 
-
         for (Student_data c : datass) {
  Log.d(c.getDate__student(),c.getDay_student()+c.getAttendess_student()+c.getReview_student()+c.getSave_student());
         }
@@ -85,12 +85,20 @@ datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسا�
         rv.setHasFixedSize(true);
         rv.setLayoutManager(lm);
 
-
-
-
-
-
+      /*  TextView_EditFont(tv_attendess,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_date,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_day,"Hacen_Tunisia.ttf");*/
+        TextView_EditFont(tv_student_identity,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_student_name,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_student_name_ring,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_student_phone,"Hacen_Tunisia.ttf");
     }
+
+    //change font type for textview.
+    public void TextView_EditFont(TextView textView, String path) {
+        textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
+    }
+
 }
 
 

@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,5 +53,18 @@ public class Main_teacher extends AppCompatActivity {
                 return false;
             }
         });
+
+
+        TextView_EditFont(tv_teacher_count_student,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_teacher_name,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_teacher_name_ring,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_teacher_phone,"Hacen_Tunisia.ttf");
     }
+
+    //change font type for textview.
+    public void TextView_EditFont(TextView textView, String path) {
+        textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
+    }
+
+
 }
