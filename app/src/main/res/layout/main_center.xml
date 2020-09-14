@@ -14,6 +14,7 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     >
+
          <com.google.android.material.appbar.CollapsingToolbarLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -25,11 +26,23 @@
              app:expandedTitleMarginStart="10dp"
 
              >
+             <ImageView
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:fitsSystemWindows="true"
+                 android:background="@drawable/masged"
+                 />
+             <ImageView
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:fitsSystemWindows="true"
+             android:background="#66006997"
+             />
 
              <com.makeramen.roundedimageview.RoundedImageView
                  android:layout_width="150dp"
                  android:layout_height="150dp"
-                 android:src="@drawable/ic_person"
+                 android:src="@drawable/mustafa"
                  android:scaleType="fitCenter"
                  app:riv_corner_radius="30dip"
                  app:riv_border_width="@dimen/_3sdp"
