@@ -23,9 +23,12 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
 
     ArrayList<Student_imageand_name> student_imageand_names;
 
+
     public Recycler_show_group_student(ArrayList<Student_imageand_name> student_imageand_names) {
         this.student_imageand_names = student_imageand_names;
     }
+
+
 
     @NonNull
     @Override
@@ -37,6 +40,9 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
 
         return view_holder;
     }
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull final View_holder holder, final int position) {
@@ -67,10 +73,15 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return student_imageand_names.size();
     }
+
+
+
 
     public class View_holder extends RecyclerView.ViewHolder{
 

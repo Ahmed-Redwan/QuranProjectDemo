@@ -22,15 +22,15 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="قائمة المراكز القريبة منك قم بأختيار إحدى المراكز للانضمام اليها." />
 
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/request2_rv_listOfCenters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/request2_rv_listOfCenters"
-        android:layout_weight="1"
-        tools:listitem="@layout/custom_center_item"
         android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_5sdp"/>
-
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_weight="1"
+        tools:listitem="@layout/custom_center_item" />
 
     <LinearLayout
         android:layout_width="match_parent"
