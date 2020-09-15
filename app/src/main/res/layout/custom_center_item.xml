@@ -11,12 +11,24 @@
     android:layout_height="wrap_content"
     >
 
-    <ImageView
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/_100sdp"
-       android:src="@drawable/student"
-       android:id="@+id/CustomCenterItem_iv"
-       android:scaleType="centerCrop"/>
+
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+         android:background="@color/colorPrimary"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="30dip"
+        app:riv_border_width="@dimen/_3sdp"
+        app:riv_border_color="#D1D4D6"
+        app:riv_oval="true"
+        android:src="@drawable/student"
+        android:layout_gravity="start"
+        app:layout_collapseMode="parallax"
+        android:id="@+id/CustomCenterItem_iv"
+        android:padding="@dimen/_4sdp"
+        />
 
     <TextView
         android:layout_width="match_parent"

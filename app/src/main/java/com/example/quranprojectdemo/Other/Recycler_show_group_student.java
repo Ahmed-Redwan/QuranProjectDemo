@@ -58,7 +58,7 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),position+"", Toast.LENGTH_SHORT).show();
-                view.getContext().startActivity(new Intent(view.getContext(), StudentDetails.class).putExtra("name",holder.name.getText()));
+     view.getContext().startActivity(new Intent(view.getContext(), StudentDetails.class).putExtra("name",holder.name.getText()));
                /* ShowmeMorizationLoops showmeMorizationLoops=new ShowmeMorizationLoops();
                 showmeMorizationLoops.intent(JoinRequest3.class);*/
             }
