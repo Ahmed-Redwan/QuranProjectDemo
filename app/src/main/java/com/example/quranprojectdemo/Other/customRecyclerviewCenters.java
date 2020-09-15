@@ -37,6 +37,7 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
 
     @Override
     public void onBindViewHolder(@NonNull customRecyclerviewCenters.View_holder holder, int position) {
+
         Center center=centers.get(position);
 
         holder.iv.setImageResource(center.getImg());
@@ -46,7 +47,6 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
     }
 
 
-
     @Override
     public int getItemCount() {
         return centers.size();
@@ -54,16 +54,10 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
 
 
 
-
-
-
     class View_holder extends RecyclerView.ViewHolder {
-
         ImageView iv;
         TextView tv_name;
         TextView tv_phone;
-
-
         public View_holder(@NonNull View itemView) {
             super(itemView);
 
