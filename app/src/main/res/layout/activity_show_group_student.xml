@@ -38,9 +38,8 @@
          android:id="@+id/recycler_show_group_student"
          android:background="@drawable/recycler_show_group_student"
         android:layout_margin="@dimen/_15sdp"
-        android:padding="@dimen/_10sdp"
-
-
+        android:padding="@dimen/_2sdp"
+        tools:listitem="@layout/student_recycler_image_and_name"
         />
 
 

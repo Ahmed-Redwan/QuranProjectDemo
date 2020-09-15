@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_2sdp"
+    android:elevation="@dimen/_20sdp"
+    app:cardCornerRadius="@dimen/_5sdp">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/centetItem_tv_CenterName"
+        android:text="مركز الياسين "
+        android:textSize="@dimen/_20ssp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:drawableStart="@drawable/ic_people_black_24dp"
+        android:drawablePadding="@dimen/_10sdp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/centetItem_tv_ManagerName"
+        android:text="مصطفى محمد الأسطل"
+        android:textSize="@dimen/_20ssp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_below="@id/centetItem_tv_CenterName"
+        android:drawableStart="@drawable/ic_account_circle_black_24dp"
+        android:drawablePadding="@dimen/_10sdp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/centetItem_tv_Number"
+        android:text="0594114029"
+        android:textSize="@dimen/_20ssp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_below="@id/centetItem_tv_ManagerName"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:drawableStart="@drawable/ic_local_phone_black_24dp"
+        android:drawablePadding="@dimen/_10sdp"
+        />
+
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>
