@@ -22,7 +22,7 @@ public class JoinRequest2 extends AppCompatActivity {
     TextView tv_ListOfCenters;
     Button btn_Next;
     RecyclerView rv;
-
+//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
