@@ -49,8 +49,7 @@ public class CustomGroupRecyclerView extends RecyclerView.Adapter<CustomGroupRec
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
                 view.getContext().startActivity(new Intent(view.getContext(), Show_group_student.class));
-               /* ShowmeMorizationLoops showmeMorizationLoops=new ShowmeMorizationLoops();
-                showmeMorizationLoops.intent(JoinRequest3.class);*/
+
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

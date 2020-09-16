@@ -29,50 +29,45 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
     }
 
 
-
     @NonNull
     @Override
     public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_recycler_image_and_name,null,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_recycler_image_and_name, null, false);
 
 
-     View_holder view_holder=new View_holder(view);
+        View_holder view_holder = new View_holder(view);
 
         return view_holder;
     }
 
 
-
-
     @Override
     public void onBindViewHolder(@NonNull final View_holder holder, final int position) {
 
-        Student_imageand_name studentImageandName =student_imageand_names.get(position);
+        Student_imageand_name studentImageandName = student_imageand_names.get(position);
 
         holder.name.setText(studentImageandName.getName());
 
-        if (studentImageandName.getImage()!=null)
-        holder.imageView.setImageURI(Uri.parse(studentImageandName.getImage()));
+        if (studentImageandName.getImage() != null)
+            holder.imageView.setImageURI(Uri.parse(studentImageandName.getImage()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),position+"", Toast.LENGTH_SHORT).show();
-     view.getContext().startActivity(new Intent(view.getContext(), StudentDetails.class).putExtra("name",holder.name.getText()));
-               /* ShowmeMorizationLoops showmeMorizationLoops=new ShowmeMorizationLoops();
-                showmeMorizationLoops.intent(JoinRequest3.class);*/
+                Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
+                view.getContext().startActivity(new Intent(view.getContext(), StudentDetails.class).putExtra("name", holder.name.getText()));
+
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Toast.makeText(view.getContext(),position+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
 
     }
-
 
 
     @Override
@@ -81,19 +76,17 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
     }
 
 
+    public class View_holder extends RecyclerView.ViewHolder {
 
-
-    public class View_holder extends RecyclerView.ViewHolder{
-
-        ImageView imageView ;
-        TextView name ;
+        ImageView imageView;
+        TextView name;
 
         public View_holder(@NonNull View itemView) {
             super(itemView);
 
-            imageView=itemView.findViewById(R.id.student_recycler_image_and_name_iv);
-            name=itemView.findViewById(R.id.student_recycler_image_and_name_n);
-            name.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
+            imageView = itemView.findViewById(R.id.student_recycler_image_and_name_iv);
+            name = itemView.findViewById(R.id.student_recycler_image_and_name_n);
+            name.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
 
 
         }

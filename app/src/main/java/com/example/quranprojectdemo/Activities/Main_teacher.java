@@ -41,6 +41,7 @@ public class Main_teacher extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), Add_a_new_save.class));
                         return true;
                     case R.id.MenuTeacherHomeShowInfo:
+                        startActivity(new Intent(getBaseContext(), Show_group_student.class));
                         return true;
                     case R.id.MenuTeacherHomeSettings:
                         return true;

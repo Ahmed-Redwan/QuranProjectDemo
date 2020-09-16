@@ -8,21 +8,18 @@
     tools:context=".Activities.SplashScreen"
     android:orientation="vertical"
     android:gravity="center"
-
+    android:fitsSystemWindows="true"
     >
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/unnamed"
+        android:background="@drawable/quran_background"
         android:scaleType="centerCrop"
-        android:fitsSystemWindows="true"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="#81006997"
         android:fitsSystemWindows="true"
+        android:src="#B7006997"
         />
+
 
     <TextView
         android:id="@+id/SplashScreen_tv_Title"

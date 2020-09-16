@@ -20,16 +20,11 @@
         android:layout_height="@dimen/_50sdp"
         app:cardElevation="@dimen/_7sdp"
         app:cardCornerRadius="@dimen/_7sdp"
-
-        app:cardBackgroundColor="#D1D4D6"
-
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-
-
              >
 
 

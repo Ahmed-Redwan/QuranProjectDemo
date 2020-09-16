@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quranprojectdemo.R;
 
@@ -47,6 +48,16 @@ public class JoinRequest3 extends AppCompatActivity {
         EditText_EditFont(et_Day, "Hacen_Tunisia.ttf");
 
         btn_JoinRequest.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+
+        btn_JoinRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "لفد تم إرسال طلبك بنجاح " +
+                        "سيتم الرد عليك في أقرب وقت", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(getBaseContext(),RegisterAs.class));
+                finish();
+            }
+        });
     }
 
 

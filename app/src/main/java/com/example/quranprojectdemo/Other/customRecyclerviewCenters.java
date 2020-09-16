@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.quranprojectdemo.Activities.JoinRequest2;
+import com.example.quranprojectdemo.Activities.JoinRequest3;
+import com.example.quranprojectdemo.Activities.Show_group_student;
 import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
@@ -20,8 +27,10 @@ import java.util.ArrayList;
 public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecyclerviewCenters.View_holder> {
 
     private ArrayList<Center>centers;
-    public customRecyclerviewCenters(ArrayList<Center>centers){
+    Context context;
+    public customRecyclerviewCenters(ArrayList<Center>centers,Context context){
         this.centers=centers;
+        this.context=context;
     }
 
 
@@ -36,14 +45,21 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull customRecyclerviewCenters.View_holder holder, int position) {
+    public void onBindViewHolder(@NonNull customRecyclerviewCenters.View_holder holder, final int position) {
 
         Center center=centers.get(position);
 
         holder.iv.setImageResource(center.getImg());
         holder.tv_phone.setText(center.getPhone());
         holder.tv_name.setText(center.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), position+ "", Toast.LENGTH_SHORT).show();
+                view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class));
 
+            }
+        });
     }
 
 

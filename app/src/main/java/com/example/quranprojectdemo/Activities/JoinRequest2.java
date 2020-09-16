@@ -39,7 +39,7 @@ public class JoinRequest2 extends AppCompatActivity {
         centers.add(new Center(R.drawable.ic_masged,"مركز الحفاظ","0594668456"));
         centers.add(new Center(R.drawable.arabian,"مركز جنود الفتح القادم","0595466225"));
 
-        customRecyclerviewCenters customRecyclerviewCenters=new customRecyclerviewCenters(centers);
+        customRecyclerviewCenters customRecyclerviewCenters=new customRecyclerviewCenters(centers,getBaseContext());
 
         rv.setAdapter(customRecyclerviewCenters);
         RecyclerView.LayoutManager layoutManager=new GridLayoutManager(this,2);
