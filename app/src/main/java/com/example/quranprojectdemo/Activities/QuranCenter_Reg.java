@@ -3,6 +3,7 @@ package com.example.quranprojectdemo.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -10,13 +11,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.Serializable;
 
 public class QuranCenter_Reg extends AppCompatActivity {
 
-    EditText et_centerName, et_ManagerName, et_Phone, et_Email, et_Password,et_country,et_city;
+    EditText et_centerName, et_ManagerName, et_Phone, et_Email, et_Password, et_country, et_city, et_Address;
     TextView tv_newAccount, tv_I_Have_A_A, tv_Login;
     Button btn_CreateNewA;
+    CenterUser centeruser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +35,9 @@ public class QuranCenter_Reg extends AppCompatActivity {
         et_ManagerName = findViewById(R.id.QuranCenter_et_ManagerName);
         et_Email = findViewById(R.id.QuranCenter_et_Email);
         et_Phone = findViewById(R.id.QuranCenter_et_PhoneNum);
-        et_country=findViewById(R.id.QuranCenter_et_Country);
-        et_city=findViewById(R.id.QuranCenter_et_City);
+        et_country = findViewById(R.id.QuranCenter_et_Country);
+        et_city = findViewById(R.id.QuranCenter_et_City);
+        et_Address = findViewById(R.id.QuranCenter_et_Address);
         et_Password = findViewById(R.id.QuranCenter_et_Password);
         btn_CreateNewA = findViewById(R.id.QuranCenter_btn_CreateNewAcc);
         tv_Login = findViewById(R.id.QuranCenter_tv_Login);
@@ -43,6 +51,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         EditText_EditFont(et_Phone, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_country, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_city, "Hacen_Tunisia.ttf");
+        EditText_EditFont(et_Address, "Hacen_Tunisia.ttf");
 
         TextView_EditFont(tv_newAccount, "Hacen_Tunisia_Bold.ttf");
         TextView_EditFont(tv_Login, "Hacen_Tunisia.ttf");
@@ -53,16 +62,31 @@ public class QuranCenter_Reg extends AppCompatActivity {
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),Main_center.class));
+                startActivity(new Intent(getBaseContext(), Main_center.class));
                 finish();
+
             }
         });
 
         tv_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),QuranCenter_Login.class));
+                startActivity(new Intent(getBaseContext(), QuranCenter_Login.class));
                 finish();
+            }
+        });
+        btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(), et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
+                        , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), 1);
+               // if (et_centerName.getText().toString().isEmpty()){
+                  //  et_centerName.setError("You");
+                //}
+
+                setInRealTimeUsers(et_centerName.getText().toString());
+              //  startActivity(new Intent(getBaseContext(), Main_center.class).putExtra("CenterName",centeruser.getCenterName()));
             }
         });
 
@@ -73,9 +97,20 @@ public class QuranCenter_Reg extends AppCompatActivity {
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
+
     //change font type for edittext.
     public void EditText_EditFont(EditText editText, String path) {
         editText.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
+
+    public void setInRealTimeUsers(String name) {
+
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers");
+
+//int id, String name, int age, String address, String email, String phone
+        reference.child(name).child("Center information").setValue(centeruser);
+    }//اضافة بيانات
 }

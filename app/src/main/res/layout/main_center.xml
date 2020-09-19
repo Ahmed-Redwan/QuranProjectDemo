@@ -22,8 +22,8 @@
              app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
              android:theme="@style/ThemeOverlay.AppCompat"
              app:contentScrim="@color/colorPrimary"
-             app:expandedTitleMarginEnd="26dp"
-             app:expandedTitleMarginStart="10dp"
+             app:expandedTitleMarginEnd="@dimen/_20sdp"
+             app:expandedTitleMarginStart="@dimen/_8sdp"
 
              >
              <ImageView
@@ -40,10 +40,10 @@
              />
 
              <com.makeramen.roundedimageview.RoundedImageView
-                 android:layout_width="150dp"
-                 android:layout_height="150dp"
-                 android:src="@drawable/mustafa"
-                 android:scaleType="fitCenter"
+                 android:layout_width="@dimen/_120sdp"
+                 android:layout_height="@dimen/_120sdp"
+                 android:src="@drawable/student"
+                 android:scaleType="centerCrop"
                  app:riv_corner_radius="30dip"
                  app:riv_border_width="@dimen/_3sdp"
                  app:riv_border_color="#ffffff"
@@ -85,11 +85,11 @@
 
 
             <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/_260sdp"
-                android:layout_height="@dimen/_250sdp"
+                android:layout_width="@dimen/_270sdp"
+                android:layout_height="@dimen/_270sdp"
                 android:layout_gravity="center"
                 app:cardCornerRadius="@dimen/_15sdp"
-                app:cardElevation="@dimen/_12sdp"
+                app:cardElevation="@dimen/_15sdp"
                 app:cardUseCompatPadding="true"
                 app:cardBackgroundColor="@color/colorPrimary"
                 >

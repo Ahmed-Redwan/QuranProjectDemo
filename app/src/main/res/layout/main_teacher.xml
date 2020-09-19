@@ -24,8 +24,8 @@
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             android:theme="@style/ThemeOverlay.AppCompat"
             app:contentScrim="@color/colorPrimary"
-            app:expandedTitleMarginEnd="26dp"
-            app:expandedTitleMarginStart="10dp"
+            app:expandedTitleMarginEnd="@dimen/_20sdp"
+            app:expandedTitleMarginStart="@dimen/_8sdp"
 
             >
 
@@ -67,7 +67,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_310sdp"
-                app:cardElevation="@dimen/_15sdp"
+                app:cardElevation="@dimen/_25sdp"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="@dimen/_15sdp"
               app:cardBackgroundColor="@color/colorPrimary"

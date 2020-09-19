@@ -10,14 +10,20 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.quranprojectdemo.Other.Center;
+import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Main_center extends AppCompatActivity {
 
     Toolbar toolbar_center;
     ImageView image_center;
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +67,12 @@ public class Main_center extends AppCompatActivity {
         });
 
 
-        TextView_EditFont(tv_center_count_ring,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_count_student,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_name,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_name_maneger,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_phone,"Hacen_Tunisia.ttf");
+
+        TextView_EditFont(tv_center_count_ring, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_count_student, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_name, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_name_maneger, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_phone, "Hacen_Tunisia.ttf");
 
 
     }
@@ -75,8 +82,32 @@ public class Main_center extends AppCompatActivity {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-    }
+
+  /*  public void getInRealTimeUsers() {
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers").child(name).child("Center information");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                CenterUser value = dataSnapshot.getValue(CenterUser.class);
+                tv_center_name.setText(value.getCenterName());
+                tv_center_name_maneger.setText(value.getManagerName());
+            }
+//                Toast.makeText(getApplicationContext(), value.getAge() + "" + value.getId() + value.getName(), Toast.LENGTH_SHORT).show();
+//                Log.d(TAG, "Value is: " + value);
+
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }//جلب البيانات
+*/
 }
+
