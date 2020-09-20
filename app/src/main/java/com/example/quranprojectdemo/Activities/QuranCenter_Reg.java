@@ -40,6 +40,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     int id;
     int count=0;
     SharedPreferences.Editor editor;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +193,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                         //   userId=user.getUid();
+                            Toast.makeText(getBaseContext(),user.getUid(), Toast.LENGTH_SHORT).show();
                    //         create_new_center();
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
@@ -225,6 +228,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        })
+        });
     }//اضافة بيانات
 }
