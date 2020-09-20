@@ -1,11 +1,13 @@
 package com.example.quranprojectdemo.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,7 +66,26 @@ public class Main_center extends AppCompatActivity {
             }
         });
 
+        FirebaseDatabase firebaseDatabase =FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference();
 
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot snapshot1 :snapshot.getChildren()){
+                    Log.d("asd","****************"+snapshot1.getValue());
+
+                }
+                //الحمدلله
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         TextView_EditFont(tv_center_count_ring, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_center_count_student, "Hacen_Tunisia.ttf");
@@ -81,31 +102,38 @@ public class Main_center extends AppCompatActivity {
     }
 
 
-  /*  public void getInRealTimeUsers() {
-
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(name).child("Center information");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                CenterUser value = dataSnapshot.getValue(CenterUser.class);
-                tv_center_name.setText(value.getCenterName());
-                tv_center_name_maneger.setText(value.getManagerName());
-            }
-//                Toast.makeText(getApplicationContext(), value.getAge() + "" + value.getId() + value.getName(), Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "Value is: " + value);
 
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-    }//جلب البيانات
-*/
+
+
+
+
+
+//   public void getInRealTimeUsers() {
+//
+//        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = rootNode.getReference("CenterUsers").child(name).child("Center information");
+//
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                CenterUser value = dataSnapshot.getValue(CenterUser.class);
+//                tv_center_name.setText(value.getCenterName());
+//                tv_center_name_maneger.setText(value.getManagerName());
+//            }
+////                Toast.makeText(getApplicationContext(), value.getAge() + "" + value.getId() + value.getName(), Toast.LENGTH_SHORT).show();
+////                Log.d(TAG, "Value is: " + value);
+//
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+////                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
+//    }//جلب البيانات
+
 }
 

@@ -21,8 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 
@@ -52,6 +55,48 @@ public class QuranCenter_Reg extends AppCompatActivity {
         tv_Login = findViewById(R.id.QuranCenter_tv_Login);
         tv_newAccount = findViewById(R.id.QuranCenter_tv_newAccount);
         tv_I_Have_A_A = findViewById(R.id.QuranCenter_tv_iHaveAnAccount);
+
+
+
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        DatabaseReference reference= database.getReference();
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    for (DataSnapshot snapshot2:snapshot1.getChildren()){
+                        for (DataSnapshot snapshot3:snapshot2.getChildren()){
+                            for (DataSnapshot snapshot4:snapshot3.getChildren()){
+                                for (DataSnapshot snapshot5:snapshot4.getChildren()){
+                                    for (DataSnapshot snapshot6:snapshot5.getChildren()){
+                                        for (DataSnapshot snapshot7:snapshot6.getChildren()){
+                                            for (DataSnapshot snapshot8:snapshot7.getChildren()) {
+
+                                                Log.d("asd", "**************" + snapshot8.getValue());
+
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         EditText_EditFont(et_centerName, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_ManagerName, "Hacen_Tunisia.ttf");
