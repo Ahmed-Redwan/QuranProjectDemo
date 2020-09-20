@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.quranprojectdemo.Other.Center;
-import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

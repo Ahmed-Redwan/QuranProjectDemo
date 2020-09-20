@@ -17,7 +17,7 @@ public class Adabter_student_image_and_name extends BaseAdapter {
 
     Context context;
     int resourse;
-    ArrayList<Student_imageand_name>student_imageand_names;
+    ArrayList<Student_imageand_name> student_imageand_names;
 
 
     public Adabter_student_image_and_name(Context context, int resourse, ArrayList<Student_imageand_name> student_imageand_names) {
@@ -44,25 +44,24 @@ public class Adabter_student_image_and_name extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view =convertView;
+        View view = convertView;
 
-        if (view==null){
-            view=LayoutInflater.from(context).inflate(resourse,null,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(resourse, null, false);
         }
 
-        TextView tv_name =view.findViewById(R.id.student_recycler_image_and_name_n);
-        ImageView image =view.findViewById(R.id.student_recycler_image_and_name_iv);
+        TextView tv_name = view.findViewById(R.id.student_recycler_image_and_name_n);
+        ImageView image = view.findViewById(R.id.student_recycler_image_and_name_iv);
 
-        Student_imageand_name studentImageandName =getItem(position);
+        Student_imageand_name studentImageandName = getItem(position);
 
         tv_name.setText(studentImageandName.getName());
-        if (studentImageandName.getImage()!=null)
-        image.setImageURI(Uri.parse(studentImageandName.getImage()));
+        if (studentImageandName.getImage() != null)
+            image.setImageURI(Uri.parse(studentImageandName.getImage()));
 
         return view;
     }
 }
-
 
 
 //ArrayList<Student_imageand_name> arrayList_student_image;
