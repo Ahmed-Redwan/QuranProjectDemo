@@ -13,29 +13,25 @@ import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
 
-public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.View_holder> {
+public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View_holder> {
 
 
-
-
-    ArrayList<Student_data1> arrayList_student;
-    int resourse ;
+    ArrayList<Student_data> arrayList_student;
+    int resourse;
     Context context;
 
-    public Recycler_student(ArrayList<Student_data1> arrayList_student) {
+    public Recycler_student(ArrayList<Student_data> arrayList_student) {
         this.arrayList_student = arrayList_student;
 
     }
 
 
-
-
     @NonNull
     @Override
     public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_recycler,null,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_recycler, null, false);
 
-        View_holder v=new View_holder(view);
+        View_holder v = new View_holder(view);
 
         return v;
     }
@@ -43,13 +39,13 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
     @Override
     public void onBindViewHolder(@NonNull View_holder holder, int position) {
 
-        Student_data1 student_data= arrayList_student.get(position);
+        Student_data student_data = arrayList_student.get(position);
 
-        holder.tv_date.setText(student_data.getDate());
-        holder.tv_day.setText(student_data.getDay());
-        holder.tv_attendess.setText(student_data.getAttendance());
-        holder.tv_review.setText(student_data.getRevision());
-        holder.tv_save.setText(student_data.getSave());
+        holder.tv_date.setText(student_data.getDate__student());
+        holder.tv_day.setText(student_data.getDay_student());
+        holder.tv_attendess.setText(student_data.getAttendess_student());
+        holder.tv_review.setText(student_data.getReview_student());
+        holder.tv_save.setText(student_data.getSave_student());
 
 
     }
@@ -60,18 +56,18 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
     }
 
 
+    public static class View_holder extends RecyclerView.ViewHolder {
 
-    public static class  View_holder extends RecyclerView.ViewHolder{
+        TextView tv_date, tv_day, tv_attendess, tv_review, tv_save;
 
-        TextView  tv_date  , tv_day  ,tv_attendess  ,tv_review  ,tv_save ;
         public View_holder(@NonNull View itemView) {
             super(itemView);
 
-            tv_date=itemView.findViewById(R.id.student_recycler_date);
-            tv_day=itemView.findViewById(R.id.student_recycler_day);
-            tv_attendess=itemView.findViewById(R.id.student_recycler_attendess);
-            tv_review=itemView.findViewById(R.id.student_recycler_review);
-            tv_save=itemView.findViewById(R.id.student_recycler_save);
+            tv_date = itemView.findViewById(R.id.student_recycler_date);
+            tv_day = itemView.findViewById(R.id.student_recycler_day);
+            tv_attendess = itemView.findViewById(R.id.student_recycler_attendess);
+            tv_review = itemView.findViewById(R.id.student_recycler_review);
+            tv_save = itemView.findViewById(R.id.student_recycler_save);
 
 
 

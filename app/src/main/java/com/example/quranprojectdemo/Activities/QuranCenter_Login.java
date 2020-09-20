@@ -93,7 +93,6 @@ public class QuranCenter_Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                Toast.makeText(getBaseContext(),user.getUid()+"aa",Toast.LENGTH_SHORT).show();
 
                         } else {
                             Toast.makeText(QuranCenter_Login.this, "Authentication failed.",

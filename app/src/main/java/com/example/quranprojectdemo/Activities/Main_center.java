@@ -44,8 +44,8 @@ public class Main_center extends AppCompatActivity {
         tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
         tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
 
-        sp=getSharedPreferences("Info",MODE_PRIVATE);
-        user=FirebaseAuth.getInstance().getCurrentUser();
+        sp = getSharedPreferences("Info", MODE_PRIVATE);
+        user = FirebaseAuth.getInstance().getCurrentUser();
         getInRealTimeUsers();
 
         toolbar_center = findViewById(R.id.center_main_tool);
@@ -113,14 +113,7 @@ public class Main_center extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-  public void getInRealTimeUsers() {
+    public void getInRealTimeUsers() {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers").child(user.getUid()).child("Center information");
@@ -141,6 +134,7 @@ public class Main_center extends AppCompatActivity {
                 Log.d("TAG", "Value is: " + value);
 
             }
+
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value

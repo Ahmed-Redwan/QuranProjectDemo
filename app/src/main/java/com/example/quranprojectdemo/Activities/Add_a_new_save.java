@@ -30,12 +30,13 @@ public class Add_a_new_save extends AppCompatActivity {
     private String name_center;
     private String name_student;
     private String name_group;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
-
+        mAuth = FirebaseAuth.getInstance();
 
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
@@ -122,24 +123,27 @@ public class Add_a_new_save extends AppCompatActivity {
         btn_addSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insert_new_save(name_student, name_group, name_center);
+                String id_center = mAuth.getCurrentUser().getDisplayName();
+                String id_group = mAuth.getCurrentUser().getUid();
+                String id_student="";
+                insert_new_save(id_student, id_group, id_center);
 
             }
         });
         super.onStart();
     }
 
-    public void insert_new_save(String my_name_stduent, String name_groub, String name_center) {
+    public void insert_new_save(String id_student, String id_groub, String id_center) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("Center_users");//already found
-        DatabaseReference my_center = reference.child(name_center);//already found
+        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+        DatabaseReference my_center = reference.child(id_center);//already found
         DatabaseReference my_center_groups = my_center.child("groups");//already found or not
-        DatabaseReference my_group = my_center_groups.child(name_groub);// add new group
+        DatabaseReference my_group = my_center_groups.child(id_groub);// add new group
         String save = "";
         String rev = "";
 
         DatabaseReference my_student_group = my_group.child("student_group");
-        DatabaseReference student = my_student_group.child(my_name_stduent);
+        DatabaseReference student = my_student_group.child(id_student);
 
 
         DatabaseReference student_save = student.child("student_save");

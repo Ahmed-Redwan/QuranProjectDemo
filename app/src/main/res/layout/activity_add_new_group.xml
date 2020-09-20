@@ -49,7 +49,6 @@
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="@dimen/_23ssp" />
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,6 +72,73 @@
                 android:textSize="@dimen/_23ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textAlignment="center"
+            android:textColorHint="@color/colorPrimary">
+
+            <EditText
+                android:id="@+id/AddNewGroup_et_Teacher_Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="الايميل"
+                android:maxLines="1"
+                android:padding="@dimen/_5sdp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/_23ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textAlignment="center"
+            android:textColorHint="@color/colorPrimary">
+
+            <EditText
+                android:id="@+id/AddNewGroup_et_TeacherPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="كلمة المرور"
+                android:maxLines="1"
+                android:padding="@dimen/_5sdp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/_23ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textAlignment="center"
+            android:textColorHint="@color/colorPrimary">
+
+            <EditText
+                android:id="@+id/AddNewGroup_et_TeacherNumberPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="الجوال"
+                android:maxLines="1"
+                android:padding="@dimen/_5sdp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/_23ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -88,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_1sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
             android:textColorHint="@color/colorPrimary" />
@@ -98,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:background="@drawable/btn_background"
             android:padding="@dimen/_4sdp"

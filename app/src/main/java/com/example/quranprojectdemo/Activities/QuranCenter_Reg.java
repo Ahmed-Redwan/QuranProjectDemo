@@ -38,7 +38,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     private FirebaseAuth mAuth;
     SharedPreferences sp;
     int id;
-    int count=0;
+    int count = 0;
     SharedPreferences.Editor editor;
     String userId;
 
@@ -62,10 +62,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
         tv_I_Have_A_A = findViewById(R.id.QuranCenter_tv_iHaveAnAccount);
 
 
-
-        FirebaseDatabase database =FirebaseDatabase.getInstance();
-        DatabaseReference reference= database.getReference();
-
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference();
 
 
         EditText_EditFont(et_centerName, "Hacen_Tunisia.ttf");
@@ -106,19 +104,19 @@ public class QuranCenter_Reg extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        sp=getSharedPreferences("Info",MODE_PRIVATE);
-        editor=sp.edit();
+        sp = getSharedPreferences("Info", MODE_PRIVATE);
+        editor = sp.edit();
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                             if (et_centerName.getText().toString().isEmpty()) {
+                if (et_centerName.getText().toString().isEmpty()) {
                     et_centerName.setError("Center name is required.");
                     return;
                 } else if (et_ManagerName.getText().toString().isEmpty()) {
                     et_ManagerName.setError("Manager name is required.");
                     return;
-                }  else if (et_Phone.getText().toString().isEmpty()) {
+                } else if (et_Phone.getText().toString().isEmpty()) {
                     et_Phone.setError("Phone is required.");
                     return;
                 } else if (et_Email.getText().toString().isEmpty()) {
@@ -136,21 +134,21 @@ public class QuranCenter_Reg extends AppCompatActivity {
                 } else if (et_Password.getText().toString().isEmpty()) {
                     et_Password.setError("Password is required.");
                     return;
-                }else if (et_Password.getText().toString().length()<8){
+                } else if (et_Password.getText().toString().length() < 8) {
                     et_Password.setError("Password must be more than 8 charachter.");
                     return;
                 }
                 ++count;
-                id=20200000+count;
+                id = 20200000 + count;
 
 
                 centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(), et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
                         , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), id);
-                editor.putString("id", id+"");
+                editor.putString("id", id + "");
                 editor.apply();
-                setInRealTimeUsers(et_centerName.getText().toString()+id);
+                setInRealTimeUsers(et_centerName.getText().toString() + id);
 
-                Toast.makeText(getBaseContext(), id+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
 
                 sign_up(et_Email.getText().toString(), et_Password.getText().toString());
                 startActivity(new Intent(getBaseContext(), Main_center.class));
@@ -193,9 +191,10 @@ public class QuranCenter_Reg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                         //   userId=user.getUid();
-                            Toast.makeText(getBaseContext(),user.getUid(), Toast.LENGTH_SHORT).show();
-                   //         create_new_center();
+                            //   userId=user.getUid();
+//                            editor.putString("UID_CENTER", user.getUid())
+                            Toast.makeText(getBaseContext(), user.getUid(), Toast.LENGTH_SHORT).show();
+                            //         create_new_center();
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(QuranCenter_Reg.this, "Authentication failed.",
@@ -221,7 +220,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-              Log.d("msg", (String) snapshot.child("Center information").child("Count").getValue());
+                Log.d("msg", (String) snapshot.child("Center information").child("Count").getValue());
             }
 
             @Override

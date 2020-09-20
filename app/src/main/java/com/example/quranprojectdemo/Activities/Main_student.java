@@ -2,19 +2,23 @@ package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_data;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -24,6 +28,9 @@ public class Main_student extends AppCompatActivity {
 
     ImageView image_backe_student  , image_student  ;
     TextView tv_student_name  ,  tv_student_name_ring  , tv_student_phone  ,tv_student_identity;
+    private FirebaseAuth mAuth;
+    String id_center, id_group, id_student;
+    final ArrayList<Student_data> student_data = new ArrayList<>();
 
     TextView tv_date  ,tv_day  ,tv_attendess;
     RecyclerView rv;
@@ -32,6 +39,7 @@ public class Main_student extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_student);
+        mAuth = FirebaseAuth.getInstance();
 
         image_backe_student=findViewById(R.id.student_main_image_center);
         image_student=findViewById(R.id.student_main_image_student);
@@ -40,6 +48,12 @@ public class Main_student extends AppCompatActivity {
         tv_student_phone=findViewById(R.id.student_main_tv_phone);
         tv_student_identity=findViewById(R.id.student_main_tv_identity);
 //
+        id_center = mAuth.getCurrentUser().getDisplayName();
+        id_group = mAuth.getCurrentUser().getPhotoUrl().toString();
+        id_student = mAuth.getCurrentUser().getUid();
+        getSavesStudent(id_center, id_group, id_student);
+
+
         toolbar_student=findViewById(R.id.student_main_tool);
 //        setSupportActionBar(toolbar_student);
         toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -98,6 +112,34 @@ datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسا�
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
+    public void getSavesStudent(String id_center, String id_group, String id_student) {
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot c : dataSnapshot.getChildren()) {
+                    if (!c.getKey().equals("student_info")) {
+                        Student_data d = c.getValue(Student_data.class);
+                        Toast.makeText(getBaseContext(), d.getDate__student(), Toast.LENGTH_SHORT).show();
+                        student_data.add(d);
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+    }//جلب البيانات
 
 }
 
