@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -113,7 +114,22 @@ public class AddNewStudent extends AppCompatActivity {
 
 
     }//للتسجيل
+    private void updatename(FirebaseUser user) {
 
+        //updating user's profile data
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                .setDisplayName("")
+                .build();
+
+        user.updateProfile(profileUpdate)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+
+    }
     public void create_new_student(String name_student, String name_groub, String name_center) {
         String birth_day = et_Day.getText().toString() + "/" + et_Month.getText().toString() + "/" + et_Year.getText().toString();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();

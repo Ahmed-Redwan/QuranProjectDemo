@@ -74,16 +74,16 @@ datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسا�
 datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
 datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
 datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
-
-        for (Student_data c : datass) {
- Log.d(c.getDate__student(),c.getDay_student()+c.getAttendess_student()+c.getReview_student()+c.getSave_student());
-        }
-
-        Recycler_student r_s=new Recycler_student(datass);
-        rv.setAdapter(r_s);
-        RecyclerView.LayoutManager lm =new LinearLayoutManager(this);
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(lm);
+//
+//        for (Student_data c : datass) {
+// Log.d(c.getDate__student(),c.getDay_student()+c.getAttendess_student()+c.getReview_student()+c.getSave_student());
+//        }
+//
+//        Recycler_student r_s=new Recycler_student(datass);
+//        rv.setAdapter(r_s);
+//        RecyclerView.LayoutManager lm =new LinearLayoutManager(this);
+//        rv.setHasFixedSize(true);
+//        rv.setLayoutManager(lm);
 
       /*  TextView_EditFont(tv_attendess,"Hacen_Tunisia.ttf");
         TextView_EditFont(tv_date,"Hacen_Tunisia.ttf");

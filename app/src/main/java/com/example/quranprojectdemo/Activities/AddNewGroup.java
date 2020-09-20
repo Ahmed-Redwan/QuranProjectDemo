@@ -53,7 +53,8 @@ public class AddNewGroup extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sign_up(et_TeacherName.getText().toString() + et_GroupName.getText().toString() + "@gmail.com", et_TeacherName.getText().toString());
+                sign_up(et_TeacherName.getText().toString() + et_GroupName.getText().toString()
+                        + "@gmail.com", et_TeacherName.getText().toString());
                 finish();
             }
         });

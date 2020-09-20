@@ -18,11 +18,11 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
 
 
 
-    ArrayList<Student_data> arrayList_student;
+    ArrayList<Student_data1> arrayList_student;
     int resourse ;
     Context context;
 
-    public Recycler_student(ArrayList<Student_data> arrayList_student) {
+    public Recycler_student(ArrayList<Student_data1> arrayList_student) {
         this.arrayList_student = arrayList_student;
 
     }
@@ -43,13 +43,13 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
     @Override
     public void onBindViewHolder(@NonNull View_holder holder, int position) {
 
-        Student_data student_data= arrayList_student.get(position);
+        Student_data1 student_data= arrayList_student.get(position);
 
-        holder.tv_date.setText(student_data.getDate__student());
-        holder.tv_day.setText(student_data.getDay_student());
-        holder.tv_attendess.setText(student_data.getAttendess_student());
-        holder.tv_review.setText(student_data.getReview_student());
-        holder.tv_save.setText(student_data.getSave_student());
+        holder.tv_date.setText(student_data.getDate());
+        holder.tv_day.setText(student_data.getDay());
+        holder.tv_attendess.setText(student_data.getAttendance());
+        holder.tv_review.setText(student_data.getRevision());
+        holder.tv_save.setText(student_data.getSave());
 
 
     }
@@ -72,6 +72,8 @@ public class Recycler_student  extends RecyclerView.Adapter<Recycler_student.Vie
             tv_attendess=itemView.findViewById(R.id.student_recycler_attendess);
             tv_review=itemView.findViewById(R.id.student_recycler_review);
             tv_save=itemView.findViewById(R.id.student_recycler_save);
+
+
 
 
            /* JoinRequest3 joinRequest3=new JoinRequest3();

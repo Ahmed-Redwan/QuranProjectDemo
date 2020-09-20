@@ -14,6 +14,10 @@ public class Student_data {
         this.attendess_student = attendess_student;
     }
 
+    public Student_data() {
+
+    }
+
     public String getDate__student() {
         return date__student;
     }
