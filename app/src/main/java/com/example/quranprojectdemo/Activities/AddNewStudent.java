@@ -53,7 +53,10 @@ public class AddNewStudent extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_student);
         mAuth = FirebaseAuth.getInstance();
 
-        center_name = mAuth.getCurrentUser().getUid();
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null)
+            center_name = mAuth.getCurrentUser().getUid();
+//        center_name = mAuth.getCurrentUser().getUid();
         tv_Add = findViewById(R.id.AddNewStudent_tv_AddStudent);
         et_studentName = findViewById(R.id.AddNewStudent_et_StudentName);
         et_studentId = findViewById(R.id.AddNewStudent_et_StudentId);

@@ -7,13 +7,17 @@ public class Group_Info {
     private String phone;
     private String teacher_name;
 
-        public Group_Info(String email, String group_name, String password, String phone, String teacher_name) {
-                this.email = email;
-                this.group_name = group_name;
-                this.password = password;
-                this.phone = phone;
-                this.teacher_name = teacher_name;
-        }
+    public Group_Info(String email, String group_name, String password, String phone, String teacher_name) {
+        this.email = email;
+        this.group_name = group_name;
+        this.password = password;
+        this.phone = phone;
+        this.teacher_name = teacher_name;
+    }
+
+    public Group_Info() {
+
+    }
 
         public String getEmail() {
                 return email;

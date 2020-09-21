@@ -71,18 +71,19 @@ public class JoinRequest2 extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    DataSnapshot c1=c.child("Center information");
+                    DataSnapshot c1 = c.child("Center information");
 
-                    for (DataSnapshot c11 : c1.getChildren()){
-                    if (country.equalsIgnoreCase(c11.getValue(CenterUser.class).getCountry())
-                            && city.equalsIgnoreCase(c11.getValue(CenterUser.class).getCity())
-                    ) {
-                        String id_center = c11.getKey();
-                        String name_center = c11.getValue(CenterUser.class).getCenterName();
-                        String phone_cecnter = c11.getValue(CenterUser.class).getPhone();
-                        Toast.makeText(getBaseContext(), id_center + name_center + phone_cecnter, Toast.LENGTH_LONG)
-                                .show();
-                    }}
+                    for (DataSnapshot c11 : c1.getChildren()) {
+                        if (country.equalsIgnoreCase(c11.getValue(CenterUser.class).getcountry())
+                                && city.equalsIgnoreCase(c11.getValue(CenterUser.class).getcity())
+                        ) {
+                            String id_center = c11.getKey();
+                            String name_center = c11.getValue(CenterUser.class).getcenterName();
+                            String phone_cecnter = c11.getValue(CenterUser.class).getPhone();
+                            Toast.makeText(getBaseContext(), id_center + name_center + phone_cecnter, Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    }
 
 
                 }

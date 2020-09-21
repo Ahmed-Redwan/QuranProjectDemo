@@ -78,7 +78,6 @@ public class QuranCenter_Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 log_in();
-                startActivity(new Intent(getBaseContext(), Main_center.class));
 //                finish();
             }
         });
@@ -93,6 +92,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            startActivity(new Intent(getBaseContext(), Main_center.class));
 
                         } else {
                             Toast.makeText(QuranCenter_Login.this, "Authentication failed.",

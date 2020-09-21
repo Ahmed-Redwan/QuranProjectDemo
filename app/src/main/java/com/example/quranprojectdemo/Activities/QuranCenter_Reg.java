@@ -109,6 +109,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
 
                 if (et_centerName.getText().toString().isEmpty()) {
                     et_centerName.setError("Center name is required.");
@@ -146,11 +147,15 @@ public class QuranCenter_Reg extends AppCompatActivity {
                         , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), id);
                 editor.putString("id", id + "");
                 editor.apply();
-                setInRealTimeUsers(et_centerName.getText().toString() + id);
 
-                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
 
                 sign_up(et_Email.getText().toString(), et_Password.getText().toString());
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 startActivity(new Intent(getBaseContext(), Main_center.class));
 
 //                setInRealTimeUsers(et_centerName.getText().toString());
@@ -191,9 +196,14 @@ public class QuranCenter_Reg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            Toast.makeText(getBaseContext(), user.getUid(), Toast.LENGTH_SHORT).show();
+
+
+                            setInRealTimeUsers(user.getUid());
+
                             //   userId=user.getUid();
 //                            editor.putString("UID_CENTER", user.getUid())
-                            Toast.makeText(getBaseContext(), user.getUid(), Toast.LENGTH_SHORT).show();
                             //         create_new_center();
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
@@ -220,7 +230,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("msg", (String) snapshot.child("Center information").child("Count").getValue());
+//                Log.d("msg", (String) snapshot.child("Center information").child("Count").getValue());
             }
 
             @Override

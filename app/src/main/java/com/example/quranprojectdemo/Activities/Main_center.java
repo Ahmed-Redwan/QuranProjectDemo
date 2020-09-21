@@ -124,13 +124,13 @@ public class Main_center extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 CenterUser value = dataSnapshot.getValue(CenterUser.class);
-                tv_center_name.setText(value.getCenterName());
-                tv_center_name_maneger.setText(value.getManagerName());
+                tv_center_name.setText(value.getcenterName());
+                tv_center_name_maneger.setText(value.getmanagerName());
                 tv_center_phone.setText(value.getPhone());
-                tv_center_count_ring.setText(0);
-                tv_center_count_student.setText(0);
+                tv_center_count_ring.setText("0");
+                tv_center_count_student.setText(0+"");
 
-                Toast.makeText(getApplicationContext(), value.getId() + "" + value.getId() + value.getCenterName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),    value.getcenterName(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG", "Value is: " + value);
 
             }

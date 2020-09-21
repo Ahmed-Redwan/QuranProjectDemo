@@ -52,13 +52,7 @@ public class TeacherLogin extends AppCompatActivity {
         EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_password, "Hacen_Tunisia.ttf");
 
-        btn_Login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), Main_teacher.class));
-                finish();
-            }
-        });
+
         tv_NewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +69,19 @@ public class TeacherLogin extends AppCompatActivity {
         super.onStart();
         sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
         editor = sp.edit();
-        log_in();
+        btn_Login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                log_in();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                startActivity(new Intent(getBaseContext(), Main_teacher.class));
+                finish();
+            }
+        });
     }
 
     private void log_in() {
