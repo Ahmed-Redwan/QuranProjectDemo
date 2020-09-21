@@ -47,8 +47,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="@dimen/_23ssp"
-                android:maxLength="15"
-                android:maxLines="1"/>
+                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

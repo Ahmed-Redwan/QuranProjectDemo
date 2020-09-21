@@ -50,10 +50,10 @@ public class GuardianLogin extends AppCompatActivity {
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), Main_student.class));
                 log_in();
-                if (b)
-                    finish();
+
+
+//               finish();
             }
         });
         tv_NewAccount.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +85,7 @@ public class GuardianLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            b = true;
+                            startActivity(new Intent(getBaseContext(), Main_student.class));
                         } else {
                             Toast.makeText(GuardianLogin.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -93,6 +93,6 @@ public class GuardianLogin extends AppCompatActivity {
                         }
                     }
                 });
-     }//للدخول
+    }//للدخول
 
 }

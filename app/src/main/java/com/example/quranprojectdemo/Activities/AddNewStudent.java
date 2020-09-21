@@ -52,7 +52,7 @@ public class AddNewStudent extends AppCompatActivity {
     Button btn_Add, btn_Cancel;
     EditText et_studentName, et_studentId, et_Phone, et_Email, et_Grade, et_Year, et_Month, et_Day;
     private FirebaseAuth mAuth;
-    private String center_name, id_group;
+    private String center_name, id_group = "GsM49NxHgdWGwTXLiyl9cqGLJKu2";
 
     ArrayList<String>groups;
     Spinner spinner;
@@ -90,17 +90,7 @@ public class AddNewStudent extends AppCompatActivity {
         et_Day = findViewById(R.id.AddNewStudent_et_day);
         btn_Add = findViewById(R.id.AddNewStudent_btn_AddNewStudent);
         btn_Cancel = findViewById(R.id.AddNewStudent_btn_cancel);
-//        HashMap<String, String> s = new HashMap();
-//        s.put("name group1", "id group1");
-//        s.put("name group2", "id group2");
-//        s.put("name group2", "id group3");
-//        s.put("name group4", "id group4");
-//        s.put("name grou5", "id group5");
-//        for (int i = 0; i < s.size(); i++) {
-//            String ss = s.get()
-//
-//        }
-//        String id = s.get("name");
+
         TextView_EditFont(tv_Add, "Hacen_Tunisia_Bold.ttf");
         EditText_EditFont(et_studentName, "Hacen_Tunisia.ttf");
         EditText_EditFont(et_studentId, "Hacen_Tunisia.ttf");
@@ -129,6 +119,11 @@ public class AddNewStudent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sign_up();
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 finish();
             }
         });
@@ -152,7 +147,7 @@ public class AddNewStudent extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            create_new_student(et_studentName.getText().toString(), id_group, center_name);
+                            create_new_student(user.getUid(), id_group, center_name);
                             updatename(user);
 
 

@@ -8,6 +8,8 @@ public class Student_Info {
     private String academic_level;
     private String birth_date;
 
+    public Student_Info( ) {
+    }
 
     public Student_Info(String name, int id_number, String phoneNo, String email, String academic_level, String birth_date) {
         this.name = name;

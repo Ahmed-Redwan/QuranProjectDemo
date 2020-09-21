@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,13 +27,13 @@ public class Main_student extends AppCompatActivity {
 
     Toolbar toolbar_student;
 
-    ImageView image_backe_student  , image_student  ;
-    TextView tv_student_name  ,  tv_student_name_ring  , tv_student_phone  ,tv_student_identity;
+    ImageView image_backe_student, image_student;
+    TextView tv_student_name, tv_student_name_ring, tv_student_phone, tv_student_identity;
     private FirebaseAuth mAuth;
     String id_center, id_group, id_student;
     final ArrayList<Student_data> student_data = new ArrayList<>();
-
-    TextView tv_date  ,tv_day  ,tv_attendess;
+    //    FirebaseAuth  ;
+    TextView tv_date, tv_day, tv_attendess;
     RecyclerView rv;
 
     @Override
@@ -41,33 +42,29 @@ public class Main_student extends AppCompatActivity {
         setContentView(R.layout.main_student);
         mAuth = FirebaseAuth.getInstance();
 
-        image_backe_student=findViewById(R.id.student_main_image_center);
-        image_student=findViewById(R.id.student_main_image_student);
-        tv_student_name=findViewById(R.id.student_main_tv_name_student);
-        tv_student_name_ring=findViewById(R.id.student_main_tv_name_ring);
-        tv_student_phone=findViewById(R.id.student_main_tv_phone);
-        tv_student_identity=findViewById(R.id.student_main_tv_identity);
+        image_backe_student = findViewById(R.id.student_main_image_center);
+        image_student = findViewById(R.id.student_main_image_student);
+        tv_student_name = findViewById(R.id.student_main_tv_name_student);
+        tv_student_name_ring = findViewById(R.id.student_main_tv_name_ring);
+        tv_student_phone = findViewById(R.id.student_main_tv_phone);
+        tv_student_identity = findViewById(R.id.student_main_tv_identity);
 //
-        id_center = mAuth.getCurrentUser().getDisplayName();
-        id_group = mAuth.getCurrentUser().getPhotoUrl().toString();
-        id_student = mAuth.getCurrentUser().getUid();
-        getSavesStudent(id_center, id_group, id_student);
 
 
-        toolbar_student=findViewById(R.id.student_main_tool);
+        toolbar_student = findViewById(R.id.student_main_tool);
 //        setSupportActionBar(toolbar_student);
         toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.MenuStudentHomeSettings:
 
                         return true;
-                        case R.id.MenuStudentHomeAbout:
+                    case R.id.MenuStudentHomeAbout:
 
                         return true;
-                        case R.id.MenuStudentHomeExit:
-                            finish();
+                    case R.id.MenuStudentHomeExit:
+                        finish();
                         return true;
                 }
                 return false;
@@ -75,19 +72,19 @@ public class Main_student extends AppCompatActivity {
         });
 
 
-        rv=findViewById(R.id.student_main_recycler);
+        rv = findViewById(R.id.student_main_recycler);
 
 
-        ArrayList<Student_data> datass =new ArrayList<>();
+        ArrayList<Student_data> datass = new ArrayList<>();
 
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","ال عمران 5:150","ال عمران 55:120"));
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان5:8","المدثر1:23"));
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
-datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسان","المدثر"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "ال عمران 5:150", "ال عمران 55:120"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان5:8", "المدثر1:23"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
+        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
 //
 //        for (Student_data c : datass) {
 // Log.d(c.getDate__student(),c.getDay_student()+c.getAttendess_student()+c.getReview_student()+c.getSave_student());
@@ -102,16 +99,28 @@ datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسا�
       /*  TextView_EditFont(tv_attendess,"Hacen_Tunisia.ttf");
         TextView_EditFont(tv_date,"Hacen_Tunisia.ttf");
         TextView_EditFont(tv_day,"Hacen_Tunisia.ttf");*/
-        TextView_EditFont(tv_student_identity,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_student_name,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_student_name_ring,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_student_phone,"Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_student_identity, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_student_name, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_student_name_ring, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_student_phone, "Hacen_Tunisia.ttf");
     }
 
     //change font type for textview.
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        id_center = mAuth.getCurrentUser().getDisplayName();
+        id_group =
+                mAuth.getCurrentUser().getPhotoUrl().toString();
+        id_student = mAuth.getCurrentUser().getUid();
+        getSavesStudent(id_center, id_group, id_student);
+        getStudnetInfo(id_center, id_group, id_student);
+    }
+
     public void getSavesStudent(String id_center, String id_group, String id_student) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -136,6 +145,31 @@ datass.add(new Student_data("10/9/2020","الخميس","حاضر","الانسا�
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
 //                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+    }//جلب البيانات
+
+    public void getStudnetInfo(String id_center, String id_group, String id_student) {
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+                .child("groups").child(id_group).child("student_group").child(
+                        id_student).child("student_info");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
+                tv_student_name.setText(studentInfo.getName());
+                tv_student_name_ring.setText(studentInfo.getEmail());
+                tv_student_phone.setText(studentInfo.getPhoneNo());
+                tv_student_identity.setText(studentInfo.getId_number()+"");
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
             }
         });
 
