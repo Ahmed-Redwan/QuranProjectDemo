@@ -31,6 +31,7 @@ public class Show_group_student extends AppCompatActivity {
     TextView tv_show;
     Toolbar toolbar;
     private FirebaseAuth mAuth;
+    ArrayList<Student_imageand_name> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,25 +54,31 @@ public class Show_group_student extends AppCompatActivity {
                 return false;
             }
         });
+        arrayList = new ArrayList<>();
+
         get_student_group(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
-        ArrayList<Student_imageand_name> arrayList = new ArrayList<>();
 
-        arrayList.add(new Student_imageand_name("مصطفى محمد الاسطل"));
-        arrayList.add(new Student_imageand_name("أحمد عبد الغفور"));
-        arrayList.add(new Student_imageand_name("محمد الاغا"));
-        arrayList.add(new Student_imageand_name("عبد الرحيم شراب"));
-        arrayList.add(new Student_imageand_name("أحمد اليعقوبي"));
-        arrayList.add(new Student_imageand_name("معتز ماضي"));
+//        arrayList.add(new Student_imageand_name("مصطفى محمد الاسطل"));
+//        arrayList.add(new Student_imageand_name("أحمد عبد الغفور"));
+//        arrayList.add(new Student_imageand_name("محمد الاغا"));
+//        arrayList.add(new Student_imageand_name("عبد الرحيم شراب"));
+//        arrayList.add(new Student_imageand_name("أحمد اليعقوبي"));
+//        arrayList.add(new Student_imageand_name("معتز ماضي"));
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);
         rv.setAdapter(recycler_show_group_student);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
 
-
     }
-
 
     public void get_student_group(String id_group, String id_center) {
 
@@ -84,7 +91,10 @@ public class Show_group_student extends AppCompatActivity {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     String id_student = c.getKey();
                     String name_student = c.getValue(Student_Info.class).getName();
-                    Toast.makeText(getBaseContext(), name_student, Toast.LENGTH_SHORT).show();
+
+                    arrayList.add(new Student_imageand_name(name_student));
+//                    Toast.makeText(getBaseContext(), name_student, Toast.LENGTH_SHORT).show();
+
                 }
 
 

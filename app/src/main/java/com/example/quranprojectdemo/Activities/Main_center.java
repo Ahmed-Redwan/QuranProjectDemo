@@ -35,6 +35,13 @@ public class Main_center extends AppCompatActivity {
     private String centerId;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        getInRealTimeUsers();
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_center);
@@ -56,7 +63,7 @@ public class Main_center extends AppCompatActivity {
 
 
         }
-        getInRealTimeUsers();
+        Toast.makeText(getBaseContext(), centerId, Toast.LENGTH_SHORT).show();
 
         toolbar_center = findViewById(R.id.center_main_tool);
         toolbar_center.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {

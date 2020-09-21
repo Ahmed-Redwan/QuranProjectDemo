@@ -101,6 +101,10 @@ public class QuranCenter_Login extends AppCompatActivity {
                             editor = sp.edit();
                             editor.putString(ID_CENTER_LOGIN,user.getUid());
                             editor.apply();
+                            sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
+                            editor = sp.edit();
+                            editor.clear();
+                            editor.apply();
                             startActivity(new Intent(getBaseContext(), Main_center.class));
 
                         } else {

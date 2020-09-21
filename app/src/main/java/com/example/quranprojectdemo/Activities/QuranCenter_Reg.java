@@ -31,8 +31,8 @@ import java.io.Serializable;
 
 public class QuranCenter_Reg extends AppCompatActivity {
 
-    public static final String INFO_CENTER_REG ="info_reg" ;
-    public static final String ID_CENTER_REG ="id_center_reg" ;
+    public static final String INFO_CENTER_REG = "info_reg";
+    public static final String ID_CENTER_REG = "id_center_reg";
     EditText et_centerName, et_ManagerName, et_Phone, et_Email, et_Password, et_country, et_city, et_Address;
     TextView tv_newAccount, tv_I_Have_A_A, tv_Login;
     Button btn_CreateNewA;
@@ -44,6 +44,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     String userId;
     int id;
     int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,12 +144,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
 //                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
 
                 sign_up(et_Email.getText().toString(), et_Password.getText().toString());
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                startActivity(new Intent(getBaseContext(), Main_center.class));
 
             }
         });
@@ -165,7 +160,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     }
 
 
-    private void sign_up(String email, String password) {
+    private void sign_up(final String email, String password) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -176,9 +171,12 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
                             sp = getSharedPreferences(INFO_CENTER_REG, MODE_PRIVATE);
                             editor = sp.edit();
-                            editor.putString(ID_CENTER_REG,user.getUid());
+                            editor.putString(ID_CENTER_REG, user.getUid());
                             editor.apply();
-
+                            sp = getSharedPreferences(QuranCenter_Login.INFO_CENTER_LOGIN, MODE_PRIVATE);
+                            editor = sp.edit();
+                            editor.clear();
+                            editor.apply();
                             setInRealTimeUsers(user.getUid());
 
                             //   userId=user.getUid();
@@ -206,16 +204,12 @@ public class QuranCenter_Reg extends AppCompatActivity {
 //int id, String name, int age, String address, String email, String phone
         reference.child(name).child("Center information").setValue(centeruser);
         reference.child("Count").setValue(count);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Log.d("msg", (String) snapshot.child("Center information").child("Count").getValue());
-            }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        startActivity(new Intent(getBaseContext(), Main_center.class));
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }//اضافة بيانات
 }
