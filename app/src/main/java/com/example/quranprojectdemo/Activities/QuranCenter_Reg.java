@@ -31,17 +31,19 @@ import java.io.Serializable;
 
 public class QuranCenter_Reg extends AppCompatActivity {
 
+    public static final String INFO_CENTER_REG ="info_reg" ;
+    public static final String ID_CENTER_REG ="id_center_reg" ;
     EditText et_centerName, et_ManagerName, et_Phone, et_Email, et_Password, et_country, et_city, et_Address;
     TextView tv_newAccount, tv_I_Have_A_A, tv_Login;
     Button btn_CreateNewA;
     CenterUser centeruser;
     private FirebaseAuth mAuth;
     SharedPreferences sp;
-    int id;
-    int count = 0;
+
     SharedPreferences.Editor editor;
     String userId;
-
+    int id;
+    int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,14 +83,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
         btn_CreateNewA.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
 
-//        btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getBaseContext(), Main_center.class));
-//                finish();
-//
-//            }
-//        });
 
         tv_Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,8 +98,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        sp = getSharedPreferences("Info", MODE_PRIVATE);
-        editor = sp.edit();
+
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,8 +138,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
                 centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(), et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
                         , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), id);
-                editor.putString("id", id + "");
-                editor.apply();
+
 
 //                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
 
@@ -158,8 +150,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
                 }
                 startActivity(new Intent(getBaseContext(), Main_center.class));
 
-//                setInRealTimeUsers(et_centerName.getText().toString());
-                //  startActivity(new Intent(getBaseContext(), Main_center.class).putExtra("CenterName",centeruser.getCenterName()));
             }
         });
     }
@@ -174,19 +164,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
         editText.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
-//    public void create_new_center() {
-//
-//        centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(), et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
-//                , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), 1);
-//
-//        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-//        DatabaseReference reference = rootNode.getReference("Center_users");//create a main_node
-//        DatabaseReference c1 = reference.child(et_centerName.getText().toString());//create a new center
-//
-//        DatabaseReference c1_info = c1.child("center_info");//add info
-//        c1_info.setValue(centeruser);//class to add
-//
-//    }
 
     private void sign_up(String email, String password) {
 
@@ -197,8 +174,10 @@ public class QuranCenter_Reg extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            Toast.makeText(getBaseContext(), user.getUid(), Toast.LENGTH_SHORT).show();
-
+                            sp = getSharedPreferences(INFO_CENTER_REG, MODE_PRIVATE);
+                            editor = sp.edit();
+                            editor.putString(ID_CENTER_REG,user.getUid());
+                            editor.apply();
 
                             setInRealTimeUsers(user.getUid());
 

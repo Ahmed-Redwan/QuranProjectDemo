@@ -3,6 +3,7 @@ package com.example.quranprojectdemo.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,15 +36,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
+
 public class AddNewStudent extends AppCompatActivity {
     TextView tv_Add;
     Button btn_Add, btn_Cancel;
     EditText et_studentName, et_studentId, et_Phone, et_Email, et_Grade, et_Year, et_Month, et_Day;
-    private FirebaseAuth mAuth;
-    private String center_name, id_group = "GsM49NxHgdWGwTXLiyl9cqGLJKu2";
-
+    private String id_group = "GsM49NxHgdWGwTXLiyl9cqGLJKu2";
+    private String id_center;
+    SharedPreferences sp;
     ArrayList<Group> groups;
     Spinner spinner;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +55,24 @@ public class AddNewStudent extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_student);
         mAuth = FirebaseAuth.getInstance();
 
+        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+
+        if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
+            sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
+            id_center = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
+
+        } else {
+            id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+
+
+        }
         spinner = findViewById(R.id.addNewStudent_sp);
         groups = new ArrayList<>();
 
         ArrayAdapter<Group> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, groups);
         spinner.setAdapter(dataAdapter);
 
-        mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() != null)
-            center_name = mAuth.getCurrentUser().getUid();
-//        center_name = mAuth.getCurrentUser().getUid();
+        //        center_name = mAuth.getCurrentUser().getUid();
         tv_Add = findViewById(R.id.AddNewStudent_tv_AddStudent);
         et_studentName = findViewById(R.id.AddNewStudent_et_StudentName);
         et_studentId = findViewById(R.id.AddNewStudent_et_StudentId);
@@ -129,12 +141,12 @@ public class AddNewStudent extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            create_new_student(user.getUid(), id_group, center_name);
+                            create_new_student(user.getUid(), id_group, id_center);
                             updatename(user);
 
+                            FirebaseAuth.getInstance().signOut();
 
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(AddNewStudent.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -148,12 +160,9 @@ public class AddNewStudent extends AppCompatActivity {
 
 
     private void updatename(FirebaseUser user) {
-//        PhoneAuthCredential credential = getPhoneAuthCredential(authToken, authSecret);
-        //updating user's profile data
         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                .setDisplayName(center_name).setPhotoUri(Uri.parse(id_group))
+                .setDisplayName(id_center).setPhotoUri(Uri.parse(id_group))
                 .build();
-//        PhoneAuthCredential phoneAuthCredential = new PhoneAuthCredential.;
         user.updateProfile(profileUpdate)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

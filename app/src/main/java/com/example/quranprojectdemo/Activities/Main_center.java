@@ -24,13 +24,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
+
 public class Main_center extends AppCompatActivity {
 
     Toolbar toolbar_center;
     ImageView image_center;
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
     SharedPreferences sp;
-    FirebaseUser user;
+    private String centerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,17 @@ public class Main_center extends AppCompatActivity {
         tv_center_phone = findViewById(R.id.center_main_tv_phone);
         tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
         tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
+        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
-        sp = getSharedPreferences("Info", MODE_PRIVATE);
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
+            sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
+            centerId = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
+
+        } else {
+            centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+
+
+        }
         getInRealTimeUsers();
 
         toolbar_center = findViewById(R.id.center_main_tool);
@@ -116,7 +126,7 @@ public class Main_center extends AppCompatActivity {
     public void getInRealTimeUsers() {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(user.getUid()).child("Center information");
+        DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId).child("Center information");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -128,9 +138,9 @@ public class Main_center extends AppCompatActivity {
                 tv_center_name_maneger.setText(value.getmanagerName());
                 tv_center_phone.setText(value.getPhone());
                 tv_center_count_ring.setText("0");
-                tv_center_count_student.setText(0+"");
+                tv_center_count_student.setText(0 + "");
 
-                Toast.makeText(getApplicationContext(),    value.getcenterName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), value.getcenterName(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG", "Value is: " + value);
 
             }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,23 +25,34 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
+
 public class AddNewGroup extends AppCompatActivity {
     TextView tv_AddNewGroup;
     EditText et_GroupName, et_TeacherName, et_TeacherEmail, et_TeacherPassword, et_TeacherPhone;
     Button btn_add, btn_Cancel;
     FirebaseAuth mAuth;
     private String id_center;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_group);
+        mAuth=FirebaseAuth.getInstance();
+        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
-        mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() != null)
-            id_center = mAuth.getCurrentUser().getUid();
-        Toast.makeText(getBaseContext(), id_center, Toast.LENGTH_SHORT).show();
-        tv_AddNewGroup = findViewById(R.id.AddNewGroup_tv_Add);
+        if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
+            sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
+            id_center = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
+
+        } else {
+            id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+
+
+        }
+
+         tv_AddNewGroup = findViewById(R.id.AddNewGroup_tv_Add);
         et_GroupName = findViewById(R.id.AddNewGroup_et_GroupName);
         et_TeacherName = findViewById(R.id.AddNewGroup_et_TeacherName);
         btn_add = findViewById(R.id.AddNewGroup_btn_Add);
@@ -75,11 +87,12 @@ public class AddNewGroup extends AppCompatActivity {
 
 
                 sign_up(et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString());
-                try {
+                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 finish();
 
             }
@@ -118,12 +131,14 @@ public class AddNewGroup extends AppCompatActivity {
                                     et_TeacherName.getText().toString());
                             Toast.makeText(AddNewGroup.this, id_center,
                                     Toast.LENGTH_SHORT).show();
+                            FirebaseAuth.getInstance().signOut();
+
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(AddNewGroup.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        FirebaseAuth.getInstance().signOut();
+
 
                     }
                 });

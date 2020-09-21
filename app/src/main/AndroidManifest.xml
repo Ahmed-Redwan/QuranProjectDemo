@@ -35,7 +35,10 @@
 
         </activity>
         <activity android:name=".Activities.RegisterAs" >
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activities.SplashScreen">
         </activity>
@@ -46,10 +49,7 @@
         <activity android:name=".Activities.JoinRequest3" />
         <activity android:name=".Activities.Show_group_student" ></activity>
         <activity android:name=".Activities.ShowmeMorizationLoops" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <meta-data

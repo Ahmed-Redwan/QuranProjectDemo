@@ -5,10 +5,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.Group;
@@ -24,19 +26,35 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
+
 public class ShowmeMorizationLoops extends AppCompatActivity {
     TextView tv_ShowMemorizationLoops;
     RecyclerView rv_List;
     Toolbar toolbar;
-    FirebaseAuth mAuth;
     ArrayList<Group> data;
+    private boolean is_finsh;
+    SharedPreferences sp;
+    private String id_center;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_memorization_loops);
         toolbar = findViewById(R.id.ShowMemorizationLoops_ToolBar);
-        mAuth = FirebaseAuth.getInstance();
-        getGroups(mAuth.getCurrentUser().getUid());
+
+        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+
+        if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
+            sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
+            id_center = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
+
+        } else {
+            id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+
+
+        }
+         data = new ArrayList<>();
+
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -53,36 +71,42 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         rv_List = findViewById(R.id.ShowMemorizationLoops_Rv_List);
 
         tv_ShowMemorizationLoops.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-        data = new ArrayList<>();
-        for (int i =0 ; i <1;i++)    ;
-        data.add(new Group(R.drawable.arabian, "ابو بكر الصديق", "احمد عبد الغفور"));
-        data.add(new Group(R.drawable.student, "عمر بن الخطاب", "أحمد اليعقوبي"));
-        data.add(new Group(R.drawable.student2, "ابو بكر الصديق", "مصطفى الأسطل"));
-        data.add(new Group(R.drawable.ic_person, "ابو بكر الصديق", "معتز ماضي"));
+//          data.add(new Group(R.drawable.arabian, "ابو بكر الصديق", "احمد عبد الغفور"));
 
-        final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data);
-
-        rv_List.setHasFixedSize(true);
-        rv_List.setAdapter(customGroupRecyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        rv_List.setLayoutManager(layoutManager);
 
     }
 
-    public void getGroups(String id_center) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getGroups(id_center);
+
+
+    }
+
+
+    public boolean getGroups(String id_center) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
+                    DataSnapshot info_group = c.child("group_info");
+                    Toast.makeText(getBaseContext(), c.getKey(), Toast.LENGTH_SHORT).show();
                     String id_group = c.getKey();
-                    String name_group = c.getValue(Group_Info.class).getGroup_name();
-                    String name_tech=c.getValue(Group_Info.class).getTeacher_name();
-                    data.add(new Group(id_group,name_group,name_tech));
+                    String name_group = info_group.getValue(Group_Info.class).getGroup_name();
+                    String name_tech = info_group.getValue(Group_Info.class).getTeacher_name();
+                    data.add(new Group(R.drawable.arabian, name_group, name_tech));
 
+                    final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data);
+
+                    rv_List.setHasFixedSize(true);
+                    rv_List.setAdapter(customGroupRecyclerView);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+                    rv_List.setLayoutManager(layoutManager);
                 }
 
 
@@ -94,7 +118,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
 //                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
+        return true;
     }//جلب البيانات
 
 

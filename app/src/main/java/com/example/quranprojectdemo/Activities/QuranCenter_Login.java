@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -20,11 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class QuranCenter_Login extends AppCompatActivity {
+    public static final String ID_CENTER_LOGIN ="id_center_log" ;
+    public static final String INFO_CENTER_LOGIN ="Info_center" ;
     TextView tv_Login, tv_iDontHaveAnAccount, tv_NewAccount;
     EditText et_Email, et_password;
     Button btn_Login;
     public  FirebaseAuth mAuth;
+    SharedPreferences sp;
 
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +79,11 @@ public class QuranCenter_Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 log_in();
-//                finish();
             }
         });
 
@@ -92,6 +97,10 @@ public class QuranCenter_Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+                            editor = sp.edit();
+                            editor.putString(ID_CENTER_LOGIN,user.getUid());
+                            editor.apply();
                             startActivity(new Intent(getBaseContext(), Main_center.class));
 
                         } else {
