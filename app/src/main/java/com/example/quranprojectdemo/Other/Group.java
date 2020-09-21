@@ -5,12 +5,30 @@ public class Group {
     private String GroupName;
     private String TeacherName;
     private int id;
+    private String id_group;
+
+    public Group(String id_group, String groupName, String teacherName) {
+        this.id_group = id_group;
+        GroupName = groupName;
+        TeacherName = teacherName;
+    }
+
+    public Group(String id_group, String groupName) {
+        this.id_group = id_group;
+        GroupName = groupName;
+
+    }
 
     public Group(int img, String groupName, String teacherName) {
         this.img = img;
         GroupName = groupName;
         TeacherName = teacherName;
     }
+
+//    public Group(String groupName, String teacherName) {
+//        GroupName = groupName;
+//        TeacherName = teacherName;
+//    }
 
     public Group(int id, int img, String groupName, String teacherName) {
         this.id = id;

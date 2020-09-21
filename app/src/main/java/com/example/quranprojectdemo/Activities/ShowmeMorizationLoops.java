@@ -29,7 +29,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     RecyclerView rv_List;
     Toolbar toolbar;
     FirebaseAuth mAuth;
-
+    ArrayList<Group> data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,8 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         rv_List = findViewById(R.id.ShowMemorizationLoops_Rv_List);
 
         tv_ShowMemorizationLoops.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-        ArrayList<Group> data = new ArrayList<>();
+        data = new ArrayList<>();
+        for (int i =0 ; i <1;i++)    ;
         data.add(new Group(R.drawable.arabian, "ابو بكر الصديق", "احمد عبد الغفور"));
         data.add(new Group(R.drawable.student, "عمر بن الخطاب", "أحمد اليعقوبي"));
         data.add(new Group(R.drawable.student2, "ابو بكر الصديق", "مصطفى الأسطل"));
@@ -79,6 +80,9 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     String id_group = c.getKey();
                     String name_group = c.getValue(Group_Info.class).getGroup_name();
+                    String name_tech=c.getValue(Group_Info.class).getTeacher_name();
+                    data.add(new Group(id_group,name_group,name_tech));
+
                 }
 
 

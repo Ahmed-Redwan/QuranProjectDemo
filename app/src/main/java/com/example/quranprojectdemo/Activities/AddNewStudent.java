@@ -2,10 +2,7 @@ package com.example.quranprojectdemo.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,34 +15,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.Group;
+import com.example.quranprojectdemo.Other.Group_Info;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class AddNewStudent extends AppCompatActivity {
     TextView tv_Add;
@@ -54,7 +42,7 @@ public class AddNewStudent extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String center_name, id_group = "GsM49NxHgdWGwTXLiyl9cqGLJKu2";
 
-    ArrayList<String>groups;
+    ArrayList<Group> groups;
     Spinner spinner;
 
     @Override
@@ -63,17 +51,11 @@ public class AddNewStudent extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_student);
         mAuth = FirebaseAuth.getInstance();
 
-        spinner=findViewById(R.id.addNewStudent_sp);
-        groups=new ArrayList<>();
-        groups.add("a");
-        groups.add("b");
-        groups.add("c");
-        groups.add("d");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, groups);
+        spinner = findViewById(R.id.addNewStudent_sp);
+        groups = new ArrayList<>();
+
+        ArrayAdapter<Group> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, groups);
         spinner.setAdapter(dataAdapter);
-
-
-
 
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null)
@@ -164,6 +146,7 @@ public class AddNewStudent extends AppCompatActivity {
 
     }//للتسجيل
 
+
     private void updatename(FirebaseUser user) {
 //        PhoneAuthCredential credential = getPhoneAuthCredential(authToken, authSecret);
         //updating user's profile data
@@ -200,5 +183,30 @@ public class AddNewStudent extends AppCompatActivity {
 
     }
 
+    public void getGroups(final String id_center) {
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+                .child("groups");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot c : dataSnapshot.getChildren()) {
+                    String id_group = c.getKey();
+                    String name_group = c.getValue(Group_Info.class).getGroup_name();
+                    groups.add(new Group(id_group, name_group));
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+    }//جلب البيانات
 
 }
