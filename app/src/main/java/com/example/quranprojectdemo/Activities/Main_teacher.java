@@ -35,6 +35,8 @@ public class Main_teacher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_teacher);
         mAuth = FirebaseAuth.getInstance();
+//     Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
+//     'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
         getInfoTeacher(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
         image_backe_teacher = findViewById(R.id.teacher_main_image_center);
         image_teacher = findViewById(R.id.teacher_main_image_teacher);

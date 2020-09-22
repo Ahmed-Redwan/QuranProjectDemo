@@ -48,8 +48,6 @@ public class AddNewGroup extends AppCompatActivity {
 
         } else {
             id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
-
-
         }
 
          tv_AddNewGroup = findViewById(R.id.AddNewGroup_tv_Add);
