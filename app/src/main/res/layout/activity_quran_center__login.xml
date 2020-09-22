@@ -27,14 +27,7 @@
             />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_width="match_parent"
-            android:textColorHint="@color/colorPrimary"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="@dimen/_30sdp"
@@ -56,7 +49,6 @@
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="@dimen/_23ssp"
-                android:maxLength="20"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -60,6 +60,7 @@ public class Main_teacher extends AppCompatActivity {
                     case R.id.MenuTeacherHomeSettings:
                         return true;
                     case R.id.MenuTeacherHomeAbout:
+                        startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuTeacherHomeExit:
                         finish();

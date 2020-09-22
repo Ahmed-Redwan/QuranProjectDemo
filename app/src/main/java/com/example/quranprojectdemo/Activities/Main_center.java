@@ -88,6 +88,7 @@ public class Main_center extends AppCompatActivity {
                     case R.id.MenuCenterHomeSettings:
                         return true;
                     case R.id.MenuCenterHomeAbout:
+                        startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                 }
                 return false;

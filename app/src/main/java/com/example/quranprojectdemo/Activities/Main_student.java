@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -61,7 +62,7 @@ public class Main_student extends AppCompatActivity {
 
                         return true;
                     case R.id.MenuStudentHomeAbout:
-
+                        startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuStudentHomeExit:
                         finish();

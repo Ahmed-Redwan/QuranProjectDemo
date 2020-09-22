@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.AddNewStudent"
-    android:background="#E3E9EF">
+    android:background="#E3E9EF"
+    android:paddingBottom="@dimen/_10sdp"
+    android:scrollbarSize="@dimen/_5sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -143,7 +145,7 @@
                 android:textSize="@dimen/_23ssp"
                 android:maxLength="15"
                 android:maxLines="1"
-                android:inputType="numberDecimal"/>
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
 
