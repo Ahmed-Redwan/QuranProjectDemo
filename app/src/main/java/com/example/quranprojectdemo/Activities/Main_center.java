@@ -73,9 +73,9 @@ public class Main_center extends AppCompatActivity {
                     case R.id.MenuCentreHomeAddGroub:
                         startActivity(new Intent(getBaseContext(), AddNewGroup.class));
                         return true;
-                    case R.id.MenuCentreHomeAddStudent:
-                        startActivity(new Intent(getBaseContext(), AddNewStudent.class));
-                        return true;
+//                    case R.id.MenuCentreHomeAddStudent:
+//                        startActivity(new Intent(getBaseContext(), AddNewStudent.class));
+//                        return true;
                     case R.id.MenuCentreHomeShowInfo:
                         startActivity(new Intent(getBaseContext(), ShowmeMorizationLoops.class));
                         return true;
@@ -133,19 +133,39 @@ public class Main_center extends AppCompatActivity {
     public void getInRealTimeUsers() {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId).child("Center information");
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId).child("Center information");
+        final DatabaseReference reference1 = reference.getParent().child("groups");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tv_center_count_ring.setText(snapshot.getChildrenCount() + "عدد الحلقات : ");
+                int numStudent = 0;
+
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    numStudent +=d.child("student_group").getChildrenCount();
+
+//                    numStudent += d.getChildrenCount();
+                }
+                tv_center_count_student.setText(numStudent + "عدد طلاب المرز");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+
                 CenterUser value = dataSnapshot.getValue(CenterUser.class);
-                tv_center_name.setText(value.getcenterName());
-                tv_center_name_maneger.setText(value.getmanagerName());
-                tv_center_phone.setText(value.getPhone());
-                tv_center_count_ring.setText("0");
-                tv_center_count_student.setText(0 + "");
+                tv_center_name.setText(value.getcenterName() + "مركز :  : ");
+                tv_center_name_maneger.setText(value.getmanagerName() + "مدير المركز : ");
+                tv_center_phone.setText(value.getPhone() + "هاتف : ");
 
                 Toast.makeText(getApplicationContext(), value.getcenterName(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG", "Value is: " + value);

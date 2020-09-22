@@ -50,7 +50,7 @@ public class StudentDetails extends AppCompatActivity {
         id_center = mAuth.getCurrentUser().getDisplayName();
         id_group = mAuth.getCurrentUser().getUid();
         Intent i = getIntent();
-        id_student = i.getStringExtra("id_student");
+        id_student = i.getStringExtra(  "id_student");
         getSavesStudent(id_center, id_group, id_student);
 
         Intent getExtrasIntent = getIntent();

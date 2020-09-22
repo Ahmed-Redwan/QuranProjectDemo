@@ -27,9 +27,9 @@ public class Add_a_new_save extends AppCompatActivity {
     android.widget.Spinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
     android.widget.Spinner spinner_select_student;
     Button btn_addSave;
-    private String name_center;
-    private String name_student;
-    private String name_group;
+    private String id_center;
+    private String id_student;
+    private String id_group;
     private FirebaseAuth mAuth;
 
     @Override
@@ -37,7 +37,9 @@ public class Add_a_new_save extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
         mAuth = FirebaseAuth.getInstance();
-
+        id_center = mAuth.getCurrentUser().getDisplayName();
+        id_group = mAuth.getCurrentUser().getUid();
+//        name_group = mAuth.getCurrentUser().getPhotoUrl().toString();
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
         ArrayList<Student_imageand_name> student_imageand_names = new ArrayList<>();
@@ -123,9 +125,7 @@ public class Add_a_new_save extends AppCompatActivity {
         btn_addSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id_center = mAuth.getCurrentUser().getDisplayName();
-                String id_group = mAuth.getCurrentUser().getUid();
-                String id_student="";
+
                 insert_new_save(id_student, id_group, id_center);
 
             }

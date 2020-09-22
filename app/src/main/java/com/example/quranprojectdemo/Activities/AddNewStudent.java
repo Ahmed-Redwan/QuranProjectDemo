@@ -34,45 +34,31 @@ import com.example.quranprojectdemo.R;
 import com.google.firebase.database.ValueEventListener;
 
 
-import java.util.ArrayList;
-
-import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
-
 public class AddNewStudent extends AppCompatActivity {
     TextView tv_Add;
     Button btn_Add, btn_Cancel;
     EditText et_studentName, et_studentId, et_Phone, et_Email, et_Grade, et_Year, et_Month, et_Day;
-    private String id_group = "GsM49NxHgdWGwTXLiyl9cqGLJKu2";
+    private String id_group;
     private String id_center;
     SharedPreferences sp;
-    ArrayList<Group> groups;
     Spinner spinner;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_student);
         mAuth = FirebaseAuth.getInstance();
-
-        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
-
-        if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
-            sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
-            id_center = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
-
-        } else {
-            id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
 
 
-        }
+        id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
+        id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+
+
         spinner = findViewById(R.id.addNewStudent_sp);
-        groups = new ArrayList<>();
 
-        ArrayAdapter<Group> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, groups);
-        spinner.setAdapter(dataAdapter);
-
-        //        center_name = mAuth.getCurrentUser().getUid();
         tv_Add = findViewById(R.id.AddNewStudent_tv_AddStudent);
         et_studentName = findViewById(R.id.AddNewStudent_et_StudentName);
         et_studentId = findViewById(R.id.AddNewStudent_et_StudentId);
@@ -192,30 +178,5 @@ public class AddNewStudent extends AppCompatActivity {
 
     }
 
-    public void getGroups(final String id_center) {
-
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    String id_group = c.getKey();
-                    String name_group = c.getValue(Group_Info.class).getGroup_name();
-                    groups.add(new Group(id_group, name_group));
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-    }//جلب البيانات
 
 }

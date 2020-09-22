@@ -21,7 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class TeacherLogin extends AppCompatActivity {
-    private static final String INFO_TEACHER = "info_tet";
+    public static final String INFO_TEACHER = "info_tet";
+    public static final String ID_LOGIN_TEACHER = "tet_id";
+    public static final String ID_LOGIN_TEC_CENTER = "tet_log_center_id";
     TextView tv_Login, tv_iDontHaveAnAccount, tv_NewAccount;
     EditText et_Email, et_password;
     Button btn_Login;
@@ -92,14 +94,10 @@ public class TeacherLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            editor.putString("id_tet", user.getUid() + "");
+                            editor.putString(ID_LOGIN_TEACHER, user.getUid());
+                            editor.putString(ID_LOGIN_TEC_CENTER, user.getDisplayName());
 
                             editor.apply();
-//                            try {
-//                                Thread.sleep(300);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
                         } else {
                             Toast.makeText(TeacherLogin.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
