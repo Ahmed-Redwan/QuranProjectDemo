@@ -41,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="إسم الحلقة"
-                android:maxLength="15"
                 android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
@@ -88,6 +87,7 @@
                 android:gravity="center"
                 android:hint="الايميل"
                 android:maxLines="1"
+                android:inputType="textEmailAddress"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
@@ -101,7 +101,8 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/AddNewGroup_et_TeacherPassword"
@@ -109,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="كلمة المرور"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
@@ -133,6 +135,7 @@
                 android:gravity="center"
                 android:hint="الجوال"
                 android:maxLines="1"
+                android:inputType="phone"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"

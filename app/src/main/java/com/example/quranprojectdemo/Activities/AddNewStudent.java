@@ -98,6 +98,17 @@ public class AddNewStudent extends AppCompatActivity {
         btn_Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (et_studentName.getText().toString().isEmpty()||et_studentId.getText().toString().isEmpty()||et_Email.getText().toString().isEmpty()||et_Phone.getText().toString().isEmpty()||et_Grade.getText().toString().isEmpty()||et_Day.getText().toString().isEmpty()||et_Month.getText().toString().isEmpty()||et_Year.getText().toString().isEmpty()){
+                    et_Month.setError("يجب تعبئة جميع الحقول.");
+                    et_Year.setError("يجب تعبئة جميع الحقول.");
+                    et_Day.setError("يجب تعبئة جميع الحقول.");
+                    et_Phone.setError("يجب تعبئة جميع الحقول.");
+                    et_Email.setError("يجب تعبئة جميع الحقول.");
+                    et_studentId.setError("يجب تعبئة جميع الحقول.");
+                    et_studentName.setError("يجب تعبئة جميع الحقول.");
+                    et_Grade.setError("يجب تعبئة جميع الحقول.");
+                    return;
+                }
                 sign_up();
                 try {
                     Thread.sleep(2500);

@@ -129,10 +129,11 @@ public class QuranCenter_Reg extends AppCompatActivity {
                 } else if (et_Password.getText().toString().isEmpty()) {
                     et_Password.setError("Password is required.");
                     return;
-                } else if (et_Password.getText().toString().length() < 8) {
-                    et_Password.setError("Password must be more than 8 charachter.");
+                } else if (et_Password.getText().toString().length() < 7) {
+                    et_Password.setError("Password must be more than 7 charachter.");
                     return;
                 }
+
                 ++count;
                 id = 20200000 + count;
 

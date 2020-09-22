@@ -50,6 +50,20 @@ public class GuardianLogin extends AppCompatActivity {
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (et_Email.getText().toString().isEmpty())
+                {
+                    et_Email.setError("يجب ادخال الايميل أو رقم الهاتف.");
+                    return;
+                }  else if (et_password.getText().toString().isEmpty())
+                {
+                    et_password.setError("يجب ادخال كلمة المرور.");
+                    return;
+                }  else if (et_password.getText().toString().length()<7)
+                {
+                    et_password.setError("يجب أن تكون كلمة المرور أكثر من 7 حروف.");
+                    return;
+                }
+
                 log_in();
 
 

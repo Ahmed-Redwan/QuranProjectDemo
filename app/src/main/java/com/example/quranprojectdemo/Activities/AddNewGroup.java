@@ -85,7 +85,14 @@ public class AddNewGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
+if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toString().isEmpty()||et_TeacherEmail.getText().toString().isEmpty()||et_TeacherPassword.getText().toString().isEmpty()||et_TeacherPhone.getText().toString().isEmpty()){
+    et_TeacherPhone.setError("يجب تعبئة جميع الحقول.");
+    et_TeacherPassword.setError("يجب تعبئة جميع الحقول.");
+    et_TeacherEmail.setError("يجب تعبئة جميع الحقول.");
+    et_TeacherName.setError("يجب تعبئة جميع الحقول.");
+    et_GroupName.setError("يجب تعبئة جميع الحقول.");
+    return;
+}
                 sign_up(et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString());
                  try {
                     Thread.sleep(1000);
