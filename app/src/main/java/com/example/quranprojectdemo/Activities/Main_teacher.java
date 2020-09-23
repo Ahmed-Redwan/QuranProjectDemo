@@ -99,6 +99,7 @@ public class Main_teacher extends AppCompatActivity {
                     tv_teacher_name.setText(val.getTeacher_name()+"");
                     tv_teacher_phone.setText(val.getPhone()+"");
                     tv_teacher_name_ring.setText(val.getGroup_name()+"");
+                    toolbar_teacher.setTitle(val.getGroup_name()+"حلقة ");
                 } catch (Exception c) {
 
                 }

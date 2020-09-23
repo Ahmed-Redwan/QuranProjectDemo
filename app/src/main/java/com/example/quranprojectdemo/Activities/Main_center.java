@@ -149,6 +149,7 @@ public class Main_center extends AppCompatActivity {
                 }
                 tv_center_count_student.setText(numStudent + "عدد طلاب المرز");
 
+
             }
 
             @Override
@@ -167,6 +168,8 @@ public class Main_center extends AppCompatActivity {
                 tv_center_name.setText(value.getcenterName() + "مركز :  : ");
                 tv_center_name_maneger.setText(value.getmanagerName() + "مدير المركز : ");
                 tv_center_phone.setText(value.getPhone() + "هاتف : ");
+                toolbar_center.setTitle(value.getcenterName()+" مركز ");
+
 
                 Toast.makeText(getApplicationContext(), value.getcenterName(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG", "Value is: " + value);

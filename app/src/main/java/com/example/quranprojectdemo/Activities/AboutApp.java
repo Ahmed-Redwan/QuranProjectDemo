@@ -2,6 +2,7 @@ package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quranprojectdemo.R;
+
+import static android.Manifest.permission.CALL_PHONE;
 
 public class AboutApp extends AppCompatActivity {
     TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10;
@@ -61,6 +64,8 @@ public class AboutApp extends AppCompatActivity {
         TextView_EditFont(tv9, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv10, "Hacen_Tunisia.ttf");
 
+        checkPermission("",1);
+
 
         call1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +73,7 @@ public class AboutApp extends AppCompatActivity {
                 make_A_Call("+970593270727");
             }
         });
-       call2.setOnClickListener(new View.OnClickListener() {
+        call2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 make_A_Call("+97059");
@@ -162,5 +167,28 @@ public class AboutApp extends AppCompatActivity {
         Uri uriUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
+    }
+
+
+    // Function to check and request permission
+    public void checkPermission(String permission, int requestCode) {
+
+        // Checking if permission is not granted
+        if (ContextCompat.checkSelfPermission(
+                AboutApp.this,
+                permission)
+                == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat
+                    .requestPermissions(
+                            AboutApp.this,
+                            new String[]{CALL_PHONE},
+                            requestCode);
+        } else {
+            Toast
+                    .makeText(AboutApp.this,
+                            "Permission already granted",
+                            Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 }

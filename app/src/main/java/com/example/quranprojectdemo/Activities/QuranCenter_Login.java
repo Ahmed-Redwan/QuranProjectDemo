@@ -122,8 +122,11 @@ public class QuranCenter_Login extends AppCompatActivity {
                             startActivity(new Intent(getBaseContext(), Main_center.class));
 
                         } else {
+                            et_Email.setError("تأكد من الإيميل و كلمة المرور.");
+                            et_password.setError("تأكد من الإيميل و كلمة المرور.");
                             Toast.makeText(QuranCenter_Login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
