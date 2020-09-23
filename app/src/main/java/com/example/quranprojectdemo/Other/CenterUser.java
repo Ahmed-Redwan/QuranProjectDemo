@@ -11,7 +11,8 @@ public class CenterUser {
     private String password;
     private int id;
 
-    public CenterUser(String centerName, String managerName, String phone, String email, String country, String city, String address, String password,int id) {
+    public CenterUser(String centerName, String managerName, String phone,
+                      String email, String country, String city, String address, String password,int id) {
         this.centerName = centerName;
         this.managerName = managerName;
         this.phone = phone;

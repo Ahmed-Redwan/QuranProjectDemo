@@ -2,6 +2,7 @@ package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
+
 //asd
 public class Add_a_new_save extends AppCompatActivity {
     //jhklhkljh
@@ -28,25 +31,29 @@ public class Add_a_new_save extends AppCompatActivity {
     android.widget.Spinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
     android.widget.Spinner spinner_select_student;
     Button btn_addSave;
-    private EditText et_numOfSavePages,et_numOfRevPages;
+    private EditText et_numOfSavePages, et_numOfRevPages;
     private String id_center;
-    private String id_student;
+    private String id_student="Hunrz1JDBLMBK1fvWGCvbPL8ID93";
     private String id_group;
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
 
-        et_numOfRevPages=findViewById(R.id.student_add_new_save_et_numOfSavePages);
-        et_numOfRevPages=findViewById(R.id.student_add_new_save_et_numOfSavePages);
+        et_numOfRevPages = findViewById(R.id.student_add_new_save_et_numOfSavePages);
+        et_numOfRevPages = findViewById(R.id.student_add_new_save_et_numOfSavePages);
+        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
+
+        id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
+        id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
 
-
-        mAuth = FirebaseAuth.getInstance();
-        id_center = mAuth.getCurrentUser().getDisplayName();
-        id_group = mAuth.getCurrentUser().getUid();
+//        mAuth = FirebaseAuth.getInstance();
+//        id_center = mAuth.getCurrentUser().getDisplayName();
+//        id_group = mAuth.getCurrentUser().getUid();
 //        name_group = mAuth.getCurrentUser().getPhotoUrl().toString();
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
@@ -133,11 +140,11 @@ public class Add_a_new_save extends AppCompatActivity {
         btn_addSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (et_numOfRevPages.getText().toString().isEmpty()||et_numOfSavePages.getText().toString().isEmpty()){
-                    et_numOfSavePages.setError("يجب إدخال عدد صفحات الحفظ.");
-                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
-                    return;
-                }
+//                if (et_numOfRevPages.getText().toString().isEmpty() || et_numOfSavePages.getText().toString().isEmpty()) {
+//                    et_numOfSavePages.setError("يجب إدخال عدد صفحات الحفظ.");
+//                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
+//                    return;
+//                }
                 insert_new_save(id_student, id_group, id_center);
 
 

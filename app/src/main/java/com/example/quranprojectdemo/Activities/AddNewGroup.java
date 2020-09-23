@@ -139,7 +139,7 @@ if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toStri
                                     et_TeacherName.getText().toString());
                             Toast.makeText(AddNewGroup.this, id_center,
                                     Toast.LENGTH_SHORT).show();
-                            FirebaseAuth.getInstance().signOut();
+//                            FirebaseAuth.getInstance().signOut();
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());

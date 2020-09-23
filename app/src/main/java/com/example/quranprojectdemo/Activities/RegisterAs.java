@@ -44,25 +44,25 @@ public class RegisterAs extends AppCompatActivity {
         crV_QuranCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),QuranCenter_Reg.class));
+                startActivity(new Intent(getBaseContext(), QuranCenter_Login.class));
             }
         });
         crV_Teacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),TeacherRegister.class));
+                startActivity(new Intent(getBaseContext(), TeacherLogin.class));
             }
         });
         crV_guardian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),GuardianReg.class));
+                startActivity(new Intent(getBaseContext(), GuardianLogin.class));
             }
         });
         crVAddRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),JoinRequest1.class));
+                startActivity(new Intent(getBaseContext(), JoinRequest1.class));
             }
         });
 

@@ -41,7 +41,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
     SharedPreferences sp;
 
     SharedPreferences.Editor editor;
-    String userId;
     int id;
     int count = 0;
 
@@ -99,11 +98,12 @@ public class QuranCenter_Reg extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        btn_CreateNewA.setEnabled(true);
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
+                btn_CreateNewA.setEnabled(false);
 
                 if (et_centerName.getText().toString().isEmpty()) {
                     et_centerName.setError("Center name is required.");
@@ -179,7 +179,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             editor.clear();
                             editor.apply();
                             setInRealTimeUsers(user.getUid());
-
                             //   userId=user.getUid();
 //                            editor.putString("UID_CENTER", user.getUid())
                             //         create_new_center();
@@ -187,6 +186,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(QuranCenter_Reg.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            btn_CreateNewA.setEnabled(true);
+
                         }
 
                     }

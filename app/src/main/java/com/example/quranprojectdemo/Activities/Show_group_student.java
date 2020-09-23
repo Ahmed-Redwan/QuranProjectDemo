@@ -85,7 +85,7 @@ public class Show_group_student extends AppCompatActivity {
 
     }
 
-    public void get_student_group(String id_group, String id_center) {
+    public void get_student_group(String id_group, final String id_center) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
@@ -95,20 +95,20 @@ public class Show_group_student extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     String id_student = c.getKey();
-                    ;
-                    Student_Info studentInfo = c.child("student_info").getValue(Student_Info.class);
-                    String name_student = studentInfo.getName();
+//                    Toast.makeText(getBaseContext(), id_student, Toast.LENGTH_LONG).show();
+                    if (!id_student.equals("student_save")) {
+                        Student_Info studentInfo = c.child("student_info").getValue(Student_Info.class);
 
-//                    Toast.makeText(getBaseContext(), id_student, Toast.LENGTH_SHORT).show();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                        String name_student = studentInfo.getName();
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 //                    arrayList
-                    arrayList.add(new Student_imageand_name(name_student));
-//                    Toast.makeText(getBaseContext(), name_student, Toast.LENGTH_SHORT).show();
-
+                        arrayList.add(new Student_imageand_name(name_student));
+                    }
                 }
                 Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);
                 rv.setAdapter(recycler_show_group_student);
