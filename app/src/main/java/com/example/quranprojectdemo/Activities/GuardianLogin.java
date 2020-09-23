@@ -30,6 +30,11 @@ public class GuardianLogin extends AppCompatActivity {
     SharedPreferences.Editor editor;
     boolean b = false;
     CheckBox cb_remmemberMe;
+    private CheckBox saveLoginCheckBox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,19 @@ public class GuardianLogin extends AppCompatActivity {
         btn_Login = findViewById(R.id.GuardianLogin_btn_Login);
         cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
 
-        sp=getSharedPreferences("GuaLog",MODE_PRIVATE);
-        editor=sp.edit();
+        cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
+        saveLoginCheckBox = findViewById(R.id.QuranCenterLogin_Cb_remmemberme);
+        loginPreferences = getSharedPreferences("loginPrefsGuardian", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            et_Email.setText(loginPreferences.getString("username", ""));
+            et_password.setText(loginPreferences.getString("password", ""));
+            saveLoginCheckBox.setChecked(true);
+        }
+
+
 
 
 
@@ -77,13 +93,19 @@ public class GuardianLogin extends AppCompatActivity {
 
                 log_in();
 
-             /*   if (cb_remmemberMe.isChecked()){
-                    editor.putString("Sp_Email",et_Email.getText().toString());
-                    editor.putString("Sp_password",et_Email.getText().toString());
-                    editor.apply();
-                    et_Email.setText(sp.getString("Sp_Email",""));
-                    et_Email.setText(sp.getString("Sp_password",""));
-                }*/
+
+                String username = et_Email.getText().toString();
+                String password = et_password.getText().toString();
+
+                if (saveLoginCheckBox.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.putString("username", username);
+                    loginPrefsEditor.putString("password", password);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
+                }
 
 //               finish();
             }

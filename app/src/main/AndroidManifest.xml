@@ -23,16 +23,18 @@
         <activity android:name=".Activities.GuardianReg" />
         <activity android:name=".Activities.TeacherLogin" />
         <activity android:name=".Activities.TeacherRegister" />
-        <activity android:name=".Activities.QuranCenter_Login" />
+        <activity android:name=".Activities.QuranCenter_Login" >
+
+        </activity>
         <activity android:name=".Activities.QuranCenter_Reg" />
         <activity android:name=".Activities.RegisterAs">
-        </activity>
-        <activity android:name=".Activities.SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activities.SplashScreen" >
         </activity>
         <activity android:name=".Activities.Main_center" />
         <activity android:name=".Activities.JoinRequest1" />

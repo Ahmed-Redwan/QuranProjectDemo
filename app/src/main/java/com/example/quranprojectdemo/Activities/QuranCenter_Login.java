@@ -31,6 +31,11 @@ public class QuranCenter_Login extends AppCompatActivity {
     SharedPreferences sp;
     CheckBox cb_remmemberMe;
     SharedPreferences.Editor editor;
+
+    private CheckBox saveLoginCheckBox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,16 @@ public class QuranCenter_Login extends AppCompatActivity {
         et_password = findViewById(R.id.QuranCenterLogin_et_Password);
         btn_Login = findViewById(R.id.QuranCenterLogin_btn_Login);
         cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
+        saveLoginCheckBox = findViewById(R.id.QuranCenterLogin_Cb_remmemberme);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            et_Email.setText(loginPreferences.getString("username", ""));
+            et_password.setText(loginPreferences.getString("password", ""));
+            saveLoginCheckBox.setChecked(true);
+        }
 
 
         TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
@@ -102,15 +117,24 @@ public class QuranCenter_Login extends AppCompatActivity {
 
                 log_in();
 
-            /*    if (cb_remmemberMe.isChecked()){
-                    editor.putString("Sp_Email",et_Email.getText().toString());
-                    editor.putString("Sp_password",et_Email.getText().toString());
-                    editor.apply();
-                    et_Email.setText(sp.getString("Sp_Email",""));
-                    et_Email.setText(sp.getString("Sp_password",""));
-                }*/
 
-            }
+
+
+                    String username = et_Email.getText().toString();
+                    String password = et_password.getText().toString();
+
+                    if (saveLoginCheckBox.isChecked()) {
+                        loginPrefsEditor.putBoolean("saveLogin", true);
+                        loginPrefsEditor.putString("username", username);
+                        loginPrefsEditor.putString("password", password);
+                        loginPrefsEditor.commit();
+                    } else {
+                        loginPrefsEditor.clear();
+                        loginPrefsEditor.commit();
+                    }
+
+
+                }
         });
 
     }
