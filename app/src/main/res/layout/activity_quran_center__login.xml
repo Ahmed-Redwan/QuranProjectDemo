@@ -80,6 +80,19 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تذكرني دائما"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:id="@+id/QuranCenterLogin_Cb_remmemberme"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:buttonTint="@color/colorPrimaryDark"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

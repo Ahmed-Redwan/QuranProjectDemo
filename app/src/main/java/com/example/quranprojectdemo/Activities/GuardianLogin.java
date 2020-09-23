@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +26,10 @@ public class GuardianLogin extends AppCompatActivity {
     EditText et_Email, et_password;
     Button btn_Login;
     private FirebaseAuth mAuth;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
     boolean b = false;
+    CheckBox cb_remmemberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,12 @@ public class GuardianLogin extends AppCompatActivity {
         et_Email = findViewById(R.id.GuardianLogin_et_EmailOrphone);
         et_password = findViewById(R.id.GuardianLogin_et_Password);
         btn_Login = findViewById(R.id.GuardianLogin_btn_Login);
+        cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
+
+        sp=getSharedPreferences("GuaLog",MODE_PRIVATE);
+        editor=sp.edit();
+
+
 
         TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
         TextView_EditFont(tv_NewAccount, "Hacen_Tunisia.ttf");
@@ -66,6 +77,13 @@ public class GuardianLogin extends AppCompatActivity {
 
                 log_in();
 
+             /*   if (cb_remmemberMe.isChecked()){
+                    editor.putString("Sp_Email",et_Email.getText().toString());
+                    editor.putString("Sp_password",et_Email.getText().toString());
+                    editor.apply();
+                    et_Email.setText(sp.getString("Sp_Email",""));
+                    et_Email.setText(sp.getString("Sp_password",""));
+                }*/
 
 //               finish();
             }

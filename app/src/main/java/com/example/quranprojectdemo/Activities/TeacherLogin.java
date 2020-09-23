@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class TeacherLogin extends AppCompatActivity {
     public FirebaseAuth mAuth;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    CheckBox cb_remmemberMe;
 
 
     @Override
@@ -45,6 +47,8 @@ public class TeacherLogin extends AppCompatActivity {
         et_Email = findViewById(R.id.TeacheLogin_et_EmailOrphone);
         et_password = findViewById(R.id.TeacheLogin_et_Password);
         btn_Login = findViewById(R.id.TeacheLogin_btn_Login);
+        cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
+
 
         TextView_EditFont(tv_NewAccount, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_iDontHaveAnAccount, "Hacen_Tunisia.ttf");
@@ -92,12 +96,21 @@ public class TeacherLogin extends AppCompatActivity {
                     return;
                 }
 
+
+
                 log_in();
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            /*    if (cb_remmemberMe.isChecked()){
+                    editor.putString("Sp_Email",et_Email.getText().toString());
+                    editor.putString("Sp_password",et_Email.getText().toString());
+                    editor.apply();
+                    et_Email.setText(sp.getString("Sp_Email",""));
+                    et_Email.setText(sp.getString("Sp_password",""));
+                }*/
 
 
 //                startActivity(new Intent(getBaseContext(), Main_teacher.class));
