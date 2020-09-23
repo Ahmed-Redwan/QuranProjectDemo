@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
@@ -14,15 +15,16 @@ import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Other.Student_imageand_name;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
+import java.util.HashMap;
 
 //asd
 public class Add_a_new_save extends AppCompatActivity {
@@ -33,9 +35,9 @@ public class Add_a_new_save extends AppCompatActivity {
     Button btn_addSave;
     private EditText et_numOfSavePages, et_numOfRevPages;
     private String id_center;
-    private String id_student="Hunrz1JDBLMBK1fvWGCvbPL8ID93";
+    private String id_student = "Hunrz1JDBLMBK1fvWGCvbPL8ID93";
     private String id_group;
-//    private FirebaseAuth mAuth;
+    //    private FirebaseAuth mAuth;
     SharedPreferences sp;
 
     @Override
@@ -163,6 +165,8 @@ public class Add_a_new_save extends AppCompatActivity {
         String rev = "";
 
         DatabaseReference my_student_group = my_group.child("student_group");
+
+
         DatabaseReference student = my_student_group.child(id_student);
 
 
@@ -175,7 +179,22 @@ public class Add_a_new_save extends AppCompatActivity {
         save1.setValue(new Student_data(date_day, "day", "not yet", "not yet", "not yet"));
 //  save1.setValue(new Det(2, "hello", 21, "rer", "Rer", "rer"));
 //        save1.setValue(o);
+        my_center_groups.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    String student_id = d.getKey();
+                    String student_name = d.child("student_info").getValue(Student_Info.class).getName();
 
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
