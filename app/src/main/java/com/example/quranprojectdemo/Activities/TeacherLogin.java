@@ -114,6 +114,8 @@ public class TeacherLogin extends AppCompatActivity {
 
                             editor.apply();
                         } else {
+                            et_Email.setError("تأكد من الإيميل و كلمة المرور.");
+                            et_password.setError("تأكد من الإيميل و كلمة المرور.");
                             Toast.makeText(TeacherLogin.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
