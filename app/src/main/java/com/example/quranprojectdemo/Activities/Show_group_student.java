@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -32,12 +33,21 @@ public class Show_group_student extends AppCompatActivity {
     Toolbar toolbar;
     private FirebaseAuth mAuth;
     ArrayList<Student_imageand_name> arrayList;
+    private SharedPreferences sp;
+    String id_group;
+    String id_center;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_group_student);
         mAuth = FirebaseAuth.getInstance();
+        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
+
+
+        id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
+        id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+
 
         toolbar = findViewById(R.id.StudentsList_ToolBar);
         rv = findViewById(R.id.recycler_show_group_student);
@@ -56,7 +66,6 @@ public class Show_group_student extends AppCompatActivity {
         });
         arrayList = new ArrayList<>();
 
-        get_student_group(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
 
 //        arrayList.add(new Student_imageand_name("مصطفى محمد الاسطل"));
 //        arrayList.add(new Student_imageand_name("أحمد عبد الغفور"));
@@ -66,17 +75,13 @@ public class Show_group_student extends AppCompatActivity {
 //        arrayList.add(new Student_imageand_name("معتز ماضي"));
 
 
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        get_student_group(id_group, id_center);
 
-        Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);
-        rv.setAdapter(recycler_show_group_student);
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
-        rv.setLayoutManager(lm);
 
     }
 
@@ -90,13 +95,25 @@ public class Show_group_student extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     String id_student = c.getKey();
-                    String name_student = c.getValue(Student_Info.class).getName();
+                    ;
+                    Student_Info studentInfo = c.child("student_info").getValue(Student_Info.class);
+                    String name_student = studentInfo.getName();
 
+//                    Toast.makeText(getBaseContext(), id_student, Toast.LENGTH_SHORT).show();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+//                    arrayList
                     arrayList.add(new Student_imageand_name(name_student));
 //                    Toast.makeText(getBaseContext(), name_student, Toast.LENGTH_SHORT).show();
 
                 }
-
+                Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);
+                rv.setAdapter(recycler_show_group_student);
+                RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
+                rv.setLayoutManager(lm);
 
             }
 

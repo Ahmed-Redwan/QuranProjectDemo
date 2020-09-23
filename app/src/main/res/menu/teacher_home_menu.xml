@@ -2,11 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/MenuTeacherHomeAddStudent"
+    <item android:id="@+id/MenuTeacherHomeAddNewSave"
         android:title="add new info"
         android:icon="@drawable/ic_note_add_black_24dp"
         app:showAsAction="always"
         />
+
     <item android:id="@+id/MenuTeacherHomeShowInfo"
         android:title="Students list"
         android:icon="@drawable/ic_content_paste_black_24dp"
@@ -26,5 +27,10 @@
         android:title="Exit"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
         app:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/MenuTeacherHomeAddStudent"
+        android:title="Add new student"
+        android:icon="@drawable/ic_person_add_black_24dp"
+        app:showAsAction="always"
         />
 </menu>

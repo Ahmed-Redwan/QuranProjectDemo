@@ -36,6 +36,13 @@ Button btn_Next;
         btn_Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (et_Country.getText().toString().isEmpty()){
+                    et_Country.setError("يجب ادخال الدولة");
+                    return;
+                }else if (et_City.getText().toString().isEmpty()){
+                    et_City.setError("يجب إدخال المدينة");
+                    return;
+                }
                 startActivity(new Intent(getBaseContext(),JoinRequest2.class));
                 finish();
             }

@@ -7,11 +7,7 @@
         android:icon="@drawable/ic_group_add_black_24dp"
         app:showAsAction="always"
         />
-    <item android:id="@+id/MenuCentreHomeAddStudent"
-        android:title="Add new student"
-        android:icon="@drawable/ic_person_add_black_24dp"
-        app:showAsAction="always"
-        />
+
     <item android:id="@+id/MenuCentreHomeShowInfo"
         android:title="show Groups"
         android:icon="@drawable/ic_content_paste_black_24dp"

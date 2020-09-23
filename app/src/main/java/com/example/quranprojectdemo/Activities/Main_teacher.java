@@ -50,8 +50,11 @@ public class Main_teacher extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.MenuTeacherHomeAddStudent:
+                    case R.id.MenuTeacherHomeAddNewSave:
                         startActivity(new Intent(getBaseContext(), Add_a_new_save.class));
+                        return true;
+                    case R.id.MenuTeacherHomeAddStudent:
+                        startActivity(new Intent(getBaseContext(), AddNewStudent.class));
                         return true;
                     case R.id.MenuTeacherHomeShowInfo:
                         startActivity(new Intent(getBaseContext(), Show_group_student.class));
@@ -59,6 +62,7 @@ public class Main_teacher extends AppCompatActivity {
                     case R.id.MenuTeacherHomeSettings:
                         return true;
                     case R.id.MenuTeacherHomeAbout:
+                        startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuTeacherHomeExit:
                         finish();
@@ -83,17 +87,24 @@ public class Main_teacher extends AppCompatActivity {
     public void getInfoTeacher(String id_group, String id_center) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("group_info");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             //tv_teacher_name, tv_teacher_name_ring, tv_teacher_phone, tv_teacher_count_student;
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Group_Info val = dataSnapshot.getValue(Group_Info.class);
-                val.getEmail();
-                tv_teacher_name.setText(val.getTeacher_name());
-                tv_teacher_phone.setText(val.getPhone());
-                tv_teacher_name_ring.setText(val.getGroup_name());
+                try {
+                    val.getEmail();
+                    tv_teacher_name.setText(val.getTeacher_name()+"");
+                    tv_teacher_phone.setText(val.getPhone()+"");
+                    tv_teacher_name_ring.setText(val.getGroup_name()+"");
+                } catch (Exception c) {
+
+                }
+
+//                DatabaseReference d = reference.getParent().child("st");
+
 
             }
 

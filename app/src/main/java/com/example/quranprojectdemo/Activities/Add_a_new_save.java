@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.quranprojectdemo.Other.Adabter_student_image_and_name;
 import com.example.quranprojectdemo.Other.Student_Info;
@@ -27,17 +28,26 @@ public class Add_a_new_save extends AppCompatActivity {
     android.widget.Spinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
     android.widget.Spinner spinner_select_student;
     Button btn_addSave;
-    private String name_center;
-    private String name_student;
-    private String name_group;
+    private EditText et_numOfSavePages,et_numOfRevPages;
+    private String id_center;
+    private String id_student;
+    private String id_group;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
-        mAuth = FirebaseAuth.getInstance();
 
+        et_numOfRevPages=findViewById(R.id.student_add_new_save_et_numOfSavePages);
+        et_numOfRevPages=findViewById(R.id.student_add_new_save_et_numOfSavePages);
+
+
+
+        mAuth = FirebaseAuth.getInstance();
+        id_center = mAuth.getCurrentUser().getDisplayName();
+        id_group = mAuth.getCurrentUser().getUid();
+//        name_group = mAuth.getCurrentUser().getPhotoUrl().toString();
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
         ArrayList<Student_imageand_name> student_imageand_names = new ArrayList<>();
@@ -123,10 +133,13 @@ public class Add_a_new_save extends AppCompatActivity {
         btn_addSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id_center = mAuth.getCurrentUser().getDisplayName();
-                String id_group = mAuth.getCurrentUser().getUid();
-                String id_student="";
+                if (et_numOfRevPages.getText().toString().isEmpty()||et_numOfSavePages.getText().toString().isEmpty()){
+                    et_numOfSavePages.setError("يجب إدخال عدد صفحات الحفظ.");
+                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
+                    return;
+                }
                 insert_new_save(id_student, id_group, id_center);
+
 
             }
         });

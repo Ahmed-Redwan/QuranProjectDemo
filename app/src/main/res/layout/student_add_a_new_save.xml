@@ -34,8 +34,24 @@
 
   />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_50sdp"
+    android:layout_marginEnd="@dimen/_50sdp">
 
-
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="عدد الصفحات"
+        android:textColorHint="@android:color/black"
+        android:gravity="center"
+        android:id="@+id/student_add_new_save_et_numOfSavePages"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:inputType="number"
+        />
 
     <TextView
         android:layout_width="@dimen/_60sdp"
@@ -45,9 +61,9 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        android:layout_gravity="center"
         android:layout_margin="@dimen/_12sdp"
-         />
+        />
+</LinearLayout>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
@@ -98,17 +114,38 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:layout_width="@dimen/_60sdp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="المراجعة"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/_12sdp"
-        />
+        android:layout_marginStart="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_50sdp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="عدد الصفحات"
+            android:textColorHint="@android:color/black"
+            android:id="@+id/student_add_new_save_et_numOfRevPages"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="wrap_content"
+            android:text="المراجعة"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_12sdp"
+            />
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
@@ -120,9 +157,6 @@
         android:padding="@dimen/_5sdp"
         app:cardBackgroundColor="#D1D4D6"
         >
-
-
-
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -27,14 +27,7 @@
             />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_width="match_parent"
-            android:textColorHint="@color/colorPrimary"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="@dimen/_30sdp"
@@ -51,12 +44,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="الإيميل أو رقم الهاتف"
+                android:inputType="textEmailAddress"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="@dimen/_23ssp"
-                android:maxLength="20"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
