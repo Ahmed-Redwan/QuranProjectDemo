@@ -165,6 +165,7 @@ public class Main_student extends AppCompatActivity {
                 tv_student_name_ring.setText(studentInfo.getEmail());
                 tv_student_phone.setText(studentInfo.getPhoneNo());
                 tv_student_identity.setText(studentInfo.getId_number()+"");
+                toolbar_student.setTitle(studentInfo.getName());
 
 
             }
