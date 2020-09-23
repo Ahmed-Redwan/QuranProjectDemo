@@ -29,7 +29,6 @@ public class GuardianLogin extends AppCompatActivity {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     boolean b = false;
-    CheckBox cb_remmemberMe;
     private CheckBox saveLoginCheckBox;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
@@ -47,10 +46,8 @@ public class GuardianLogin extends AppCompatActivity {
         et_Email = findViewById(R.id.GuardianLogin_et_EmailOrphone);
         et_password = findViewById(R.id.GuardianLogin_et_Password);
         btn_Login = findViewById(R.id.GuardianLogin_btn_Login);
-        cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
 
-        cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
-        saveLoginCheckBox = findViewById(R.id.QuranCenterLogin_Cb_remmemberme);
+        saveLoginCheckBox = findViewById(R.id.GuardianLogin_Cb_remmemberme);
         loginPreferences = getSharedPreferences("loginPrefsGuardian", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
 

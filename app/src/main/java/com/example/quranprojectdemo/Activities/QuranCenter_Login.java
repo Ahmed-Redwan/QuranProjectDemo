@@ -29,7 +29,6 @@ public class QuranCenter_Login extends AppCompatActivity {
     Button btn_Login;
     public  FirebaseAuth mAuth;
     SharedPreferences sp;
-    CheckBox cb_remmemberMe;
     SharedPreferences.Editor editor;
 
     private CheckBox saveLoginCheckBox;
@@ -49,7 +48,6 @@ public class QuranCenter_Login extends AppCompatActivity {
         et_Email = findViewById(R.id.QuranCenterLogin_et_EmailOrphone);
         et_password = findViewById(R.id.QuranCenterLogin_et_Password);
         btn_Login = findViewById(R.id.QuranCenterLogin_btn_Login);
-        cb_remmemberMe=findViewById(R.id.GuardianLogin_Cb_remmemberme);
         saveLoginCheckBox = findViewById(R.id.QuranCenterLogin_Cb_remmemberme);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
