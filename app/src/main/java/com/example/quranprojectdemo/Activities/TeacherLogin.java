@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,9 +75,11 @@ public class TeacherLogin extends AppCompatActivity {
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (et_Email.getText().toString().isEmpty())
-                {
-                    et_Email.setError("يجب ادخال الايميل أو رقم الهاتف.");
+
+              //  if (et_Email.getText().toString().isEmpty())
+                    if (!Patterns.EMAIL_ADDRESS.matcher(et_Email.getText().toString()).matches())
+                    {
+                    et_Email.setError("يجب ادخال الايميل ادخالا صحيحاً");
                     return;
                 }  else if (et_password.getText().toString().isEmpty())
                 {
@@ -95,8 +98,10 @@ public class TeacherLogin extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                startActivity(new Intent(getBaseContext(), Main_teacher.class));
-                finish();
+
+
+//                startActivity(new Intent(getBaseContext(), Main_teacher.class));
+//                finish();
             }
         });
     }
@@ -111,8 +116,10 @@ public class TeacherLogin extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             editor.putString(ID_LOGIN_TEACHER, user.getUid());
                             editor.putString(ID_LOGIN_TEC_CENTER, user.getDisplayName());
-
                             editor.apply();
+
+                            startActivity(new Intent(getBaseContext(), Main_teacher.class));
+
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");

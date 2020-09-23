@@ -83,7 +83,8 @@ public class AddNewGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toString().isEmpty()||et_TeacherEmail.getText().toString().isEmpty()||et_TeacherPassword.getText().toString().isEmpty()||et_TeacherPhone.getText().toString().isEmpty()){
+if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toString().isEmpty()||et_TeacherEmail.getText().toString().isEmpty()
+        ||et_TeacherPassword.getText().toString().isEmpty()||et_TeacherPhone.getText().toString().isEmpty()){
     et_TeacherPhone.setError("يجب تعبئة جميع الحقول.");
     et_TeacherPassword.setError("يجب تعبئة جميع الحقول.");
     et_TeacherEmail.setError("يجب تعبئة جميع الحقول.");
@@ -123,12 +124,14 @@ if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toStri
 
     private void sign_up(String email, String password) {
 
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+
                             updatename(user, id_center);
                             create_new_group(user.getUid(), et_GroupName.getText().toString()
                                     , id_center, et_TeacherEmail.getText().toString(),
@@ -157,8 +160,7 @@ if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toStri
                 .setDisplayName(id_center)
                 .build();
 
-        user.updateProfile(profileUpdate)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+        user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 

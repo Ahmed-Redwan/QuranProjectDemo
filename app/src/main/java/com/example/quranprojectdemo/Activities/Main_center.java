@@ -60,8 +60,6 @@ public class Main_center extends AppCompatActivity {
 
         } else {
             centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
-
-
         }
         Toast.makeText(getBaseContext(), centerId, Toast.LENGTH_SHORT).show();
 

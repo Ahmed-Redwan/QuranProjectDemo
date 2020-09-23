@@ -91,7 +91,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                 {
                     et_password.setError("يجب ادخال كلمة المرور.");
                     return;
-                }  else if (et_password.getText().toString().length()<7)
+                }  else if (et_password.getText().toString().length()<5)
                 {
                     et_password.setError("يجب أن تكون كلمة المرور أكثر من 7 حروف.");
                     return;

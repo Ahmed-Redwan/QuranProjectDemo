@@ -100,15 +100,15 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
                     String name_group = info_group.getValue(Group_Info.class).getGroup_name();
                     String name_tech = info_group.getValue(Group_Info.class).getTeacher_name();
                     data.add(new Group(R.drawable.arabian, name_group, name_tech));
-
                     final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data);
 
                     rv_List.setHasFixedSize(true);
                     rv_List.setAdapter(customGroupRecyclerView);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
                     rv_List.setLayoutManager(layoutManager);
-                }
 
+
+                }
 
             }
 
