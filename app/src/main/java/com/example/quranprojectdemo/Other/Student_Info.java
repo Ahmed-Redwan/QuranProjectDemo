@@ -7,6 +7,20 @@ public class Student_Info {
     private String email;
     private String academic_level;
     private String birth_date;
+    private String id_Student;
+
+    public String getId_Student() {
+        return id_Student;
+    }
+
+    public void setId_Student(String id_Student) {
+        this.id_Student = id_Student;
+    }
+
+    public Student_Info(String name, String id_Student) {
+        this.name = name;
+        this.id_Student = id_Student;
+    }
 
     public Student_Info(String name) {
         this.name = name;

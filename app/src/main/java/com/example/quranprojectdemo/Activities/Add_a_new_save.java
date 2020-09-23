@@ -37,8 +37,8 @@ public class Add_a_new_save extends AppCompatActivity {
     private String id_center;
     private String id_student = "Hunrz1JDBLMBK1fvWGCvbPL8ID93";
     private String id_group;
-    //    private FirebaseAuth mAuth;
     SharedPreferences sp;
+    ArrayList<Student_Info> infoArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +59,14 @@ public class Add_a_new_save extends AppCompatActivity {
 //        name_group = mAuth.getCurrentUser().getPhotoUrl().toString();
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
-        ArrayList<Student_imageand_name> student_imageand_names = new ArrayList<>();
-        student_imageand_names.add(new Student_imageand_name("ahmed mohammed"));
-        student_imageand_names.add(new Student_imageand_name("ali"));
-        student_imageand_names.add(new Student_imageand_name(" mohammed"));
+//        ArrayList<Student_imageand_name> student_imageand_names = new ArrayList<>();
+//        student_imageand_names.add(new Student_imageand_name("ahmed mohammed"));
+//        student_imageand_names.add(new Student_imageand_name("ali"));
+//        student_imageand_names.add(new Student_imageand_name(" mohammed"));
 
 
         Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(this,
-                R.layout.student_recycler_image_and_name, student_imageand_names);
+                R.layout.student_recycler_image_and_name, infoArrayList);
 
         spinner_select_student.setAdapter(adabter);
 
@@ -155,7 +155,7 @@ public class Add_a_new_save extends AppCompatActivity {
         super.onStart();
     }
 
-    public void insert_new_save(String id_student, String id_groub, String id_center) {
+    public void insert_new_save(final String id_student, String id_groub, String id_center) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference my_center = reference.child(id_center);//already found
@@ -185,7 +185,7 @@ public class Add_a_new_save extends AppCompatActivity {
                 for (DataSnapshot d : snapshot.getChildren()) {
                     String student_id = d.getKey();
                     String student_name = d.child("student_info").getValue(Student_Info.class).getName();
-
+                    infoArrayList.add(new Student_Info(student_name, student_id));
 
                 }
             }

@@ -17,10 +17,10 @@ public class Adabter_student_image_and_name extends BaseAdapter {
 
     Context context;
     int resourse;
-    ArrayList<Student_imageand_name> student_imageand_names;
+    ArrayList<Student_Info> student_imageand_names;
 
 
-    public Adabter_student_image_and_name(Context context, int resourse, ArrayList<Student_imageand_name> student_imageand_names) {
+    public Adabter_student_image_and_name(Context context, int resourse, ArrayList<Student_Info> student_imageand_names) {
         this.context = context;
         this.resourse = resourse;
         this.student_imageand_names = student_imageand_names;
@@ -32,7 +32,7 @@ public class Adabter_student_image_and_name extends BaseAdapter {
     }
 
     @Override
-    public Student_imageand_name getItem(int position) {
+    public Student_Info getItem(int position) {
         return student_imageand_names.get(position);
     }
 
@@ -53,11 +53,11 @@ public class Adabter_student_image_and_name extends BaseAdapter {
         TextView tv_name = view.findViewById(R.id.student_recycler_image_and_name_n);
         ImageView image = view.findViewById(R.id.student_recycler_image_and_name_iv);
 
-        Student_imageand_name studentImageandName = getItem(position);
+        Student_Info studentImageandName = getItem(position);
 
         tv_name.setText(studentImageandName.getName());
-        if (studentImageandName.getImage() != null)
-            image.setImageURI(Uri.parse(studentImageandName.getImage()));
+//        if (studentImageandName.getImage() != null)
+//            image.setImageURI(Uri.parse(studentImageandName.getImage()));
 
         return view;
     }
