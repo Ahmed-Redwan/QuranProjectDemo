@@ -21,15 +21,15 @@
         <activity android:name=".Activities.AddNewGroup" />
         <activity android:name=".Activities.Main_student" />
         <activity android:name=".Activities.Main_teacher" />
-        <activity android:name=".Activities.GuardianLogin" />
+        <activity android:name=".Activities.GuardianLogin" >   <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
         <activity android:name=".Activities.GuardianReg" />
         <activity android:name=".Activities.TeacherLogin" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activities.TeacherRegister" />
         <activity android:name=".Activities.QuranCenter_Login" >

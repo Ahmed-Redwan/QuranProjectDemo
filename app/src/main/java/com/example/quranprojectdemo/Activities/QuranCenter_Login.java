@@ -22,12 +22,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class QuranCenter_Login extends AppCompatActivity {
-    public static final String ID_CENTER_LOGIN ="id_center_log" ;
-    public static final String INFO_CENTER_LOGIN ="Info_center" ;
+    public static final String ID_CENTER_LOGIN = "id_center_log";
+    public static final String INFO_CENTER_LOGIN = "Info_center";
     TextView tv_Login, tv_iDontHaveAnAccount, tv_NewAccount;
     EditText et_Email, et_password;
     Button btn_Login;
-    public  FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -35,6 +35,7 @@ public class QuranCenter_Login extends AppCompatActivity {
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,6 @@ public class QuranCenter_Login extends AppCompatActivity {
         EditText_EditFont(et_password, "Hacen_Tunisia.ttf");
 
 
-
         tv_NewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,16 +99,13 @@ public class QuranCenter_Login extends AppCompatActivity {
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (et_Email.getText().toString().isEmpty())
-                {
+                if (et_Email.getText().toString().isEmpty()) {
                     et_Email.setError("يجب ادخال الايميل أو رقم الهاتف.");
                     return;
-                }  else if (et_password.getText().toString().isEmpty())
-                {
+                } else if (et_password.getText().toString().isEmpty()) {
                     et_password.setError("يجب ادخال كلمة المرور.");
                     return;
-                }  else if (et_password.getText().toString().length()<5)
-                {
+                } else if (et_password.getText().toString().length() < 5) {
                     et_password.setError("يجب أن تكون كلمة المرور أكثر من 7 حروف.");
                     return;
                 }
@@ -116,23 +113,21 @@ public class QuranCenter_Login extends AppCompatActivity {
                 log_in();
 
 
+                String username = et_Email.getText().toString();
+                String password = et_password.getText().toString();
 
-
-                    String username = et_Email.getText().toString();
-                    String password = et_password.getText().toString();
-
-                    if (saveLoginCheckBox.isChecked()) {
-                        loginPrefsEditor.putBoolean("saveLogin", true);
-                        loginPrefsEditor.putString("username", username);
-                        loginPrefsEditor.putString("password", password);
-                        loginPrefsEditor.commit();
-                    } else {
-                        loginPrefsEditor.clear();
-                        loginPrefsEditor.commit();
-                    }
-
-
+                if (saveLoginCheckBox.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.putString("username", username);
+                    loginPrefsEditor.putString("password", password);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
                 }
+
+
+            }
         });
 
     }
@@ -147,7 +142,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
                             editor = sp.edit();
-                            editor.putString(ID_CENTER_LOGIN,user.getUid());
+                            editor.putString(ID_CENTER_LOGIN, user.getUid());
                             editor.apply();
                             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
                             editor = sp.edit();

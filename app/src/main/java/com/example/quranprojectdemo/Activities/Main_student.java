@@ -2,6 +2,7 @@ package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Other.Student_data;
@@ -91,15 +93,10 @@ public class Main_student extends AppCompatActivity {
 
 
 //
-//        for (Student_data c : datass) {
-// Log.d(c.getDate__student(),c.getDay_student()+c.getAttendess_student()+c.getReview_student()+c.getSave_student());
-//        }
-//
-//        Recycler_student r_s=new Recycler_student(datass);
-//        rv.setAdapter(r_s);
-//        RecyclerView.LayoutManager lm =new LinearLayoutManager(this);
-//        rv.setHasFixedSize(true);
-//        rv.setLayoutManager(lm);
+        for (Student_data c : datass) {
+         }
+
+
 
       /*  TextView_EditFont(tv_attendess,"Hacen_Tunisia.ttf");
         TextView_EditFont(tv_date,"Hacen_Tunisia.ttf");
@@ -142,6 +139,11 @@ public class Main_student extends AppCompatActivity {
                         student_data.add(d);
                     }
                 }
+                Recycler_student r_s=new Recycler_student(student_data);
+                rv.setAdapter(r_s);
+                RecyclerView.LayoutManager lm =new LinearLayoutManager(getBaseContext());
+                rv.setHasFixedSize(true);
+                rv.setLayoutManager(lm);
 
 
             }

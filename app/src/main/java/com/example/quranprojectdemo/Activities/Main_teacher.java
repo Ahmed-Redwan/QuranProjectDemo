@@ -85,7 +85,6 @@ public class Main_teacher extends AppCompatActivity {
     }
 
     public void getInfoTeacher(String id_group, String id_center) {
-
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("group_info");
