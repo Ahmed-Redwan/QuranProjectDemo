@@ -128,7 +128,6 @@ public class Main_teacher extends AppCompatActivity {
 
             }
         });
-
     }//جلب البيانات
 
 }

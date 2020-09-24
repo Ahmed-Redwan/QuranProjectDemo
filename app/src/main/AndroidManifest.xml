@@ -14,25 +14,31 @@
         </activity>
         <activity android:name=".Activities.JoinRequests" />
         <activity android:name=".Activities.StudentDetails" />
-        <activity android:name=".Activities.Add_a_new_save" />
+        <activity android:name=".Activities.Add_a_new_save" >
+
+
+        </activity>
         <activity android:name=".Activities.AddNewStudent" />
         <activity android:name=".Activities.AddNewGroup" />
         <activity android:name=".Activities.Main_student" />
         <activity android:name=".Activities.Main_teacher" />
         <activity android:name=".Activities.GuardianLogin" />
         <activity android:name=".Activities.GuardianReg" />
-        <activity android:name=".Activities.TeacherLogin" />
+        <activity android:name=".Activities.TeacherLogin" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activities.TeacherRegister" />
         <activity android:name=".Activities.QuranCenter_Login" >
 
         </activity>
         <activity android:name=".Activities.QuranCenter_Reg" />
         <activity android:name=".Activities.RegisterAs">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activities.SplashScreen" >
         </activity>

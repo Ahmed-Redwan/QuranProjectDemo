@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.Adabter_student_image_and_name;
 import com.example.quranprojectdemo.Other.Student_Info;
@@ -53,29 +54,19 @@ public class Add_a_new_save extends AppCompatActivity {
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
+        infoArrayList = new ArrayList<>();
 
 //        mAuth = FirebaseAuth.getInstance();
 //        id_center = mAuth.getCurrentUser().getDisplayName();
 //        id_group = mAuth.getCurrentUser().getUid();
 //        name_group = mAuth.getCurrentUser().getPhotoUrl().toString();
+
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
 //        ArrayList<Student_imageand_name> student_imageand_names = new ArrayList<>();
 //        student_imageand_names.add(new Student_imageand_name("ahmed mohammed"));
 //        student_imageand_names.add(new Student_imageand_name("ali"));
 //        student_imageand_names.add(new Student_imageand_name(" mohammed"));
-
-
-        Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(this,
-                R.layout.student_recycler_image_and_name, infoArrayList);
-
-        spinner_select_student.setAdapter(adabter);
-        spinner_select_student.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                infoArrayList.get(position);
-            }
-        });
 
 
         spinner_saves = findViewById(R.id.spinner_save);
@@ -141,23 +132,24 @@ public class Add_a_new_save extends AppCompatActivity {
         ArrayAdapter<String> adapter_review_to = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, review_to);
         spinner_reviews_too.setAdapter(adapter_review_to);
 
-        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
 
     }
 
     @Override
     protected void onStart() {
+        super.onStart();
         btn_addSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +163,23 @@ public class Add_a_new_save extends AppCompatActivity {
 
             }
         });
-        super.onStart();
+
+        show_spinner();
+        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(Add_a_new_save.this, infoArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                id_student = infoArrayList.get(position).getId_Student();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
     }
 
     public void insert_new_save(final String id_student, String id_groub, String id_center) {
@@ -195,16 +203,69 @@ public class Add_a_new_save extends AppCompatActivity {
         String date_day = formatter.format(date);
 
         DatabaseReference save1 = student_save.child(date_day);
-        save1.setValue(new Student_data(date_day, "day", "not yet", "not yet", "not yet"));
-        my_center_groups.addValueEventListener(new ValueEventListener() {
+
+
+        save1.setValue(new Student_data(date_day, getDay(), "save_student", "review_student",
+                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
+                Double.parseDouble(et_numOfRevPages.getText().toString())));
+
+
+//        my_student_group.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot d : snapshot.getChildren()) {
+//                    String student_id = d.getKey();
+//                    String student_name = d.child("student_group").getValue(Student_Info.class).getName();
+//                    infoArrayList.add(new Student_Info(student_name, student_id, null));
+//
+//                }
+//                Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(getApplicationContext(),
+//                        R.layout.student_recycler_image_and_name, infoArrayList);
+//
+//                spinner_select_student.setAdapter(adabter);
+////                spinner_select_student.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////                    @Override
+////                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////
+////
+////                        infoArrayList.get(position);
+////                    }
+////                });
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+    }
+
+    public void show_spinner() {
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+        DatabaseReference my_center = reference.child(id_center);//already found
+        DatabaseReference my_center_groups = my_center.child("groups");//already found or not
+        DatabaseReference my_group = my_center_groups.child(id_group);// add new group
+        DatabaseReference my_student_group = my_group.child("student_group");
+        DatabaseReference student = my_student_group.child(id_student);
+
+        my_student_group.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot d : snapshot.getChildren()) {
                     String student_id = d.getKey();
+
                     String student_name = d.child("student_info").getValue(Student_Info.class).getName();
                     infoArrayList.add(new Student_Info(student_name, student_id, null));
 
                 }
+                Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(getApplicationContext(),
+                        R.layout.student_recycler_image_and_name, infoArrayList);
+
+                spinner_select_student.setAdapter(adabter);
+
             }
 
             @Override
@@ -213,7 +274,38 @@ public class Add_a_new_save extends AppCompatActivity {
             }
         });
 
+
     }
 
 
+    private String getDay() {
+        Date date = new Date();
+        date.getDay();
+        String day = "";
+        System.out.println(date.getDay());
+        switch (date.getDay()) {
+            case 0:
+                day = "الاحد";
+                break;
+            case 1:
+                day = "الاثنين";
+                break;
+            case 2:
+                day = "الثلاثاء";
+                break;
+            case 3:
+                day = "الاربعاء";
+                break;
+            case 4:
+                day = "الخميس";
+                break;
+            case 5:
+                day = "الجمعة";
+                break;
+            case 6:
+                day = "السبت";
+                break;
+        }
+        return day;
+    }
 }

@@ -138,7 +138,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
                 id = 20200000 + count;
 
 
-                centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(), et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
+                centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
+                        et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
                         , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(),mAuth.getUid());
 
 //                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
