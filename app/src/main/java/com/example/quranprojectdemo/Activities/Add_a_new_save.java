@@ -50,6 +50,16 @@ public class Add_a_new_save extends AppCompatActivity {
 
     ArrayAdapter<String> adapter_save_to;
 
+    String text_save;
+    String text_save_from;
+    String text_save_to;
+    String save_all;
+
+    String text_review;
+    String text_review_from;
+    String text_review_to;
+    String review_all;
+
     boolean check_show_spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -331,16 +341,37 @@ public class Add_a_new_save extends AppCompatActivity {
         spinner_saves.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ArrayList<String> save_from = new ArrayList<>();
-                ArrayList<String> save_to = new ArrayList<>();
+                final ArrayList<String> save_from = new ArrayList<>();
+                final ArrayList<String> save_to = new ArrayList<>();
+               text_save=  soras.get(i).getName_sora();
+
                 for (int j=1;j<=soras.get(i).getNumber_auah();j++) {
                     save_from.add(j + "");
                     save_to.add(j + "");
                 }
                 adapter_save_from = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_from);
                 spinner_save_from.setAdapter(adapter_save_from);
+
+                spinner_save_from.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                   text_save_from= String.valueOf(save_from.get(position));
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
                 adapter_save_to = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_to);
                 spinner_save_too.setAdapter(adapter_save_to);
+                spinner_save_too.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        text_save_to= String.valueOf(save_to.get(position));
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
 
             }
 
@@ -355,16 +386,49 @@ public class Add_a_new_save extends AppCompatActivity {
         spinner_reviews.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ArrayList<String> review_from = new ArrayList<>();
-                ArrayList<String> review_to = new ArrayList<>();
+                final ArrayList<String> review_from = new ArrayList<>();
+                final ArrayList<String> review_to = new ArrayList<>();
+                text_review=  soras.get(i).getName_sora();
+                Toast.makeText(Add_a_new_save.this,soras.get(i).getName_sora(), Toast.LENGTH_SHORT).show();
+
+
                 for (int j=1;j<=soras.get(i).getNumber_auah();j++) {
                     review_from.add(j + "");
                     review_to.add(j + "");
                 }
                 ArrayAdapter adapteReviewfrom = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, review_from);
                 spinner_reviews_from.setAdapter(adapteReviewfrom);
+
+                spinner_reviews_from.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        text_review_from= String.valueOf(review_from.get(position));
+                Toast.makeText(Add_a_new_save.this, String.valueOf(review_from.get(position)), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
                 ArrayAdapter adapter_reviews_to = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, review_to);
                 spinner_reviews_too.setAdapter(adapter_reviews_to);
+
+                spinner_reviews_too.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        text_review_to= String.valueOf(review_to.get(position));
+
+                        Toast.makeText(Add_a_new_save.this, String.valueOf(review_to.get(position)), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override
@@ -372,8 +436,6 @@ public class Add_a_new_save extends AppCompatActivity {
 
             }
         });
-
-
 
 
 
@@ -398,6 +460,9 @@ public class Add_a_new_save extends AppCompatActivity {
                 }
                 else {
                     insert_new_save(id_student, id_group, id_center);
+
+
+
                 }
 
             }
@@ -442,9 +507,10 @@ public class Add_a_new_save extends AppCompatActivity {
         String date_day = formatter.format(date);
 
         DatabaseReference save1 = student_save.child(date_day);
+        save_all=  "السورة  "+ text_save+   " من  "  +text_save_from   + " الى    "+text_save_to;
+        review_all="السورة  "+ text_review+ " من  " +text_review_from   +" الى    "+text_review_to;
 
-
-        save1.setValue(new Student_data(date_day, getDay(), "save_student", "review_student",
+        save1.setValue(new Student_data(date_day, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString())));
 
