@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,7 +45,11 @@ public class Add_a_new_save extends AppCompatActivity {
     ArrayList<Student_Info> infoArrayList;
     ArrayList<Sora> soras;
     ArrayList<String> sorasName;
-
+    ArrayList<String> save = new ArrayList<>();
+    ArrayList<String> save_from;
+    ArrayAdapter<String> adapter_save_from;
+    ArrayList<String> save_to;
+    ArrayAdapter<String> adapter_save_to;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,6 +179,123 @@ public class Add_a_new_save extends AppCompatActivity {
         soras.add(new Sora("الناس", 6));
 
 
+        sorasName = new ArrayList<>();
+        sorasName.add("الفاتحة");
+        sorasName.add("البقرة");
+        sorasName.add("آل عمران");
+        sorasName.add("النساء");
+        sorasName.add("المائدة");
+        sorasName.add("الأنعام");
+        sorasName.add("الأعراف");
+        sorasName.add("الأنفال");
+        sorasName.add("التوبة");
+        sorasName.add("يونس");
+        sorasName.add("هود");
+        sorasName.add("يوسف");
+        sorasName.add("الرعد");
+        sorasName.add("إبراهيم");
+        sorasName.add("الحجر");
+        sorasName.add("النحل");
+        sorasName.add("الإسراء");
+        sorasName.add("الكهف");
+        sorasName.add("مريم");
+        sorasName.add("طه");
+        sorasName.add("الأنبياء");
+        sorasName.add("الحج");
+        sorasName.add("المؤمنون");
+        sorasName.add("النور");
+        sorasName.add("الفرقان");
+        sorasName.add("الشعراء");
+        sorasName.add("النمل");
+        sorasName.add("القصص");
+        sorasName.add("العنكبوت");
+        sorasName.add("الروم");
+        sorasName.add("لقمان");
+        sorasName.add("السجدة");
+        sorasName.add("الأحزاب");
+        sorasName.add("سبأ");
+        sorasName.add("فاطر");
+        sorasName.add("يس");
+        sorasName.add("الصافات");
+        sorasName.add("ص");
+        sorasName.add("الزمر");
+        sorasName.add("غافر");
+        sorasName.add("فصلت");
+        sorasName.add("الشورى");
+        sorasName.add("الزخرف");
+        sorasName.add("الدخان");
+        sorasName.add("الجاثية");
+        sorasName.add("الأحقاف");
+        sorasName.add("محمد");
+        sorasName.add("الفتح");
+        sorasName.add("الحجرات");
+        sorasName.add("ق");
+        sorasName.add("الذاريات");
+        sorasName.add("الطور");
+        sorasName.add("النحم");
+        sorasName.add("القمر");
+        sorasName.add("الرحمن");
+        sorasName.add("الواقعة");
+        sorasName.add("الحديد");
+        sorasName.add("المجادلة");
+        sorasName.add("الحشر");
+        sorasName.add("الممتحنة");
+        sorasName.add("الصف");
+        sorasName.add("الجمعة");
+        sorasName.add("المنافقون");
+        sorasName.add("التغابن");
+        sorasName.add("الطلاق");
+        sorasName.add("التحريم");
+        sorasName.add("الملك");
+        sorasName.add("القلم");
+        sorasName.add("الحاقة");
+        sorasName.add("المعارج");
+        sorasName.add("نوح");
+        sorasName.add("الجن");
+        sorasName.add("المزمل");
+        sorasName.add("المدثر");
+        sorasName.add("القيامة");
+        sorasName.add("الإنسان");
+        sorasName.add("المرسلات");
+        sorasName.add("النبأ");
+        sorasName.add("النازعات");
+        sorasName.add("عبس");
+        sorasName.add("التكوير");
+        sorasName.add("الانفطار");
+        sorasName.add("المطففين");
+        sorasName.add("الانشقاق");
+        sorasName.add("البروج");
+        sorasName.add("الطارق");
+        sorasName.add("الأعلى");
+        sorasName.add("الغاشية");
+        sorasName.add("الفجر");
+        sorasName.add("البلد");
+        sorasName.add("الشمس");
+        sorasName.add("الليل");
+        sorasName.add("الضحى");
+        sorasName.add("الشرح");
+        sorasName.add("التين");
+        sorasName.add("العلق");
+        sorasName.add("القدر");
+        sorasName.add("البينة");
+        sorasName.add("الزلزلة");
+        sorasName.add("العاديات");
+        sorasName.add("القارعة");
+        sorasName.add("التكاثر");
+        sorasName.add("العصر");
+        sorasName.add("الهمزة");
+        sorasName.add("الفيل");
+        sorasName.add("قريش");
+        sorasName.add("الماعون");
+        sorasName.add("الكوثر");
+        sorasName.add("الكافرون");
+        sorasName.add("النصر");
+        sorasName.add("المسد");
+        sorasName.add("الإخلاص");
+        sorasName.add("الفلق");
+        sorasName.add("الناس");
+
+
         infoArrayList = new ArrayList<>();
 
 //        mAuth = FirebaseAuth.getInstance();
@@ -197,72 +319,38 @@ public class Add_a_new_save extends AppCompatActivity {
         spinner_reviews_from = findViewById(R.id.spinner_review_from);
         spinner_reviews_too = findViewById(R.id.spinner_review_to);
 
-        ArrayList<String> save = new ArrayList<>();
-        save.add("السورة");
-        save.add("الفاتحة");
-        save.add("البقرة");
-        save.add("آل عمران");
-        ArrayAdapter<String> adapter_save = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save);
+
+
+
+        ArrayAdapter<String> adapter_save = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sorasName);
         spinner_saves.setAdapter(adapter_save);
 
+        spinner_saves.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                save_from = new ArrayList<>();
+                save_to = new ArrayList<>();
 
-        ArrayList<String> save_from = new ArrayList<>();
-        save_from.add("من");
-        save_from.add("2");
-        save_from.add("3");
-        save_from.add("250");
-        ArrayAdapter<String> adapter_save_from = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save_from);
-        spinner_save_from.setAdapter(adapter_save_from);
+                for (int j=1;i<=soras.get(i).getNumber_auah();i++) {
+                    save_from.add(j + "");
+                    save_to.add(j + "");
+                }
+                adapter_save_from = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_from);
+                spinner_save_from.setAdapter(adapter_save_from);
+                adapter_save_to = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_to);
+                spinner_save_too.setAdapter(adapter_save_to);
 
+            }
 
-        ArrayList<String> save_to = new ArrayList<>();
-        save_to.add("إلى");
-        save_to.add("1");
-        save_to.add("2");
-        save_to.add("3");
-        save_to.add("250");
-        ArrayAdapter<String> adapter_save_to = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save_to);
-        spinner_save_too.setAdapter(adapter_save_to);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-
-        ArrayList<String> review = new ArrayList<>();
-        review.add("السورة");
-        review.add("الفاتحة");
-        review.add("البقرة");
-        review.add("آل عمران");
-        ArrayAdapter<String> adapter_review = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save);
-        spinner_reviews.setAdapter(adapter_review);
+            }
+        });
 
 
-        ArrayList<String> review_from = new ArrayList<>();
-        review_from.add("من");
-        review_from.add("2");
-        review_from.add("3");
-        review_from.add("250");
-        ArrayAdapter<String> adapter_review_from = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, review_from);
-        spinner_reviews_from.setAdapter(adapter_review_from);
 
 
-        ArrayList<String> review_to = new ArrayList<>();
-        review_to.add("إلى");
-        review_to.add("1");
-        review_to.add("2");
-        review_to.add("3");
-        review_to.add("250");
-        ArrayAdapter<String> adapter_review_to = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, review_to);
-        spinner_reviews_too.setAdapter(adapter_review_to);
-
-//        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
 
 
     }

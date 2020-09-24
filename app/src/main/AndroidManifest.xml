@@ -15,8 +15,11 @@
         <activity android:name=".Activities.JoinRequests" />
         <activity android:name=".Activities.StudentDetails" />
         <activity android:name=".Activities.Add_a_new_save" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activities.AddNewStudent" />
         <activity android:name=".Activities.AddNewGroup" />
@@ -25,12 +28,6 @@
         <activity android:name=".Activities.GuardianLogin" />
         <activity android:name=".Activities.GuardianReg" />
         <activity android:name=".Activities.TeacherLogin" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activities.TeacherRegister" />
         <activity android:name=".Activities.QuranCenter_Login" >
