@@ -91,19 +91,20 @@ public class JoinRequest2 extends AppCompatActivity {
 
                 if (centers.size() == 0) {
                     for (DataSnapshot c : dataSnapshot.getChildren()) {
-
-                        centers.add(new Center(R.drawable.ic_masged,
+                         centers.add(new Center(R.drawable.ic_masged,
                                 c.getValue(CenterUser.class).getcenterName(),
-                                c.getValue(CenterUser.class).getPhone(), c.getValue(CenterUser.class).getId()));
+                                c.getValue(CenterUser.class).getPhone(), c.getKey()));
                         Toast.makeText(getBaseContext(),c.getValue(CenterUser.class).getId()+ "", Toast.LENGTH_SHORT).show();
+
 
                         customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
                         rv.setAdapter(customRecyclerviewCenters);
                         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
                         rv.setLayoutManager(layoutManager);
                         rv.setHasFixedSize(true);
-//
+
                     }
+
                 }
 
 

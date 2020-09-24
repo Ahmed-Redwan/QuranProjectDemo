@@ -50,7 +50,7 @@ public class Show_group_student extends AppCompatActivity {
         Intent i = getIntent();
         id_center_c = i.getStringExtra("id_center");
         id_group_c = i.getStringExtra("id_group");
-        if (id_center_c.isEmpty()) {
+        if (id_center_c == null) {
 
             id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
             id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
@@ -104,7 +104,7 @@ public class Show_group_student extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                                    arrayList.clear();
+                arrayList.clear();
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     String id_student = c.getKey();
@@ -121,7 +121,7 @@ public class Show_group_student extends AppCompatActivity {
                         }
 //                        String img_student,String name, String id_Student,String id_group,String id_cente
 //                    arrayList
-                        arrayList.add(new Student_Info(null,name_student,id_student,id_group,id_center));
+                        arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
                     }
                 }
                 Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);

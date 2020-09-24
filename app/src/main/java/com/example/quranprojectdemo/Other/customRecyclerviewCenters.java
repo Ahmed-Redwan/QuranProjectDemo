@@ -43,7 +43,10 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
 
         return view_holder;
     }
-
+public void addNewCenter(Center centers){
+            this.centers.add(centers);
+            notifyDataSetChanged();
+}
     @Override
     public void onBindViewHolder(@NonNull final customRecyclerviewCenters.View_holder holder, final int position) {
 
@@ -59,7 +62,8 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class).putExtra("CenterId",centers.get(position).getId()));
+                        view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class).putExtra
+                                ("CenterId",centers.get(position).getId()));
                     }
                 });
 
