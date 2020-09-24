@@ -34,6 +34,7 @@ public class JoinRequest3 extends AppCompatActivity {
     SharedPreferences sp;
     private FirebaseAuth mAuth;
     SharedPreferences.Editor editor;
+    String centerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class JoinRequest3 extends AppCompatActivity {
         btn_JoinRequest = findViewById(R.id.request3_btn_SendRequest);
 
         Intent getIntent=getIntent();
-        final String centerId=getIntent.getStringExtra("CenterId");
+        centerId=getIntent.getStringExtra("CenterId");
         Toast.makeText(this, centerId, Toast.LENGTH_SHORT).show();
 
 
@@ -117,7 +118,13 @@ public class JoinRequest3 extends AppCompatActivity {
         final DatabaseReference reference2 = rootNode.getReference();
 
 //int id, String name, int age, String address, String email, String phone
-        reference.child(CenterId).child("Requests").child(et_studentName.getText().toString()).setValue(new Student_Info(et_studentName.getText().toString(),CenterId,et_studentId.getText().toString(),et_Phone.getText().toString(),et_Email.getText().toString(),et_Grade.getText().toString(),et_Day.getText().toString()+"/"+et_Month.getText().toString()+"/"+et_Year.getText().toString()));
+        reference.child(CenterId).child("Requests").child(et_studentName.getText().toString()).setValue(
+                new Student_Info(centerId,et_studentName.getText().toString(),
+                        Integer.parseInt(et_studentId.getText().toString()),
+                        et_Phone.getText().toString(),
+                        et_Email.getText().toString(),
+                        et_Grade.getText().toString(),
+                        et_Day.getText().toString()+"/"+et_Month.getText().toString()+"/"+et_Year.getText().toString()));
 
         try {
             Thread.sleep(2000);

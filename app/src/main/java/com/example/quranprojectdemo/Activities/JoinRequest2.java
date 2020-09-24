@@ -95,6 +95,7 @@ public class JoinRequest2 extends AppCompatActivity {
                         centers.add(new Center(R.drawable.ic_masged,
                                 c.getValue(CenterUser.class).getcenterName(),
                                 c.getValue(CenterUser.class).getPhone(), c.getValue(CenterUser.class).getId()));
+                        Toast.makeText(getBaseContext(),c.getValue(CenterUser.class).getId()+ "", Toast.LENGTH_SHORT).show();
 
                         customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
                         rv.setAdapter(customRecyclerviewCenters);

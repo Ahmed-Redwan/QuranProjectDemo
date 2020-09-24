@@ -37,6 +37,15 @@ public class Student_Info {
         this.academic_level = academic_level;
         this.birth_date = birth_date;
     }
+    public Student_Info(String CenterId,String name, int id_number, String phoneNo, String email, String academic_level, String birth_date) {
+        this.id_center=CenterId;
+        this.name = name;
+        this.id_number = id_number;
+        this.phoneNo = phoneNo;
+        this.email = email;
+        this.academic_level = academic_level;
+        this.birth_date = birth_date;
+    }
 
     public String getImg_student() {
         return img_student;

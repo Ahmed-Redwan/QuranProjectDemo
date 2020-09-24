@@ -182,9 +182,12 @@ public class AddNewStudent extends AppCompatActivity {
         DatabaseReference new_student = student_group.child(name_student);
 
         DatabaseReference student_info = new_student.child("student_info");
-        student_info.setValue(new Student_Info(et_studentName.getText().toString(),id_center,et_studentId.getText().toString(),
+        student_info.setValue(new Student_Info(et_studentName.getText().toString(),
+                Integer.parseInt(et_studentId.getText().toString()),
                 et_Phone.getText().toString(),
-                et_Email.getText().toString(), et_Grade.getText().toString(), birth_day));
+                et_Email.getText().toString(),
+                et_Grade.getText().toString(),
+                et_Day.getText().toString()+"/"+et_Month.getText().toString()+"/"+et_Year.getText().toString()));
 
 
     }

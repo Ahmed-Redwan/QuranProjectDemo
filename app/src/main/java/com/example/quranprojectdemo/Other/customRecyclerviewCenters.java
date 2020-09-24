@@ -55,7 +55,6 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), position+ "", Toast.LENGTH_SHORT).show();
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
