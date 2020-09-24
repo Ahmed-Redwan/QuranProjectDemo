@@ -45,9 +45,9 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull customRecyclerviewCenters.View_holder holder, final int position) {
+    public void onBindViewHolder(@NonNull final customRecyclerviewCenters.View_holder holder, final int position) {
 
-        Center center=centers.get(position);
+        final Center center=centers.get(position);
 
         holder.iv.setImageResource(center.getImg());
         holder.tv_phone.setText(center.getPhone());
@@ -56,7 +56,13 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), position+ "", Toast.LENGTH_SHORT).show();
-                view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class));
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class).putExtra("CenterId",centers.get(position).getId()));
+                    }
+                });
 
             }
         });

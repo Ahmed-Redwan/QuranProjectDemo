@@ -82,14 +82,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="تذكرني دائما"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_30sdp"
             android:textSize="@dimen/_18ssp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:id="@+id/GuardianLogin_Cb_remmemberme"
             android:layout_marginTop="@dimen/_3sdp"
-            android:buttonTint="@color/colorPrimaryDark"/>
+            android:buttonTint="@color/colorPrimary"/>
 
         <Button
             android:layout_width="match_parent"

@@ -77,6 +77,7 @@ public class Add_a_new_save extends AppCompatActivity {
             }
         });
 
+
         spinner_saves = findViewById(R.id.spinner_save);
         spinner_save_from = findViewById(R.id.spinner_save_from);
         spinner_save_too = findViewById(R.id.spinner_save_to);
@@ -139,6 +140,18 @@ public class Add_a_new_save extends AppCompatActivity {
         review_to.add("250");
         ArrayAdapter<String> adapter_review_to = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, review_to);
         spinner_reviews_too.setAdapter(adapter_review_to);
+
+        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
     }

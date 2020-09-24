@@ -1,15 +1,24 @@
 package com.example.quranprojectdemo.Other;
 
 public class Center {
-
+    private String id;
     private int img;
     private String Name;
     private String phone;
 
-    public Center(int img, String name, String phone) {
+    public Center(int img, String name, String phone,String id) {
         this.img = img;
         Name = name;
         this.phone = phone;
+        this.id=id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getImg() {

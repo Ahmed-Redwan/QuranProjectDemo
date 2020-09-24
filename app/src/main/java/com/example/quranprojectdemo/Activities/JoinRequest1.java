@@ -43,7 +43,10 @@ Button btn_Next;
                     et_City.setError("يجب إدخال المدينة");
                     return;
                 }
-                startActivity(new Intent(getBaseContext(),JoinRequest2.class));
+                Intent intent=new Intent(getBaseContext(),JoinRequest2.class);
+                intent.putExtra("Country",et_Country.getText().toString());
+                intent.putExtra("City",et_City.getText().toString());
+                startActivity(intent);
                 finish();
             }
         });

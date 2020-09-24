@@ -9,10 +9,10 @@ public class CenterUser {
     private String city;
     private String address;
     private String password;
-    private int id;
+    private String id;
 
     public CenterUser(String centerName, String managerName, String phone,
-                      String email, String country, String city, String address, String password,int id) {
+                      String email, String country, String city, String address, String password,String id) {
         this.centerName = centerName;
         this.managerName = managerName;
         this.phone = phone;
@@ -92,11 +92,11 @@ public class CenterUser {
         this.password = password;
     }
 
-    public int getId() {
+    public String  getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

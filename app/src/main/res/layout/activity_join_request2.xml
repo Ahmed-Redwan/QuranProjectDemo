@@ -31,7 +31,15 @@
         android:layout_marginEnd="@dimen/_1sdp"
         android:layout_weight="1"
         tools:listitem="@layout/custom_center_item"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/request2_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"

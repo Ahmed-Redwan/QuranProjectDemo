@@ -39,7 +39,8 @@
         <activity android:name=".Activities.Main_center" />
         <activity android:name=".Activities.JoinRequest1" />
         <activity android:name=".Activities.JoinRequest2" />
-        <activity android:name=".Activities.JoinRequest3" />
+        <activity android:name=".Activities.JoinRequest3" >
+        </activity>
         <activity android:name=".Activities.Show_group_student" />
         <activity android:name=".Activities.ShowmeMorizationLoops" />
 

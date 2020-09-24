@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,11 @@ public class JoinRequest2 extends AppCompatActivity {
     RecyclerView rv;
     //
     FirebaseAuth mAuth;
-    private String country, city;
+    ArrayList<Center> centers;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String country, city;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,51 +47,62 @@ public class JoinRequest2 extends AppCompatActivity {
         setContentView(R.layout.activity_join_request2);
         mAuth = FirebaseAuth.getInstance();
         tv_ListOfCenters = findViewById(R.id.request2_tv_listOfCenters);
-        getCenters();
-//        rv = findViewById(R.id.request2_rv_listOfCenters);
-//        ArrayList<Center> centers = new ArrayList<>();
-//        centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0594114029"));
-//        centers.add(new Center(R.drawable.student, "مركز الياسين لتعليم القرآن الكريم", "0595565213"));
-//        centers.add(new Center(R.drawable.student2, "مركز أبو بكر الصديق", "059875645656"));
-//        centers.add(new Center(R.drawable.ic_masged, "مركز الحفاظ", "0594668456"));
-//        centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0595466225"));
-//
-//        customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
-//
-//        rv.setAdapter(customRecyclerviewCenters);
-//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-//        rv.setLayoutManager(layoutManager);
-//        rv.setHasFixedSize(true);
-//
-//
-//        tv_ListOfCenters.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-//
+
+        sharedPreferences = getSharedPreferences("Request_SP", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        progressBar=findViewById(R.id.request2_progressBar);
+
+        Intent getintent = getIntent();
+        country = getintent.getStringExtra("Country");
+        city = getintent.getStringExtra("City");
+
+
+        centers = new ArrayList<>();
+        //getCenters(country, city);
+        rv = findViewById(R.id.request2_rv_listOfCenters);
+
+       /* centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0594114029", "0"));
+        centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0594114029", "1"));
+        centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0594114029", "2"));
+        centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0594114029", "3"));
+*/
+
+
+        tv_ListOfCenters.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
+
 
     }
 
-    public void getCenters() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        progressBar.setVisibility(View.VISIBLE);
+        getCenters(country, city);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    public void getCenters(final String Country, final String City) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers");
+        DatabaseReference reference = rootNode.getReference("Countries").child(Country).child(City);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    DataSnapshot c1 = c.child("Center information");
 
-                    for (DataSnapshot c11 : c1.getChildren()) {
-                        if (country.equalsIgnoreCase(c11.getValue(CenterUser.class).getcountry())
-                                && city.equalsIgnoreCase(c11.getValue(CenterUser.class).getcity())
-                        ) {
-                            String id_center = c11.getKey();
-                            String name_center = c11.getValue(CenterUser.class).getcenterName();
-                            String phone_cecnter = c11.getValue(CenterUser.class).getPhone();
-                            Toast.makeText(getBaseContext(), id_center + name_center + phone_cecnter, Toast.LENGTH_LONG)
-                                    .show();
-                        }
+                if (centers.size() == 0) {
+                    for (DataSnapshot c : dataSnapshot.getChildren()) {
+
+                        centers.add(new Center(R.drawable.ic_masged,
+                                c.getValue(CenterUser.class).getcenterName(),
+                                c.getValue(CenterUser.class).getPhone(), c.getValue(CenterUser.class).getId()));
+
+                        customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
+                        rv.setAdapter(customRecyclerviewCenters);
+                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
+                        rv.setLayoutManager(layoutManager);
+                        rv.setHasFixedSize(true);
+
                     }
-
-
                 }
 
 
