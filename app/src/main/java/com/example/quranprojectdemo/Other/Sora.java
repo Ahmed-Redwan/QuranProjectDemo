@@ -1,7 +1,7 @@
 package com.example.quranprojectdemo.Other;
 
 public class Sora {
-
+//
     private String name_sora;
     private int number_auah;
 
