@@ -46,9 +46,8 @@ public class Add_a_new_save extends AppCompatActivity {
     ArrayList<Sora> soras;
     ArrayList<String> sorasName;
     ArrayList<String> save = new ArrayList<>();
-    ArrayList<String> save_from;
     ArrayAdapter<String> adapter_save_from;
-    ArrayList<String> save_to;
+
     ArrayAdapter<String> adapter_save_to;
 
     boolean check_show_spinner;
@@ -328,18 +327,20 @@ public class Add_a_new_save extends AppCompatActivity {
         spinner_saves.setAdapter(adapter_save);
 
 
-        save_from = new ArrayList<>();
-        save_to = new ArrayList<>();
+
         spinner_saves.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                for (int j=1;i<=soras.get(i).getNumber_auah();i++) {
-
-
+                ArrayList<String> save_from = new ArrayList<>();
+                ArrayList<String> save_to = new ArrayList<>();
+                for (int j=1;j<=soras.get(i).getNumber_auah();j++) {
                     save_from.add(j + "");
                     save_to.add(j + "");
                 }
+                adapter_save_from = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_from);
+                spinner_save_from.setAdapter(adapter_save_from);
+                adapter_save_to = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_to);
+                spinner_save_too.setAdapter(adapter_save_to);
 
             }
 
@@ -349,11 +350,31 @@ public class Add_a_new_save extends AppCompatActivity {
             }
         });
 
+        final ArrayAdapter<String> adapteReview = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sorasName);
+        spinner_reviews.setAdapter(adapter_save);
+        spinner_reviews.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ArrayList<String> review_from = new ArrayList<>();
+                ArrayList<String> review_to = new ArrayList<>();
+                for (int j=1;j<=soras.get(i).getNumber_auah();j++) {
+                    review_from.add(j + "");
+                    review_to.add(j + "");
+                }
+                ArrayAdapter adapteReviewfrom = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, review_from);
+                spinner_reviews_from.setAdapter(adapteReviewfrom);
+                ArrayAdapter adapter_reviews_to = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, review_to);
+                spinner_reviews_too.setAdapter(adapter_reviews_to);
+            }
 
-        adapter_save_from = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save_from);
-        spinner_save_from.setAdapter(adapter_save_from);
-        adapter_save_to = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save_to);
-        spinner_save_too.setAdapter(adapter_save_to);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
 
 
 
