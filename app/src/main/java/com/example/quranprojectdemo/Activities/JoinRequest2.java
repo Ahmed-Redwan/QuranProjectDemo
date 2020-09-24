@@ -101,7 +101,7 @@ public class JoinRequest2 extends AppCompatActivity {
                         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
                         rv.setLayoutManager(layoutManager);
                         rv.setHasFixedSize(true);
-
+//
                     }
                 }
 
