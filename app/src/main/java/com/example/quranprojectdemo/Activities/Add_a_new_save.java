@@ -325,20 +325,19 @@ public class Add_a_new_save extends AppCompatActivity {
         ArrayAdapter<String> adapter_save = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sorasName);
         spinner_saves.setAdapter(adapter_save);
 
+
+        save_from = new ArrayList<>();
+        save_to = new ArrayList<>();
         spinner_saves.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                save_from = new ArrayList<>();
-                save_to = new ArrayList<>();
 
                 for (int j=1;i<=soras.get(i).getNumber_auah();i++) {
+
+
                     save_from.add(j + "");
                     save_to.add(j + "");
                 }
-                adapter_save_from = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_from);
-                spinner_save_from.setAdapter(adapter_save_from);
-                adapter_save_to = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, save_to);
-                spinner_save_too.setAdapter(adapter_save_to);
 
             }
 
@@ -348,6 +347,11 @@ public class Add_a_new_save extends AppCompatActivity {
             }
         });
 
+
+        adapter_save_from = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save_from);
+        spinner_save_from.setAdapter(adapter_save_from);
+        adapter_save_to = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, save_to);
+        spinner_save_too.setAdapter(adapter_save_to);
 
 
 
@@ -366,14 +370,14 @@ public class Add_a_new_save extends AppCompatActivity {
 //                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
 //                    return;
 //                }
-                insert_new_save(id_student, id_group, id_center);
+          //      insert_new_save(id_student, id_group, id_center);
 
 
             }
         });
 
-        show_spinner();
-        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       // show_spinner();
+     /*   spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -385,7 +389,7 @@ public class Add_a_new_save extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
 
     }
