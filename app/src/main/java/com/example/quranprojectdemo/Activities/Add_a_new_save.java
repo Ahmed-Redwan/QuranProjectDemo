@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,7 +70,12 @@ public class Add_a_new_save extends AppCompatActivity {
                 R.layout.student_recycler_image_and_name, infoArrayList);
 
         spinner_select_student.setAdapter(adabter);
-
+        spinner_select_student.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                infoArrayList.get(position);
+            }
+        });
 
         spinner_saves = findViewById(R.id.spinner_save);
         spinner_save_from = findViewById(R.id.spinner_save_from);
@@ -177,15 +183,13 @@ public class Add_a_new_save extends AppCompatActivity {
 
         DatabaseReference save1 = student_save.child(date_day);
         save1.setValue(new Student_data(date_day, "day", "not yet", "not yet", "not yet"));
-//  save1.setValue(new Det(2, "hello", 21, "rer", "Rer", "rer"));
-//        save1.setValue(o);
         my_center_groups.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot d : snapshot.getChildren()) {
                     String student_id = d.getKey();
                     String student_name = d.child("student_info").getValue(Student_Info.class).getName();
-                    infoArrayList.add(new Student_Info(student_name, student_id));
+                    infoArrayList.add(new Student_Info(student_name, student_id, null));
 
                 }
             }

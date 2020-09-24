@@ -6,11 +6,30 @@ public class Group {
     private String TeacherName;
     private int id;
     private String id_group;
+    private String id_center;
 
-    public Group(String id_group, String groupName, String teacherName) {
+    public Group(String id_group, String groupName, String teacherName,String id_center) {
         this.id_group = id_group;
         GroupName = groupName;
         TeacherName = teacherName;
+        this.id_center=id_center;
+
+    }
+
+    public String getId_group() {
+        return id_group;
+    }
+
+    public String getId_center() {
+        return id_center;
+    }
+
+    public void setId_center(String id_center) {
+        this.id_center = id_center;
+    }
+
+    public void setId_group(String id_group) {
+        this.id_group = id_group;
     }
 
     public Group(String id_group, String groupName) {
@@ -19,10 +38,12 @@ public class Group {
 
     }
 
-    public Group(int img, String groupName, String teacherName) {
+    public Group(int img, String groupName, String teacherName,String id_group,String id_center) {
         this.img = img;
         GroupName = groupName;
         TeacherName = teacherName;
+        this.id_group=id_group;
+        this.id_center=id_center;
     }
 
 //    public Group(String groupName, String teacherName) {

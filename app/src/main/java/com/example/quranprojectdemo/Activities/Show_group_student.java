@@ -5,17 +5,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Other.Recycler_show_group_student;
-import com.example.quranprojectdemo.Other.Student_imageand_name;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,10 +31,12 @@ public class Show_group_student extends AppCompatActivity {
     TextView tv_show;
     Toolbar toolbar;
     private FirebaseAuth mAuth;
-    ArrayList<Student_imageand_name> arrayList;
+    ArrayList<Student_Info> arrayList;
     private SharedPreferences sp;
     String id_group;
     String id_center;
+    String id_group_c;
+    String id_center_c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,20 @@ public class Show_group_student extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
 
+//        i.putExtra("id_group", arrayList.get(position).getId_group());
+//        i.putExtra("id_center", arrayList.get(position).getId_center());
+        Intent i = getIntent();
+        id_center_c = i.getStringExtra("id_center");
+        id_group_c = i.getStringExtra("id_group");
+        if (id_center_c.isEmpty()) {
 
-        id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
-        id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+            id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
+            id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+        } else {
+            id_center = id_center_c;
+            id_group = id_group_c;
 
+        }
 
         toolbar = findViewById(R.id.StudentsList_ToolBar);
         rv = findViewById(R.id.recycler_show_group_student);
@@ -64,7 +75,7 @@ public class Show_group_student extends AppCompatActivity {
                 return false;
             }
         });
-        arrayList = new ArrayList<>();
+        arrayList = new ArrayList<Student_Info>();
 
 
 //        arrayList.add(new Student_imageand_name("مصطفى محمد الاسطل"));
@@ -85,7 +96,7 @@ public class Show_group_student extends AppCompatActivity {
 
     }
 
-    public void get_student_group(String id_group, final String id_center) {
+    public void get_student_group(final String id_group, final String id_center) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
@@ -94,6 +105,7 @@ public class Show_group_student extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
+                    arrayList.clear();
                     String id_student = c.getKey();
 //                    Toast.makeText(getBaseContext(), id_student, Toast.LENGTH_LONG).show();
                     if (!id_student.equals("student_save")) {
@@ -106,8 +118,9 @@ public class Show_group_student extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+//                        String img_student,String name, String id_Student,String id_group,String id_cente
 //                    arrayList
-                        arrayList.add(new Student_imageand_name(name_student));
+                        arrayList.add(new Student_Info(null,name_student,id_student,id_group,id_center));
                     }
                 }
                 Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);

@@ -36,6 +36,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     private boolean is_finsh;
     SharedPreferences sp;
     private String id_center;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
 
 
         }
-         data = new ArrayList<>();
+        data = new ArrayList<>();
 
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -85,7 +86,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     }
 
 
-    public boolean getGroups(String id_center) {
+    public boolean getGroups(final String id_center) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
@@ -94,12 +95,13 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
+//                    data.clear();
                     DataSnapshot info_group = c.child("group_info");
                     Toast.makeText(getBaseContext(), c.getKey(), Toast.LENGTH_SHORT).show();
                     String id_group = c.getKey();
                     String name_group = info_group.getValue(Group_Info.class).getGroup_name();
                     String name_tech = info_group.getValue(Group_Info.class).getTeacher_name();
-                    data.add(new Group(R.drawable.arabian, name_group, name_tech));
+                    data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group,id_center));
                     final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data);
 
                     rv_List.setHasFixedSize(true);

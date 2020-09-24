@@ -143,7 +143,7 @@ if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toStri
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(AddNewGroup.this, "Authentication failed.",
+                            Toast.makeText(AddNewGroup.this, "حدث خطا , حاول مرة اخرة",
                                     Toast.LENGTH_SHORT).show();
                         }
 

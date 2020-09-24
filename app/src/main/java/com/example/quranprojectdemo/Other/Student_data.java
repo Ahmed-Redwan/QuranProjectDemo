@@ -2,8 +2,7 @@ package com.example.quranprojectdemo.Other;
 
 public class Student_data {
 
-    String date__student
-            , day_student   ,save_student    , review_student  ,attendess_student ;
+    String date__student, day_student, save_student, review_student, attendess_student;
 
 
     public Student_data(String date__student, String day_student, String save_student, String review_student, String attendess_student) {

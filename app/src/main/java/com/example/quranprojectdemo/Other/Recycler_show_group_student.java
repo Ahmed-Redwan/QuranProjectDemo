@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_show_group_student.View_holder> {
 
 
-    ArrayList<Student_imageand_name> student_imageand_names;
+    ArrayList<Student_Info> student_imageand_names;
 
 
-    public Recycler_show_group_student(ArrayList<Student_imageand_name> student_imageand_names) {
+    public Recycler_show_group_student(ArrayList<Student_Info> student_imageand_names) {
         this.student_imageand_names = student_imageand_names;
     }
 
@@ -44,18 +44,22 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
     @Override
     public void onBindViewHolder(@NonNull final View_holder holder, final int position) {
 
-        Student_imageand_name studentImageandName = student_imageand_names.get(position);
+        Student_Info studentImageandName = student_imageand_names.get(position);
 
         holder.name.setText(studentImageandName.getName());
 
-        if (studentImageandName.getImage() != null)
-            holder.imageView.setImageURI(Uri.parse(studentImageandName.getImage()));
+        if (studentImageandName.getImg_student() != null)
+            holder.imageView.setImageURI(Uri.parse(studentImageandName.getImg_student()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
-                view.getContext().startActivity(new Intent(view.getContext(), StudentDetails.class).putExtra("name", holder.name.getText()));
+                Intent i = new Intent(view.getContext(), StudentDetails.class);
+                i.putExtra("id_center",student_imageand_names.get(position).getId_center());
+                i.putExtra("id_group",student_imageand_names.get(position).getId_group());
+                i.putExtra("id_student",student_imageand_names.get(position).getId_Student());
+                view.getContext().startActivity(i);
 
             }
         });
