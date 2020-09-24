@@ -37,7 +37,7 @@ public class Add_a_new_save extends AppCompatActivity {
     Button btn_addSave;
     private EditText et_numOfSavePages, et_numOfRevPages;
     private String id_center;
-    private String id_student = "Hunrz1JDBLMBK1fvWGCvbPL8ID93";
+    private String id_student ;
     private String id_group;
     SharedPreferences sp;
     ArrayList<Student_Info> infoArrayList;
@@ -47,8 +47,8 @@ public class Add_a_new_save extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
 
-        et_numOfRevPages = findViewById(R.id.student_add_new_save_et_numOfSavePages);
-        et_numOfRevPages = findViewById(R.id.student_add_new_save_et_numOfSavePages);
+        et_numOfSavePages = findViewById(R.id.student_add_new_save_et_numOfSavePages);
+        et_numOfRevPages = findViewById(R.id.student_add_new_save_et_numOfRevPages);
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
 
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
