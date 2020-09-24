@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.Adabter_student_image_and_name;
+import com.example.quranprojectdemo.Other.Sora;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
@@ -41,6 +42,7 @@ public class Add_a_new_save extends AppCompatActivity {
     private String id_group;
     SharedPreferences sp;
     ArrayList<Student_Info> infoArrayList;
+    ArrayList<Sora>soras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,36 @@ public class Add_a_new_save extends AppCompatActivity {
 
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+
+        soras=new ArrayList<>();
+        soras.add(new Sora("البقرة",286));
+        soras.add(new Sora("آل عمران",200));
+        soras.add(new Sora("النساء",176));
+        soras.add(new Sora("المائدة",120));
+        soras.add(new Sora("الأنعام",165));
+        soras.add(new Sora("الأعراف",206));
+        soras.add(new Sora("الأنفال",75));
+        soras.add(new Sora("التوبة",129));
+        soras.add(new Sora("يونس",109));
+        soras.add(new Sora("هود",123));
+        soras.add(new Sora("يوسف",111));
+        soras.add(new Sora("الرعد",43));
+        soras.add(new Sora("إبراهيم",52));
+        soras.add(new Sora("الحجر",99));
+        soras.add(new Sora("النحل",128));
+        soras.add(new Sora("الإسراء",111));
+        soras.add(new Sora("الكهف",110));
+        soras.add(new Sora("مريم",98));
+        soras.add(new Sora("طه",135));
+        soras.add(new Sora("الأنبياء",112));
+        soras.add(new Sora("الحج",78));
+        soras.add(new Sora("المؤمنون",118));
+        soras.add(new Sora("النور",64));
+        soras.add(new Sora("الفرقان",77));
+        soras.add(new Sora("الشعراء",227));
+        soras.add(new Sora("النمل",93));
+        soras.add(new Sora("القصص",88));
+        soras.add(new Sora("العنكبوت",69));
 
         infoArrayList = new ArrayList<>();
 

@@ -34,6 +34,7 @@ public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecycl
     }
 
 
+
     @NonNull
     @Override
     public customRecyclerviewCenters.View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
