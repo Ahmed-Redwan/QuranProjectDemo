@@ -50,6 +50,8 @@ public class Add_a_new_save extends AppCompatActivity {
     ArrayAdapter<String> adapter_save_from;
     ArrayList<String> save_to;
     ArrayAdapter<String> adapter_save_to;
+
+    boolean check_show_spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -365,19 +367,23 @@ public class Add_a_new_save extends AppCompatActivity {
         btn_addSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (et_numOfRevPages.getText().toString().isEmpty() || et_numOfSavePages.getText().toString().isEmpty()) {
-//                    et_numOfSavePages.setError("يجب إدخال عدد صفحات الحفظ.");
-//                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
-//                    return;
-//                }
-          //      insert_new_save(id_student, id_group, id_center);
-
+                if (et_numOfRevPages.getText().toString().isEmpty() || et_numOfSavePages.getText().toString().isEmpty()) {
+                    et_numOfSavePages.setError("يجب إدخال عدد صفحات الحفظ.");
+                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
+                    return;
+                }
+                if (check_show_spinner==false){
+                    Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    insert_new_save(id_student, id_group, id_center);
+                }
 
             }
         });
 
-       // show_spinner();
-     /*   spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        show_spinner();
+       spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -389,7 +395,7 @@ public class Add_a_new_save extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
 
 
     }
@@ -461,18 +467,25 @@ public class Add_a_new_save extends AppCompatActivity {
         DatabaseReference my_center_groups = my_center.child("groups");//already found or not
         DatabaseReference my_group = my_center_groups.child(id_group);// add new group
         DatabaseReference my_student_group = my_group.child("student_group");
-        DatabaseReference student = my_student_group.child(id_student);
 
         my_student_group.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                infoArrayList.clear();
+
                 for (DataSnapshot d : snapshot.getChildren()) {
                     String student_id = d.getKey();
-
                     String student_name = d.child("student_info").getValue(Student_Info.class).getName();
                     infoArrayList.add(new Student_Info(student_name, student_id, null));
-
                 }
+
+                if (infoArrayList.isEmpty()){
+                    check_show_spinner=false;
+                }
+                else {
+                    check_show_spinner=true;
+                }
+
                 Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(getApplicationContext(),
                         R.layout.student_recycler_image_and_name, infoArrayList);
 
