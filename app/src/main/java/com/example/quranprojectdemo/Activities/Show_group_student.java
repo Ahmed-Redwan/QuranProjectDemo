@@ -104,8 +104,9 @@ public class Show_group_student extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                                    arrayList.clear();
+
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    arrayList.clear();
                     String id_student = c.getKey();
 //                    Toast.makeText(getBaseContext(), id_student, Toast.LENGTH_LONG).show();
                     if (!id_student.equals("student_save")) {

@@ -93,9 +93,10 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
                 .child("groups");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {//
+                                 data.clear();
+
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-//                    data.clear();
                     DataSnapshot info_group = c.child("group_info");
                     Toast.makeText(getBaseContext(), c.getKey(), Toast.LENGTH_SHORT).show();
                     String id_group = c.getKey();
