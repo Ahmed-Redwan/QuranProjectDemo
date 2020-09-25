@@ -235,28 +235,6 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/colorPrimary"
-                        app:cardCornerRadius="@dimen/_6sdp"
-                        app:cardElevation="@dimen/_6sdp"
-                        >
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="الحضور"
-                            android:gravity="center"
-                            android:textColor="@color/color_whigt"
-                            android:textSize="@dimen/_13ssp"
-                            android:textStyle="bold"
-
-                            android:id="@+id/StudentDetails_attendess"
-                            />
-
-                    </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"

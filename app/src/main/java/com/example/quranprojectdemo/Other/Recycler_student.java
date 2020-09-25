@@ -43,7 +43,7 @@ public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View
 
         holder.tv_date.setText(student_data.getDate__student());
         holder.tv_day.setText(student_data.getDay_student());
-        holder.tv_attendess.setText(student_data.getAttendess_student());
+//        holder.tv_attendess.setText(student_data.getAttendess_student());
         holder.tv_review.setText(student_data.getReview_student());
         holder.tv_save.setText(student_data.getSave_student());
 
@@ -65,7 +65,7 @@ public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View
 
             tv_date = itemView.findViewById(R.id.student_recycler_date);
             tv_day = itemView.findViewById(R.id.student_recycler_day);
-            tv_attendess = itemView.findViewById(R.id.student_recycler_attendess);
+//            tv_attendess = itemView.findViewById(R.id.student_recycler_attendess);
             tv_review = itemView.findViewById(R.id.student_recycler_review);
             tv_save = itemView.findViewById(R.id.student_recycler_save);
 

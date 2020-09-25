@@ -114,11 +114,6 @@ public class TeacherLogin extends AppCompatActivity {
 
 
                 log_in();
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
 
                 String username = et_Email.getText().toString();

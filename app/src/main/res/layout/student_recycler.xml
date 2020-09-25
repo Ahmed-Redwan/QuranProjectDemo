@@ -1,118 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_1sdp"
-        android:layout_marginBottom="@dimen/_1sdp"
-        >
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        app:cardElevation="@dimen/_7sdp"
         app:cardCornerRadius="@dimen/_7sdp"
-        >
+        app:cardElevation="@dimen/_7sdp">
+
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-             >
+            android:orientation="horizontal">
 
 
-                <TextView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="match_parent"
-                    android:text="التاريخ"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_13ssp"
-                    android:id="@+id/student_recycler_date"
-                    />
+            <TextView
+                android:id="@+id/student_recycler_date"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+
+                android:text="التاريخ"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_10ssp" />
 
 
+            <TextView
+                android:id="@+id/student_recycler_day"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="اليوم"
 
 
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="اليوم"
-
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/_13ssp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_10ssp" />
 
 
-                        android:layout_weight="1"
-                        android:id="@+id/student_recycler_day"
-                        />
+            <TextView
+                android:id="@+id/student_recycler_review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="المراجعه"
 
 
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_10ssp" />
+
+            <TextView
+                android:id="@+id/student_recycler_save"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
 
 
+                android:gravity="center"
+                android:text="الحفظ"
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="الحضور"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_13ssp"
+                android:textColor="@color/colorPrimary"
 
-
-
-                    android:layout_weight="1"
-                    android:id="@+id/student_recycler_attendess"
-                    />
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="المراجعه"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_13ssp"
-
-
-                    android:layout_weight="1"
-                    android:id="@+id/student_recycler_review"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="الحفظ"
-                    android:gravity="center"
-
-
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_13ssp"
-
-                    android:layout_weight="1"
-
-                    android:id="@+id/student_recycler_save"
-                    />
-
+                android:textSize="@dimen/_10ssp" />
 
 
         </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
-</RelativeLayout>
-
-        </LinearLayout>
+</LinearLayout>
 
 
 
