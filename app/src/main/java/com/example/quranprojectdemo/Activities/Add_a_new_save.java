@@ -61,6 +61,7 @@ public class Add_a_new_save extends AppCompatActivity {
     String review_all;
 
     boolean check_show_spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -331,11 +332,8 @@ public class Add_a_new_save extends AppCompatActivity {
         spinner_reviews_too = findViewById(R.id.spinner_review_to);
 
 
-
-
         ArrayAdapter<String> adapter_save = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sorasName);
         spinner_saves.setAdapter(adapter_save);
-
 
 
         spinner_saves.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -343,9 +341,9 @@ public class Add_a_new_save extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 final ArrayList<String> save_from = new ArrayList<>();
                 final ArrayList<String> save_to = new ArrayList<>();
-               text_save=  soras.get(i).getName_sora();
+                text_save = soras.get(i).getName_sora();
 
-                for (int j=1;j<=soras.get(i).getNumber_auah();j++) {
+                for (int j = 1; j <= soras.get(i).getNumber_auah(); j++) {
                     save_from.add(j + "");
                     save_to.add(j + "");
                 }
@@ -355,8 +353,9 @@ public class Add_a_new_save extends AppCompatActivity {
                 spinner_save_from.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                   text_save_from= String.valueOf(save_from.get(position));
+                        text_save_from = String.valueOf(save_from.get(position));
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
@@ -366,8 +365,9 @@ public class Add_a_new_save extends AppCompatActivity {
                 spinner_save_too.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        text_save_to= String.valueOf(save_to.get(position));
+                        text_save_to = String.valueOf(save_to.get(position));
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
@@ -388,11 +388,11 @@ public class Add_a_new_save extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 final ArrayList<String> review_from = new ArrayList<>();
                 final ArrayList<String> review_to = new ArrayList<>();
-                text_review=  soras.get(i).getName_sora();
-                Toast.makeText(Add_a_new_save.this,soras.get(i).getName_sora(), Toast.LENGTH_SHORT).show();
+                text_review = soras.get(i).getName_sora();
+                Toast.makeText(Add_a_new_save.this, soras.get(i).getName_sora(), Toast.LENGTH_SHORT).show();
 
 
-                for (int j=1;j<=soras.get(i).getNumber_auah();j++) {
+                for (int j = 1; j <= soras.get(i).getNumber_auah(); j++) {
                     review_from.add(j + "");
                     review_to.add(j + "");
                 }
@@ -402,8 +402,8 @@ public class Add_a_new_save extends AppCompatActivity {
                 spinner_reviews_from.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        text_review_from= String.valueOf(review_from.get(position));
-                Toast.makeText(Add_a_new_save.this, String.valueOf(review_from.get(position)), Toast.LENGTH_SHORT).show();
+                        text_review_from = String.valueOf(review_from.get(position));
+                        Toast.makeText(Add_a_new_save.this, String.valueOf(review_from.get(position)), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -418,7 +418,7 @@ public class Add_a_new_save extends AppCompatActivity {
                 spinner_reviews_too.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        text_review_to= String.valueOf(review_to.get(position));
+                        text_review_to = String.valueOf(review_to.get(position));
 
                         Toast.makeText(Add_a_new_save.this, String.valueOf(review_to.get(position)), Toast.LENGTH_SHORT).show();
 
@@ -438,10 +438,6 @@ public class Add_a_new_save extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 
     @Override
@@ -455,12 +451,10 @@ public class Add_a_new_save extends AppCompatActivity {
                     et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
                     return;
                 }
-                if (check_show_spinner==false){
+                if (check_show_spinner == false) {
                     Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     insert_new_save(id_student, id_group, id_center);
-
 
 
                 }
@@ -469,7 +463,7 @@ public class Add_a_new_save extends AppCompatActivity {
         });
 
         show_spinner();
-       spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -492,25 +486,29 @@ public class Add_a_new_save extends AppCompatActivity {
         DatabaseReference my_center = reference.child(id_center);//already found
         DatabaseReference my_center_groups = my_center.child("groups");//already found or not
         DatabaseReference my_group = my_center_groups.child(id_groub);// add new group
-        String save = "";
-        String rev = "";
 
         DatabaseReference my_student_group = my_group.child("student_group");
+//        SimpleDateFormat yearForamt = new SimpleDateFormat("dd-MM-yyyy");
+//        SimpleDateFormat yearForamt = new SimpleDateFormat("dd-MM-yyyy");
+//        SimpleDateFormat yearForamt = new SimpleDateFormat("dd-MM-yyyy");
 
-
+        Date date = new Date();
+        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
+        String date_year = "Year : " + yearForamt.format(date);
+        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
+        String date_month = "Month : " + monthForamt.format(date);
+        SimpleDateFormat dayForamt = new SimpleDateFormat("dd");
+        String date_day = "Day : "+dayForamt.format(date);
         DatabaseReference student = my_student_group.child(id_student);
 
 
-        DatabaseReference student_save = student.child("student_save");
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String date_day = formatter.format(date);
+        DatabaseReference student_save = student.child("student_save").child(date_year).child(date_month).child(date_day);
 
-        DatabaseReference save1 = student_save.child(date_day);
-        save_all=  "السورة  "+ text_save+   " من  "  +text_save_from   + " الى    "+text_save_to;
-        review_all="السورة  "+ text_review+ " من  " +text_review_from   +" الى    "+text_review_to;
 
-        save1.setValue(new Student_data(date_day, getDay(), save_all, review_all,
+        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
+        review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
+
+        student_save.setValue(new Student_data(date_day, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString())));
 
@@ -566,11 +564,10 @@ public class Add_a_new_save extends AppCompatActivity {
                     infoArrayList.add(new Student_Info(student_name, student_id, null));
                 }
 
-                if (infoArrayList.isEmpty()){
-                    check_show_spinner=false;
-                }
-                else {
-                    check_show_spinner=true;
+                if (infoArrayList.isEmpty()) {
+                    check_show_spinner = false;
+                } else {
+                    check_show_spinner = true;
                 }
 
                 Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(getApplicationContext(),

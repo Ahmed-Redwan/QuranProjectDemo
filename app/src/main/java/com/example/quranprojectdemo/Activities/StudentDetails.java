@@ -3,6 +3,7 @@ package com.example.quranprojectdemo.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -96,41 +97,41 @@ public class StudentDetails extends AppCompatActivity {
 
     }
 
-    public void getSavesStudent(String id_center, String id_group, String id_student) {
-
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    if (!c.getKey().equals("student_info")) {
-                        Student_data d = c.getValue(Student_data.class);
-                        Toast.makeText(getBaseContext(), d.getDate__student(), Toast.LENGTH_SHORT).show();
-                        student_data.add(d);
-                    }
-                }
-
-                recycler_student = new Recycler_student(student_data);
-                RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
-                StudentDetails_recycler.setHasFixedSize(true);
-                StudentDetails_recycler.setLayoutManager(l);
-                StudentDetails_recycler.setAdapter(recycler_student);
-
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-    }//جلب البيانات
+//    public void getSavesStudent(String id_center, String id_group, String id_student) {
+//
+//        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+//                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                for (DataSnapshot c : dataSnapshot.getChildren()) {
+//                    if (!c.getKey().equals("student_info")) {
+//                        Student_data d = c.getValue(Student_data.class);
+//                        Toast.makeText(getBaseContext(), d.getDate__student(), Toast.LENGTH_SHORT).show();
+//                        student_data.add(d);
+//                    }
+//                }
+//
+//                recycler_student = new Recycler_student(student_data);
+//                RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
+//                StudentDetails_recycler.setHasFixedSize(true);
+//                StudentDetails_recycler.setLayoutManager(l);
+//                StudentDetails_recycler.setAdapter(recycler_student);
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+////                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
+//
+//    }//جلب البيانات
     public void getStudnetInfo(String id_center, String id_group, String id_student) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -152,6 +153,45 @@ public class StudentDetails extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
+            }
+        });
+
+    }//جلب البيانات
+    public void getSavesStudent(String id_center, String id_group, String id_student) {
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                student_data.clear();
+
+                for (DataSnapshot c : dataSnapshot.getChildren()) {
+                    for (DataSnapshot c1 : c.getChildren()) {
+                        for (DataSnapshot c3 : c1.getChildren()) {
+                            Student_data d = c3.getValue(Student_data.class);
+                            student_data.add(d);
+
+
+                        }
+
+                    }
+
+                }
+                recycler_student = new Recycler_student(student_data);
+                RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
+                StudentDetails_recycler.setHasFixedSize(true);
+                StudentDetails_recycler.setLayoutManager(l);
+                StudentDetails_recycler.setAdapter(recycler_student);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
 
