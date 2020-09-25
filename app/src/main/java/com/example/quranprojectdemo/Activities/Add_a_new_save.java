@@ -493,12 +493,14 @@ public class Add_a_new_save extends AppCompatActivity {
 //        SimpleDateFormat yearForamt = new SimpleDateFormat("dd-MM-yyyy");
 
         Date date = new Date();
+        SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
+        String date_now = "Year : " + Foramt_date.format(date);
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
         String date_year = "Year : " + yearForamt.format(date);
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         String date_month = "Month : " + monthForamt.format(date);
         SimpleDateFormat dayForamt = new SimpleDateFormat("dd");
-        String date_day = "Day : "+dayForamt.format(date);
+        String date_day = "Day : " + dayForamt.format(date);
         DatabaseReference student = my_student_group.child(id_student);
 
 
@@ -508,7 +510,7 @@ public class Add_a_new_save extends AppCompatActivity {
         save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
         review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
 
-        student_save.setValue(new Student_data(date_day, getDay(), save_all, review_all,
+        student_save.setValue(new Student_data(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString())));
 
