@@ -99,6 +99,7 @@ public class JoinRequest2 extends AppCompatActivity {
 
                         customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
                         rv.setAdapter(customRecyclerviewCenters);
+                        //LinearLayoutManager layoutManager=new LinearLayoutManager(getBaseContext(),LinearLayoutManager.HORIZONTAL,false);
                         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
                         rv.setLayoutManager(layoutManager);
                         rv.setHasFixedSize(true);

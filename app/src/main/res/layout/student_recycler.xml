@@ -35,11 +35,6 @@
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_13ssp"
-
-
-
-
-
                     android:id="@+id/student_recycler_date"
                     />
 

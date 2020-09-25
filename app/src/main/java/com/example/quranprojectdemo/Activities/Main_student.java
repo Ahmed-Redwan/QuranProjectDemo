@@ -131,6 +131,7 @@ public class Main_student extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                student_data.clear();
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     if (!c.getKey().equals("student_info")) {
