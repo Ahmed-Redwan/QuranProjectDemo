@@ -494,7 +494,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
         Date date = new Date();
         SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
-        String date_now = "Year : " + Foramt_date.format(date);
+        String date_now = Foramt_date.format(date);
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
         String date_year = "Year : " + yearForamt.format(date);
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
