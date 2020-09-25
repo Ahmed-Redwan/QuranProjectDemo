@@ -391,7 +391,6 @@ public class Add_a_new_save extends AppCompatActivity {
                 text_review = soras.get(i).getName_sora();
                 Toast.makeText(Add_a_new_save.this, soras.get(i).getName_sora(), Toast.LENGTH_SHORT).show();
 
-
                 for (int j = 1; j <= soras.get(i).getNumber_auah(); j++) {
                     review_from.add(j + "");
                     review_to.add(j + "");
@@ -495,12 +494,16 @@ public class Add_a_new_save extends AppCompatActivity {
         Date date = new Date();
         SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
         String date_now = Foramt_date.format(date);
+
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
         String date_year = "Year : " + yearForamt.format(date);
+
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         String date_month = "Month : " + monthForamt.format(date);
+
         SimpleDateFormat dayForamt = new SimpleDateFormat("dd");
         String date_day = "Day : " + dayForamt.format(date);
+
         DatabaseReference student = my_student_group.child(id_student);
 
 

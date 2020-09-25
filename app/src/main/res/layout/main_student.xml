@@ -171,6 +171,67 @@
 
             </androidx.cardview.widget.CardView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/_15sdp"
+                >
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/btn_choose_spinner"
+                    android:background="@color/colorAccent"
+                    android:text="اذا كنت تريد اظهار حفظك لشهر سابق\n اضغط هنا"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="#ffffff"
+
+
+                    android:layout_weight="1"
+
+                    />
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/btn_disable_spinner"
+                    android:background="@color/colorAccent"
+                    android:text="اخفاء الشهر السابق"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:id="@+id/linear_spinner"
+                >
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/spinner_choose_date_year"
+                    android:layout_weight="1"
+                    />
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/spinner_choose_date_month"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"

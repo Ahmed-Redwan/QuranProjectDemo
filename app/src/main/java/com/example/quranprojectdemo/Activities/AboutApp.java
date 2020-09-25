@@ -174,9 +174,7 @@ public class AboutApp extends AppCompatActivity {
     public void checkPermission(String permission, int requestCode) {
 
         // Checking if permission is not granted
-        if (ContextCompat.checkSelfPermission(
-                AboutApp.this,
-                permission)
+        if (ContextCompat.checkSelfPermission(AboutApp.this, permission)
                 == PackageManager.PERMISSION_DENIED) {
             ActivityCompat
                     .requestPermissions(
