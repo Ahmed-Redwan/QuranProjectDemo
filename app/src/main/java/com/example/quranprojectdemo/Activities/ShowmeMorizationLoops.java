@@ -95,7 +95,6 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                                  data.clear();
-
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     DataSnapshot info_group = c.child("group_info");
                     Toast.makeText(getBaseContext(), c.getKey(), Toast.LENGTH_SHORT).show();

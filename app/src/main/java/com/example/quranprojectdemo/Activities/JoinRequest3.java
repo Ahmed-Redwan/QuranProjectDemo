@@ -118,7 +118,7 @@ public class JoinRequest3 extends AppCompatActivity {
         final DatabaseReference reference2 = rootNode.getReference();
 
 //int id, String name, int age, String address, String email, String phone
-        reference.child(CenterId).child("Requests").child(et_studentName.getText().toString()).setValue(
+        reference.child(CenterId).child("Requests").child(et_studentId.getText().toString()).setValue(
                 new Student_Info(centerId,et_studentName.getText().toString(),
                         Integer.parseInt(et_studentId.getText().toString()),
                         et_Phone.getText().toString(),

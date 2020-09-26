@@ -3,6 +3,7 @@ package com.example.quranprojectdemo.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -39,7 +40,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     CenterUser centeruser;
     private FirebaseAuth mAuth;
     SharedPreferences sp;
-
+    ProgressDialog progressDialog;
     SharedPreferences.Editor editor;
     int id;
     int count = 0;
@@ -49,6 +50,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quran_center__reg);
         mAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(QuranCenter_Reg.this);
+
 
         et_centerName = findViewById(R.id.QuranCenter_et_CenterName);
         et_ManagerName = findViewById(R.id.QuranCenter_et_ManagerName);
@@ -66,6 +69,9 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference();
+
+
+
 
 
         EditText_EditFont(et_centerName, "Hacen_Tunisia.ttf");
@@ -87,6 +93,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         tv_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(getBaseContext(), QuranCenter_Login.class));
                 finish();
             }
@@ -98,6 +105,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         btn_CreateNewA.setEnabled(true);
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,13 +142,11 @@ public class QuranCenter_Reg extends AppCompatActivity {
                     return;
                 }
 
-                ++count;
-                id = 20200000 + count;
 
 
                 centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
                         et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
-                        , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(),mAuth.getUid());
+                        , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), mAuth.getUid());
 
 //                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
 
@@ -179,6 +185,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             editor.clear();
                             editor.apply();
                             setInRealTimeUsers(user.getUid());
+                           // progressDialog.dismiss();
                             //   userId=user.getUid();
 //                            editor.putString("UID_CENTER", user.getUid())
                             //         create_new_center();
@@ -187,6 +194,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             Toast.makeText(QuranCenter_Reg.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             btn_CreateNewA.setEnabled(true);
+                           // progressDialog.dismiss();
 
                         }
 
@@ -216,4 +224,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
         startActivity(new Intent(getBaseContext(), Main_center.class));
 
     }//اضافة بيانات
+
+
 }

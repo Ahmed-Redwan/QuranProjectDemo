@@ -9,11 +9,31 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ripple"/>
+        android:id="@+id/requests_tv_requests"
+        android:text="Join Requests"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textSize="@dimen/_25ssp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/requests_rv"
+        tools:listitem="@layout/customrecyclerrequests"
+        android:layout_weight="1"/>
+
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_background"
+    android:layout_margin="@dimen/_10sdp"
+    android:id="@+id/requests_btn_ok"
+    android:text="Ok"
+    android:textStyle="bold"
+    android:textColor="@android:color/white"
+    android:textSize="@dimen/_25ssp"/>
 </LinearLayout>

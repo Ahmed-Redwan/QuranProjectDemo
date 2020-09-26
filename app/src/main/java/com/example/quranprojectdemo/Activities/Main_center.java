@@ -78,7 +78,7 @@ public class Main_center extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), ShowmeMorizationLoops.class));
                         return true;
                     case R.id.MenuCentreHomeRequestsList:
-                        startActivity(new Intent(getBaseContext(), JoinRequests.class));
+                        startActivity(new Intent(getBaseContext(), JoinRequests.class).putExtra("CenterId",centerId));
                         return true;
                     case R.id.MenuCenterHomeExit:
                         finish();

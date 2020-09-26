@@ -24,9 +24,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingStart="5dp"
-        android:layout_marginEnd="5dp"
         android:background= "@drawable/ripple_backgeround"
-
         >
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -51,7 +49,8 @@
             android:layout_height="@dimen/_100sdp"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_toEndOf="@id/CustomGroup_iv_Image">
+            android:layout_toEndOf="@id/CustomGroup_iv_Image"
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,6 +79,5 @@
 
 </androidx.cardview.widget.CardView>
 
-    android:id="@+id/CustomGroup_iv_Image"
 
 </LinearLayout>

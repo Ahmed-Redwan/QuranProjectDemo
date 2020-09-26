@@ -39,6 +39,7 @@
             android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_30sdp"
             app:cardElevation="@dimen/_40sdp"
+            android:background="@drawable/ripple_backgeround"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="@dimen/_30sdp"
             >
