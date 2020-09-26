@@ -15,6 +15,8 @@ public class Group {
         this.id_center=id_center;
 
     }
+    public Group() {
+    }
 
     public String getId_group() {
         return id_group;

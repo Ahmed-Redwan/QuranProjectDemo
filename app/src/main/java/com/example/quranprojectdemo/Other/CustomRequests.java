@@ -8,26 +8,42 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.media.Image;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.AddNewStudent;
 import com.example.quranprojectdemo.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Holder> {
 
 
     private ArrayList<Request> requests;
     Context context;
+    Request request;
+    private FirebaseAuth mAuth;
+
+
 
     public CustomRequests(ArrayList<Request> requests, Context context) {
         this.requests = requests;
@@ -46,7 +62,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
 
     @Override
     public void onBindViewHolder(@NonNull final View_Holder holder, int position) {
-        final Request request = requests.get(position);
+        request = requests.get(position);
         holder.tv_name.setText(request.getName());
         holder.tv_date.setText(request.getBirth_date());
         holder.tv_grade.setText(request.getAcademic_level());
@@ -54,10 +70,13 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
         holder.tv_id.setText(request.getId_number());
         holder.tv_phone.setText(request.getPhoneNo());
         holder.iv_student.setImageResource(request.getImg());
+        mAuth = FirebaseAuth.getInstance();
 
         holder.tv_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sign_up();
+
 
             }
         });
@@ -79,6 +98,64 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
 
             }
         });
+
+
+    }
+    private void sign_up() {
+
+        mAuth.createUserWithEmailAndPassword(request.getEmail(), request.getPhoneNo())
+                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            create_new_student(user.getUid(), request.getGroupid(), request.getCenterid());
+                            updatename(user);
+
+                            FirebaseAuth.getInstance().signOut();
+
+                        } else {
+                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(context.getApplicationContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
+    }//للتسجيل
+
+
+    private void updatename(FirebaseUser user) {
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                .setDisplayName(request.getCenterid()).setPhotoUri(Uri.parse(request.getGroupid()))
+                .build();
+        user.updateProfile(profileUpdate)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+
+    }
+    public void create_new_student(String name_student, String id_groub, String id_center) {
+        String birth_day = request.getDay()+ "/" + request.getMonth() + "/" + request.getYear();
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+        DatabaseReference center = reference.child(id_center);//already found
+        DatabaseReference center_groups = center.child("groups");//already found or not
+        DatabaseReference new_group = center_groups.child(id_groub);// add new group
+
+        DatabaseReference student_group = new_group.child("student_group");
+        DatabaseReference new_student = student_group.child(name_student);
+
+        DatabaseReference student_info = new_student.child("student_info");
+        student_info.setValue(new Student_Info(request.getName(),
+                Integer.parseInt(request.getId_number()),
+                request.getPhoneNo(),
+                request.getEmail(), request.getAcademic_level(), birth_day));
 
 
     }

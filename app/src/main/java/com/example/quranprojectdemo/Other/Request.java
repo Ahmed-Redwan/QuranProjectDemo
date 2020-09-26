@@ -9,12 +9,31 @@ public class Request {
     private String email;
     private String phoneNo;
     private String academic_level;
+    private String Centerid;
+    private String Groupid;
+    int day;
+    int month;
+    int year;
 
     public Request() {
     }
 
     public Request(int img, String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
         Img = img;
+        this.name = name;
+        this.id_number = id_number;
+        this.birth_date = birth_date;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.academic_level = academic_level;
+    }
+    public Request(String Centerid,String Groupid,int day,int month,int year,int img, String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
+        Img = img;
+        this.day=day;
+        this.month=month;
+        this.year=year;
+        this.Centerid=Centerid;
+        this.Groupid=Groupid;
         this.name = name;
         this.id_number = id_number;
         this.birth_date = birth_date;
@@ -31,6 +50,46 @@ public class Request {
         this.email = email;
         this.phoneNo = phoneNo;
         this.academic_level = academic_level;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getCenterid() {
+        return Centerid;
+    }
+
+    public void setCenterid(String centerid) {
+        Centerid = centerid;
+    }
+
+    public String getGroupid() {
+        return Groupid;
+    }
+
+    public void setGroupid(String groupid) {
+        Groupid = groupid;
     }
 
     public int getImg() {

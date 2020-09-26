@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,10 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.quranprojectdemo.Other.Center;
+import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.CustomRequests;
 import com.example.quranprojectdemo.Other.Group;
@@ -25,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
 
@@ -35,6 +42,10 @@ public class JoinRequests extends AppCompatActivity {
     ArrayList<Request> requests;
     String Centerid;
     Button btn_ok;
+    SearchableSpinner spinner;
+    ArrayList<String>groupsID;
+    ArrayList<String>groupsName;
+    int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +55,12 @@ public class JoinRequests extends AppCompatActivity {
         rv = findViewById(R.id.requests_rv);
         btn_ok = findViewById(R.id.requests_btn_ok);
         checkPermission("", 1);
+        spinner=findViewById(R.id.requests_searchSpinner);
+
+        groupsName=new ArrayList<>();
+        groupsID=new ArrayList<>();
+
+
         requests = new ArrayList<>();
        /* requests.add(new Request(R.drawable.mustafa,"Mustafa Muhammed Alastal","451234567","25/9/2000"
         ,"mustafa@gmail.com","third year","0597654321"));
@@ -68,12 +85,15 @@ public class JoinRequests extends AppCompatActivity {
         Centerid = getIntent.getStringExtra("CenterId");
 
 
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         getRequests(Centerid);
+        getInRealTimeUsers();
         //setInRealTimeUsers(Centerid);
     }
 
@@ -98,12 +118,9 @@ public class JoinRequests extends AppCompatActivity {
     }
 
     /*  public void setInRealTimeUsers(String CenterId) {
-
-
           FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
           final DatabaseReference reference = rootNode.getReference("CenterUsers");
           final DatabaseReference reference2 = rootNode.getReference();
-
   //int id, String name, int age, String address, String email, String phone
           reference.child(CenterId);
           try {
@@ -111,8 +128,6 @@ public class JoinRequests extends AppCompatActivity {
           } catch (InterruptedException e) {
               e.printStackTrace();
           }
-
-
       }//اضافة بيانات
   */
     public boolean getRequests(final String id_center) {
@@ -127,8 +142,8 @@ public class JoinRequests extends AppCompatActivity {
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     Student_Info cc = c.getValue(Student_Info.class);
-                    requests.add(new Request(R.drawable.mustafa, cc.getName(), cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getBirth_date(),
-                            cc.getPhoneNo()));
+                    requests.add(new Request(Centerid,"",1,1,2000,R.drawable.mustafa, cc.getName(), cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getPhoneNo(),
+                            cc.getAcademic_level()));
 //                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
 //                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
 
@@ -149,4 +164,39 @@ public class JoinRequests extends AppCompatActivity {
         });
         return true;
     }//جلب البيانات
+
+    public void getInRealTimeUsers() {
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(Centerid).child("groups");
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                for (DataSnapshot d : dataSnapshot.getChildren()){
+                   DataSnapshot d2=d.child("group_info");
+                  groupsID.add(d.getKey());
+                    Toast.makeText(JoinRequests.this, d.getKey(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JoinRequests.this, d2.getValue(Group_Info.class).getPhone(), Toast.LENGTH_SHORT).show();
+                  groupsName.add(d2.getValue(Group_Info.class).getPhone());
+                }
+
+                ArrayAdapter arrayAdapter=new ArrayAdapter(getBaseContext(),android.R.layout.simple_spinner_dropdown_item,groupsName);
+                spinner.setAdapter(arrayAdapter);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException());
+            }
+        });
+    }//جلب البيانات
+
 }
