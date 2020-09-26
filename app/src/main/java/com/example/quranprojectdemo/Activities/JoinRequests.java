@@ -61,7 +61,7 @@ public class JoinRequests extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 finish();
+                finish();
             }
         });
         Intent getIntent = getIntent();
@@ -97,24 +97,24 @@ public class JoinRequests extends AppCompatActivity {
         }
     }
 
-  /*  public void setInRealTimeUsers(String CenterId) {
+    /*  public void setInRealTimeUsers(String CenterId) {
 
 
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers");
-        final DatabaseReference reference2 = rootNode.getReference();
+          FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+          final DatabaseReference reference = rootNode.getReference("CenterUsers");
+          final DatabaseReference reference2 = rootNode.getReference();
 
-//int id, String name, int age, String address, String email, String phone
-        reference.child(CenterId);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+  //int id, String name, int age, String address, String email, String phone
+          reference.child(CenterId);
+          try {
+              Thread.sleep(2000);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
 
 
-    }//اضافة بيانات
-*/
+      }//اضافة بيانات
+  */
     public boolean getRequests(final String id_center) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -126,8 +126,13 @@ public class JoinRequests extends AppCompatActivity {
                 requests.clear();
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
-                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
+                    Request cc = c.getValue(Request.class);
+                    requests.add(new Request(R.drawable.mustafa, cc.getName(), cc.getId(), cc.getDate(), cc.getEmail(), cc.getGrade(),
+                            cc.getPhone()));
+//                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
+//                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
+
+
                 }
                 CustomRequests customRequests = new CustomRequests(requests, getBaseContext());
                 customRequests.notifyDataSetChanged();
