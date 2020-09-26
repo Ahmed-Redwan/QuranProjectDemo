@@ -3,30 +3,34 @@ package com.example.quranprojectdemo.Other;
 public class Request {
 
     private int Img;
-    private String Name;
-    private String Id;
-    private String Date;
-    private String Email;
-    private String Phone;
-    private String Grade;
-public  Request (){}
+    private String name;
+    private String id_number;
+    private String birth_date;
+    private String email;
+    private String phoneNo;
+    private String academic_level;
 
-    public Request(int img, String name, String id, String date, String email, String grade,String phone) {
+    public Request() {
+    }
+
+    public Request(int img, String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
         Img = img;
-        Name = name;
-        Id = id;
-        Date = date;
-        Email = email;
-        Grade = grade;
-        this.Phone=phone;
+        this.name = name;
+        this.id_number = id_number;
+        this.birth_date = birth_date;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.academic_level = academic_level;
     }
 
-    public String getPhone() {
-        return Phone;
-    }
+    public Request(String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
 
-    public void setPhone(String phone) {
-        Phone = phone;
+        this.name = name;
+        this.id_number = id_number;
+        this.birth_date = birth_date;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.academic_level = academic_level;
     }
 
     public int getImg() {
@@ -38,42 +42,50 @@ public  Request (){}
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public String getId() {
-        return Id;
+    public String getId_number() {
+        return id_number;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setId_number(String id_number) {
+        this.id_number = id_number;
     }
 
-    public String getDate() {
-        return Date;
+    public String getBirth_date() {
+        return birth_date;
     }
 
-    public void setDate(String date) {
-        Date = date;
+    public void setBirth_date(String birth_date) {
+        this.birth_date = birth_date;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
-    public String getGrade() {
-        return Grade;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public void setGrade(String grade) {
-        Grade = grade;
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public String getAcademic_level() {
+        return academic_level;
+    }
+
+    public void setAcademic_level(String academic_level) {
+        this.academic_level = academic_level;
     }
 }

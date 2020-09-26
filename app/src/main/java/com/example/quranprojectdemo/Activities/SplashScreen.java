@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -45,14 +46,21 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
+
         Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            conf.setLocale(new Locale(lang.toLowerCase()));
+
+        } else {
+            conf.locale = new Locale(lang.toLowerCase());
+
+        }
+
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, SplashScreen.class);
-        finish();
-        startActivity(refresh);
+//        Intent refresh = new Intent(this, SplashScreen.class);
+//        finish();
+//        startActivity(refresh);
     }
 }

@@ -126,9 +126,9 @@ public class JoinRequests extends AppCompatActivity {
                 requests.clear();
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    Request cc = c.getValue(Request.class);
-                    requests.add(new Request(R.drawable.mustafa, cc.getName(), cc.getId(), cc.getDate(), cc.getEmail(), cc.getGrade(),
-                            cc.getPhone()));
+                    Student_Info cc = c.getValue(Student_Info.class);
+                    requests.add(new Request(R.drawable.mustafa, cc.getName(), cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getBirth_date(),
+                            cc.getPhoneNo()));
 //                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
 //                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
 

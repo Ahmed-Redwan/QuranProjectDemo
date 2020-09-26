@@ -48,11 +48,11 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
     public void onBindViewHolder(@NonNull final View_Holder holder, int position) {
         final Request request = requests.get(position);
         holder.tv_name.setText(request.getName());
-        holder.tv_date.setText(request.getDate());
-        holder.tv_grade.setText(request.getGrade());
+        holder.tv_date.setText(request.getBirth_date());
+        holder.tv_grade.setText(request.getAcademic_level());
         holder.tv_email.setText(request.getEmail());
-        holder.tv_id.setText(request.getId());
-        holder.tv_phone.setText(request.getPhone());
+        holder.tv_id.setText(request.getId_number());
+        holder.tv_phone.setText(request.getPhoneNo());
         holder.iv_student.setImageResource(request.getImg());
 
         holder.tv_accept.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +70,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
         holder.iv_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                make_A_Call(request.getPhone());
+                make_A_Call(request.getPhoneNo());
             }
         });
         holder.iv_email.setOnClickListener(new View.OnClickListener() {
