@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class QuranCenter_Login extends AppCompatActivity {
     public static final String ID_CENTER_LOGIN = "id_center_log";
@@ -148,11 +149,13 @@ public class QuranCenter_Login extends AppCompatActivity {
                             editor = sp.edit();
                             editor.clear();
                             editor.apply();
+                            FancyToast.makeText(getBaseContext(),"Login is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             startActivity(new Intent(getBaseContext(), Main_center.class));
 
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");
+                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
                             Toast.makeText(QuranCenter_Login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 

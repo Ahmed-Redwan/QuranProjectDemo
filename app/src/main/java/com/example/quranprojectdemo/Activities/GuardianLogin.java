@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class GuardianLogin extends AppCompatActivity {
     TextView tv_Login, tv_iDontHaveAnAccount, tv_NewAccount;
@@ -136,12 +137,13 @@ public class GuardianLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            FancyToast.makeText(getBaseContext(),"Login is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             startActivity(new Intent(getBaseContext(), Main_student.class));
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");
-                            Toast.makeText(GuardianLogin.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
+                         //   Toast.makeText(GuardianLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             b = false;
                         }
                     }

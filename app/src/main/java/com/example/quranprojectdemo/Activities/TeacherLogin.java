@@ -1,8 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -15,12 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class TeacherLogin extends AppCompatActivity {
     public static final String INFO_TEACHER = "info_tet";
@@ -147,14 +148,14 @@ public class TeacherLogin extends AppCompatActivity {
                             editor.putString(ID_LOGIN_TEACHER, user.getUid());
                             editor.putString(ID_LOGIN_TEC_CENTER, user.getDisplayName());
                             editor.apply();
-
+                            FancyToast.makeText(getBaseContext(),"Login is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");
-                            Toast.makeText(TeacherLogin.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
+                           // Toast.makeText(TeacherLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

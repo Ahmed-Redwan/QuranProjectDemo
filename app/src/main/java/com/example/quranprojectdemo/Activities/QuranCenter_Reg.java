@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.Serializable;
 
@@ -184,6 +185,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             editor = sp.edit();
                             editor.clear();
                             editor.apply();
+                            FancyToast.makeText(getBaseContext(),"SignUp is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             setInRealTimeUsers(user.getUid());
                            // progressDialog.dismiss();
                             //   userId=user.getUid();
@@ -191,6 +193,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             //         create_new_center();
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                            FancyToast.makeText(getBaseContext(),"SignUp failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
                             Toast.makeText(QuranCenter_Reg.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             btn_CreateNewA.setEnabled(true);
