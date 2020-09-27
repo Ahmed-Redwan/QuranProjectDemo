@@ -154,7 +154,7 @@ public class TeacherLogin extends AppCompatActivity {
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");
-                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
+                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();//
                            // Toast.makeText(TeacherLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     }

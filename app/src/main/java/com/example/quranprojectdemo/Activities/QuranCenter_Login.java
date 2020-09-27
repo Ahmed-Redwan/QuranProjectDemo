@@ -151,7 +151,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                             editor.apply();
                             FancyToast.makeText(getBaseContext(),"Login is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             startActivity(new Intent(getBaseContext(), Main_center.class));
-
+//
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");

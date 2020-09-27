@@ -141,7 +141,7 @@ public class GuardianLogin extends AppCompatActivity {
                             startActivity(new Intent(getBaseContext(), Main_student.class));
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
-                            et_password.setError("تأكد من الإيميل و كلمة المرور.");
+                            et_password.setError("تأكد من الإيميل و كلمة المرور.");//
                             FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
                          //   Toast.makeText(GuardianLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             b = false;

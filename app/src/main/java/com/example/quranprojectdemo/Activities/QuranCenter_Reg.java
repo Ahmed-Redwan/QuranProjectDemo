@@ -195,7 +195,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             FancyToast.makeText(getBaseContext(),"SignUp failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
                             Toast.makeText(QuranCenter_Reg.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_SHORT).show();//
                             btn_CreateNewA.setEnabled(true);
                            // progressDialog.dismiss();
 
