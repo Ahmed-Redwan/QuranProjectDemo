@@ -79,8 +79,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
             holder.tv_id.setText(request.getId_number());
             holder.tv_phone.setText(request.getPhoneNo());
         } catch (Exception c) {
-        }
-        try {
+        }try {
 //            holder.iv_student.setImageResource(request.getImg());
 
         } catch (Exception cc) {

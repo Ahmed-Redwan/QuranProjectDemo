@@ -286,7 +286,14 @@ public class JoinRequests extends AppCompatActivity {
                 request.getPhoneNo(),
                 request.getEmail(), request.getAcademic_level(), request.getBirth_date()));
 
+        FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
+        final DatabaseReference reference1 = rootNode1.getReference("CenterUsers");
+
+//int id, String name, int age, String address, String email, String phone
+        reference1.child(id_center).child("Requests").child(name_student).setValue(null);
+
 
     }
+
 
 }
