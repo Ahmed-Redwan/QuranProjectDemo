@@ -76,8 +76,6 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
             @Override
             public void onClick(View view) {
                 sign_up();
-
-
             }
         });
         holder.tv_refuse.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +109,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
                             FirebaseUser user = mAuth.getCurrentUser();
                             create_new_student(user.getUid(), request.getGroupid(), request.getCenterid());
                             updatename(user);
-
+                            Toast.makeText(context,user.getUid(), Toast.LENGTH_SHORT).show();
                             FirebaseAuth.getInstance().signOut();
 
                         } else {
@@ -141,7 +139,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
 
     }
     public void create_new_student(String name_student, String id_groub, String id_center) {
-        String birth_day = request.getDay()+ "/" + request.getMonth() + "/" + request.getYear();
+        //String birth_day = request.getDay()+ "/" + request.getMonth() + "/" + request.getYear();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference center = reference.child(id_center);//already found
@@ -155,7 +153,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
         student_info.setValue(new Student_Info(request.getName(),
                 Integer.parseInt(request.getId_number()),
                 request.getPhoneNo(),
-                request.getEmail(), request.getAcademic_level(), birth_day));
+                request.getEmail(), request.getAcademic_level(),request.getBirth_date()));
 
 
     }

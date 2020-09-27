@@ -11,9 +11,9 @@ public class Request {
     private String academic_level;
     private String Centerid;
     private String Groupid;
-    int day;
+   /* int day;
     int month;
-    int year;
+    int year;*/
 
     public Request() {
     }
@@ -27,11 +27,11 @@ public class Request {
         this.phoneNo = phoneNo;
         this.academic_level = academic_level;
     }
-    public Request(String Centerid,String Groupid,int day,int month,int year,int img, String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
+    public Request(String Centerid,String Groupid,/*int day,int month,int year,*/int img,String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
         Img = img;
-        this.day=day;
+       /* this.day=day;
         this.month=month;
-        this.year=year;
+        this.year=year;*/
         this.Centerid=Centerid;
         this.Groupid=Groupid;
         this.name = name;
@@ -52,7 +52,7 @@ public class Request {
         this.academic_level = academic_level;
     }
 
-    public int getDay() {
+/*    public int getDay() {
         return day;
     }
 
@@ -74,7 +74,7 @@ public class Request {
 
     public void setYear(int year) {
         this.year = year;
-    }
+    }*/
 
     public String getCenterid() {
         return Centerid;

@@ -84,6 +84,19 @@ public class JoinRequests extends AppCompatActivity {
         Intent getIntent = getIntent();
         Centerid = getIntent.getStringExtra("CenterId");
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    requests.get(i).setCenterid(groupsID.get(i));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
 
 
@@ -142,7 +155,7 @@ public class JoinRequests extends AppCompatActivity {
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     Student_Info cc = c.getValue(Student_Info.class);
-                    requests.add(new Request(Centerid,"",1,1,2000,R.drawable.mustafa, cc.getName(), cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getPhoneNo(),
+                    requests.add(new Request(Centerid,"",R.drawable.mustafa, cc.getName(), cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getPhoneNo(),
                             cc.getAcademic_level()));
 //                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
 //                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
