@@ -7,8 +7,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,9 +25,16 @@ import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.CustomRequests;
 import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
+import com.example.quranprojectdemo.Other.OnClick;
 import com.example.quranprojectdemo.Other.Request;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,22 +52,24 @@ public class JoinRequests extends AppCompatActivity {
     String Centerid;
     Button btn_ok;
     SearchableSpinner spinner;
-    ArrayList<String>groupsID;
-    ArrayList<String>groupsName;
+    ArrayList<String> groupsID;
+    ArrayList<String> groupsName;
     int index;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_requests);
+        mAuth = FirebaseAuth.getInstance();
 
         rv = findViewById(R.id.requests_rv);
         btn_ok = findViewById(R.id.requests_btn_ok);
         checkPermission("", 1);
-        spinner=findViewById(R.id.requests_searchSpinner);
+        spinner = findViewById(R.id.requests_searchSpinner);
 
-        groupsName=new ArrayList<>();
-        groupsID=new ArrayList<>();
+        groupsName = new ArrayList<>();
+        groupsID = new ArrayList<>();
 
 
         requests = new ArrayList<>();
@@ -87,7 +98,7 @@ public class JoinRequests extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    requests.get(i).setCenterid(groupsID.get(i));
+                requests.get(i).setCenterid(groupsID.get(i));
 
             }
 
@@ -96,8 +107,6 @@ public class JoinRequests extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }
@@ -155,14 +164,20 @@ public class JoinRequests extends AppCompatActivity {
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     Student_Info cc = c.getValue(Student_Info.class);
-                    requests.add(new Request(Centerid,"",R.drawable.mustafa, cc.getName(), cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getPhoneNo(),
+                    requests.add(new Request(Centerid, "", R.drawable.mustafa, cc.getName(), cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getPhoneNo(),
                             cc.getAcademic_level()));
 //                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
 //                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
 
 
                 }
-                CustomRequests customRequests = new CustomRequests(requests, getBaseContext());
+                CustomRequests customRequests = new CustomRequests(requests, getBaseContext(), new OnClick() {
+                    @Override
+                    public void OnCLick(Request request) {
+//                        Toast.makeText(getBaseContext(),request.getEmail()+request.getPhoneNo(),Toast.LENGTH_LONG)
+                        sign_up(request);
+                    }
+                });
                 customRequests.notifyDataSetChanged();
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
                 rv.setAdapter(customRequests);
@@ -190,15 +205,17 @@ public class JoinRequests extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
-                for (DataSnapshot d : dataSnapshot.getChildren()){
-                   DataSnapshot d2=d.child("group_info");
-                  groupsID.add(d.getKey());
-                    Toast.makeText(JoinRequests.this, d.getKey(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(JoinRequests.this, d2.getValue(Group_Info.class).getPhone(), Toast.LENGTH_SHORT).show();
-                  groupsName.add(d2.getValue(Group_Info.class).getPhone());
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    DataSnapshot d2 = d.child("group_info");
+                    groupsID.add(d.getKey());
+//                    Toast.makeText(JoinRequests.this, d.getKey(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(JoinRequests.this, d2.getValue(Group_Info.class).getPhone(), Toast.LENGTH_SHORT).show();
+//                    if (d2.getValue(Group_Info.class) != null)
+
+                    groupsName.add(d2.getValue(Group_Info.class).getPhone());
                 }
 
-                ArrayAdapter arrayAdapter=new ArrayAdapter(getBaseContext(),android.R.layout.simple_spinner_dropdown_item,groupsName);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, groupsName);
                 spinner.setAdapter(arrayAdapter);
 
 
@@ -211,5 +228,65 @@ public class JoinRequests extends AppCompatActivity {
             }
         });
     }//جلب البيانات
+
+    private void sign_up(final Request request) {
+
+        mAuth.createUserWithEmailAndPassword(request.getEmail(), request.getPhoneNo() + "123123")
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            create_new_student(user.getUid(), request.getGroupid(), request.getCenterid(), request);
+                            updatename(user, request);
+//                            Toast.makeText(getBaseContext(), user.getUid(), Toast.LENGTH_SHORT).show();
+//                            FirebaseAuth.getInstance().signOut();
+
+                        } else {
+                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(getBaseContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
+    }//للتسجيل
+
+
+    void updatename(FirebaseUser user, Request request) {
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                .setDisplayName(request.getCenterid()).setPhotoUri(Uri.parse(request.getGroupid()))
+                .build();
+        user.updateProfile(profileUpdate)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+
+    }
+
+    public void create_new_student(String name_student, String id_groub, String id_center, Request request) {
+        //String birth_day = request.getDay()+ "/" + request.getMonth() + "/" + request.getYear();
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+        DatabaseReference center = reference.child(id_center);//already found
+        DatabaseReference center_groups = center.child("groups");//already found or not
+        DatabaseReference new_group = center_groups.child(id_groub);// add new group
+
+        DatabaseReference student_group = new_group.child("student_group");
+        DatabaseReference new_student = student_group.child(name_student);
+
+        DatabaseReference student_info = new_student.child("student_info");
+        student_info.setValue(new Student_Info(request.getName(),
+                1,
+                request.getPhoneNo(),
+                request.getEmail(), request.getAcademic_level(), request.getBirth_date()));
+
+
+    }
 
 }

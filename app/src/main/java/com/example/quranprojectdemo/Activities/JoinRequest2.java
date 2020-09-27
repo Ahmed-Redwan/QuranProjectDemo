@@ -50,7 +50,7 @@ public class JoinRequest2 extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("Request_SP", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        progressBar=findViewById(R.id.request2_progressBar);
+        progressBar = findViewById(R.id.request2_progressBar);
 
         Intent getintent = getIntent();
         country = getintent.getStringExtra("Country");
@@ -91,10 +91,10 @@ public class JoinRequest2 extends AppCompatActivity {
 
                 if (centers.size() == 0) {
                     for (DataSnapshot c : dataSnapshot.getChildren()) {
-                         centers.add(new Center(R.drawable.ic_masged,
+                        centers.add(new Center(R.drawable.ic_masged,
                                 c.getValue(CenterUser.class).getcenterName(),
                                 c.getValue(CenterUser.class).getPhone(), c.getKey()));
-                        Toast.makeText(getBaseContext(),c.getValue(CenterUser.class).getId()+ "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), c.getValue(CenterUser.class).getId() + "", Toast.LENGTH_SHORT).show();
 
 
                         customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());

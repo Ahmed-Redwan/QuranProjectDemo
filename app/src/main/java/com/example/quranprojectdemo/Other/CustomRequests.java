@@ -1,6 +1,7 @@
 package com.example.quranprojectdemo.Other;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Activities.AddNewStudent;
+import com.example.quranprojectdemo.Activities.JoinRequests;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
+import java.util.zip.Inflater;
 
 public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Holder> {
 
@@ -41,11 +44,11 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
     private ArrayList<Request> requests;
     Context context;
     Request request;
-    private FirebaseAuth mAuth;
+    //    private FirebaseAuth mAuth;
+    OnClick onClick;
 
-
-
-    public CustomRequests(ArrayList<Request> requests, Context context) {
+    public CustomRequests(ArrayList<Request> requests, Context context, OnClick onClick) {
+        this.onClick = onClick;
         this.requests = requests;
         this.context = context;
     }
@@ -53,31 +56,45 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
     @NonNull
     @Override
     public View_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customrecyclerrequests, null, false);
 
+        View view = LayoutInflater.from(context).inflate(R.layout.customrecyclerrequests, null, false);
         View_Holder view_holder = new View_Holder(view);
-
         return view_holder;
+
+
+
+//        View_holder_sub view_holder_sub = new View_holder_sub(v);
+
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull final View_Holder holder, int position) {
         request = requests.get(position);
-        holder.tv_name.setText(request.getName());
-        holder.tv_date.setText(request.getBirth_date());
-        holder.tv_grade.setText(request.getAcademic_level());
-        holder.tv_email.setText(request.getEmail());
-        holder.tv_id.setText(request.getId_number());
-        holder.tv_phone.setText(request.getPhoneNo());
-        holder.iv_student.setImageResource(request.getImg());
-        mAuth = FirebaseAuth.getInstance();
+        try {
+            holder.tv_name.setText(request.getName());
+            holder.tv_date.setText(request.getBirth_date());
+            holder.tv_grade.setText(request.getAcademic_level());
+            holder.tv_email.setText(request.getEmail());
+            holder.tv_id.setText(request.getId_number());
+            holder.tv_phone.setText(request.getPhoneNo());
+        } catch (Exception c) {
+        }
+        try {
+//            holder.iv_student.setImageResource(request.getImg());
 
-        holder.tv_accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sign_up();
-            }
-        });
+        } catch (Exception cc) {
+        }
+
+//        mAuth = FirebaseAuth.getInstance();
+
+
+//        holder.tv_accept.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                sign_up();
+//            }
+//        });
         holder.tv_refuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,64 +116,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
 
 
     }
-    private void sign_up() {
 
-        mAuth.createUserWithEmailAndPassword(request.getEmail(), request.getPhoneNo())
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            create_new_student(user.getUid(), request.getGroupid(), request.getCenterid());
-                            updatename(user);
-                            Toast.makeText(context,user.getUid(), Toast.LENGTH_SHORT).show();
-                            FirebaseAuth.getInstance().signOut();
-
-                        } else {
-                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(context.getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-
-
-    }//للتسجيل
-
-
-    private void updatename(FirebaseUser user) {
-        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                .setDisplayName(request.getCenterid()).setPhotoUri(Uri.parse(request.getGroupid()))
-                .build();
-        user.updateProfile(profileUpdate)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                    }
-                });
-
-    }
-    public void create_new_student(String name_student, String id_groub, String id_center) {
-        //String birth_day = request.getDay()+ "/" + request.getMonth() + "/" + request.getYear();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
-        DatabaseReference center = reference.child(id_center);//already found
-        DatabaseReference center_groups = center.child("groups");//already found or not
-        DatabaseReference new_group = center_groups.child(id_groub);// add new group
-
-        DatabaseReference student_group = new_group.child("student_group");
-        DatabaseReference new_student = student_group.child(name_student);
-
-        DatabaseReference student_info = new_student.child("student_info");
-        student_info.setValue(new Student_Info(request.getName(),
-                Integer.parseInt(request.getId_number()),
-                request.getPhoneNo(),
-                request.getEmail(), request.getAcademic_level(),request.getBirth_date()));
-
-
-    }
 
     public void make_A_Call(String Number) {
         Intent i = new Intent(Intent.ACTION_CALL);
@@ -191,37 +151,42 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
     }
 
     class View_Holder extends RecyclerView.ViewHolder {
-        ImageView iv_student,iv_call,iv_email;
-        TextView tv_name,tv_id,tv_date,tv_grade,tv_email,tv_accept,tv_refuse,tv_phone;
-
+        ImageView iv_student, iv_call, iv_email;
+        TextView tv_name, tv_id, tv_date, tv_grade, tv_email, tv_accept, tv_refuse, tv_phone;
 
 
         public View_Holder(@NonNull View itemView) {
             super(itemView);
-            iv_student=itemView.findViewById(R.id.requests_iv_student);
-            iv_call=itemView.findViewById(R.id.requests_iv_call);
-            iv_email=itemView.findViewById(R.id.requests_iv_email);
-            tv_name=itemView.findViewById(R.id.requests_tv_name);
-            tv_id=itemView.findViewById(R.id.requests_tv_id);
-            tv_date=itemView.findViewById(R.id.requests_tv_birthOfDate);
-            tv_grade=itemView.findViewById(R.id.requests_tv_Grade);
-            tv_email=itemView.findViewById(R.id.requests_tv_Email);
-            tv_accept=itemView.findViewById(R.id.requests_tv_accept);
-            tv_phone=itemView.findViewById(R.id.requests_tv_phone);
-            tv_refuse=itemView.findViewById(R.id.requests_tv_Refuse);
+            iv_student = itemView.findViewById(R.id.requests_iv_student);
+            iv_call = itemView.findViewById(R.id.requests_iv_call);
+            iv_email = itemView.findViewById(R.id.requests_iv_email);
+            tv_name = itemView.findViewById(R.id.requests_tv_name);
+            tv_id = itemView.findViewById(R.id.requests_tv_id);
+            tv_date = itemView.findViewById(R.id.requests_tv_birthOfDate);
+            tv_grade = itemView.findViewById(R.id.requests_tv_Grade);
+            tv_email = itemView.findViewById(R.id.requests_tv_Email);
+            tv_accept = itemView.findViewById(R.id.requests_tv_accept);
+            tv_phone = itemView.findViewById(R.id.requests_tv_phone);
+            tv_refuse = itemView.findViewById(R.id.requests_tv_Refuse);
 
-            tv_phone.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
-            tv_name.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
-            tv_id.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
-            tv_email.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
-            tv_grade.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
-            tv_date.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
-            tv_refuse.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
-            tv_accept.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(),"Hacen_Tunisia.ttf"));
 
+            tv_phone.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_name.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_id.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_email.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_grade.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_date.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_refuse.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_accept.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
+            tv_accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    sign_up();
+                    onClick.OnCLick(request);
+
+                }
+            });
         }
-
-
 
 
     }

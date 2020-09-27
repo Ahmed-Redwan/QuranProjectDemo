@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -45,6 +46,7 @@ public class SplashScreen extends AppCompatActivity {
         tv_Title.startAnimation(animation);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void setLocale(String lang) {
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
@@ -59,8 +61,5 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         res.updateConfiguration(conf, dm);
-//        Intent refresh = new Intent(this, SplashScreen.class);
-//        finish();
-//        startActivity(refresh);
     }
 }
