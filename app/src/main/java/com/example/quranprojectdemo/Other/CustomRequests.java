@@ -43,9 +43,9 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
 
     private ArrayList<Request> requests;
     Context context;
-    Request request;
     //    private FirebaseAuth mAuth;
     OnClick onClick;
+    Request request;
 
     public CustomRequests(ArrayList<Request> requests, Context context, OnClick onClick) {
         this.onClick = onClick;
@@ -62,7 +62,6 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
         return view_holder;
 
 
-
 //        View_holder_sub view_holder_sub = new View_holder_sub(v);
 
 
@@ -70,16 +69,20 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
 
     @Override
     public void onBindViewHolder(@NonNull final View_Holder holder, int position) {
-        request = requests.get(position);
+//        request = requests.get(position);
         try {
-            holder.tv_name.setText(request.getName());
-            holder.tv_date.setText(request.getBirth_date());
-            holder.tv_grade.setText(request.getAcademic_level());
-            holder.tv_email.setText(request.getEmail());
-            holder.tv_id.setText(request.getId_number());
-            holder.tv_phone.setText(request.getPhoneNo());
+            holder.request = requests.get(position);
+            holder.tv_name.setText(requests.get(position).getName());
+            holder.tv_date.setText(requests.get(position).getBirth_date());
+            holder.tv_grade.setText(requests.get(position).getAcademic_level());
+            holder.tv_email.setText(requests.get(position).getEmail());
+            holder.tv_id.setText(requests.get(position).getId_number());
+            holder.tv_phone.setText(requests.get(position).getPhoneNo());
+            holder.id_number = Integer.parseInt(requests.get(position).getId_number());
+//            holder.id_number = Integer.parseInt(requests.get(position).getId_number());
         } catch (Exception c) {
-        }try {
+        }
+        try {
 //            holder.iv_student.setImageResource(request.getImg());
 
         } catch (Exception cc) {
@@ -152,7 +155,8 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
     class View_Holder extends RecyclerView.ViewHolder {
         ImageView iv_student, iv_call, iv_email;
         TextView tv_name, tv_id, tv_date, tv_grade, tv_email, tv_accept, tv_refuse, tv_phone;
-
+        Request request;
+        int id_number;
 
         public View_Holder(@NonNull View itemView) {
             super(itemView);
@@ -181,6 +185,7 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
                 @Override
                 public void onClick(View v) {
 //                    sign_up();
+                    request.setId_number(String.valueOf(id_number));
                     onClick.OnCLick(request);
 
                 }

@@ -55,8 +55,8 @@ public class JoinRequest3 extends AppCompatActivity {
         et_Day = findViewById(R.id.request3_et_day);
         btn_JoinRequest = findViewById(R.id.request3_btn_SendRequest);
 
-        Intent getIntent=getIntent();
-        centerId=getIntent.getStringExtra("CenterId");
+        Intent getIntent = getIntent();
+        centerId = getIntent.getStringExtra("CenterId");
         Toast.makeText(this, centerId, Toast.LENGTH_SHORT).show();
 
 
@@ -76,7 +76,7 @@ public class JoinRequest3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (et_studentName.getText().toString().isEmpty()||et_studentId.getText().toString().isEmpty()||et_Email.getText().toString().isEmpty()||et_Phone.getText().toString().isEmpty()||et_Grade.getText().toString().isEmpty()||et_Day.getText().toString().isEmpty()||et_Month.getText().toString().isEmpty()||et_Year.getText().toString().isEmpty()){
+                if (et_studentName.getText().toString().isEmpty() || et_studentId.getText().toString().isEmpty() || et_Email.getText().toString().isEmpty() || et_Phone.getText().toString().isEmpty() || et_Grade.getText().toString().isEmpty() || et_Day.getText().toString().isEmpty() || et_Month.getText().toString().isEmpty() || et_Year.getText().toString().isEmpty()) {
                     et_Month.setError("يجب تعبئة جميع الحقول.");
                     et_Year.setError("يجب تعبئة جميع الحقول.");
                     et_Day.setError("يجب تعبئة جميع الحقول.");
@@ -108,8 +108,6 @@ public class JoinRequest3 extends AppCompatActivity {
     }
 
 
-
-
     public void setInRealTimeUsers(String CenterId) {
 
 
@@ -119,12 +117,12 @@ public class JoinRequest3 extends AppCompatActivity {
 
 //int id, String name, int age, String address, String email, String phone
         reference.child(CenterId).child("Requests").child(et_studentId.getText().toString()).setValue(
-                new Student_Info(centerId,et_studentName.getText().toString(),
-                        Integer.parseInt(et_studentId.getText().toString()),
+                new Student_Info(centerId, et_studentName.getText().toString(),
+                        Integer .parseInt(et_studentId.getText().toString()),
                         et_Phone.getText().toString(),
                         et_Email.getText().toString(),
                         et_Grade.getText().toString(),
-                        et_Day.getText().toString()+"/"+et_Month.getText().toString()+"/"+et_Year.getText().toString()));
+                        et_Day.getText().toString() + "/" + et_Month.getText().toString() + "/" + et_Year.getText().toString()));
 
         try {
             Thread.sleep(2000);

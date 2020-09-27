@@ -8,7 +8,7 @@
     android:layout_margin="@dimen/_3sdp"
 
     >
-    
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,6 @@
                 android:layout_width="@dimen/_110sdp"
                 android:layout_height="@dimen/_110sdp"
                 android:id="@+id/requests_iv_student"
-                android:src="@drawable/mustafa"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="30dip"
                 app:riv_border_width="@dimen/_3sdp"
