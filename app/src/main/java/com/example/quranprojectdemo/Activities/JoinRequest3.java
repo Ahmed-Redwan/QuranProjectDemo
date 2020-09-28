@@ -118,7 +118,7 @@ public class JoinRequest3 extends AppCompatActivity {
 //int id, String name, int age, String address, String email, String phone
         reference.child(CenterId).child("Requests").child(et_studentId.getText().toString()).setValue(
                 new Student_Info(centerId, et_studentName.getText().toString(),
-                        Integer .parseInt(et_studentId.getText().toString()),
+                    (et_studentId.getText().toString()),
                         et_Phone.getText().toString(),
                         et_Email.getText().toString(),
                         et_Grade.getText().toString(),

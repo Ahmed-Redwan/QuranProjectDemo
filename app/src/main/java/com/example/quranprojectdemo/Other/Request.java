@@ -2,31 +2,26 @@ package com.example.quranprojectdemo.Other;
 
 public class Request {
 
-    private int Img;
     private String name;
     private String id_number;
-    private String birth_date;
-    private String email;
     private String phoneNo;
+    private String email;
     private String academic_level;
+    private String birth_date;
+    private int Img;
     private String Centerid;
     private String Groupid;
+
    /* int day;
     int month;
     int year;*/
 
+
     public Request() {
     }
 
-    public Request(int img, String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
-        Img = img;
-        this.name = name;
-        this.id_number = id_number;
-        this.birth_date = birth_date;
-        this.email = email;
-        this.phoneNo = phoneNo;
-        this.academic_level = academic_level;
-    }
+
+
     public Request(String Centerid,String Groupid,/*int day,int month,int year,*/int img,String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
         Img = img;
        /* this.day=day;
@@ -34,6 +29,17 @@ public class Request {
         this.year=year;*/
         this.Centerid=Centerid;
         this.Groupid=Groupid;
+        this.name = name;
+        this.id_number = id_number;
+        this.birth_date = birth_date;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.academic_level = academic_level;
+    }
+
+
+    public Request(int img, String name, String id_number, String birth_date, String email, String phoneNo, String academic_level) {
+        Img = img;
         this.name = name;
         this.id_number = id_number;
         this.birth_date = birth_date;

@@ -48,7 +48,7 @@ import static android.Manifest.permission.CALL_PHONE;
 
 public class JoinRequests extends AppCompatActivity {
     RecyclerView rv;
-    ArrayList<Request> requests;
+    ArrayList<Student_Info> requests;
     String Centerid;
     Button btn_ok;
     SearchableSpinner spinner;
@@ -99,8 +99,11 @@ public class JoinRequests extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                requests.get(i).setGroupid(groupsID.get(i));
+//                requests.get(i).setGroupid(groupsID.get(i));
+//                id_group = groupsID.get(i);
+//                requests.get(i).setGroupid(groupsID.get(i));
                 id_group = groupsID.get(i);
+
             }
 
             @Override
@@ -163,12 +166,30 @@ public class JoinRequests extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 requests.clear();
 
+
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    Student_Info cc = c.getValue(Student_Info.class);
-                    requests.add(new Request(Centerid, cc.getId_group(), R.drawable.mustafa, cc.getName(),
-                            cc.getId_Student(), cc.getBirth_date(), cc.getEmail(), cc.getPhoneNo(),
-                            cc.getAcademic_level()));
-                    Toast.makeText(getBaseContext(), cc.getId_number() + " 1 ", Toast.LENGTH_LONG).show();
+                  Student_Info re = c.getValue(Student_Info.class);
+          //        Request re =c.getValue(Request.class);
+
+       /* this.day=day;
+        this.month=month;
+        this.year=year;*/
+//                    this.name = name;
+//                    this.id_number = id_number;
+//                    this.phoneNo = phoneNo;
+//                    this.email = email;
+//                    this.academic_level = academic_level;
+//                    this.birth_date = birth_date;
+//                    this.img_student = img_student;
+//                    this.id_center = id_center;
+//                    this.id_group = id_group;
+
+                    requests.add(new Student_Info(re.getName(),re.getId_number(),re.getPhoneNo(),re.getEmail(),
+                            re.getAcademic_level(), re.getBirth_date() , null, Centerid, id_group
+
+                 ));
+
+                    Toast.makeText(getBaseContext(), re.getId_number() + " 1 ", Toast.LENGTH_LONG).show();
 //                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
 //                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
 
@@ -176,8 +197,23 @@ public class JoinRequests extends AppCompatActivity {
                 }
                 CustomRequests customRequests = new CustomRequests(requests, getBaseContext(), new OnClick() {
                     @Override
-                    public void OnCLick(Request request) {
+                    public void OnCLick(Student_Info request,int i) {
+
+                        if (i==1){
+
+                        Toast.makeText(getBaseContext(), request.getId_number(), Toast.LENGTH_LONG).show();
                         sign_up(request);
+
+                    }else {
+                            Toast.makeText(JoinRequests.this, "ahmed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(JoinRequests.this, request.getId_number(), Toast.LENGTH_SHORT).show();
+                            FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
+                            final DatabaseReference reference1 = rootNode1.getReference("CenterUsers");
+
+                            reference1.child(id_center).child("Requests").child(request.getId_number()).setValue(null);
+
+                        }
+
                     }
                 });
                 customRequests.notifyDataSetChanged();
@@ -207,6 +243,9 @@ public class JoinRequests extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
+
+                groupsID.clear();
+                groupsName.clear();
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                     DataSnapshot d2 = d.child("group_info");
                     groupsID.add(d.getKey());
@@ -214,7 +253,7 @@ public class JoinRequests extends AppCompatActivity {
 //                    Toast.makeText(JoinRequests.this, d2.getValue(Group_Info.class).getPhone(), Toast.LENGTH_SHORT).show();
 //                    if (d2.getValue(Group_Info.class) != null)
 
-                    groupsName.add(d2.getValue(Group_Info.class).getPhone());
+                    groupsName.add(d2.getValue(Group_Info.class).getGroup_name());
 //                    groupsID.add()
                 }
 
@@ -232,7 +271,7 @@ public class JoinRequests extends AppCompatActivity {
         });
     }//جلب البيانات
 
-    private void sign_up(final Request request) {
+    private void sign_up(final Student_Info request) {
 //        Toast.makeText(getBaseContext(), request.getEmail(), Toast.LENGTH_LONG).show();
 
         mAuth.createUserWithEmailAndPassword(request.getEmail(), request.getPhoneNo() + "123123")
@@ -241,7 +280,7 @@ public class JoinRequests extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            create_new_student(user.getUid(), id_group, request.getCenterid(), request);
+                            create_new_student(user.getUid(), id_group, Centerid, request);
                             updatename(user, request);
                             Toast.makeText(getBaseContext(), "sus", Toast.LENGTH_LONG).show();
 //                            Toast.makeText(getBaseContext(), user.(), Toast.LENGTH_SHORT).show();
@@ -260,7 +299,7 @@ public class JoinRequests extends AppCompatActivity {
     }//للتسجيل
 
 
-    void updatename(FirebaseUser user, Request request) {
+    void updatename(FirebaseUser user, Student_Info request) {
         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                 .setDisplayName(Centerid).setPhotoUri(Uri.parse(id_group))
                 .build();
@@ -274,7 +313,7 @@ public class JoinRequests extends AppCompatActivity {
 
     }
 
-    public void create_new_student(String name_student, String id_groub, String id_center, Request request) {
+    public void create_new_student(String name_student, String id_groub, String id_center, Student_Info request) {
         //String birth_day = request.getDay()+ "/" + request.getMonth() + "/" + request.getYear();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
@@ -287,7 +326,7 @@ public class JoinRequests extends AppCompatActivity {
 
         DatabaseReference student_info = new_student.child("student_info");
         student_info.setValue(new Student_Info(request.getName(),
-                1,
+                1+"",
                 request.getPhoneNo(),
                 request.getEmail(), request.getAcademic_level(), request.getBirth_date()));
 
@@ -295,7 +334,7 @@ public class JoinRequests extends AppCompatActivity {
         final DatabaseReference reference1 = rootNode1.getReference("CenterUsers");
         Toast.makeText(this, " 1: " + request.getId_number(), Toast.LENGTH_SHORT).show();
 //int id, String name, int age, String address, String email, String phone
-        reference1.child(id_center).child("Requests").child(name_student).setValue(null);
+        reference1.child(id_center).child("Requests").child(request.getId_number()).setValue(null);
 
 
     }

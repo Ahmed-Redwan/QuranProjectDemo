@@ -2,7 +2,7 @@ package com.example.quranprojectdemo.Other;
 
 public class Student_Info {
     private String name;
-    private int id_number;
+    private String id_number;
     private String phoneNo;
     private String email;
     private String academic_level;
@@ -11,6 +11,20 @@ public class Student_Info {
     private String img_student;
     private String id_center;
     private String id_group;
+
+
+    public Student_Info(String name, String id_number, String phoneNo, String email, String academic_level, String birth_date, String img_student, String id_center, String id_group) {
+        this.name = name;
+        this.id_number = id_number;
+        this.phoneNo = phoneNo;
+        this.email = email;
+        this.academic_level = academic_level;
+        this.birth_date = birth_date;
+        this.img_student = img_student;
+        this.id_center = id_center;
+        this.id_group = id_group;
+    }
+
     public Student_Info() {
     }
 
@@ -29,7 +43,8 @@ public class Student_Info {
     }
 
 
-    public Student_Info(String name, int id_number, String phoneNo, String email, String academic_level, String birth_date) {
+
+    public Student_Info(String name, String id_number, String phoneNo, String email, String academic_level, String birth_date) {
         this.name = name;
         this.id_number = id_number;
         this.phoneNo = phoneNo;
@@ -37,7 +52,8 @@ public class Student_Info {
         this.academic_level = academic_level;
         this.birth_date = birth_date;
     }
-    public Student_Info(String CenterId,String name, int id_number, String phoneNo, String email, String academic_level, String birth_date) {
+
+    public Student_Info(String CenterId,String name, String id_number, String phoneNo, String email, String academic_level, String birth_date) {
         this.id_center=CenterId;
         this.name = name;
         this.id_number = id_number;
@@ -79,11 +95,11 @@ public class Student_Info {
         this.name = name;
     }
 
-    public int getId_number() {
+    public String getId_number() {
         return id_number;
     }
 
-    public void setId_number(int id_number) {
+    public void setId_number(String id_number) {
         this.id_number = id_number;
     }
 

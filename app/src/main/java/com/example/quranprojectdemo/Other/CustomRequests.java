@@ -41,13 +41,14 @@ import java.util.zip.Inflater;
 public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Holder> {
 
 
-    private ArrayList<Request> requests;
+    private ArrayList<Student_Info> requests;
     Context context;
     //    private FirebaseAuth mAuth;
     OnClick onClick;
+
     Request request;
 
-    public CustomRequests(ArrayList<Request> requests, Context context, OnClick onClick) {
+    public CustomRequests(ArrayList<Student_Info> requests, Context context, OnClick onClick) {
         this.onClick = onClick;
         this.requests = requests;
         this.context = context;
@@ -78,7 +79,9 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
             holder.tv_email.setText(requests.get(position).getEmail());
             holder.tv_id.setText(requests.get(position).getId_number());
             holder.tv_phone.setText(requests.get(position).getPhoneNo());
-            holder.id_number = Integer.parseInt(requests.get(position).getId_number());
+        //    holder.id_number = Integer.parseInt(requests.get(position).getId_number());
+
+
 //            holder.id_number = Integer.parseInt(requests.get(position).getId_number());
         } catch (Exception c) {
         }
@@ -97,12 +100,14 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
 //                sign_up();
 //            }
 //        });
-        holder.tv_refuse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
+//        holder.tv_refuse.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
         holder.iv_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,8 +160,8 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
     class View_Holder extends RecyclerView.ViewHolder {
         ImageView iv_student, iv_call, iv_email;
         TextView tv_name, tv_id, tv_date, tv_grade, tv_email, tv_accept, tv_refuse, tv_phone;
-        Request request;
-        int id_number;
+        Student_Info request;
+       // String id_number;
 
         public View_Holder(@NonNull View itemView) {
             super(itemView);
@@ -185,8 +190,18 @@ public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Hol
                 @Override
                 public void onClick(View v) {
 //                    sign_up();
-                    request.setId_number(String.valueOf(id_number));
-                    onClick.OnCLick(request);
+           //         request.setId_number(String.valueOf(id_number));
+                    onClick.OnCLick(request,1);
+
+                }
+            });
+
+            tv_refuse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                  //  request.setId_number(String.valueOf(id_number));
+                    onClick.OnCLick(request,0);
 
                 }
             });
