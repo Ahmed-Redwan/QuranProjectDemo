@@ -72,6 +72,23 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/request1_sp_Country"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"/>
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/request1_sp_City"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"/>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="match_parent"
