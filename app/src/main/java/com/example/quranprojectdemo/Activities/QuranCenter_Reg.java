@@ -185,7 +185,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             editor = sp.edit();
                             editor.clear();
                             editor.apply();
-                            FancyToast.makeText(getBaseContext(),"SignUp is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+      FancyToast.makeText(getBaseContext(),"SignUp is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             setInRealTimeUsers(user.getUid());
                            // progressDialog.dismiss();
                             //   userId=user.getUid();

@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ public class JoinRequest1 extends AppCompatActivity {
 TextView tv_JoinRequest;
 EditText et_City,et_Country;
 Button btn_Next;
-SearchableSpinner sp_country,sp_city;
+Spinner sp_country,sp_city;
 ArrayList<String>countries,cities;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ ArrayList<String>countries,cities;
     @Override
     protected void onStart() {
         super.onStart();
+
         getCountries();
         sp_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -111,50 +114,65 @@ ArrayList<String>countries,cities;
     public boolean getCountries() {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child("Countries");
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference references = rootNode.getReference("Countries");
+
+
+        references.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 countries.clear();
-                for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    String country=c.getValue(CenterUser.class).getcountry();
+                for (DataSnapshot dataSnapshot :snapshot.getChildren()){
+                    Toast.makeText(JoinRequest1.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                    String country=dataSnapshot.getKey();
                     Toast.makeText(JoinRequest1.this, country, Toast.LENGTH_SHORT).show();
                     countries.add(country);
                 }
 
-                ArrayAdapter countriesarrayAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+
+                ArrayAdapter countriesarrayAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item,
+                        countries);
                 sp_country.setAdapter(countriesarrayAdapter);
+                sp_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                        getCities(countries.get(i));
 
 
+                    }
 
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
             }
-
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
         return true;
     }
 
     public boolean getCities(String Country) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child("Countries").child(Country);
+        final DatabaseReference reference = rootNode.getReference("Countries").child(Country);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                countries.clear();
+                cities.clear();
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    String city=c.getValue(CenterUser.class).getcity();
-                    countries.add(city);
+                    String city=c.getKey();
+                    cities.add(city);
 
                 }
 
-                ArrayAdapter citiesarrayAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, countries);
+                ArrayAdapter citiesarrayAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, cities);
                 sp_city.setAdapter(citiesarrayAdapter);
 
             }
