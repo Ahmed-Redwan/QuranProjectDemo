@@ -184,8 +184,6 @@ public class StudentDetails extends AppCompatActivity {
                 StudentDetails_recycler.setHasFixedSize(true);
                 StudentDetails_recycler.setLayoutManager(l);
                 StudentDetails_recycler.setAdapter(recycler_student);
-
-
             }
 
             @Override

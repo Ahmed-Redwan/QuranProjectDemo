@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.AboutApp"
-
     >
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -331,7 +329,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:text="أحمد عبد الغفور"
+                                android:text="أحمد رضوان عبد الغفور"
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:textSize="@dimen/_18ssp"
                                 android:textColor="@color/color_whigt"

@@ -43,8 +43,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     SharedPreferences sp;
     ProgressDialog progressDialog;
     SharedPreferences.Editor editor;
-    int id;
-    int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +69,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference();
-
-
-
 
 
         EditText_EditFont(et_centerName, "Hacen_Tunisia.ttf");
@@ -144,12 +140,10 @@ public class QuranCenter_Reg extends AppCompatActivity {
                 }
 
 
-
                 centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
                         et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
                         , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), mAuth.getUid());
 
-//                Toast.makeText(getBaseContext(), id + "", Toast.LENGTH_SHORT).show();
 
                 sign_up(et_Email.getText().toString(), et_Password.getText().toString());
 
@@ -185,19 +179,17 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             editor = sp.edit();
                             editor.clear();
                             editor.apply();
-      FancyToast.makeText(getBaseContext(),"SignUp is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+                            FancyToast.makeText(getBaseContext(), "تم إنشاء الحساب بنجاح", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                             setInRealTimeUsers(user.getUid());
-                           // progressDialog.dismiss();
+                            // progressDialog.dismiss();
                             //   userId=user.getUid();
 //                            editor.putString("UID_CENTER", user.getUid())
                             //         create_new_center();
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            FancyToast.makeText(getBaseContext(),"SignUp failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
-                            Toast.makeText(QuranCenter_Reg.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();//
+                            FancyToast.makeText(getBaseContext(), "فشل في إنشاء الحساب.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
                             btn_CreateNewA.setEnabled(true);
-                           // progressDialog.dismiss();
+                            // progressDialog.dismiss();
 
                         }
 
@@ -219,11 +211,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
         reference.child(name).child("Center information").setValue(centeruser);
         reference2.child("Countries").child(et_country.getText().toString()).child(et_city.getText().toString()).child(mAuth.getUid()).setValue(centeruser);
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         startActivity(new Intent(getBaseContext(), Main_center.class));
 
     }//اضافة بيانات

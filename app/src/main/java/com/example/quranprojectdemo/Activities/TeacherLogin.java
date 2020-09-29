@@ -48,8 +48,7 @@ public class TeacherLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         tv_Login = findViewById(R.id.TeacheLogin_tv_login);
-        tv_NewAccount = findViewById(R.id.TeacheLogin_tv_NewAccount);
-        tv_iDontHaveAnAccount = findViewById(R.id.TeacheLogin_tv_iDontHaveAnAccount);
+
         et_Email = findViewById(R.id.TeacheLogin_et_EmailOrphone);
         et_password = findViewById(R.id.TeacheLogin_et_Password);
         btn_Login = findViewById(R.id.TeacheLogin_btn_Login);
@@ -66,8 +65,7 @@ public class TeacherLogin extends AppCompatActivity {
         }
 
 
-        TextView_EditFont(tv_NewAccount, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_iDontHaveAnAccount, "Hacen_Tunisia.ttf");
+
         TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
 
         btn_Login.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
@@ -76,13 +74,6 @@ public class TeacherLogin extends AppCompatActivity {
         EditText_EditFont(et_password, "Hacen_Tunisia.ttf");
 
 
-        tv_NewAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), TeacherRegister.class));
-                finish();
-            }
-        });
 
 
     }
@@ -148,14 +139,13 @@ public class TeacherLogin extends AppCompatActivity {
                             editor.putString(ID_LOGIN_TEACHER, user.getUid());
                             editor.putString(ID_LOGIN_TEC_CENTER, user.getDisplayName());
                             editor.apply();
-                            FancyToast.makeText(getBaseContext(),"Login is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+                            FancyToast.makeText(getBaseContext(),"تم تسجيل الدخول بنجاح.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                             startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");
-                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();//
-                           // Toast.makeText(TeacherLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(getBaseContext(),"فشل في تسجيل الدخول.",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();//
                         }
                     }
                 });

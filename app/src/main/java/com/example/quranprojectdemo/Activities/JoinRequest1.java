@@ -38,6 +38,7 @@ EditText et_City,et_Country;
 Button btn_Next;
 Spinner sp_country,sp_city;
 ArrayList<String>countries,cities;
+boolean isCountrySelected,isCitySelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +96,9 @@ ArrayList<String>countries,cities;
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
+
 
     }
 
@@ -133,19 +134,6 @@ ArrayList<String>countries,cities;
                 ArrayAdapter countriesarrayAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item,
                         countries);
                 sp_country.setAdapter(countriesarrayAdapter);
-                sp_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                        getCities(countries.get(i));
-
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
 
             }
 

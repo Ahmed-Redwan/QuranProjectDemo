@@ -108,7 +108,6 @@ public class Show_group_student extends AppCompatActivity {
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
                     String id_student = c.getKey();
-//                    Toast.makeText(getBaseContext(), id_student, Toast.LENGTH_LONG).show();
                     if (!id_student.equals("student_save")) {
                         Student_Info studentInfo = c.child("student_info").getValue(Student_Info.class);
 

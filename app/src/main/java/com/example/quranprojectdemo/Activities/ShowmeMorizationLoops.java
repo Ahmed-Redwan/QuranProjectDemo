@@ -2,6 +2,7 @@ package com.example.quranprojectdemo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -106,8 +107,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
 
 
                 }
-                final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data);
-
+                final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data,getBaseContext());
                 rv_List.setHasFixedSize(true);
                 rv_List.setAdapter(customGroupRecyclerView);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());

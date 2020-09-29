@@ -149,16 +149,13 @@ public class QuranCenter_Login extends AppCompatActivity {
                             editor = sp.edit();
                             editor.clear();
                             editor.apply();
-                            FancyToast.makeText(getBaseContext(),"Login is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+                            FancyToast.makeText(getBaseContext(),"تم تسجيل الدخول بنجاح.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                             startActivity(new Intent(getBaseContext(), Main_center.class));
 //
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");
-                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
-                            Toast.makeText(QuranCenter_Login.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
+                            FancyToast.makeText(getBaseContext(),"فشل في تسجيل الدخول.",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();//
                         }
                     }
                 });

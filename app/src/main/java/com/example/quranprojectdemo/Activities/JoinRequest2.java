@@ -70,7 +70,6 @@ public class JoinRequest2 extends AppCompatActivity {
 
         tv_ListOfCenters.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
 
-
     }
 
     @Override
@@ -94,7 +93,6 @@ public class JoinRequest2 extends AppCompatActivity {
                         centers.add(new Center(R.drawable.ic_masged,
                                 c.getValue(CenterUser.class).getcenterName(),
                                 c.getValue(CenterUser.class).getPhone(), c.getKey()));
-                        Toast.makeText(getBaseContext(), c.getValue(CenterUser.class).getId() + "", Toast.LENGTH_SHORT).show();
 
 
                         customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());

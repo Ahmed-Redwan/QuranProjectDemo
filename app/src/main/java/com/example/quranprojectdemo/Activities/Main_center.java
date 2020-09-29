@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
@@ -46,7 +47,7 @@ public class Main_center extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_center);
 
-        image_center = findViewById(R.id.center_main_image);
+        //image_center = findViewById(R.id.center_main_image);
         tv_center_name = findViewById(R.id.center_main_tv_name_center);
         tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
         tv_center_phone = findViewById(R.id.center_main_tv_phone);
@@ -61,7 +62,6 @@ public class Main_center extends AppCompatActivity {
         } else {
             centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
         }
-        Toast.makeText(getBaseContext(), centerId, Toast.LENGTH_SHORT).show();
 
         toolbar_center = findViewById(R.id.center_main_tool);
         toolbar_center.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -81,6 +81,7 @@ public class Main_center extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), JoinRequests.class).putExtra("CenterId",centerId));
                         return true;
                     case R.id.MenuCenterHomeExit:
+                        FancyToast.makeText(getBaseContext(),"تم تسجيل الخروج.",FancyToast.LENGTH_LONG,FancyToast.DEFAULT,false).show();
                         finish();
                         return true;
                     case R.id.MenuCenterHomeSettings:
@@ -137,7 +138,7 @@ public class Main_center extends AppCompatActivity {
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tv_center_count_ring.setText(snapshot.getChildrenCount() + "عدد الحلقات : ");
+                tv_center_count_ring.setText("عدد الحلقات : "+snapshot.getChildrenCount());
                 int numStudent = 0;
 
                 for (DataSnapshot d : snapshot.getChildren()) {
@@ -145,7 +146,7 @@ public class Main_center extends AppCompatActivity {
 
 //                    numStudent += d.getChildrenCount();
                 }
-                tv_center_count_student.setText(numStudent + "عدد طلاب المرز");
+                tv_center_count_student.setText("عدد طلاب المركز:"+numStudent);
 
 
             }
@@ -163,14 +164,10 @@ public class Main_center extends AppCompatActivity {
                 // whenever data at this location is updated.
 
                 CenterUser value = dataSnapshot.getValue(CenterUser.class);
-                tv_center_name.setText(value.getcenterName() + "مركز :  : ");
-                tv_center_name_maneger.setText(value.getmanagerName() + "مدير المركز : ");
-                tv_center_phone.setText(value.getPhone() + "هاتف : ");
-                toolbar_center.setTitle(value.getcenterName()+" مركز ");
-
-
-                Toast.makeText(getApplicationContext(), value.getcenterName(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG", "Value is: " + value);
+                tv_center_name.setText("مركز:"+value.getcenterName() );
+                tv_center_name_maneger.setText("مدير المركز:"+value.getmanagerName());
+                tv_center_phone.setText( "هاتف:"+value.getPhone() );
+                toolbar_center.setTitle("مركز:"+value.getcenterName());
 
             }
 

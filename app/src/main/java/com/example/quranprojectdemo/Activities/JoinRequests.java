@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class JoinRequests extends AppCompatActivity {
     int index;
     String id_group;
     private FirebaseAuth mAuth;
+    boolean isSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,12 +105,13 @@ public class JoinRequests extends AppCompatActivity {
 //                id_group = groupsID.get(i);
 //                requests.get(i).setGroupid(groupsID.get(i));
                 id_group = groupsID.get(i);
+                isSelected = true;
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                isSelected = false;
             }
         });
 
@@ -168,8 +171,8 @@ public class JoinRequests extends AppCompatActivity {
 
 
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                  Student_Info re = c.getValue(Student_Info.class);
-          //        Request re =c.getValue(Request.class);
+                    Student_Info re = c.getValue(Student_Info.class);
+                    //        Request re =c.getValue(Request.class);
 
        /* this.day=day;
         this.month=month;
@@ -184,12 +187,11 @@ public class JoinRequests extends AppCompatActivity {
 //                    this.id_center = id_center;
 //                    this.id_group = id_group;
 
-                    requests.add(new Student_Info(re.getName(),re.getId_number(),re.getPhoneNo(),re.getEmail(),
-                            re.getAcademic_level(), re.getBirth_date() , null, Centerid, id_group
+                    requests.add(new Student_Info(re.getName(), re.getId_number(), re.getPhoneNo(), re.getEmail(),
+                            re.getAcademic_level(), re.getBirth_date(), null, Centerid, id_group
 
-                 ));
+                    ));
 
-                    Toast.makeText(getBaseContext(), re.getId_number() + " 1 ", Toast.LENGTH_LONG).show();
 //                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
 //                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));
 
@@ -197,14 +199,20 @@ public class JoinRequests extends AppCompatActivity {
                 }
                 CustomRequests customRequests = new CustomRequests(requests, getBaseContext(), new OnClick() {
                     @Override
-                    public void OnCLick(Student_Info request,int i) {
+                    public void OnCLick(Student_Info request, int i) {
 
-                        if (i==1){
+                        if (i == 1) {
+                            if (isSelected){
+                                sign_up(request);
+                                FancyToast.makeText(getBaseContext(),"لقد تم إضافة الطالب بنجاح.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
 
-                        Toast.makeText(getBaseContext(), request.getId_number(), Toast.LENGTH_LONG).show();
-                        sign_up(request);
+                            }else{
+                                FancyToast.makeText(getBaseContext(),"يرجى اختيار حلقة لاضافة الطالب فيها.",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                            }
 
-                    }else {
+
+
+                        } else {
                             Toast.makeText(JoinRequests.this, "ahmed", Toast.LENGTH_SHORT).show();
                             Toast.makeText(JoinRequests.this, request.getId_number(), Toast.LENGTH_SHORT).show();
                             FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
@@ -282,14 +290,12 @@ public class JoinRequests extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             create_new_student(user.getUid(), id_group, Centerid, request);
                             updatename(user, request);
-                            Toast.makeText(getBaseContext(), "sus", Toast.LENGTH_LONG).show();
 //                            Toast.makeText(getBaseContext(), user.(), Toast.LENGTH_SHORT).show();
 //                            FirebaseAuth.getInstance().signOut();
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getBaseContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
@@ -326,7 +332,7 @@ public class JoinRequests extends AppCompatActivity {
 
         DatabaseReference student_info = new_student.child("student_info");
         student_info.setValue(new Student_Info(request.getName(),
-                1+"",
+                1 + "",
                 request.getPhoneNo(),
                 request.getEmail(), request.getAcademic_level(), request.getBirth_date()));
 

@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
@@ -137,14 +138,14 @@ if (et_GroupName.getText().toString().isEmpty()||et_TeacherName.getText().toStri
                                     , id_center, et_TeacherEmail.getText().toString(),
                                     et_TeacherPassword.getText().toString(), et_TeacherPhone.getText().toString(),
                                     et_TeacherName.getText().toString());
-                            Toast.makeText(AddNewGroup.this, id_center,
-                                    Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(getBaseContext(),"تم إضافة حلقة جديدة.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+
 //                            FirebaseAuth.getInstance().signOut();
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(AddNewGroup.this, "حدث خطا , حاول مرة اخرة",
-                                    Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(getBaseContext(),"فشل في إضافة الحلقة.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+
                         }
 
 

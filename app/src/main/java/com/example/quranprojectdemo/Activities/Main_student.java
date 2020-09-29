@@ -85,7 +85,6 @@ public class Main_student extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.MenuStudentHomeSettings:
-
                         return true;
                     case R.id.MenuStudentHomeAbout:
                         startActivity(new Intent(getBaseContext(), AboutApp.class));
@@ -193,9 +192,6 @@ public class Main_student extends AppCompatActivity {
                 student_data.clear();
                 for (DataSnapshot snapshot1 : snapshot.child(date_year).child(date_month).getChildren() ){
                     Student_data d = snapshot1.getValue(Student_data.class);
-                    Toast.makeText(Main_student.this,  snapshot1.getKey(), Toast.LENGTH_SHORT).show();
-
-                    Toast.makeText(Main_student.this, d.getDate__student(), Toast.LENGTH_SHORT).show();
 
                     student_data.add(d);
                 }
@@ -258,15 +254,13 @@ public class Main_student extends AppCompatActivity {
                                 }
                                 else {
 
-                                    final     String year =parent.getItemAtPosition(position).toString();
-                                    Toast.makeText(Main_student.this,"السنة" +year, Toast.LENGTH_SHORT).show();
+                                    final String year =parent.getItemAtPosition(position).toString();
 
                                     list_spinner_month.clear();
                                     list_spinner_month.add("اختر الشهر");
 
                                     for (DataSnapshot dataSnapshot1 :dataSnapshot.child(year).getChildren()){
                                         list_spinner_month.add(dataSnapshot1.getKey());
-                                        Toast.makeText(Main_student.this,dataSnapshot1.getKey(), Toast.LENGTH_SHORT).show();
                                     }
 
                                     if (list_spinner_month.isEmpty()){
@@ -282,7 +276,6 @@ public class Main_student extends AppCompatActivity {
                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                                             String month=parent.getItemAtPosition(position).toString();
-                                            Toast.makeText(Main_student.this, month, Toast.LENGTH_SHORT).show();
 
                                             student_data.clear();
                                             for (DataSnapshot snapshot: dataSnapshot.child(year).child(month).getChildren()){
@@ -372,11 +365,11 @@ public class Main_student extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
-                tv_student_name.setText(studentInfo.getName());
-                tv_student_name_ring.setText(studentInfo.getEmail());
+                tv_student_name.setText("الطالب "+studentInfo.getName());
+                tv_student_name_ring.setText("الإيميل:"+studentInfo.getEmail());
                 tv_student_phone.setText(studentInfo.getPhoneNo());
-                tv_student_identity.setText(studentInfo.getId_number() + "");
-                toolbar_student.setTitle(studentInfo.getName());
+                tv_student_identity.setText("رقم الهوية:"+studentInfo.getId_number());
+                toolbar_student.setTitle("الطالب "+studentInfo.getName());
 
 
             }

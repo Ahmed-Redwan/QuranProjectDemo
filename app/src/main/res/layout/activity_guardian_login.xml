@@ -104,26 +104,7 @@
             android:textStyle="bold"
             android:padding="@dimen/_4sdp"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ليس لدي حساب"
-            android:id="@+id/GuardianLogin_tv_iDontHaveAnAccount"
-            android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/_15ssp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/_6sdp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/GuardianLogin_tv_NewAccount"
-            android:text="إنشاء حساب جديد"
-            android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/_23ssp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/_6sdp"/>
+
 
 
 

@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class JoinRequest3 extends AppCompatActivity {
     public static final String INFO_CENTER_REG = "info_reg";
@@ -57,7 +58,6 @@ public class JoinRequest3 extends AppCompatActivity {
 
         Intent getIntent = getIntent();
         centerId = getIntent.getStringExtra("CenterId");
-        Toast.makeText(this, centerId, Toast.LENGTH_SHORT).show();
 
 
         TextView_EditFont(tv_JoinRequest, "Hacen_Tunisia_Bold.ttf");
@@ -88,8 +88,8 @@ public class JoinRequest3 extends AppCompatActivity {
                     return;
                 }
 
-                Toast.makeText(view.getContext(), "لفد تم إرسال طلبك بنجاح " +
-                        "سيتم الرد عليك في أقرب وقت", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getBaseContext(),"تم إرسال طلبك للمركز بنجاح ,يرجى الإنتظار حتى يتم قبولك.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+
                 //startActivity(new Intent(getBaseContext(),RegisterAs.class));
                 setInRealTimeUsers(centerId);
                 finish();

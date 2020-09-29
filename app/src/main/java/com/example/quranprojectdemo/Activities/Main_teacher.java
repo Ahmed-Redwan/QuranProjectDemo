@@ -39,7 +39,7 @@ public class Main_teacher extends AppCompatActivity {
 //     'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
         getInfoTeacher(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
         image_backe_teacher = findViewById(R.id.teacher_main_image_center);
-        image_teacher = findViewById(R.id.teacher_main_image_teacher);
+        /*image_teacher = findViewById(R.id.teacher_main_image_teacher);*/
         tv_teacher_name = findViewById(R.id.teacher_main_tv_name_teacher);
         tv_teacher_name_ring = findViewById(R.id.teacher_main_tv_name_ring);
         tv_teacher_phone = findViewById(R.id.teacher_main_tv_phone);
@@ -95,10 +95,10 @@ public class Main_teacher extends AppCompatActivity {
                 Group_Info val = dataSnapshot.getValue(Group_Info.class);
                 try {
                     val.getEmail();
-                    tv_teacher_name.setText(val.getTeacher_name()+"");
-                    tv_teacher_phone.setText(val.getPhone()+"");
-                    tv_teacher_name_ring.setText(val.getGroup_name()+"");
-                    toolbar_teacher.setTitle(val.getGroup_name()+"حلقة ");
+                    tv_teacher_name.setText("المحفظ "+val.getTeacher_name());
+                    tv_teacher_phone.setText("رقم الهاتف:"+val.getPhone());
+                    tv_teacher_name_ring.setText("حلقة "+val.getGroup_name());
+                    toolbar_teacher.setTitle("حلقة "+val.getGroup_name());
                 } catch (Exception c) {
 
                 }
@@ -119,7 +119,8 @@ public class Main_teacher extends AppCompatActivity {
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tv_teacher_count_student.setText(snapshot.getChildrenCount() + "");
+                tv_teacher_count_student.setText("عدد طلاب الحلقة:"+snapshot.getChildrenCount());
+
             }
 
             @Override

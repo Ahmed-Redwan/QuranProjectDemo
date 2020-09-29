@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.Adabter_student_image_and_name;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,9 +35,9 @@ import java.util.HashMap;
 //asd
 public class Add_a_new_save extends AppCompatActivity {
     //jhklhkljh
-    android.widget.Spinner spinner_saves, spinner_save_from, spinner_save_too;
-    android.widget.Spinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
-    android.widget.Spinner spinner_select_student;
+    SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too;
+    SearchableSpinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
+    Spinner spinner_select_student;
     Button btn_addSave;
     private EditText et_numOfSavePages, et_numOfRevPages;
     private String id_center;

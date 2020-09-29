@@ -23,22 +23,31 @@
 
 
 
-    <Spinner
+      <Spinner
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp"
         android:id="@+id/spinner_selection_student"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-
-
-
-  />
+        tools:ignore="MissingClass"
+          />
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/_50sdp"
     android:layout_marginEnd="@dimen/_50sdp">
+
+    <TextView
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:text="الحفظ"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/_12sdp"
+        />
 
     <EditText
         android:layout_width="match_parent"
@@ -53,16 +62,7 @@
         android:inputType="number"
         />
 
-    <TextView
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="wrap_content"
-        android:text="الحفظ"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
-        android:layout_margin="@dimen/_12sdp"
-        />
+
 </LinearLayout>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -85,15 +85,13 @@
              >
 
 
-            <Spinner
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinner_save"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
-
                 />
-            <Spinner
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinner_save_from"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -101,7 +99,7 @@
 
 
                 />
-            <Spinner
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinner_save_to"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -120,6 +118,18 @@
         android:layout_marginStart="@dimen/_50sdp"
         android:layout_marginEnd="@dimen/_50sdp">
 
+        <TextView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="wrap_content"
+            android:text="المراجعة"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_12sdp"
+            />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -133,17 +143,7 @@
             android:inputType="number"
             />
 
-        <TextView
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="wrap_content"
-            android:text="المراجعة"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_18ssp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_12sdp"
-            />
+
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -165,7 +165,7 @@
             >
 
 
-            <Spinner
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinner_review"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -173,7 +173,7 @@
 
 
                 />
-            <Spinner
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinner_review_from"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -181,7 +181,7 @@
 
 
                 />
-            <Spinner
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinner_review_to"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -200,7 +200,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/btn_background"
         android:text="إضافة حفظ جديد"
         android:textStyle="bold"
@@ -213,7 +213,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/btn_background2"
         android:text="إلغاء"
         android:textStyle="bold"

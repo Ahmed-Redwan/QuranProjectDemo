@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.google.firebase.database.ValueEventListener;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 
 public class AddNewStudent extends AppCompatActivity {
@@ -142,11 +143,13 @@ public class AddNewStudent extends AppCompatActivity {
                             updatename(user);
 
                             FirebaseAuth.getInstance().signOut();
+                            FancyToast.makeText(getBaseContext(),"تم إضافة طالب جديد.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(AddNewStudent.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(getBaseContext(),"فشل في إضافة الطالب.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+
                         }
 
                     }

@@ -42,8 +42,6 @@ public class GuardianLogin extends AppCompatActivity {
         setContentView(R.layout.activity_guardian_login);
         mAuth = FirebaseAuth.getInstance();
         tv_Login = findViewById(R.id.GuardianLogin_tv_login);
-        tv_NewAccount = findViewById(R.id.GuardianLogin_tv_NewAccount);
-        tv_iDontHaveAnAccount = findViewById(R.id.GuardianLogin_tv_iDontHaveAnAccount);
         et_Email = findViewById(R.id.GuardianLogin_et_EmailOrphone);
         et_password = findViewById(R.id.GuardianLogin_et_Password);
         btn_Login = findViewById(R.id.GuardianLogin_btn_Login);
@@ -64,8 +62,6 @@ public class GuardianLogin extends AppCompatActivity {
 
 
         TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
-        TextView_EditFont(tv_NewAccount, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_iDontHaveAnAccount, "Hacen_Tunisia.ttf");
 
         btn_Login.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
 
@@ -108,13 +104,6 @@ public class GuardianLogin extends AppCompatActivity {
 //               finish();
             }
         });
-        tv_NewAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), GuardianReg.class));
-                finish();
-            }
-        });
 
 
     }
@@ -137,13 +126,12 @@ public class GuardianLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            FancyToast.makeText(getBaseContext(),"Login is successful",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+                            FancyToast.makeText(getBaseContext(),"تم تسجيل الدخول بنجاح.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                             startActivity(new Intent(getBaseContext(), Main_student.class));
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
-                            et_password.setError("تأكد من الإيميل و كلمة المرور.");//
-                            FancyToast.makeText(getBaseContext(),"Login failed",FancyToast.LENGTH_LONG,FancyToast.CONFUSING,true).show();
-                         //   Toast.makeText(GuardianLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            et_password.setError("تأكد من الإيميل و كلمة المرور.");
+                            FancyToast.makeText(getBaseContext(),"فشل في تسجيل الدخول.",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();//
                             b = false;
                         }
                     }

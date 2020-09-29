@@ -32,7 +32,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="#90006997"
+                android:src="#B4006997"
                 android:scaleType="centerCrop"
                android:fitsSystemWindows="true"
                 android:layout_gravity="center"
@@ -75,7 +75,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="#9B006997"
+                    android:src="#C6006997"
                     android:scaleType="centerCrop"
                     android:background="@drawable/quran_group"/>
 
@@ -85,7 +85,7 @@
                     android:orientation="vertical"
                     >
 
-                    <com.makeramen.roundedimageview.RoundedImageView
+                  <!--  <com.makeramen.roundedimageview.RoundedImageView
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_80sdp"
                         android:src="@drawable/ic_masged"
@@ -98,61 +98,62 @@
                         android:layout_gravity="center"
                         app:layout_collapseMode="parallax"
                         android:id="@+id/teacher_main_image_teacher"
-                        />
+                        />-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
+                        android:gravity="center"
                         >
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
                             android:text="اسم المحفظ"
 
                             android:textColor="#ffffff"
+                            android:layout_marginBottom="@dimen/_15sdp"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20sdp"
+                            android:textSize="@dimen/_20ssp"
                             android:gravity="center"
                             android:id="@+id/teacher_main_tv_name_teacher"
                             />
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
                             android:text="اسم الحلقة"
                             android:gravity="center"
                             android:textStyle="bold"
                             android:textColor="#ffffff"
-
-                            android:textSize="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_15sdp"
+                            android:textSize="@dimen/_20ssp"
                             android:id="@+id/teacher_main_tv_name_ring"
 
                             />
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
                             android:text="رقم الهاتف"
                             android:gravity="center"
                             android:textStyle="bold"
                             android:textColor="#ffffff"
-
-                            android:textSize="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_15sdp"
+                            android:textSize="@dimen/_20ssp"
                             android:id="@+id/teacher_main_tv_phone"
 
                             />
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
                             android:text="عدد الطلاب في الحلقة"
                             android:gravity="center"
                             android:textColor="#ffffff"
-
                             android:textStyle="bold"
-                            android:textSize="@dimen/_20sdp"
+                            android:textSize="@dimen/_20ssp"
                             android:id="@+id/teacher_main_tv_count_student"
 
                             />

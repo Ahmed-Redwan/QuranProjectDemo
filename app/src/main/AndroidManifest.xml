@@ -20,9 +20,7 @@
         <activity android:name=".Activities.Main_student" />
         <activity android:name=".Activities.Main_teacher" />
         <activity android:name=".Activities.GuardianLogin"></activity>
-        <activity android:name=".Activities.GuardianReg" />
         <activity android:name=".Activities.TeacherLogin"></activity>
-        <activity android:name=".Activities.TeacherRegister" />
         <activity android:name=".Activities.QuranCenter_Login"></activity>
         <activity android:name=".Activities.QuranCenter_Reg" />
         <activity android:name=".Activities.RegisterAs">
