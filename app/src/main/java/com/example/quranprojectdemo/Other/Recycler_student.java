@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View_holder> {
 
 
-    ArrayList<Student_data> arrayList_student;
+    List<Student_data> arrayList_student;
     int resourse;
     Context context;
 
-    public Recycler_student(ArrayList<Student_data> arrayList_student) {
+    public Recycler_student(List<Student_data> arrayList_student) {
         this.arrayList_student = arrayList_student;
 
     }

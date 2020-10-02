@@ -25,7 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public class StudentDetails extends AppCompatActivity {
     TextView tv_student_name, tv_student_name_ring, tv_student_phone, tv_student_identity;
@@ -36,6 +42,8 @@ public class StudentDetails extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String id_center, id_group, id_student;
     String id_center_c, id_group_c, id_student_c;
+    private Realm realm;
+
     private SharedPreferences sp;
 
     @Override
@@ -44,7 +52,8 @@ public class StudentDetails extends AppCompatActivity {
         setContentView(R.layout.activity_student_details);
         mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
 
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
@@ -91,13 +100,13 @@ public class StudentDetails extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getStudnetInfo(id_center,id_group,id_student);
-        getSavesStudent(id_center, id_group, id_student);
+        getStudnetInfo(id_student, id_group);
+        getSavesStudent(id_student, id_group);
 
 
     }
 
-//    public void getSavesStudent(String id_center, String id_group, String id_student) {
+    //    public void getSavesStudent(String id_center, String id_group, String id_student) {
 //
 //        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
 //        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
@@ -132,67 +141,110 @@ public class StudentDetails extends AppCompatActivity {
 //        });
 //
 //    }//جلب البيانات
-    public void getStudnetInfo(String id_center, String id_group, String id_student) {
 
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("student_group").child(
-                        id_student).child("student_info");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
-                tv_student_name.setText(studentInfo.getName());
-                tv_student_name_ring.setText(studentInfo.getEmail());
-                tv_student_phone.setText(studentInfo.getPhoneNo());
-                tv_student_identity.setText(studentInfo.getId_number()+"");
-//                toolbar_student.setTitle(studentInfo.getName());
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-
-    }//جلب البيانات
-    public void getSavesStudent(String id_center, String id_group, String id_student) {
-
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                student_data.clear();
-
-                for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    for (DataSnapshot c1 : c.getChildren()) {
-                        for (DataSnapshot c3 : c1.getChildren()) {
-                            Student_data d = c3.getValue(Student_data.class);
-                            student_data.add(d);
+//    public void getSavesStudent(String id_center, String id_group, String id_student) {
+//
+//        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+//                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                student_data.clear();
+//
+//                for (DataSnapshot c : dataSnapshot.getChildren()) {
+//                    for (DataSnapshot c1 : c.getChildren()) {
+//                        for (DataSnapshot c3 : c1.getChildren()) {
+//                            Student_data d = c3.getValue(Student_data.class);
+//                            student_data.add(d);
+//
+//
+//                        }
+//
+//                    }
+//
+//                }
+//                recycler_student = new Recycler_student(student_data);
+//                RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
+//                StudentDetails_recycler.setHasFixedSize(true);
+//                StudentDetails_recycler.setLayoutManager(l);
+//                StudentDetails_recycler.setAdapter(recycler_student);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+////                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
+//
+//    }//جلب البيانات
 
 
-                        }
+    public void getSavesStudent(String id_student, String id_group) {
 
-                    }
 
-                }
-                recycler_student = new Recycler_student(student_data);
-                RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
-                StudentDetails_recycler.setHasFixedSize(true);
-                StudentDetails_recycler.setLayoutManager(l);
-                StudentDetails_recycler.setAdapter(recycler_student);
-            }
+        Date date = new Date();
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
+        String date_year = "Year : " + yearForamt.format(date);
 
-    }//جلب البيانات
+        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
+        String date_month = "Month : " + monthForamt.format(date);
+
+        RealmQuery<Student_data> query = realm.where(Student_data.class);
+        query.equalTo("year_save", date_year);
+        query.and().equalTo("month_save", date_month).and().equalTo("id_studnt", id_student)
+                .and().equalTo("id_group", id_group);
+        RealmResults<Student_data> realmResults = query.findAll();
+
+
+        recycler_student = new Recycler_student(realmResults);
+        RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
+        StudentDetails_recycler.setHasFixedSize(true);
+        StudentDetails_recycler.setLayoutManager(l);
+        StudentDetails_recycler.setAdapter(recycler_student);
+
+    }
+
+
+    public void getStudnetInfo(String id_student, String id_group) {
+        Student_Info studentInfo = realm.where(Student_Info.class).equalTo("id_number", id_student)
+                .and().equalTo("id_group", id_group)
+                .findFirst();
+
+
+        tv_student_name.setText("الطالب " + studentInfo.getName());
+        tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
+        tv_student_phone.setText(studentInfo.getPhoneNo());
+        tv_student_identity.setText("رقم الهوية:" + studentInfo.getId_number());
+
+
+    }
+//    public void getStudnetInfo(String id_center, String id_group, String id_student) {
+//
+//        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+//                .child("groups").child(id_group).child("student_group").child(
+//                        id_student).child("student_info");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
+//                tv_student_name.setText(studentInfo.getName());
+//                tv_student_name_ring.setText(studentInfo.getEmail());
+//                tv_student_phone.setText(studentInfo.getPhoneNo());
+//                tv_student_identity.setText(studentInfo.getId_number() + "");
+////                toolbar_student.setTitle(studentInfo.getName());
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//            }
+//        });
+//
+//    }//جلب البيانات
 
 }

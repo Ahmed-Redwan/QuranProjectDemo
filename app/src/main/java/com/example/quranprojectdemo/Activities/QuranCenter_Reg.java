@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.CenterUser;
+import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.Serializable;
+
+import io.realm.Realm;
 
 public class QuranCenter_Reg extends AppCompatActivity {
 
@@ -142,7 +145,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
                 centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
                         et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
-                        , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), mAuth.getUid());
+                        , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), mAuth.getUid()
+                        , "01");
 
 
                 sign_up(et_Email.getText().toString(), et_Password.getText().toString());
@@ -202,16 +206,30 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
     public void setInRealTimeUsers(String name) {
 
-
+        add_info_center_to_realm();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers");
         final DatabaseReference reference2 = rootNode.getReference();
 
 //int id, String name, int age, String address, String email, String phone
         reference.child(name).child("Center information").setValue(centeruser);
-        reference2.child("Countries").child(et_country.getText().toString()).child(et_city.getText().toString()).child(mAuth.getUid()).setValue(centeruser);
+        reference2.child("Countries").child(et_country.getText().toString()).
+                child(et_city.getText().toString()).child(mAuth.getUid()).setValue(centeruser);
 
         startActivity(new Intent(getBaseContext(), Main_center.class));
+
+    }//اضافة بيانات
+
+    public void add_info_center_to_realm() {
+        Realm.init(getBaseContext());
+        Realm realm = Realm.getDefaultInstance();
+
+
+        realm.beginTransaction();
+
+        realm.copyToRealm(centeruser);
+        realm.commitTransaction();
+
 
     }//اضافة بيانات
 

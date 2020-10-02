@@ -24,6 +24,7 @@ import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Other.Student_data;
+import com.google.common.reflect.TypeResolver;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,11 +35,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public class Main_student extends AppCompatActivity {
 
     Toolbar toolbar_student;
-    Spinner spinner_year,spinner_month  ;
+    Spinner spinner_year, spinner_month;
 
     Button btn_show_spinner;
     Button btn_disable_spinner;
@@ -48,20 +54,22 @@ public class Main_student extends AppCompatActivity {
     TextView tv_student_name, tv_student_name_ring, tv_student_phone, tv_student_identity;
     private FirebaseAuth mAuth;
     String id_center, id_group, id_student;
-    final ArrayList<Student_data> student_data = new ArrayList<>();
+    List<Student_data> student_data = new ArrayList<>();
 
-    ArrayList<String> list_spinner_year =new ArrayList<>();
-    ArrayList<String> list_spinner_month =new ArrayList<>();
+    ArrayList<String> list_spinner_year = new ArrayList<>();
+    ArrayList<String> list_spinner_month = new ArrayList<>();
     //    FirebaseAuth  ;
     TextView tv_date, tv_day, tv_attendess;
     RecyclerView rv;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_student);
         mAuth = FirebaseAuth.getInstance();
-
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
         image_backe_student = findViewById(R.id.student_main_image_center);
         image_student = findViewById(R.id.student_main_image_student);
         tv_student_name = findViewById(R.id.student_main_tv_name_student);
@@ -71,12 +79,12 @@ public class Main_student extends AppCompatActivity {
 //
 
 
-        spinner_year=findViewById(R.id.spinner_choose_date_year);
-        spinner_month=findViewById(R.id.spinner_choose_date_month);
+        spinner_year = findViewById(R.id.spinner_choose_date_year);
+        spinner_month = findViewById(R.id.spinner_choose_date_month);
 
-        btn_show_spinner=findViewById(R.id.btn_choose_spinner);
-        btn_disable_spinner=findViewById(R.id.btn_disable_spinner);
-        linearspinner=findViewById(R.id.linear_spinner);
+        btn_show_spinner = findViewById(R.id.btn_choose_spinner);
+        btn_disable_spinner = findViewById(R.id.btn_disable_spinner);
+        linearspinner = findViewById(R.id.linear_spinner);
 
         toolbar_student = findViewById(R.id.student_main_tool);
 //        setSupportActionBar(toolbar_student);
@@ -101,19 +109,7 @@ public class Main_student extends AppCompatActivity {
         rv = findViewById(R.id.student_main_recycler);
 
 
-      //  ArrayList<Student_data> datass = new ArrayList<>();
-//
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "ال عمران 5:150", "ال عمران 55:120"));
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان5:8", "المدثر1:23"));
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
-//        datass.add(new Student_data("10/9/2020", "الخميس", "حاضر", "الانسان", "المدثر"));
 
-
-//
 
 
       /*  TextView_EditFont(tv_attendess,"Hacen_Tunisia.ttf");
@@ -135,10 +131,10 @@ public class Main_student extends AppCompatActivity {
 
         super.onStart();
         id_center = mAuth.getCurrentUser().getDisplayName();
-        id_group =mAuth.getCurrentUser().getPhotoUrl().toString();
+        id_group = mAuth.getCurrentUser().getPhotoUrl().toString();
         id_student = mAuth.getCurrentUser().getUid();
 
-        getsave_showStudent(id_center, id_group, id_student);
+        getsave_showStudent();
 
         btn_show_spinner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,408 +150,150 @@ public class Main_student extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 linearspinner.setVisibility(View.GONE);
-                getsave_showStudent(id_center, id_group, id_student);
+                getsave_showStudent();
             }
         });
-        getStudnetInfo(id_center, id_group, id_student);
+        getStudnetInfo();
 
 
     }
 
-    public void getsave_showStudent(String id_center, String id_group, String id_student){
-
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final  DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save")
-              ;
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Date date = new Date();
-                SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
-                String date_now = Foramt_date.format(date);
-
-                SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-                 String date_year = "Year : " + yearForamt.format(date);
-                Toast.makeText(Main_student.this, date_year, Toast.LENGTH_SHORT).show();
-
-                SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-                String date_month = "Month : " + monthForamt.format(date);
-                Toast.makeText(Main_student.this, date_month, Toast.LENGTH_SHORT).show();
-
-                SimpleDateFormat dayForamt = new SimpleDateFormat("dd");
-                String date_day = "Day : " + dayForamt.format(date);
+    public void getsave_showStudent() {
 
 
+        Date date = new Date();
 
-                student_data.clear();
-                for (DataSnapshot snapshot1 : snapshot.child(date_year).child(date_month).getChildren() ){
-                    Student_data d = snapshot1.getValue(Student_data.class);
+        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
+        String date_year = "Year : " + yearForamt.format(date);
 
-                    student_data.add(d);
-                }
+        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
+        String date_month = "Month : " + monthForamt.format(date);
 
-                Recycler_student r_s = new Recycler_student(student_data);
-                rv.setAdapter(r_s);
-                RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
-                rv.setHasFixedSize(true);
-                rv.setLayoutManager(lm);
+        RealmQuery<Student_data> query = realm.where(Student_data.class);
+        query.equalTo("year_save", date_year);
+        query.and().equalTo("month_save", date_month);
+        RealmResults<Student_data> realmResults = query.findAll();
 
+        Recycler_student r_s = new Recycler_student(realmResults);
+        rv.setAdapter(r_s);
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(lm);
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
+
 
     public void getSavesStudent(String id_center, String id_group, String id_student) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final     DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
 
 
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(final DataSnapshot dataSnapshot) {
-
-//                for (DataSnapshot c : dataSnapshot.getChildren()) {
-//                    for (DataSnapshot c1 : c.getChildren()) {
-//                        for (DataSnapshot c3 : c1.getChildren()) {
-//                            Student_data d = c3.getValue(Student_data.class);
-//                            student_data.add(d);
-//
-//                        }
-//                    }
-//                }
-
-                        list_spinner_year.clear();
-                        list_spinner_year.add("اختر السنة");
-                        for (DataSnapshot c : dataSnapshot.getChildren()) {
-                            list_spinner_year.add(c.getKey());
-//                    Toast.makeText(Main_student.this, c.getKey(), Toast.LENGTH_SHORT).show();
-                        }
-
-                        ArrayAdapter adapter_spinner_year = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, list_spinner_year);
-                        spinner_year.setAdapter(adapter_spinner_year);
-
-
-                        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                if (position==0){
-
-                                    Toast.makeText(Main_student.this, "من فضلك اختر السنة", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-
-                                    final String year =parent.getItemAtPosition(position).toString();
-
-                                    list_spinner_month.clear();
-                                    list_spinner_month.add("اختر الشهر");
-
-                                    for (DataSnapshot dataSnapshot1 :dataSnapshot.child(year).getChildren()){
-                                        list_spinner_month.add(dataSnapshot1.getKey());
-                                    }
-
-                                    if (list_spinner_month.isEmpty()){
-                                        Toast.makeText(Main_student.this,"لايوجد لك اشهر في هذه السنة" +year, Toast.LENGTH_SHORT).show();
-                                    }else
-                                        Toast.makeText(Main_student.this,"من فضلك اختر الشهر" +year, Toast.LENGTH_SHORT).show();
-
-                                    ArrayAdapter adapter_spinner_month = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, list_spinner_month);
-                                    spinner_month.setAdapter(adapter_spinner_month);
-
-                                    spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                            String month=parent.getItemAtPosition(position).toString();
-
-                                            student_data.clear();
-                                            for (DataSnapshot snapshot: dataSnapshot.child(year).child(month).getChildren()){
-
-                                                Student_data d = snapshot.getValue(Student_data.class);
-                                                student_data.add(d);
-                                            }
-
-                                            Recycler_student r_s = new Recycler_student(student_data);
-                                            rv.setAdapter(r_s);
-                                            RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
-                                            rv.setHasFixedSize(true);
-                                            rv.setLayoutManager(lm);
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> parent) {
-
-                                        }
-                                    });
-                                }
-                            }
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                            }
-                        });
-
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
-
-        }
-
-
-    //جلب البيانات
-
-
-//    public void getSavesStudent(String id_center, String id_group, String id_student) {
-//
-//        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-//        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-//                .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                student_data.clear();
-//
-//                for (DataSnapshot c : dataSnapshot.getChildren()) {
-//                    if (!c.getKey().equals("student_info")) {
-//                        Student_data d = c.getValue(Student_data.class);
-//                        Toast.makeText(getBaseContext(), d.getDate__student(), Toast.LENGTH_SHORT).show();
-//                        student_data.add(d);
-//                    }
-//                }
-//                Recycler_student r_s=new Recycler_student(student_data);
-//                rv.setAdapter(r_s);
-//                RecyclerView.LayoutManager lm =new LinearLayoutManager(getBaseContext());
-//                rv.setHasFixedSize(true);
-//                rv.setLayoutManager(lm);
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-////                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
-//
-//    }//جلب البيانات
-
-    public void getStudnetInfo(String id_center, String id_group, String id_student) {
-
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("student_group").child(
-                        id_student).child("student_info");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
-                tv_student_name.setText("الطالب "+studentInfo.getName());
-                tv_student_name_ring.setText("الإيميل:"+studentInfo.getEmail());
-                tv_student_phone.setText(studentInfo.getPhoneNo());
-                tv_student_identity.setText("رقم الهوية:"+studentInfo.getId_number());
-                toolbar_student.setTitle("الطالب "+studentInfo.getName());
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                list_spinner_year.add("اختر السنة");
+                RealmQuery<Student_data> query = realm.where(Student_data.class);
+
+                Number max = query.max("year_save");
+                Number min = query.min("year_save");
+                for (int i = min.intValue(); i <= max.intValue(); i++) {
+
+                    list_spinner_year.add(i + "");
+
+                }
+
+
+                ArrayAdapter adapter_spinner_year = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, list_spinner_year);
+                spinner_year.setAdapter(adapter_spinner_year);
+
+
+                spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        if (position == 0) {
+
+                            Toast.makeText(Main_student.this, "من فضلك اختر السنة", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            final String year = parent.getItemAtPosition(position).toString();
+                             Number x = realm.where(Student_data.class)
+                                    .equalTo("year_save", "Year : " + year).max("month_save");
+                            list_spinner_month.clear();
+                            list_spinner_month.add("اختر الشهر");
+
+                            for (int i = 1; i <= x.intValue(); i++) {
+                                list_spinner_month.add("" + i);
+
+
+                            }
+
+
+                            if (list_spinner_month.isEmpty()) {
+                                Toast.makeText(Main_student.this, "لايوجد لك اشهر في هذه السنة" + year, Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(Main_student.this, "من فضلك اختر الشهر" + year, Toast.LENGTH_SHORT).show();
+
+                            ArrayAdapter adapter_spinner_month = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, list_spinner_month);
+                            spinner_month.setAdapter(adapter_spinner_month);
+
+                            spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                    String month = parent.getItemAtPosition(position).toString();
+                                    RealmQuery<Student_data> query = realm.where(Student_data.class);
+                                    query.equalTo("year_save", year);
+                                    query.and().equalTo("month_save", month);
+                                    RealmResults<Student_data> realmResults = query.findAll();
+
+
+                                    Recycler_student r_s = new Recycler_student(realmResults);
+                                    rv.setAdapter(r_s);
+                                    RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
+                                    rv.setHasFixedSize(true);
+                                    rv.setLayoutManager(lm);
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
 
 
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
+
             }
         });
 
-    }//جلب البيانات
+    }
+
+
+    public void getStudnetInfo() {
+        RealmQuery<Student_Info> query = realm.where(Student_Info.class);
+        Student_Info studentInfo = query.findFirst();
+
+
+        tv_student_name.setText("الطالب " + studentInfo.getName());
+        tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
+        tv_student_phone.setText(studentInfo.getPhoneNo());
+        tv_student_identity.setText("رقم الهوية:" + studentInfo.getId_number());
+        toolbar_student.setTitle("الطالب " + studentInfo.getName());
+
+
+    }
 
 }
-
-
-//<?xml version="1.0" encoding="utf-8"?>
-//<LinearLayout
-//    xmlns:android="http://schemas.android.com/apk/res/android"
-//    android:layout_width="match_parent"
-//    android:layout_height="match_parent"
-//    xmlns:app="http://schemas.android.com/apk/res-auto"
-//    android:orientation="vertical"
-//    android:gravity="center">
-//
-//    <androidx.cardview.widget.CardView
-//        android:layout_width="match_parent"
-//        android:layout_height="@dimen/_50sdp"
-//        app:cardElevation="@dimen/_7sdp"
-//        app:cardCornerRadius="@dimen/_7sdp"
-//        android:layout_marginTop="@dimen/_3sdp"
-//        android:layout_marginBottom="@dimen/_3sdp"
-//        app:cardBackgroundColor="#D1D4D6"
-//
-//        >
-//        <LinearLayout
-//            android:layout_width="match_parent"
-//            android:layout_height="match_parent"
-//            android:orientation="horizontal"
-//            android:layout_gravity="center"
-//            android:layout_marginEnd="@dimen/_10sdp"
-//            android:layout_marginStart="@dimen/_10sdp"
-//             >
-//            <androidx.cardview.widget.CardView
-//                android:layout_width="match_parent"
-//                android:layout_height="match_parent"
-//                android:layout_weight="1"
-//                app:cardBackgroundColor="#D1D4D6"
-//                app:cardCornerRadius="@dimen/_6sdp"
-//                app:cardElevation="@dimen/_6sdp"
-//
-//                >
-//
-//                <TextView
-//                    android:layout_width="match_parent"
-//                    android:layout_height="match_parent"
-//                    android:text="التاريخ"
-//                    android:gravity="center"
-//                    android:textColor="@color/colorPrimary"
-//                    android:textSize="@dimen/_13ssp"
-//                    android:textStyle="bold"
-//
-//                    android:layout_marginStart="@dimen/_3sdp"
-//                    android:layout_marginEnd="@dimen/_3sdp"
-//
-//                    android:id="@+id/student_recycler_date"
-//                    />
-//
-//            </androidx.cardview.widget.CardView>
-//
-//            <androidx.cardview.widget.CardView
-//                android:layout_width="match_parent"
-//                android:layout_height="match_parent"
-//                android:layout_weight="1"
-//                 app:cardCornerRadius="@dimen/_6sdp"
-//                app:cardElevation="@dimen/_6sdp"
-//                app:cardBackgroundColor="#D1D4D6"
-//
-//                >
-//
-//
-//                    <TextView
-//                        android:layout_width="match_parent"
-//                        android:layout_height="match_parent"
-//                        android:text="اليوم"
-//                        android:textStyle="bold"
-//                        android:gravity="center"
-//                        android:textColor="@color/colorPrimary"
-//                        android:textSize="@dimen/_13ssp"
-//
-//                        android:layout_marginStart="@dimen/_3sdp"
-//                        android:layout_marginEnd="@dimen/_3sdp"
-//
-//                        android:id="@+id/student_recycler_day"
-//                        />
-//
-//
-//
-//            </androidx.cardview.widget.CardView>
-//
-//            <androidx.cardview.widget.CardView
-//                android:layout_width="match_parent"
-//                android:layout_height="match_parent"
-//                android:layout_weight="1"
-//                 app:cardCornerRadius="@dimen/_6sdp"
-//                app:cardElevation="@dimen/_6sdp"
-//                app:cardBackgroundColor="#D1D4D6"
-//
-//                >
-//
-//                <TextView
-//                    android:layout_width="match_parent"
-//                    android:layout_height="match_parent"
-//                    android:text="الحضور"
-//                    android:gravity="center"
-//                    android:textColor="@color/colorPrimary"
-//                    android:textSize="@dimen/_13ssp"
-//                    android:textStyle="bold"
-//
-//                    android:layout_marginStart="@dimen/_3sdp"
-//                    android:layout_marginEnd="@dimen/_3sdp"
-//
-//                    android:id="@+id/student_recycler_attendess"
-//                    />
-//
-//            </androidx.cardview.widget.CardView>
-//
-//            <androidx.cardview.widget.CardView
-//                android:layout_width="match_parent"
-//                android:layout_height="match_parent"
-//                android:layout_weight="1"
-//                 app:cardCornerRadius="@dimen/_6sdp"
-//                app:cardElevation="@dimen/_6sdp"
-//                app:cardBackgroundColor="#D1D4D6"
-//
-//                >
-//
-//                <TextView
-//                    android:layout_width="match_parent"
-//                    android:layout_height="match_parent"
-//                    android:text="المراجعه"
-//                    android:gravity="center"
-//                    android:textColor="@color/colorPrimary"
-//                    android:textSize="@dimen/_13ssp"
-//                    android:textStyle="bold"
-//                    android:layout_marginStart="@dimen/_3sdp"
-//                    android:layout_marginEnd="@dimen/_3sdp"
-//
-//                    android:id="@+id/student_recycler_review"
-//                    />
-//
-//            </androidx.cardview.widget.CardView>
-//
-//            <androidx.cardview.widget.CardView
-//                android:layout_width="match_parent"
-//                android:layout_height="match_parent"
-//                android:layout_weight="1"
-//                 app:cardCornerRadius="@dimen/_6sdp"
-//                app:cardElevation="@dimen/_6sdp"
-//                app:cardBackgroundColor="#D1D4D6"
-//
-//
-//                >
-//                <TextView
-//                    android:layout_width="match_parent"
-//                    android:layout_height="match_parent"
-//                    android:text="الحفظ"
-//                    android:gravity="center"
-//                    android:layout_marginStart="@dimen/_3sdp"
-//                    android:layout_marginEnd="@dimen/_3sdp"
-//
-//                    android:textColor="@color/colorPrimary"
-//                    android:textSize="@dimen/_13ssp"
-//                    android:textStyle="bold"
-//
-//
-//                    android:id="@+id/student_recycler_save"
-//                    />
-//
-//
-//            </androidx.cardview.widget.CardView>
-//
-//
-//
-//
-//        </LinearLayout>
-//    </androidx.cardview.widget.CardView>
-//
-//
-//
-//</LinearLayout>

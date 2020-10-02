@@ -17,6 +17,7 @@ import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Student_Info;
+import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
@@ -33,17 +39,19 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     TextView tv_ShowMemorizationLoops;
     RecyclerView rv_List;
     Toolbar toolbar;
-    ArrayList<Group> data;
+    List<Group> data;
     private boolean is_finsh;
     SharedPreferences sp;
     private String id_center;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_memorization_loops);
         toolbar = findViewById(R.id.ShowMemorizationLoops_ToolBar);
-
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
@@ -87,41 +95,29 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     }
 
 
-    public boolean getGroups(final String id_center) {
-
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                                 data.clear();
-                for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    DataSnapshot info_group = c.child("group_info");
-                    Toast.makeText(getBaseContext(), c.getKey(), Toast.LENGTH_SHORT).show();
-                    String id_group = c.getKey();
-                    String name_group = info_group.getValue(Group_Info.class).getGroup_name();
-                    String name_tech = info_group.getValue(Group_Info.class).getTeacher_name();
-                    data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group,id_center));
 
 
+    public void getGroups(final String id_center) {
 
-                }
-                final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data,getBaseContext());
-                rv_List.setHasFixedSize(true);
-                rv_List.setAdapter(customGroupRecyclerView);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
-                rv_List.setLayoutManager(layoutManager);
-            }
+        RealmQuery<Group_Info> query = realm.where(Group_Info.class);
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-        return true;
-    }//جلب البيانات
+
+        RealmResults<Group_Info> realmResults = query.findAll();
+        for (int i = 0; i < realmResults.size(); i++) {
+            String id_group = realmResults.get(i).getGroup_id();
+            String name_group = realmResults.get(i).getGroup_name();
+            String name_tech = realmResults.get(i).getTeacher_name();
+            data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group, id_center));
+        }
+
+        final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data, getBaseContext());
+        rv_List.setHasFixedSize(true);
+        rv_List.setAdapter(customGroupRecyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+        rv_List.setLayoutManager(layoutManager);
+
+
+    }
 
 
 }

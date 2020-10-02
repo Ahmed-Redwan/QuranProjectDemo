@@ -23,6 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+
 public class Main_teacher extends AppCompatActivity {
 
     ImageView image_backe_teacher, image_teacher;
@@ -37,7 +41,7 @@ public class Main_teacher extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 //     Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
 //     'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
-        getInfoTeacher(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
+        getInfoTeacher();
         image_backe_teacher = findViewById(R.id.teacher_main_image_center);
         /*image_teacher = findViewById(R.id.teacher_main_image_teacher);*/
         tv_teacher_name = findViewById(R.id.teacher_main_tv_name_teacher);
@@ -84,50 +88,24 @@ public class Main_teacher extends AppCompatActivity {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
-    public void getInfoTeacher(String id_group, String id_center) {
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("group_info");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            //tv_teacher_name, tv_teacher_name_ring, tv_teacher_phone, tv_teacher_count_student;
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Group_Info val = dataSnapshot.getValue(Group_Info.class);
-                try {
-                    val.getEmail();
-                    tv_teacher_name.setText("المحفظ "+val.getTeacher_name());
-                    tv_teacher_phone.setText("رقم الهاتف:"+val.getPhone());
-                    tv_teacher_name_ring.setText("حلقة "+val.getGroup_name());
-                    toolbar_teacher.setTitle("حلقة "+val.getGroup_name());
-                } catch (Exception c) {
+    public void getInfoTeacher() {
+        Realm.init(getBaseContext());
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery<Group_Info> query = realm.where(Group_Info.class);
+        Group_Info val = query.findFirst();
 
-                }
+        tv_teacher_name.setText("المحفظ " + val.getTeacher_name());
+        tv_teacher_phone.setText("رقم الهاتف:" + val.getPhone());
+        tv_teacher_name_ring.setText("حلقة " + val.getGroup_name());
+        toolbar_teacher.setTitle("حلقة " + val.getGroup_name());
+        tv_teacher_count_student.setText(val.getAuto_sutdent_id());
+//        RealmQuery<Student_Info> query1 = realm.where(Student_Info.class);
+//
+//        tv_teacher_count_student.setText("عدد طلاب الحلقة:" + query1.count());
 
-//                DatabaseReference d = reference.getParent().child("st");
+    }
 
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-        DatabaseReference reference1 = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("student_group");
-        reference1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tv_teacher_count_student.setText("عدد طلاب الحلقة:"+snapshot.getChildrenCount());
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }//جلب البيانات
 
 }
+

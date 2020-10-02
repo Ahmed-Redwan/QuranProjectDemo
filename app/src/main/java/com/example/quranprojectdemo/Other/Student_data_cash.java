@@ -5,7 +5,7 @@ import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class Student_data extends RealmObject {
+public class Student_data_cash extends RealmObject {
 
     @Required
     private String date__student;
@@ -18,7 +18,7 @@ public class Student_data extends RealmObject {
     @Required
     private String attendess_student;
     private double counnt_page_save;
-        
+
     private double counnt_page_review;
     @Index
     private String month_save;
@@ -29,20 +29,17 @@ public class Student_data extends RealmObject {
     private String id_student;
     @PrimaryKey
     private String date_id;
-    private String id_group;
 
 
-
-    public Student_data(String date__student, String day_student,
+    public Student_data_cash(String date__student, String day_student,
                         String save_student, String review_student,
                         String attendess_student, double counnt_page_save,
-                        double counnt_page_review, String month_save, String year_save, long time_save, String id_student, String date_id,String id_group) {
+                        double counnt_page_review, String month_save, String year_save, long time_save, String id_student, String date_id) {
         this.date__student = date__student;
         this.date_id = date_id;
         this.day_student = day_student;
         this.save_student = save_student;
         this.review_student = review_student;
-        this.id_group=id_group;
         this.id_student = id_student;
         this.attendess_student = attendess_student;
         this.counnt_page_save = counnt_page_save;
@@ -51,20 +48,20 @@ public class Student_data extends RealmObject {
         this.year_save = year_save;
         this.time_save = time_save;
     }
-//
-//    public Student_data(String date__student, String day_student, String save_student,
-//                        String review_student, String attendess_student, double counnt_page_save, double counnt_page_review) {
-//
-//        this.date__student = date__student;
-//        this.day_student = day_student;
-//        this.save_student = save_student;
-//        this.review_student = review_student;
-//        this.attendess_student = attendess_student;
-//        this.counnt_page_save = counnt_page_save;
-//        this.counnt_page_review = counnt_page_review;
-//    }
 
-    public Student_data() {
+    public Student_data_cash(String date__student, String day_student, String save_student,
+                             String review_student, String attendess_student, double counnt_page_save, double counnt_page_review) {
+
+        this.date__student = date__student;
+        this.day_student = day_student;
+        this.save_student = save_student;
+        this.review_student = review_student;
+        this.attendess_student = attendess_student;
+        this.counnt_page_save = counnt_page_save;
+        this.counnt_page_review = counnt_page_review;
+    }
+
+    public Student_data_cash() {
 
     }
 
@@ -78,22 +75,6 @@ public class Student_data extends RealmObject {
 
     public String getYear_save() {
         return year_save;
-    }
-
-    public String getDate_id() {
-        return date_id;
-    }
-
-    public void setDate_id(String date_id) {
-        this.date_id = date_id;
-    }
-
-    public String getId_group() {
-        return id_group;
-    }
-
-    public void setId_group(String id_group) {
-        this.id_group = id_group;
     }
 
     public void setYear_save(String year_save) {

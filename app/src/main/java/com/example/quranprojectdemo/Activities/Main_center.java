@@ -14,7 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quranprojectdemo.Other.Center;
 import com.example.quranprojectdemo.Other.CenterUser;
+import com.example.quranprojectdemo.Other.Group;
+import com.example.quranprojectdemo.Other.Group_Info;
+import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import io.realm.Realm;
+import io.realm.RealmQuery;
 
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
@@ -78,10 +85,10 @@ public class Main_center extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), ShowmeMorizationLoops.class));
                         return true;
                     case R.id.MenuCentreHomeRequestsList:
-                        startActivity(new Intent(getBaseContext(), JoinRequests.class).putExtra("CenterId",centerId));
+                        startActivity(new Intent(getBaseContext(), JoinRequests.class).putExtra("CenterId", centerId));
                         return true;
                     case R.id.MenuCenterHomeExit:
-                        FancyToast.makeText(getBaseContext(),"تم تسجيل الخروج.",FancyToast.LENGTH_LONG,FancyToast.DEFAULT,false).show();
+                        FancyToast.makeText(getBaseContext(), "تم تسجيل الخروج.", FancyToast.LENGTH_LONG, FancyToast.DEFAULT, false).show();
                         finish();
                         return true;
                     case R.id.MenuCenterHomeSettings:
@@ -93,27 +100,6 @@ public class Main_center extends AppCompatActivity {
                 return false;
             }
         });
-
-    /*    FirebaseDatabase firebaseDatabase =FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference();
-
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot snapshot1 :snapshot.getChildren()){
-                    Log.d("asd","****************"+snapshot1.getValue());
-
-                }
-                //الحمدلله
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
 
         TextView_EditFont(tv_center_count_ring, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_center_count_student, "Hacen_Tunisia.ttf");
@@ -132,52 +118,29 @@ public class Main_center extends AppCompatActivity {
 
     public void getInRealTimeUsers() {
 
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId).child("Center information");
-        final DatabaseReference reference1 = reference.getParent().child("groups");
-        reference1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tv_center_count_ring.setText("عدد الحلقات : "+snapshot.getChildrenCount());
-                int numStudent = 0;
 
-                for (DataSnapshot d : snapshot.getChildren()) {
-                    numStudent +=d.child("student_group").getChildrenCount();
+        Realm.init(getBaseContext());
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery<CenterUser> query = realm.where(CenterUser.class);
+        CenterUser value = query.findFirst();
 
-//                    numStudent += d.getChildrenCount();
-                }
-                tv_center_count_student.setText("عدد طلاب المركز:"+numStudent);
+//        RealmQuery<Group_Info> queryGroup = realm.where(Group_Info.class);
+        RealmQuery<Student_Info> queryStudent = realm.where(Student_Info.class);
+//
+
+        tv_center_count_ring.setText("عدد الحلقات : " + value.getAuto_id_group());
 
 
-            }
+        tv_center_count_student.setText("عدد طلاب المركز:" + queryStudent.count());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+        tv_center_name.setText("مركز:" + value.getcenterName());
+        tv_center_name_maneger.setText("مدير المركز:" + value.getmanagerName());
+        tv_center_phone.setText("هاتف:" + value.getPhone());
+        toolbar_center.setTitle("مركز:" + value.getcenterName());
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
 
-                CenterUser value = dataSnapshot.getValue(CenterUser.class);
-                tv_center_name.setText("مركز:"+value.getcenterName() );
-                tv_center_name_maneger.setText("مدير المركز:"+value.getmanagerName());
-                tv_center_phone.setText( "هاتف:"+value.getPhone() );
-                toolbar_center.setTitle("مركز:"+value.getcenterName());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException());
-            }
-        });
-    }//جلب البيانات
+    }
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Other;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -16,13 +17,15 @@ import com.example.quranprojectdemo.Activities.Show_group_student;
 import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomGroupRecyclerView extends RecyclerView.Adapter<CustomGroupRecyclerView.View_holder> {
-    ArrayList<Group> arrayList;
+    List<Group> arrayList;
+    Context context;
 
-
-    public CustomGroupRecyclerView(ArrayList<Group> arrayList) {
+    public CustomGroupRecyclerView(List<Group> arrayList, Context context) {
         this.arrayList = arrayList;
+        this.context = context;
     }
 
 

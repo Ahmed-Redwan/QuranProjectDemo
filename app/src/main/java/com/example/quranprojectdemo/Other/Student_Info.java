@@ -1,19 +1,34 @@
 package com.example.quranprojectdemo.Other;
 
-public class Student_Info {
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.annotations.Index;
+import io.realm.annotations.PrimaryKey;
+
+public class Student_Info extends RealmObject {
     private String name;
+    @PrimaryKey
+    @Index
     private String id_number;
     private String phoneNo;
     private String email;
     private String academic_level;
     private String birth_date;
+    @Index
     private String id_Student;
     private String img_student;
+    @Index
     private String id_center;
+    @Index
     private String id_group;
 
 
-    public Student_Info(String name, String id_number, String phoneNo, String email, String academic_level, String birth_date, String img_student, String id_center, String id_group) {
+    public Student_Info(String name,
+                        String id_number,
+                        String phoneNo, String email,
+                        String academic_level, String birth_date,
+                        String img_student, String id_center,
+                        String id_group) {
         this.name = name;
         this.id_number = id_number;
         this.phoneNo = phoneNo;
@@ -28,40 +43,39 @@ public class Student_Info {
     public Student_Info() {
     }
 
-    public Student_Info(String name, String id_Student,String img_student) {
-        this.name = name;
-        this.id_Student = id_Student;
-        this.img_student=img_student;
-    }
-
-    public Student_Info( String img_student,String name, String id_Student,String id_group,String id_center) {
+    public Student_Info(String name, String id_Student, String img_student) {
         this.name = name;
         this.id_Student = id_Student;
         this.img_student = img_student;
-        this.id_center=id_center;
-        this.id_group=id_group;
     }
 
-
-
-    public Student_Info(String name, String id_number, String phoneNo, String email, String academic_level, String birth_date) {
+    public Student_Info(String img_student, String name, String id_Student, String id_group, String id_center) {
         this.name = name;
-        this.id_number = id_number;
-        this.phoneNo = phoneNo;
-        this.email = email;
-        this.academic_level = academic_level;
-        this.birth_date = birth_date;
+        this.id_Student = id_Student;
+        this.img_student = img_student;
+        this.id_center = id_center;
+        this.id_group = id_group;
     }
 
-    public Student_Info(String CenterId,String name, String id_number, String phoneNo, String email, String academic_level, String birth_date) {
-        this.id_center=CenterId;
-        this.name = name;
-        this.id_number = id_number;
-        this.phoneNo = phoneNo;
-        this.email = email;
-        this.academic_level = academic_level;
-        this.birth_date = birth_date;
-    }
+//
+//    public Student_Info(String name, String id_number, String phoneNo, String email, String academic_level, String birth_date) {
+//        this.name = name;
+//        this.id_number = id_number;
+//        this.phoneNo = phoneNo;
+//        this.email = email;
+//        this.academic_level = academic_level;
+//        this.birth_date = birth_date;
+//    }
+
+//    public Student_Info(String CenterId, String name, String id_number, String phoneNo, String email, String academic_level, String birth_date) {
+//        this.id_center = CenterId;
+//        this.name = name;
+//        this.id_number = id_number;
+//        this.phoneNo = phoneNo;
+//        this.email = email;
+//        this.academic_level = academic_level;
+//        this.birth_date = birth_date;
+//    }
 
     public String getImg_student() {
         return img_student;

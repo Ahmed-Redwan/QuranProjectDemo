@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,6 +45,7 @@ public class AddNewStudent extends AppCompatActivity {
     SharedPreferences sp;
     Spinner spinner;
     private FirebaseAuth mAuth;
+    private String auto_student_id;
 
 
     @Override
@@ -99,7 +101,7 @@ public class AddNewStudent extends AppCompatActivity {
         btn_Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (et_studentName.getText().toString().isEmpty()||et_studentId.getText().toString().isEmpty()||et_Email.getText().toString().isEmpty()||et_Phone.getText().toString().isEmpty()||et_Grade.getText().toString().isEmpty()||et_Day.getText().toString().isEmpty()||et_Month.getText().toString().isEmpty()||et_Year.getText().toString().isEmpty()){
+                if (et_studentName.getText().toString().isEmpty() || et_studentId.getText().toString().isEmpty() || et_Email.getText().toString().isEmpty() || et_Phone.getText().toString().isEmpty() || et_Grade.getText().toString().isEmpty() || et_Day.getText().toString().isEmpty() || et_Month.getText().toString().isEmpty() || et_Year.getText().toString().isEmpty()) {
                     et_Month.setError("يجب تعبئة جميع الحقول.");
                     et_Year.setError("يجب تعبئة جميع الحقول.");
                     et_Day.setError("يجب تعبئة جميع الحقول.");
@@ -139,16 +141,17 @@ public class AddNewStudent extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            create_new_student(user.getUid(), id_group, id_center);
+                            getAutoStudentID(id_group, id_center);
+                            create_new_student(auto_student_id, id_group, id_center);
                             updatename(user);
 
                             FirebaseAuth.getInstance().signOut();
-                            FancyToast.makeText(getBaseContext(),"تم إضافة طالب جديد.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                            FancyToast.makeText(getBaseContext(), "تم إضافة طالب جديد.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
 
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            FancyToast.makeText(getBaseContext(),"فشل في إضافة الطالب.",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                            FancyToast.makeText(getBaseContext(), "فشل في إضافة الطالب.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
 
                         }
 
@@ -159,9 +162,9 @@ public class AddNewStudent extends AppCompatActivity {
     }//للتسجيل
 
 
-    private void updatename(FirebaseUser user) {
+    private void updatename(FirebaseUser user) {// space = 32
         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                .setDisplayName(id_center).setPhotoUri(Uri.parse(id_group))
+                .setDisplayName(id_center).setPhotoUri(Uri.parse(id_group + " " + auto_student_id))
                 .build();
         user.updateProfile(profileUpdate)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -173,7 +176,7 @@ public class AddNewStudent extends AppCompatActivity {
 
     }
 
-    public void create_new_student(String name_student, String id_groub, String id_center) {
+    public void create_new_student(String id_student, String id_groub, String id_center) {
         String birth_day = et_Day.getText().toString() + "/" + et_Month.getText().toString() + "/" + et_Year.getText().toString();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
@@ -182,18 +185,51 @@ public class AddNewStudent extends AppCompatActivity {
         DatabaseReference new_group = center_groups.child(id_groub);// add new group
 
         DatabaseReference student_group = new_group.child("student_group");
-        DatabaseReference new_student = student_group.child(name_student);
+        DatabaseReference new_student = student_group.child(id_student);
 
         DatabaseReference student_info = new_student.child("student_info");
         student_info.setValue(new Student_Info(et_studentName.getText().toString(),
-               et_studentId.getText().toString(),
+                et_studentId.getText().toString(),
                 et_Phone.getText().toString(),
                 et_Email.getText().toString(),
                 et_Grade.getText().toString(),
-                et_Day.getText().toString()+"/"+et_Month.getText().toString()+"/"+et_Year.getText().toString()));
+                birth_day, null, id_center, id_group));
 
 
     }
 
 
+    public void getAutoStudentID(String id_group, String id_center) {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+                .child("groups").child(id_group).child("group_info");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Group_Info val = dataSnapshot.getValue(Group_Info.class);
+                auto_student_id = val.getAuto_sutdent_id();
+
+                int id_group = Integer.parseInt(auto_student_id) + 1;
+                String new_id_group = "";
+                if (id_group < 10) {
+                    new_id_group = "0" + id_group;
+
+                } else {
+
+                    new_id_group = "" + id_group;
+
+                }
+                val.setAuto_sutdent_id(new_id_group);
+                reference.setValue(val);
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+    }
 }
