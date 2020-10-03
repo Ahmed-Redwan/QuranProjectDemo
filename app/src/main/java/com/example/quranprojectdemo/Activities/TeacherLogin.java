@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -70,29 +71,33 @@ public class TeacherLogin extends AppCompatActivity {
         sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
         String id_center = sp.getString(ID_LOGIN_TEC_CENTER, "-1");
         String id_groubsp = sp.getString(ID_LOGIN_TEACHER, "-1");
-        RealmResults<Student_data_cash> realmResults = realm.where(Student_data_cash.class).findAll();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        RealmResults<Student_data_cash> realmResults = realm.where(Student_data_cash.class).findAll();/// this is
 
-        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
-        DatabaseReference my_center = reference.child(id_center);//already found
-        DatabaseReference my_center_groups = my_center.child("groups");//already found or not
-        DatabaseReference my_group = my_center_groups.child(id_groubsp);// add new group
+        if (!realmResults.isEmpty()) {
+            FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
 
-        DatabaseReference my_student_group = my_group.child("student_group");
+            DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+            DatabaseReference my_center = reference.child(id_center);//already found
+            DatabaseReference my_center_groups = my_center.child("groups");//already found or not
+            DatabaseReference my_group = my_center_groups.child(id_groubsp);// add new group
 
-        for (int i = 0; i < realmResults.size(); i++) {
-            DatabaseReference student = my_student_group.child(realmResults.get(i).getId_student());
+            DatabaseReference my_student_group = my_group.child("student_group");
 
-
-            DatabaseReference student_save = student.child("student_save").child(realmResults.get(i).getTime_save() + "");
-
-            student_save.setValue(realmResults.get(i));
+            for (int i = 0; i < realmResults.size(); i++) {
+                DatabaseReference student = my_student_group.child(realmResults.get(i).getId_student());
 
 
+                DatabaseReference student_save = student.child("student_save").child(realmResults.get(i).getTime_save() + "");
+
+                student_save.setValue(realmResults.get(i));
+
+
+            }
+
+            realm.beginTransaction();
+            realm.delete(Student_data_cash.class);
+            realm.commitTransaction();
         }
-        realm.beginTransaction();
-        realm.delete(Student_data_cash.class);
-        realm.commitTransaction();
     }
 
     @Override
@@ -100,38 +105,49 @@ public class TeacherLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_login);
         mAuth = FirebaseAuth.getInstance();
-        if (checkInternet()) {
 
-            upload_save_to_firaBase();
-        }
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
-        tv_Login = findViewById(R.id.TeacheLogin_tv_login);
+        RealmResults<Group_Info> realmResults = realm.where(Group_Info.class).findAll();
+        if (!realmResults.isEmpty()) {
+            if (checkInternet()) {
 
-        et_Email = findViewById(R.id.TeacheLogin_et_EmailOrphone);
-        et_password = findViewById(R.id.TeacheLogin_et_Password);
-        btn_Login = findViewById(R.id.TeacheLogin_btn_Login);
+                upload_save_to_firaBase();
+            }
+            realm.close();
+            startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
-        saveLoginCheckBox = findViewById(R.id.TeacherLogin_Cb_remmemberme);
-        loginPreferences = getSharedPreferences("loginPrefsTeacher", MODE_PRIVATE);
-        loginPrefsEditor = loginPreferences.edit();
+        } else {
+            if (checkInternet()) {
 
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
-            et_Email.setText(loginPreferences.getString("username", ""));
-            et_password.setText(loginPreferences.getString("password", ""));
-            saveLoginCheckBox.setChecked(true);
+                upload_save_to_firaBase();
+            }
+            /*  start actvity main te*/
+            tv_Login = findViewById(R.id.TeacheLogin_tv_login);
+            et_Email = findViewById(R.id.TeacheLogin_et_EmailOrphone);
+            et_password = findViewById(R.id.TeacheLogin_et_Password);
+            btn_Login = findViewById(R.id.TeacheLogin_btn_Login);
+
+            saveLoginCheckBox = findViewById(R.id.TeacherLogin_Cb_remmemberme);
+            loginPreferences = getSharedPreferences("loginPrefsTeacher", MODE_PRIVATE);
+            loginPrefsEditor = loginPreferences.edit();
+
+            saveLogin = loginPreferences.getBoolean("saveLogin", false);
+            if (saveLogin == true) {
+                et_Email.setText(loginPreferences.getString("username", ""));
+                et_password.setText(loginPreferences.getString("password", ""));
+                saveLoginCheckBox.setChecked(true);
+            }
+
+
+            TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
+
+            btn_Login.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+
+            EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_password, "Hacen_Tunisia.ttf");
+
         }
-
-
-        TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
-
-        btn_Login.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
-
-        EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_password, "Hacen_Tunisia.ttf");
-
-
     }
 
     @Override
@@ -187,13 +203,18 @@ public class TeacherLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            editor.putString(ID_LOGIN_TEACHER, user.getPhotoUrl().toString());
-                            editor.putString(ID_LOGIN_TEC_CENTER, user.getDisplayName());
+//                            getInfoTeacher("D6jM6n7JHpQoL3UdsUGfo3ykm5x2", user.getDisplayName());
+                            editor.putString(ID_LOGIN_TEACHER, "D6jM6n7JHpQoL3UdsUGfo3ykm5x2");
+                            editor.putString(ID_LOGIN_TEC_CENTER, "EOsjhaSEWch1I8y3TQun1pJk2i32");
                             editor.commit();
+                            Log.d("****************", user.getEmail() + "******************");
 
-                            add_info_group_to_realm(user.getPhotoUrl().toString(), user.getDisplayName());
+                            Toast.makeText(TeacherLogin.this, user.getEmail(), Toast.LENGTH_SHORT).show();
+                            getInfoTeacher("D6jM6n7JHpQoL3UdsUGfo3ykm5x2", "EOsjhaSEWch1I8y3TQun1pJk2i32");
+//                            Toast.makeText(getBaseContext(),user())
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG,
                                     FancyToast.SUCCESS, false).show();
+                            realm.close();
                             startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
                         } else {
@@ -219,7 +240,7 @@ public class TeacherLogin extends AppCompatActivity {
 
         realm.beginTransaction();
 
-        realm.copyToRealm(getInfoTeacher(id_group, id_center));
+        realm.copyToRealm(group_info);
         realm.commitTransaction();
 
 
@@ -229,20 +250,48 @@ public class TeacherLogin extends AppCompatActivity {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("group_info");
+        Log.d("****************", reference.getKey() + "******************");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Group_Info val = dataSnapshot.getValue(Group_Info.class);
-                group_info = val;
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("123", snapshot.getKey() + "*********************************");
 
+                Group_Info val = snapshot.getValue(Group_Info.class);
+                group_info = val;
+                Log.d("****************", val.getEmail() + "******************");
+
+                realm.beginTransaction();
+
+                realm.copyToRealm(val);
+                realm.commitTransaction();
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Log.d("****************",dataSnapshot.getKey()+"******************");
+//                Group_Info val = dataSnapshot.getValue(Group_Info.class);
+//                group_info = val;
+//                Log.d("****************",val.getEmail()+"******************");
+//
+//                realm.beginTransaction();
+//
+//                realm.copyToRealm(val);
+//                realm.commitTransaction();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//            }
+//        });
+
         return group_info;
-    }//جلب البيانات
+    }//جلب البيانات2020-10-03 18:08:33.109 32003-32003/com.example.quranprojectdemo D/****************: group_info******************
 
 
 }

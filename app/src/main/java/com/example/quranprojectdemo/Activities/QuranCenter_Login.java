@@ -46,10 +46,14 @@ public class QuranCenter_Login extends AppCompatActivity {
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     private CenterUser user;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
+
         setContentView(R.layout.activity_quran_center__login);
 //        FirebaseAuth.getInstance().signOut();
         mAuth = FirebaseAuth.getInstance();
@@ -174,8 +178,6 @@ public class QuranCenter_Login extends AppCompatActivity {
     }//للدخول
 
     public void add_info_center_to_realm(String center_id) {
-        Realm.init(getBaseContext());
-        Realm realm = Realm.getDefaultInstance();
 
 
         realm.beginTransaction();

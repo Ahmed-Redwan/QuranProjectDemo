@@ -331,10 +331,10 @@ public class JoinRequests extends AppCompatActivity {
         DatabaseReference new_student = student_group.child(name_student);
 
         DatabaseReference student_info = new_student.child("student_info");
-        student_info.setValue(new Student_Info(request.getName(),
-                1 + "",
-                request.getPhoneNo(),
-                request.getEmail(), request.getAcademic_level(), request.getBirth_date()));
+//        student_info.setValue(new Student_Info(request.getName(),
+//                1 + "",
+//                request.getPhoneNo(),
+//                request.getEmail(), request.getAcademic_level(), request.getBirth_date()));
 
         FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
         final DatabaseReference reference1 = rootNode1.getReference("CenterUsers");

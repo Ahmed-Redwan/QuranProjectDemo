@@ -35,6 +35,8 @@ import com.example.quranprojectdemo.R;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import io.realm.Realm;
+
 
 public class AddNewStudent extends AppCompatActivity {
     TextView tv_Add;
@@ -47,6 +49,7 @@ public class AddNewStudent extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String auto_student_id;
 
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,8 @@ public class AddNewStudent extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
 
-
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
@@ -145,7 +149,7 @@ public class AddNewStudent extends AppCompatActivity {
                             create_new_student(auto_student_id, id_group, id_center);
                             updatename(user);
 
-                            FirebaseAuth.getInstance().signOut();
+//                            FirebaseAuth.getInstance().signOut();
                             FancyToast.makeText(getBaseContext(), "تم إضافة طالب جديد.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
 
 
@@ -194,6 +198,17 @@ public class AddNewStudent extends AppCompatActivity {
                 et_Email.getText().toString(),
                 et_Grade.getText().toString(),
                 birth_day, null, id_center, id_group));
+
+        realm.beginTransaction();
+        realm.copyToRealm(new Student_Info(et_studentName.getText().toString(),
+                et_studentId.getText().toString(),
+                et_Phone.getText().toString(),
+                et_Email.getText().toString(),
+                et_Grade.getText().toString(),
+                birth_day, null, id_center, id_group));
+
+
+        realm.commitTransaction();
 
 
     }

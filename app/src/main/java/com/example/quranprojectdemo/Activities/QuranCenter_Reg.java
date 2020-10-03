@@ -13,24 +13,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.CenterUser;
-import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
-
-import java.io.Serializable;
 
 import io.realm.Realm;
 
@@ -47,6 +40,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     ProgressDialog progressDialog;
     SharedPreferences.Editor editor;
 
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +139,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
                 centeruser = new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
                         et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
-                        , et_city.getText().toString(), et_Address.getText().toString(), et_Password.getText().toString(), mAuth.getUid()
+                        , et_city.getText().toString(), et_Address.getText().toString(),
+                        et_Password.getText().toString(), mAuth.getUid()
                         , "01");
 
 
@@ -178,11 +173,11 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             sp = getSharedPreferences(INFO_CENTER_REG, MODE_PRIVATE);
                             editor = sp.edit();
                             editor.putString(ID_CENTER_REG, user.getUid());
-                            editor.apply();
-                            sp = getSharedPreferences(QuranCenter_Login.INFO_CENTER_LOGIN, MODE_PRIVATE);
-                            editor = sp.edit();
-                            editor.clear();
-                            editor.apply();
+                            editor.commit();
+//                            sp = getSharedPreferences(QuranCenter_Login.INFO_CENTER_LOGIN, MODE_PRIVATE);
+//                            editor = sp.edit();
+//                            editor.clear();
+//                            editor.commit();
                             FancyToast.makeText(getBaseContext(), "تم إنشاء الحساب بنجاح", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                             setInRealTimeUsers(user.getUid());
                             // progressDialog.dismiss();
@@ -205,16 +200,20 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
 
     public void setInRealTimeUsers(String name) {
-
         add_info_center_to_realm();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers");
-        final DatabaseReference reference2 = rootNode.getReference();
 
-//int id, String name, int age, String address, String email, String phone
-        reference.child(name).child("Center information").setValue(centeruser);
-        reference2.child("Countries").child(et_country.getText().toString()).
-                child(et_city.getText().toString()).child(mAuth.getUid()).setValue(centeruser);
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(name).child("Center information");
+//        final DatabaseReference reference2 = rootNode.getReference();
+
+        //int id, String name, int age, String address, String email, String phone
+        reference.setValue(new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
+                et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
+                , et_city.getText().toString(), et_Address.getText().toString(),
+                et_Password.getText().toString(), mAuth.getUid()+""
+                , "01"));
+//        reference2.child("Countries").child(et_country.getText().toString()).
+//                child(et_city.getText().toString()).child(name).setValue(centeruser);
 
         startActivity(new Intent(getBaseContext(), Main_center.class));
 
@@ -222,8 +221,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
     public void add_info_center_to_realm() {
         Realm.init(getBaseContext());
-        Realm realm = Realm.getDefaultInstance();
-
+        realm = Realm.getDefaultInstance();
 
         realm.beginTransaction();
 

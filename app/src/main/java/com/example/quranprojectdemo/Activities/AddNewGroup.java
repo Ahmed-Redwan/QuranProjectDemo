@@ -44,11 +44,10 @@ public class AddNewGroup extends AppCompatActivity {
     private String id_center;
     SharedPreferences sp;
     private String auto_id_group;
-
+    Realm realm;
     private void addNewGroupDataBase(String id_group, String name_groub, String id_center, String email, String password, String phone
             , String teacher_name, String auto_student_id) {
-        Realm.init(getBaseContext());
-        Realm realm = Realm.getDefaultInstance();
+
         Group_Info group_info = new Group_Info(email, name_groub, password, phone, teacher_name, id_group, id_center, auto_student_id);
 
         realm.beginTransaction();
@@ -64,6 +63,8 @@ public class AddNewGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_group);
         mAuth = FirebaseAuth.getInstance();
+        Realm.init(getBaseContext());
+          realm = Realm.getDefaultInstance();
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
@@ -117,11 +118,6 @@ public class AddNewGroup extends AppCompatActivity {
                     return;
                 }
                 sign_up(et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
                 finish();
 

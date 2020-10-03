@@ -19,6 +19,7 @@ import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.Other.CheckInternet;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
+import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,18 +68,6 @@ public class GuardianLogin extends AppCompatActivity {
         return false;
     }
 
-    private void save_student_to_realm() {
-
-        realm.beginTransaction();
-        try {
-            realm.copyToRealmOrUpdate(user);
-        } catch (Exception e) {
-
-
-        }
-        realm.commitTransaction();
-
-    }
 
     public void getSavesStudent(String id_center, String id_group, String id_student, final long time) {
 
@@ -149,11 +138,11 @@ public class GuardianLogin extends AppCompatActivity {
                         sp.getString(STD_ID_GROUP, "-1"), sp.getString(STD_ID_STUDENT, "-1"), query.longValue());
 
             }
-            realm.beginTransaction();
-
-            realm.copyToRealmOrUpdate(user);
-
-            realm.commitTransaction();
+//            realm.beginTransaction();
+//
+//            realm.copyToRealmOrUpdate(user);
+//
+//            realm.commitTransaction();
 
         }
 
@@ -164,67 +153,78 @@ public class GuardianLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guardian_login);
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
         mAuth = FirebaseAuth.getInstance();
         tv_Login = findViewById(R.id.GuardianLogin_tv_login);
         et_Email = findViewById(R.id.GuardianLogin_et_EmailOrphone);
-        get_student_info();
-        et_password = findViewById(R.id.GuardianLogin_et_Password);
-        btn_Login = findViewById(R.id.GuardianLogin_btn_Login);
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-        saveLoginCheckBox = findViewById(R.id.GuardianLogin_Cb_remmemberme);
-        loginPreferences = getSharedPreferences("loginPrefsGuardian", MODE_PRIVATE);
-        loginPrefsEditor = loginPreferences.edit();
 
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
-            et_Email.setText(loginPreferences.getString("username", ""));
-            et_password.setText(loginPreferences.getString("password", ""));
-            saveLoginCheckBox.setChecked(true);
-        }
+        RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();/// this is
+
+        if (!realmResults.isEmpty()) {
+            startActivity(new Intent(getBaseContext(), Main_student.class));
+            get_student_info();
+            realm.close();
+        } else {
+            /*   فحص هل الجدزل تاع الطالب مليان ولا فاضي ؟  اذا فاضي روح ع اللوج ان دغري , اذا مليان روح ع الفحص و بعدين روح  ع المين ستيودنت   */
 
 
-        TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
+            et_password = findViewById(R.id.GuardianLogin_et_Password);
+            btn_Login = findViewById(R.id.GuardianLogin_btn_Login);
 
-        btn_Login.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+            saveLoginCheckBox = findViewById(R.id.GuardianLogin_Cb_remmemberme);
+            loginPreferences = getSharedPreferences("loginPrefsGuardian", MODE_PRIVATE);
+            loginPrefsEditor = loginPreferences.edit();
 
-        EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_password, "Hacen_Tunisia.ttf");
-
-        btn_Login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (et_Email.getText().toString().isEmpty()) {
-                    et_Email.setError("يجب ادخال الايميل أو رقم الهاتف.");
-                    return;
-                } else if (et_password.getText().toString().isEmpty()) {
-                    et_password.setError("يجب ادخال كلمة المرور.");
-                    return;
-                } else if (et_password.getText().toString().length() < 7) {
-                    et_password.setError("يجب أن تكون كلمة المرور أكثر من 7 حروف.");
-                    return;
-                }
-
-                log_in();
+            saveLogin = loginPreferences.getBoolean("saveLogin", false);
+            if (saveLogin == true) {
+                et_Email.setText(loginPreferences.getString("username", ""));
+                et_password.setText(loginPreferences.getString("password", ""));
+                saveLoginCheckBox.setChecked(true);
+            }
 
 
-                String username = et_Email.getText().toString();
-                String password = et_password.getText().toString();
+            TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
 
-                if (saveLoginCheckBox.isChecked()) {
-                    loginPrefsEditor.putBoolean("saveLogin", true);
-                    loginPrefsEditor.putString("username", username);
-                    loginPrefsEditor.putString("password", password);
-                    loginPrefsEditor.commit();
-                } else {
-                    loginPrefsEditor.clear();
-                    loginPrefsEditor.commit();
-                }
+            btn_Login.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+
+            EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_password, "Hacen_Tunisia.ttf");
+
+            btn_Login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (et_Email.getText().toString().isEmpty()) {
+                        et_Email.setError("يجب ادخال الايميل أو رقم الهاتف.");
+                        return;
+                    } else if (et_password.getText().toString().isEmpty()) {
+                        et_password.setError("يجب ادخال كلمة المرور.");
+                        return;
+                    } else if (et_password.getText().toString().length() < 7) {
+                        et_password.setError("يجب أن تكون كلمة المرور أكثر من 7 حروف.");
+                        return;
+                    }
+
+                    log_in();
+
+
+                    String username = et_Email.getText().toString();
+                    String password = et_password.getText().toString();
+
+                    if (saveLoginCheckBox.isChecked()) {
+                        loginPrefsEditor.putBoolean("saveLogin", true);
+                        loginPrefsEditor.putString("username", username);
+                        loginPrefsEditor.putString("password", password);
+                        loginPrefsEditor.commit();
+                    } else {
+                        loginPrefsEditor.clear();
+                        loginPrefsEditor.commit();
+                    }
 
 //               finish();
-            }
-        });
-
+                }
+            });
+        }
 
     }
 
@@ -258,6 +258,10 @@ public class GuardianLogin extends AppCompatActivity {
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                             getStudnetInfo(user.getDisplayName(), id_group, id_sutdent);
                             save_student_to_realm();
+
+                            get_student_info();
+                            realm.close();
+
                             startActivity(new Intent(getBaseContext(), Main_student.class));
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
@@ -269,6 +273,7 @@ public class GuardianLogin extends AppCompatActivity {
                 });
     }//للدخول
 
+    //dont klfmlkewf
     public Student_Info getStudnetInfo(String id_center, String id_group, String id_student) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -288,6 +293,19 @@ public class GuardianLogin extends AppCompatActivity {
         });
         return user;
     }//جلب البيانات
+
+    private void save_student_to_realm() {
+
+        realm.beginTransaction();
+        try {
+            realm.copyToRealmOrUpdate(user);
+        } catch (Exception e) {
+
+
+        }
+        realm.commitTransaction();
+
+    }
 
 
 }

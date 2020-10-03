@@ -33,15 +33,17 @@ public class Main_teacher extends AppCompatActivity {
     TextView tv_teacher_name, tv_teacher_name_ring, tv_teacher_phone, tv_teacher_count_student;
     FirebaseAuth mAuth;
     Toolbar toolbar_teacher;
-
+    Realm realm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_teacher);
         mAuth = FirebaseAuth.getInstance();
+        Realm.init(getBaseContext());
+         realm = Realm.getDefaultInstance();
 //     Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
 //     'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
-        getInfoTeacher();
+ //       getInfoTeacher();
         image_backe_teacher = findViewById(R.id.teacher_main_image_center);
         /*image_teacher = findViewById(R.id.teacher_main_image_teacher);*/
         tv_teacher_name = findViewById(R.id.teacher_main_tv_name_teacher);
@@ -89,8 +91,7 @@ public class Main_teacher extends AppCompatActivity {
     }
 
     public void getInfoTeacher() {
-        Realm.init(getBaseContext());
-        Realm realm = Realm.getDefaultInstance();
+
         RealmQuery<Group_Info> query = realm.where(Group_Info.class);
         Group_Info val = query.findFirst();
 

@@ -345,7 +345,7 @@ public class Add_a_new_save extends AppCompatActivity {
         addSaveToDataBase(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
-                date.getTime(), id_student, date_now + id_student, id_group);
+                date.getTime(), id_student, date_now + id_student, id_groub);
         if (!checkInternet()) {
             addSaveToCashDataBase(date_now, getDay(), save_all, review_all,
                     "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),

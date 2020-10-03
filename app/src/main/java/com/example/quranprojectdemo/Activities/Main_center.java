@@ -41,7 +41,7 @@ public class Main_center extends AppCompatActivity {
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
     SharedPreferences sp;
     private String centerId;
-
+    Realm realm;
     @Override
     protected void onStart() {
         super.onStart();
@@ -53,7 +53,8 @@ public class Main_center extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_center);
-
+        Realm.init(getBaseContext());
+          realm = Realm.getDefaultInstance();
         //image_center = findViewById(R.id.center_main_image);
         tv_center_name = findViewById(R.id.center_main_tv_name_center);
         tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
@@ -119,8 +120,7 @@ public class Main_center extends AppCompatActivity {
     public void getInRealTimeUsers() {
 
 
-        Realm.init(getBaseContext());
-        Realm realm = Realm.getDefaultInstance();
+
         RealmQuery<CenterUser> query = realm.where(CenterUser.class);
         CenterUser value = query.findFirst();
 
