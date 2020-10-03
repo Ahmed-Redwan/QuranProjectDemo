@@ -1,37 +1,24 @@
 package com.example.quranprojectdemo.Other;
 
-import java.io.Serializable;
-
-import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class CenterUser extends RealmObject   {
+public class CenterUser1 {
 
-    @Required
     private String centerName;
-    @Required
     private String managerName;
-    @Required
     private String phone;
-    @PrimaryKey
-    @Required
     private String email;
-    @Required
     private String country;
-    @Required
     private String city;
-    @Required
     private String address;
-    @Required
     private String password;
-    @Required
     private String id;
 
     private String auto_id_group;
 
-    public CenterUser(String centerName, String managerName, String phone, String email, String country, String city, String address, String password, String id, String auto_id_group) {
+    public CenterUser1(String centerName, String managerName, String phone, String email, String country, String city, String address, String password, String id, String auto_id_group) {
         this.centerName = centerName;
         this.managerName = managerName;
         this.phone = phone;
@@ -44,7 +31,7 @@ public class CenterUser extends RealmObject   {
         this.auto_id_group = auto_id_group;
     }
 
-    public CenterUser() {
+    public CenterUser1() {
 
     }
 

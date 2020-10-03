@@ -91,7 +91,7 @@ public class JoinRequest2 extends AppCompatActivity {
                 if (centers.size() == 0) {
                     for (DataSnapshot c : dataSnapshot.getChildren()) {
                         centers.add(new Center(R.drawable.ic_masged,
-                                c.getValue(CenterUser.class).getcenterName(),
+                                c.getValue(CenterUser.class).getCenterName(),
                                 c.getValue(CenterUser.class).getPhone(), c.getKey()));
 
 

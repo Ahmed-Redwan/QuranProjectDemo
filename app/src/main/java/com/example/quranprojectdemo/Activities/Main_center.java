@@ -134,10 +134,10 @@ public class Main_center extends AppCompatActivity {
         tv_center_count_student.setText("عدد طلاب المركز:" + queryStudent.count());
 
 
-        tv_center_name.setText("مركز:" + value.getcenterName());
-        tv_center_name_maneger.setText("مدير المركز:" + value.getmanagerName());
+        tv_center_name.setText("مركز:" + value.getCenterName());
+        tv_center_name_maneger.setText("مدير المركز:" + value.getManagerName());
         tv_center_phone.setText("هاتف:" + value.getPhone());
-        toolbar_center.setTitle("مركز:" + value.getcenterName());
+        toolbar_center.setTitle("مركز:" + value.getCenterName());
 
 
     }
