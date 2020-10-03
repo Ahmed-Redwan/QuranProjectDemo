@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.quranprojectdemo.Other.Center;
 import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -184,6 +185,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             //   userId=user.getUid();
 //                            editor.putString("UID_CENTER", user.getUid())
                             //         create_new_center();
+//                            startActivity(new Intent(getBaseContext(), Main_center.class));
+
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             FancyToast.makeText(getBaseContext(), "فشل في إنشاء الحساب.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
@@ -207,15 +210,10 @@ public class QuranCenter_Reg extends AppCompatActivity {
 //        final DatabaseReference reference2 = rootNode.getReference();
 
         //int id, String name, int age, String address, String email, String phone
-        reference.setValue(new CenterUser(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
-                et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
-                , et_city.getText().toString(), et_Address.getText().toString(),
-                et_Password.getText().toString(), mAuth.getUid()+""
-                , "01"));
+       reference.setValue(centeruser);
 //        reference2.child("Countries").child(et_country.getText().toString()).
 //                child(et_city.getText().toString()).child(name).setValue(centeruser);
 
-        startActivity(new Intent(getBaseContext(), Main_center.class));
 
     }//اضافة بيانات
 

@@ -1,11 +1,13 @@
 package com.example.quranprojectdemo.Other;
 
+import java.io.Serializable;
+
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class CenterUser extends RealmObject {
+public class CenterUser extends RealmObject  implements Serializable {
 
     @Required
     private String centerName;
