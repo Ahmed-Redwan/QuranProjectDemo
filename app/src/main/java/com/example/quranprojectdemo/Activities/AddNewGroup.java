@@ -45,16 +45,22 @@ public class AddNewGroup extends AppCompatActivity {
     SharedPreferences sp;
     private String auto_id_group;
     Realm realm;
+
     private void addNewGroupDataBase(String id_group, String name_groub, String id_center, String email, String password, String phone
             , String teacher_name, String auto_student_id) {
 
         Group_Info group_info = new Group_Info(email, name_groub, password, phone, teacher_name, id_group, id_center, auto_student_id);
+        try {
+            realm.beginTransaction();
+            realm.copyToRealm(group_info);
 
-        realm.beginTransaction();
-        realm.copyToRealm(group_info);
+
+            realm.commitTransaction();
+        } catch (Exception e) {
 
 
-        realm.commitTransaction();
+        }
+
 
     }
 
@@ -64,7 +70,7 @@ public class AddNewGroup extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_group);
         mAuth = FirebaseAuth.getInstance();
         Realm.init(getBaseContext());
-          realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
@@ -119,7 +125,6 @@ public class AddNewGroup extends AppCompatActivity {
                 }
                 sign_up(et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString());
 
-                finish();
 
             }
 
@@ -150,17 +155,20 @@ public class AddNewGroup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            getAutoIdGroup(id_center);
-                            create_new_group(et_GroupName.getText().toString()
-                                    , id_center, et_TeacherEmail.getText().toString(),
-                                    et_TeacherPassword.getText().toString(), et_TeacherPhone.getText().toString(),
-                                    et_TeacherName.getText().toString());
-                            FancyToast.makeText(getBaseContext(), "تم إضافة حلقة جديدة.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
-                            addNewGroupDataBase(auto_id_group, et_GroupName.getText().toString(),
-                                    id_center, et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString(),
-                                    et_TeacherPhone.getText().toString(), et_TeacherName.getText().toString(), "01");
-                            updatename(user, id_center, auto_id_group);
+                            final FirebaseUser user = mAuth.getCurrentUser();
+
+
+                            FancyToast.makeText(getBaseContext(), "تم إضافة حلقة جديدة.",
+                                    FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getAutoIdGroup(id_center, user);
+
+                                }
+                            }).start();
+                            startActivity(new Intent(getBaseContext(), Main_teacher.class));
+                            finish();
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
@@ -177,7 +185,8 @@ public class AddNewGroup extends AppCompatActivity {
 
     private void updatename(FirebaseUser user, String id_center, String _id_group) {
         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                .setDisplayName(id_center).setPhotoUri(Uri.parse(_id_group))
+                .setDisplayName(id_center).
+                        setPhotoUri(Uri.parse(_id_group))
                 .build();
 
         user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -195,14 +204,16 @@ public class AddNewGroup extends AppCompatActivity {
         DatabaseReference reference = rootNode.getReference("CenterUsers").
                 child(center_name).child("groups").child(auto_id_group).child("group_info");//already found
 
-        reference.setValue(new Group_Info(email, name_groub, password, phone, teacher_name, auto_id_group, id_center, "01"));//add info As value
+        reference.setValue(new
+                Group_Info(email, name_groub, password, phone, teacher_name, auto_id_group, id_center, "01"));//add info As value
+
 
 //        FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
 //        final DatabaseReference reference1 = rootNode.getReference("CenterUsers").child(id_center).child("Center information");
 //        reference1.setValue();
     }
 
-    public void getAutoIdGroup(String centerId) {
+    public void getAutoIdGroup(String centerId, final FirebaseUser user) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId).child("Center information");
 
@@ -226,6 +237,16 @@ public class AddNewGroup extends AppCompatActivity {
                 }
                 value.setAuto_id_group(new_id_group);
                 reference.setValue(value);
+                updatename(user, id_center, new_id_group);
+                addNewGroupDataBase(new_id_group, et_GroupName.getText().toString(),
+                        id_center, et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString(),
+                        et_TeacherPhone.getText().toString(), et_TeacherName.getText().toString(), "01");
+                create_new_group(et_GroupName.getText().toString()
+                        , id_center, et_TeacherEmail.getText().toString(),
+                        et_TeacherPassword.getText().toString(), et_TeacherPhone.getText().toString(),
+                        et_TeacherName.getText().toString());
+
+
             }
 
             @Override

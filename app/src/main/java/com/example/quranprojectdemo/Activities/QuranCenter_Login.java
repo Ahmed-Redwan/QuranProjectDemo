@@ -16,6 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quranprojectdemo.Other.CenterUser;
+import com.example.quranprojectdemo.Other.CheckInternet;
+import com.example.quranprojectdemo.Other.Group_Info;
+import com.example.quranprojectdemo.Other.Student_Info;
+import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +33,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public class QuranCenter_Login extends AppCompatActivity {
     public static final String ID_CENTER_LOGIN = "id_center_log";
@@ -48,6 +56,66 @@ public class QuranCenter_Login extends AppCompatActivity {
     private CenterUser user;
     Realm realm;
 
+    private boolean checkInternet() {
+        CheckInternet checkInternet;
+        checkInternet = new CheckInternet();
+        if (checkInternet.isConnected(this)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void upload_save_to_firaBase() {
+        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+        String id_center = sp.getString(ID_CENTER_LOGIN, "-1");
+
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+
+        final DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+        DatabaseReference my_center = reference.child(id_center);//already found
+        DatabaseReference my_center_groups = my_center.child("groups");//already found or not
+        final ArrayList<Student_Info> arrayList = new ArrayList<>();
+        my_center_groups.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    RealmQuery query = realm.where(Student_Info.class).equalTo("id_group", dataSnapshot.getKey());
+//                    RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll().where()
+//                            .equalTo("id_group", dataSnapshot.getKey()).findAll();/// this is
+//                    query.equalTo("id_group", dataSnapshot.getKey());
+
+                    if (dataSnapshot.child("student_group").getChildrenCount() > query.findAll().size()) {
+                        DataSnapshot d = dataSnapshot.child("student_group");
+                        int i = query.findAll().max("id_number").intValue();
+                        for (DataSnapshot dataSnapshot1 : d.getChildren()) {
+                            if (Integer.parseInt(dataSnapshot1.getValue(Student_Info.class).getId_number()) > i) {
+                                arrayList.add(d.getValue(Student_Info.class));
+
+
+                            }
+
+                        }
+                    }
+
+                }
+                if (!arrayList.isEmpty()) {
+                    realm.beginTransaction();
+                    realm.copyToRealm(arrayList);
+
+                    realm.commitTransaction();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +125,20 @@ public class QuranCenter_Login extends AppCompatActivity {
         setContentView(R.layout.activity_quran_center__login);
 //        FirebaseAuth.getInstance().signOut();
         mAuth = FirebaseAuth.getInstance();
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
+        RealmResults<CenterUser> realmResults = realm.where(CenterUser.class).findAll();
+        if (!realmResults.isEmpty()) {
+            if (checkInternet()) {
+//                RealmResults<Student_Info> infos = realm.where(Student_Info.class).findAll();
+                upload_save_to_firaBase();
 
+//                if (infos.size() ==)
+            }
+            realm.close();
+            startActivity(new Intent(getBaseContext(), Main_center.class));
+            finish();
+        }
         tv_Login = findViewById(R.id.QuranCenterLogin_tv_login);
         tv_NewAccount = findViewById(R.id.QuranCenterLogin_tv_NewAccount);
         tv_iDontHaveAnAccount = findViewById(R.id.QuranCenterLogin_tv_iDontHaveAnAccount);
@@ -158,15 +239,16 @@ public class QuranCenter_Login extends AppCompatActivity {
                             sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
                             editor = sp.edit();
                             editor.putString(ID_CENTER_LOGIN, user.getUid());
-                            editor.apply();
+                            editor.commit();
                             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
                             editor = sp.edit();
                             editor.clear();
-                            editor.apply();
-                            add_info_center_to_realm(user.getUid());
+                            editor.commit();
 
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
-                            startActivity(new Intent(getBaseContext(), Main_center.class));
+                            getInRealTimeUsers(user.getUid());
+
+                            //
 //
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
@@ -177,39 +259,31 @@ public class QuranCenter_Login extends AppCompatActivity {
                 });
     }//للدخول
 
-    public void add_info_center_to_realm(String center_id) {
 
-
-        realm.beginTransaction();
-
-        realm.copyToRealm(getInRealTimeUsers(center_id));
-        realm.commitTransaction();
-
-
-    }//اضافة بيانات
-
-    public CenterUser getInRealTimeUsers(String centerId) {
+    public void getInRealTimeUsers(String centerId) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId).child("Center information");
-
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").
+                child(centerId).child("Center information");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                CenterUser value = snapshot.getValue(CenterUser.class);
+                Log.w("TAG", value.getEmail() + "***");
 
-                CenterUser value = dataSnapshot.getValue(CenterUser.class);
-                user = value;
+                realm.beginTransaction();
 
+                realm.copyToRealm(value);
+                realm.commitTransaction();
+                realm.close();
+                startActivity(new Intent(getBaseContext(), Main_center.class));
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("TAG", "2112121212121212***");
+
             }
         });
-        return user;
     }//جلب البيانات
 
 }

@@ -14,9 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.quranprojectdemo.Other.Center;
 import com.example.quranprojectdemo.Other.CenterUser;
-import com.example.quranprojectdemo.Other.CenterUser1;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -210,11 +208,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
 //        final DatabaseReference reference2 = rootNode.getReference();
 
         //int id, String name, int age, String address, String email, String phone
-        reference.setValue( new CenterUser1(et_centerName.getText().toString(), et_ManagerName.getText().toString(),
-                et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
-                , et_city.getText().toString(), et_Address.getText().toString(),
-                et_Password.getText().toString(), mAuth.getUid().toString()
-                , "01"));
+        reference.setValue(centeruser);
 //        reference2.child("Countries").child(et_country.getText().toString()).
 //                child(et_city.getText().toString()).child(name).setValue(centeruser);
 
