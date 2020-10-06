@@ -32,7 +32,7 @@ public class CustomGroupRecyclerView extends RecyclerView.Adapter<CustomGroupRec
     @NonNull
     @Override
     public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customgroup_recyclerview, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_group, null, false);
 
         CustomGroupRecyclerView.View_holder v = new CustomGroupRecyclerView.View_holder(view);
         return v;

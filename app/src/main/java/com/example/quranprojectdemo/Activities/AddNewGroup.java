@@ -200,6 +200,7 @@ public class AddNewGroup extends AppCompatActivity {
 
     public void create_new_group(String name_groub, String center_name, String email, String password, String phone
             , String teacher_name) {
+
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers").
                 child(center_name).child("groups").child(auto_id_group).child("group_info");//already found

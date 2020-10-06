@@ -1,6 +1,8 @@
 package com.example.quranprojectdemo.Other;
 
-public class Center {
+import io.realm.RealmObject;
+
+public class Center  {
     private String id;
     private int img;
     private String Name;

@@ -81,7 +81,20 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         rv_List = findViewById(R.id.ShowMemorizationLoops_Rv_List);
 
         tv_ShowMemorizationLoops.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-//          data.add(new Group(R.drawable.arabian, "ابو بكر الصديق", "احمد عبد الغفور"));
+      //  int img, String groupName, String teacherName,String id_group,String id_center
+         data.add(new Group(R.drawable.ahmed_abd,"ابو بكر الصديق","ahmed"));
+         data.add(new Group(R.drawable.ahmed_ali,"ابو بكر الصديق","ahmed"));
+         data.add(new Group(R.drawable.mustafa,"ابو بكر الصديق","mustafa"));
+
+
+
+        LinearLayoutManager layoutManager1 =new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL
+                ,false);
+        rv_List.setLayoutManager(layoutManager1);
+        rv_List.setItemAnimator(new DefaultItemAnimator());
+
+        final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data, getBaseContext());
+        rv_List.setAdapter(customGroupRecyclerView);
 
 
     }
@@ -89,7 +102,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getGroups(id_center);
+       // getGroups(id_center);
 
 
     }
@@ -114,7 +127,10 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         rv_List.setHasFixedSize(true);
         rv_List.setAdapter(customGroupRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
-        rv_List.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager1 =new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL
+                ,false);
+        rv_List.setLayoutManager(layoutManager1);
+        rv_List.setItemAnimator(new DefaultItemAnimator());
 
 
     }
