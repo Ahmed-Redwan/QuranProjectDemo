@@ -33,7 +33,8 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            app:startIconDrawable="@drawable/iconfinder_group2_309041">
 
             <EditText
                 android:id="@+id/AddNewGroup_et_GroupName"
@@ -55,7 +56,8 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            app:startIconDrawable="@drawable/iconfinder_profile_3018530">
 
             <EditText
                 android:id="@+id/AddNewGroup_et_TeacherName"
@@ -78,7 +80,8 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            app:startIconDrawable="@drawable/iconfinder_contact_126567">
 
             <EditText
                 android:id="@+id/AddNewGroup_et_Teacher_Email"
@@ -102,7 +105,8 @@
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
             android:textColorHint="@color/colorPrimary"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/iconfinder_key_16_22584">
 
             <EditText
                 android:id="@+id/AddNewGroup_et_TeacherPassword"
@@ -126,7 +130,8 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            app:startIconDrawable="@drawable/iconfinder_9_2135806">
 
             <EditText
                 android:id="@+id/AddNewGroup_et_TeacherNumberPhone"

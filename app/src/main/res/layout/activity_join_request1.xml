@@ -29,7 +29,8 @@
         android:layout_width="match_parent"
         android:textColorHint="@color/colorPrimary"
         android:layout_height="wrap_content"
-        android:textAlignment="center">
+        android:textAlignment="center"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/request1_et_Country"
@@ -54,6 +55,7 @@
         android:textColorHint="@color/colorPrimary"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:visibility="gone"
         >
 
         <EditText
@@ -77,18 +79,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/request1_sp_Country"
         android:gravity="center"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_26sdp"
         android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"/>
+        android:layout_marginEnd="@dimen/_20sdp"
+        app:hintText="pleas,Select a country"
+        />
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/request1_sp_City"
         android:gravity="center"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_26sdp"
         android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"/>
+        android:layout_marginEnd="@dimen/_20sdp"
+        app:hintText="pleas,Select a country"
+        />
 
     <Space
         android:layout_width="match_parent"

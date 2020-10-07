@@ -60,13 +60,8 @@ public void addNewCenter(Center centers){
             @Override
             public void onClick(View view) {
 
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class).putExtra
-                                ("CenterId",centers.get(position).getId()));
-                    }
-                });
+                view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class).putExtra
+                        ("CenterId",centers.get(position).getId()));
 
             }
         });

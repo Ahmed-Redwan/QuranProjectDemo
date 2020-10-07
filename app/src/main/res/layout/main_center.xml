@@ -60,7 +60,6 @@
                  app:menu="@menu/center_home_menu"
                 android:id="@+id/center_main_tool"
                  app:title="اسم المركز"
-
                 />
 
 
@@ -178,6 +177,16 @@
 
 
             </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mainCenter_rv"
+        tools:listitem="@layout/custom_horizintal_group"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

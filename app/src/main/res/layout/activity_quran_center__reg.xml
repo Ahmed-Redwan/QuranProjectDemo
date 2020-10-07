@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                app:startIconDrawable="@drawable/iconfinder_group2_309041">
 
                 <EditText
                     android:id="@+id/QuranCenter_et_CenterName"
@@ -60,7 +61,8 @@
                 android:layout_width="match_parent"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                app:startIconDrawable="@drawable/ic_person">
 
                 <EditText
                     android:id="@+id/QuranCenter_et_ManagerName"
@@ -83,22 +85,23 @@
                 android:layout_width="match_parent"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                app:startIconDrawable="@drawable/iconfinder_9_2135806">
 
                 <EditText
                     android:id="@+id/QuranCenter_et_PhoneNum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:inputType="phone"
                     android:hint="رقم الهاتف"
+                    android:inputType="phone"
+                    android:maxLength="15"
+                    android:maxLines="1"
                     android:padding="@dimen/_5sdp"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/colorPrimary"
-                    android:textSize="@dimen/_23ssp"
-                    android:maxLength="15"
-                    android:maxLines="1"/>
+                    android:textSize="@dimen/_23ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -108,7 +111,8 @@
                 android:layout_width="match_parent"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                app:startIconDrawable="@drawable/iconfinder_contact_126567">
 
                 <EditText
                     android:id="@+id/QuranCenter_et_Email"
@@ -132,7 +136,8 @@
                 android:layout_width="match_parent"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                app:startIconDrawable="@drawable/iconfinder_location_location_pin_place_map_address">
 
                 <EditText
                     android:id="@+id/QuranCenter_et_Country"
@@ -156,7 +161,8 @@
                 android:layout_width="match_parent"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textAlignment="center">
+                android:textAlignment="center"
+                app:startIconDrawable="@drawable/iconfinder_7_2247717">
 
                 <EditText
                     android:id="@+id/QuranCenter_et_City"
@@ -179,7 +185,8 @@
                 android:layout_width="match_parent"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textAlignment="center">
+                android:textAlignment="center"
+      app:startIconDrawable="@drawable/iconfinder_location_location_pin_place_map_address">
 
                 <EditText
                     android:id="@+id/QuranCenter_et_Address"
@@ -204,6 +211,7 @@
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                app:startIconDrawable="@drawable/iconfinder_key_16_22584"
                 app:passwordToggleEnabled="true">
 
                 <EditText

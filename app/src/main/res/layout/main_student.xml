@@ -232,7 +232,7 @@
 
 
 
-            <androidx.cardview.widget.CardView
+        <!--    <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginStart="@dimen/_4sdp"
@@ -370,19 +370,125 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
 
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="@dimen/_50sdp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/student_main_day"
+                        android:text="اليوم"
+                        android:textSize="@dimen/_10ssp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@android:color/white"
+                        />
+
+                    <TextView
+                        android:id="@+id/student_main_date"
+                        android:layout_width="@dimen/_65sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:background="@color/colorPrimaryDark"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="التاريخ"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_100sdp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/student_main_save"
+                        android:text="الحفظ"
+                        android:textSize="@dimen/_10ssp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@android:color/white"
+                        />
+                    <TextView
+                        android:layout_width="@dimen/_100sdp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/student_main_review"
+                        android:text="المراجعة"
+                        android:textSize="@dimen/_10ssp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@android:color/white"
+                        />
+                    <TextView
+                        android:layout_width="@dimen/_73sdp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/customRowReports_tv_numOfSavePages"
+                        android:text="صفحات الحفظ"
+                        android:textSize="@dimen/_10ssp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@android:color/white"
+                        />
+                    <TextView
+                        android:layout_width="@dimen/_73sdp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/customRowReports_tv_numOfReviewPages"
+                        android:text="صفحات المراجعة"
+                        android:textSize="@dimen/_10ssp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginStart="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@android:color/white"
+                        />
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/student_main_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_50sdp"
-                    android:id="@+id/student_main_recycler"
-                    tools:listitem="@layout/student_recycler"
-                     >
+                    tools:listitem="@layout/student_recycler">
 
                 </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>
+            </HorizontalScrollView>
+
 
 
 

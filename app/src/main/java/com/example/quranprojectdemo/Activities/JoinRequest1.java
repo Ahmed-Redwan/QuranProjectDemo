@@ -33,50 +33,51 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import java.util.ArrayList;
 
 public class JoinRequest1 extends AppCompatActivity {
-TextView tv_JoinRequest;
-EditText et_City,et_Country;
-Button btn_Next;
-Spinner sp_country,sp_city;
-ArrayList<String>countries,cities;
-boolean isCountrySelected,isCitySelected;
+    TextView tv_JoinRequest;
+    EditText et_City, et_Country;
+    Button btn_Next;
+    Spinner sp_country, sp_city;
+    ArrayList<String> countries, cities;
+    boolean isCountrySelected, isCitySelected;
+    String selectedCountry;
+    String selectedCity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_request1);
 
-        tv_JoinRequest=findViewById(R.id.request1_tv_joinRequest);
-        et_City=findViewById(R.id.request1_et_City);
-        et_Country=findViewById(R.id.request1_et_Country);
-        sp_country=findViewById(R.id.request1_sp_Country);
-        sp_city=findViewById(R.id.request1_sp_City);
-        btn_Next=findViewById(R.id.request1_btn_Next);
+        tv_JoinRequest = findViewById(R.id.request1_tv_joinRequest);
+        et_City = findViewById(R.id.request1_et_City);
+        et_Country = findViewById(R.id.request1_et_Country);
+        sp_country = findViewById(R.id.request1_sp_Country);
+        sp_city = findViewById(R.id.request1_sp_City);
+        btn_Next = findViewById(R.id.request1_btn_Next);
 
-        countries=new ArrayList<>();
-        cities=new ArrayList<>();
-
-
+        countries = new ArrayList<>();
+        cities = new ArrayList<>();
 
 
+        TextView_EditFont(tv_JoinRequest, "Hacen_Tunisia_Bold.ttf");
+        EditText_EditFont(et_City, "Hacen_Tunisia.ttf");
+        EditText_EditFont(et_Country, "Hacen_Tunisia.ttf");
 
-        TextView_EditFont(tv_JoinRequest,"Hacen_Tunisia_Bold.ttf");
-        EditText_EditFont(et_City,"Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Country,"Hacen_Tunisia.ttf");
-
-        btn_Next.setTypeface(Typeface.createFromAsset(getAssets(),"Hacen_Tunisia.ttf"));
+        btn_Next.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
 
         btn_Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (et_Country.getText().toString().isEmpty()){
+               /* if (et_Country.getText().toString().isEmpty()) {
                     et_Country.setError("يجب ادخال الدولة");
                     return;
-                }else if (et_City.getText().toString().isEmpty()){
+                } else if (et_City.getText().toString().isEmpty()) {
                     et_City.setError("يجب إدخال المدينة");
                     return;
-                }
-                Intent intent=new Intent(getBaseContext(),JoinRequest2.class);
-                intent.putExtra("Country",et_Country.getText().toString());
-                intent.putExtra("City",et_City.getText().toString());
+                }*/
+                Intent intent = new Intent(getBaseContext(), JoinRequest2.class);
+                intent.putExtra("Country", selectedCountry);
+                intent.putExtra("City", selectedCity);
                 startActivity(intent);
                 finish();
             }
@@ -87,15 +88,28 @@ boolean isCountrySelected,isCitySelected;
     protected void onStart() {
         super.onStart();
 
+
         getCountries();
         sp_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedCountry = countries.get(i);
                 getCities(countries.get(i));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        sp_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedCity = cities.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -106,6 +120,7 @@ boolean isCountrySelected,isCitySelected;
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
+
     //change font type for edittext.
     public void EditText_EditFont(EditText editText, String path) {
         editText.setTypeface(Typeface.createFromAsset(getAssets(), path));
@@ -123,9 +138,9 @@ boolean isCountrySelected,isCitySelected;
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 countries.clear();
-                for (DataSnapshot dataSnapshot :snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Toast.makeText(JoinRequest1.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
-                    String country=dataSnapshot.getKey();
+                    String country = dataSnapshot.getKey();
                     Toast.makeText(JoinRequest1.this, country, Toast.LENGTH_SHORT).show();
                     countries.add(country);
                 }
@@ -155,7 +170,7 @@ boolean isCountrySelected,isCitySelected;
             public void onDataChange(DataSnapshot dataSnapshot) {
                 cities.clear();
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    String city=c.getKey();
+                    String city = c.getKey();
                     cities.add(city);
 
                 }

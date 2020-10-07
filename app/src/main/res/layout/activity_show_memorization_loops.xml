@@ -36,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_10sdp"
-
        />
 
 

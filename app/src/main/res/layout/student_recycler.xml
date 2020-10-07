@@ -1,83 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        app:cardCornerRadius="@dimen/_7sdp"
-        app:cardElevation="@dimen/_7sdp">
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/student_recycler_date"
-                android:layout_width="115dp"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/_50sdp"
                 android:gravity="center"
-
-                android:text="التاريخ"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_10ssp" />
-
-
-            <TextView
+                android:layout_height="wrap_content"
                 android:id="@+id/student_recycler_day"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="اليوم"
-
-
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_10ssp" />
-
-
+                android:text="الأربعاء"
+                android:textSize="@dimen/_10ssp"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/white"
+                />
             <TextView
-                android:id="@+id/student_recycler_review"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="@dimen/_65sdp"
                 android:gravity="center"
-                android:text="المراجعه"
-
-
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_10ssp" />
-
+                android:layout_height="wrap_content"
+                android:id="@+id/student_recycler_date"
+                android:text="25/12/2000"
+                android:textSize="@dimen/_10ssp"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/white"
+                />
             <TextView
+                android:layout_width="@dimen/_100sdp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:id="@+id/student_recycler_save"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-
-
+                android:text="آل عمران(100-200)"
+                android:textSize="@dimen/_10ssp"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:layout_width="@dimen/_100sdp"
                 android:gravity="center"
-                android:text="الحفظ"
-
-                android:textColor="@color/colorPrimary"
-
-                android:textSize="@dimen/_10ssp" />
+                android:layout_height="wrap_content"
+                android:id="@+id/student_recycler_review"
+                android:text="آل عمرا(100-100)"
+                android:textSize="@dimen/_10ssp"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:layout_width="@dimen/_73sdp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:id="@+id/customRowReports_tv_numOfSavePages"
+                android:text="صفحات الحفظ"
+                android:textSize="@dimen/_10ssp"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:layout_width="@dimen/_73sdp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:id="@+id/customRowReports_tv_numOfReviewPages"
+                android:text="صفحات المراجعة"
+                android:textSize="@dimen/_10ssp"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/white"
+                />
 
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </HorizontalScrollView>
 
-
-</LinearLayout>
+</RelativeLayout>
 
 
 

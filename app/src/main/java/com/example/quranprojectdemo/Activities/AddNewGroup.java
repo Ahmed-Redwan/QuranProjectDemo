@@ -167,7 +167,6 @@ public class AddNewGroup extends AppCompatActivity {
 
                                 }
                             }).start();
-                            startActivity(new Intent(getBaseContext(), Main_teacher.class));
                             finish();
 
                         } else {

@@ -34,14 +34,15 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_contact_126567">
 
             <EditText
                 android:id="@+id/GuardianLogin_et_EmailOrphone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="الإيميل أو رقم الهاتف"
+                android:hint="الإيميل"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:inputType="textEmailAddress"
@@ -59,7 +60,8 @@
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/iconfinder_key_16_22584">
 
             <EditText
                 android:id="@+id/GuardianLogin_et_Password"

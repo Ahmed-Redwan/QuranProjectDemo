@@ -70,6 +70,7 @@ public class JoinRequest2 extends AppCompatActivity {
 
         tv_ListOfCenters.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
 
+
     }
 
     @Override
@@ -95,14 +96,15 @@ public class JoinRequest2 extends AppCompatActivity {
                                 c.getValue(CenterUser.class).getPhone(), c.getKey()));
 
 
-                        customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
-                        rv.setAdapter(customRecyclerviewCenters);
-                        //LinearLayoutManager layoutManager=new LinearLayoutManager(getBaseContext(),LinearLayoutManager.HORIZONTAL,false);
-                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
-                        rv.setLayoutManager(layoutManager);
-                        rv.setHasFixedSize(true);
+
 
                     }
+                    customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
+                    rv.setAdapter(customRecyclerviewCenters);
+                    //LinearLayoutManager layoutManager=new LinearLayoutManager(getBaseContext(),LinearLayoutManager.HORIZONTAL,false);
+                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
+                    rv.setLayoutManager(layoutManager);
+                    rv.setHasFixedSize(true);
 
                 }
 

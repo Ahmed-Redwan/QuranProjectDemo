@@ -57,6 +57,7 @@ public class Show_group_student extends AppCompatActivity {
         Intent i = getIntent();
         id_center_c = i.getStringExtra("id_center");
         id_group_c = i.getStringExtra("id_group");
+        String groupName=i.getStringExtra("groupName");
         if (id_center_c == null) {
 
             id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
@@ -71,6 +72,8 @@ public class Show_group_student extends AppCompatActivity {
         rv = findViewById(R.id.recycler_show_group_student);
         tv_show = findViewById(R.id.ShowStudentsList_tv_show);
         tv_show.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
+
+        toolbar.setTitle("حلقة "+groupName);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_profile_3018530">
 
             <EditText
                 android:id="@+id/AddNewStudent_et_StudentName"
@@ -47,7 +48,8 @@
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="@dimen/_23ssp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +59,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_contactbadge_3209380">
 
             <EditText
                 android:id="@+id/AddNewStudent_et_StudentId"
@@ -81,7 +84,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_9_2135806">
 
             <EditText
                 android:id="@+id/AddNewStudent_et_PhoneNum"
@@ -106,7 +110,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_contact_126567">
 
             <EditText
                 android:id="@+id/AddNewStudent_et_Email"
@@ -130,7 +135,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_academicschoolscholargraduateeducationlearning_3790068">
 
             <EditText
                 android:id="@+id/AddNewStudent_et_Grade"

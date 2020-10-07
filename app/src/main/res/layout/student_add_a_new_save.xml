@@ -60,6 +60,8 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginBottom="@dimen/_12sdp"
         android:inputType="number"
+        android:drawableStart="@drawable/iconfinder_no"
+        android:drawablePadding="-15dp"
         />
 
 
@@ -141,6 +143,8 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_12sdp"
             android:inputType="number"
+            android:drawableStart="@drawable/iconfinder_no"
+            android:drawablePadding="-15dp"
             />
 
 

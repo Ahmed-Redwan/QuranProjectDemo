@@ -47,6 +47,8 @@ public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View
 //        holder.tv_attendess.setText(student_data.getAttendess_student());
         holder.tv_review.setText(student_data.getReview_student());
         holder.tv_save.setText(student_data.getSave_student());
+        holder.tv_reviewPages.setText("" +student_data.getCounnt_page_review());
+        holder.tv_savePages.setText(""+student_data.getCounnt_page_save());
 
 
     }
@@ -59,7 +61,7 @@ public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View
 
     public static class View_holder extends RecyclerView.ViewHolder {
 
-        TextView tv_date, tv_day, tv_attendess, tv_review, tv_save;
+        TextView tv_date, tv_day, tv_attendess, tv_review, tv_save,tv_savePages,tv_reviewPages;
 
         public View_holder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +71,8 @@ public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View
 //            tv_attendess = itemView.findViewById(R.id.student_recycler_attendess);
             tv_review = itemView.findViewById(R.id.student_recycler_review);
             tv_save = itemView.findViewById(R.id.student_recycler_save);
+            tv_reviewPages=itemView.findViewById(R.id.customRowReports_tv_numOfReviewPages);
+            tv_savePages=itemView.findViewById(R.id.customRowReports_tv_numOfSavePages);
 
 
 

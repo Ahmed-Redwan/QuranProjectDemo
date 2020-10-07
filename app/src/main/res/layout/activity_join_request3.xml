@@ -37,7 +37,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_profile_3018530">
 
             <EditText
                 android:id="@+id/request3_et_StudentName"
@@ -60,7 +61,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_contactbadge_3209380">
 
             <EditText
                 android:id="@+id/request3_et_StudentId"
@@ -84,7 +86,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_9_2135806">
 
             <EditText
                 android:id="@+id/request3_et_PhoneNum"
@@ -109,7 +112,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_contact_126567">
 
             <EditText
                 android:id="@+id/request3_et_Email"
@@ -133,7 +137,8 @@
             android:layout_width="match_parent"
             android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            app:startIconDrawable="@drawable/iconfinder_academicschoolscholargraduateeducationlearning_3790068">
 
             <EditText
                 android:id="@+id/request3_et_Grade"
@@ -156,7 +161,8 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    >
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginStart="@dimen/_20sdp"
@@ -165,7 +171,8 @@
         android:textColorHint="@color/colorPrimary"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
 
         <EditText
             android:id="@+id/request3_et_day"

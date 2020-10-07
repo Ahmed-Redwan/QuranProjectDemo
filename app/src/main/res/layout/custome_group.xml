@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/_200sdp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -11,8 +11,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:background= "#E3E9EF"
-
-
         >
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -32,8 +30,8 @@
                 >
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_width="@dimen/_105sdp"
+                    android:layout_height="@dimen/_105sdp"
                     android:id="@+id/CustomGroup_iv_Image"
                     android:src="@drawable/person3"
                     android:scaleType="centerCrop"
@@ -46,35 +44,41 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:padding="@dimen/_4sdp"
+                    android:layout_centerHorizontal="true"
 
                     />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_100sdp"
-                    android:orientation="vertical"
+                    android:layout_below="@id/CustomGroup_iv_Image"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
                     android:gravity="center"
-                    android:layout_toEndOf="@id/CustomGroup_iv_Image"
-                    >
+                    android:orientation="vertical">
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:id="@+id/CustomGroup_tv_CircleName"
-                        android:text="اسم الحلقة"
-                        android:textSize="@dimen/_22ssp"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="@dimen/_5sdp"/>
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
                         android:gravity="center"
-                        android:id="@+id/CustomGroup_tv_TeacherName"
-                        android:text="اسم المحفظ"
-                        android:textSize="@dimen/_22ssp"
+                        android:text="اسم الحلقة"
                         android:textColor="#ffffff"
-                        android:textStyle="bold"
-                        android:layout_marginTop="@dimen/_5sdp"/>
+                        android:textSize="@dimen/_22ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/CustomGroup_tv_TeacherName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="اسم المحفظ"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/_22ssp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
