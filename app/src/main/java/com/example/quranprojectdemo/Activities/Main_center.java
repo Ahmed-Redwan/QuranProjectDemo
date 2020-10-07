@@ -56,7 +56,7 @@ public class Main_center extends AppCompatActivity {
         super.onStart();
     //    getInRealTimeUsers();
     }
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
