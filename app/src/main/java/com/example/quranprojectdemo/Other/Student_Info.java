@@ -49,6 +49,10 @@ public class Student_Info extends RealmObject {
         this.img_student = img_student;
     }
 
+    public Student_Info(String name, String Phone) {
+        this.name = name;
+        this.phoneNo = Phone;
+    }
     public Student_Info(String img_student, String name, String id_Student, String id_group, String id_center) {
         this.name = name;
         this.id_Student = id_Student;

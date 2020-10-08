@@ -20,12 +20,12 @@
             >
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/custom_horizintal_group_iv"
+                android:id="@+id/custom_horizintal_student_iv"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_90sdp"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/_5sdp"
-                android:src="@drawable/sheikh"
+                android:src="@drawable/male"
                 app:riv_mutate_background="true"
                 android:scaleType="centerCrop"
                 app:riv_oval="true"
@@ -35,8 +35,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/custom_horizintal_group_tv_CenterName"
-                android:layout_below="@id/custom_horizintal_group_iv"
+                android:id="@+id/custom_horizintal_student_tv_CenterName"
+                android:layout_below="@id/custom_horizintal_student_iv"
                 android:text="Ahmed redwan abdelghafoor"
                 android:gravity="center"
                 android:textColor="@color/colorPrimaryDark"
@@ -49,8 +49,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/custom_horizintal_group_tv_PhoneNumber"
-                android:layout_below="@id/custom_horizintal_group_tv_CenterName"
+                android:id="@+id/custom_horizintal_student_tv_PhoneNumber"
+                android:layout_below="@id/custom_horizintal_student_tv_CenterName"
                 android:text="0594114029"
                 android:gravity="center"
                 android:layout_marginStart="@dimen/_10sdp"

@@ -1,28 +1,25 @@
 package com.example.quranprojectdemo.Other;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.Activities.Show_group_student;
 import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
 
-public class CustomGroupRecyclerView2 extends RecyclerView.Adapter<CustomGroupRecyclerView2.View_holder> {
-    ArrayList<Group> arrayList;
+public class CustomStudentRecyclerView2 extends RecyclerView.Adapter<CustomStudentRecyclerView2.View_holder> {
+    ArrayList<Student_Info> arrayList;
     Context context;
 
-    public CustomGroupRecyclerView2(ArrayList<Group> arrayList, Context context) {
+    public CustomStudentRecyclerView2(ArrayList<Student_Info> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context=context;
     }
@@ -31,21 +28,21 @@ public class CustomGroupRecyclerView2 extends RecyclerView.Adapter<CustomGroupRe
     @NonNull
     @Override
     public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_horizintal_group, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_horizintal_student, null, false);
 
-        CustomGroupRecyclerView2.View_holder v = new CustomGroupRecyclerView2.View_holder(view);
+        CustomStudentRecyclerView2.View_holder v = new CustomStudentRecyclerView2.View_holder(view);
         return v;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final View_holder holder, final int position) {
 
-        Group group = arrayList.get(position);
+        Student_Info student_info = arrayList.get(position);
 
 
         //holder.iv.setImageResource(group.getImg());
-        holder.tv_GroupName.setText(group.getGroupName());
-        holder.tv_TeacherName.setText(group.getTeacherName());
+        holder.tv_GroupName.setText(student_info.getName());
+        holder.tv_TeacherName.setText(student_info.getPhoneNo());
 
      /*   holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +79,9 @@ public class CustomGroupRecyclerView2 extends RecyclerView.Adapter<CustomGroupRe
 
         public View_holder(@NonNull View itemView) {
             super(itemView);
-            iv = itemView.findViewById(R.id.custom_horizintal_group_iv);
-            tv_GroupName = itemView.findViewById(R.id.custom_horizintal_group_tv_CenterName);
-            tv_TeacherName = itemView.findViewById(R.id.custom_horizintal_group_tv_PhoneNumber);
+            iv = itemView.findViewById(R.id.custom_horizintal_student_iv);
+            tv_GroupName = itemView.findViewById(R.id.custom_horizintal_student_tv_CenterName);
+            tv_TeacherName = itemView.findViewById(R.id.custom_horizintal_student_tv_PhoneNumber);
 
             tv_TeacherName.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));
             tv_GroupName.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "Hacen_Tunisia.ttf"));

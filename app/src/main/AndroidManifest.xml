@@ -17,7 +17,12 @@
         <activity android:name=".Activities.AddNewStudent" />
         <activity android:name=".Activities.AddNewGroup" />
         <activity android:name=".Activities.Main_student" />
-        <activity android:name=".Activities.Main_teacher" />
+        <activity android:name=".Activities.Main_teacher" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activities.GuardianLogin"></activity>
         <activity android:name=".Activities.TeacherLogin"></activity>
         <activity android:name=".Activities.QuranCenter_Login"></activity>
@@ -27,10 +32,6 @@
             android:name=".Activities.SplashScreen"
             android:configChanges="locale"></activity>
         <activity android:name=".Activities.Main_center" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activities.JoinRequest1" />
         <activity android:name=".Activities.JoinRequest2" />
