@@ -18,10 +18,6 @@
         <activity android:name=".Activities.AddNewGroup" />
         <activity android:name=".Activities.Main_student" />
         <activity android:name=".Activities.Main_teacher" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activities.GuardianLogin"></activity>
         <activity android:name=".Activities.TeacherLogin"></activity>
@@ -35,6 +31,12 @@
         </activity>
         <activity android:name=".Activities.JoinRequest1" />
         <activity android:name=".Activities.JoinRequest2" />
+        <activity android:name=".Activities.Reprts" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activities.JoinRequest3"></activity>
         <activity android:name=".Activities.Show_group_student" />
         <activity android:name=".Activities.ShowmeMorizationLoops" >
@@ -47,7 +49,8 @@
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>
