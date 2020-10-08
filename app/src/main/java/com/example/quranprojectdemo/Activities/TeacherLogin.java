@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Other.CheckInternet;
 import com.example.quranprojectdemo.Other.Group_Info;
+import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
@@ -34,9 +35,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class TeacherLogin extends AppCompatActivity {
@@ -68,36 +72,49 @@ public class TeacherLogin extends AppCompatActivity {
 
 
     private void upload_save_to_firaBase() {
+
         sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
         String id_center = sp.getString(ID_LOGIN_TEC_CENTER, "-1");
         String id_groubsp = sp.getString(ID_LOGIN_TEACHER, "-1");
+
+        Realm.init(getBaseContext());
+        realm = Realm.getDefaultInstance();
+        if (!realm.isInTransaction())
+            realm.beginTransaction();
         RealmResults<Student_data_cash> realmResults = realm.where(Student_data_cash.class).findAll();/// this is
 
-        if (!realmResults.isEmpty()) {
-            FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
 
-            DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
-            DatabaseReference my_center = reference.child(id_center);//already found
-            DatabaseReference my_center_groups = my_center.child("groups");//already found or not
-            DatabaseReference my_group = my_center_groups.child(id_groubsp);// add new group
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
 
-            DatabaseReference my_student_group = my_group.child("student_group");
+        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+        DatabaseReference my_center = reference.child(id_center);//already found
+        DatabaseReference my_center_groups = my_center.child("groups");//already found or not
+        DatabaseReference my_group = my_center_groups.child(id_groubsp);// add new group
 
-            for (int i = 0; i < realmResults.size(); i++) {
-                DatabaseReference student = my_student_group.child(realmResults.get(i).getId_student());
-
-
-                DatabaseReference student_save = student.child("student_save").child(realmResults.get(i).getTime_save() + "");
-
-                student_save.setValue(realmResults.get(i));
+        DatabaseReference my_student_group = my_group.child("student_group");
+        for (int i = 0; i < realmResults.size(); i++) {
+            DatabaseReference student = my_student_group.child(realmResults.get(i).getId_student());
 
 
-            }
+            DatabaseReference student_save = student.child("student_save").child(String.valueOf(realmResults.get(i).getTime_save()));
+            Student_data s = new Student_data(realmResults.get(i).getDate__student(), realmResults.get(i).getDay_student()
+                    , realmResults.get(i).getSave_student(), realmResults.get(i).getReview_student()
+                    , realmResults.get(i).getAttendess_student(), realmResults.get(i).getCounnt_page_save(), realmResults.get(i).getCounnt_page_review()
+                    , realmResults.get(i).getMonth_save(), realmResults.get(i).getYear_save(), realmResults.get(i).getTime_save(), realmResults.get(i).getId_student(), realmResults.get(i).getDate__student(), realmResults.get(i).getId_group());
 
-            realm.beginTransaction();
-            realm.delete(Student_data_cash.class);
-            realm.commitTransaction();
+            student_save.setValue(s);
+
+
         }
+        realm.close();
+        realm = Realm.getDefaultInstance();
+        if (!realm.isInTransaction())
+            realm.beginTransaction();
+        realm.delete(Student_data_cash.class);
+        realm.commitTransaction();
+        realm.close();
+//            startActivity(new Intent(getBaseContext(), Main_teacher.class));
+
     }
 
     @Override
@@ -105,41 +122,114 @@ public class TeacherLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_login);
         mAuth = FirebaseAuth.getInstance();
-
+        sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
+        editor = sp.edit();
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
-        RealmResults<Group_Info> realmResults = realm.where(Group_Info.class).findAll();
+
+
+        final RealmResults<Group_Info> realmResults = realm.where(Group_Info.class).findAll();
         if (!realmResults.isEmpty()) {
             if (checkInternet()) {
-
+//                Log.d("beeeeeeeb", "bebebebebebeb");
+//                Log.d("beeeeeeeb", realmResults.get(0).getPassword());
+//                final String id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
+//                final String id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+////                final String num_std = getInfoTeacher(id_group, id_center);
+//
+//                FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+//                final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+//                        .child("groups").child(id_group).child("group_info");
+//                Log.d("****************", reference.getKey() + "******************");
+//                reference.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        Log.d("123", snapshot.getKey() + "*********************************");
+//
+//                        final Group_Info val = snapshot.getValue(Group_Info.class);
+//                        group_info = val;
+//                        Log.d("****************", val.getEmail() + "TEST");
+//                        realm = Realm.getDefaultInstance();
+//                        if (!realm.isInTransaction())
+//                            realm.beginTransaction();
+//                        realm.insertOrUpdate(val);
+//                        realm.commitTransaction();
+//                        realm.close();
+//                        startActivity(new Intent(getBaseContext(), Main_teacher.class));
+//                        finish();
+//                        String num_std_realm = realm.where(Group_Info.class).findFirst().getAuto_sutdent_id();/// this is
+//                        if (!val.getAuto_sutdent_id().equalsIgnoreCase(num_std_realm)) {
+//
+//                            FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
+//
+//                            final DatabaseReference reference1 = rootNode1.getReference("CenterUsers").
+//                                    child(id_center).child("groups").child(id_group).child("student_group");//already found or not
+//                            final ArrayList<Student_Info> arrayList = new ArrayList<>();
+//                            reference1.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//
+//
+//                                        if (Integer.parseInt(dataSnapshot.getKey()) >
+//                                                Integer.parseInt(val.getAuto_sutdent_id())) {
+//                                            arrayList.add(dataSnapshot.child("student_info").getValue(Student_Info.class));
+//
+//
+//                                        }
+//
+//                                    }
+//                                    if (!arrayList.isEmpty()) {
+//                                        realm = Realm.getDefaultInstance();
+//                                        if (!realm.isInTransaction())
+//                                            realm.beginTransaction();
+//                                        realm.copyToRealm(arrayList);
+//
+//                                        realm.commitTransaction();
+//                                        realm.close();
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            });
+//                        }
+//                        upload_save_to_firaBase();
+//                        reference.removeEventListener(this);
+//                        startActivity(new Intent(getBaseContext(), Main_teacher.class));
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//
                 upload_save_to_firaBase();
+                getGroups_Student_Saves();
+
+
             }
-            realm.close();
-            startActivity(new Intent(getBaseContext(), Main_teacher.class));
+//            startActivity(new Intent(getBaseContext(), Main_teacher.class));
+        }
 
-        } else {
-            if (checkInternet()) {
+        tv_Login = findViewById(R.id.TeacheLogin_tv_login);
+        et_Email = findViewById(R.id.TeacheLogin_et_EmailOrphone);
+        et_password = findViewById(R.id.TeacheLogin_et_Password);
+        btn_Login = findViewById(R.id.TeacheLogin_btn_Login);
 
-                upload_save_to_firaBase();
-            }
-            /*  start actvity main te*/
-            tv_Login = findViewById(R.id.TeacheLogin_tv_login);
-            et_Email = findViewById(R.id.TeacheLogin_et_EmailOrphone);
-            et_password = findViewById(R.id.TeacheLogin_et_Password);
-            btn_Login = findViewById(R.id.TeacheLogin_btn_Login);
+        saveLoginCheckBox = findViewById(R.id.TeacherLogin_Cb_remmemberme);
+        loginPreferences = getSharedPreferences("loginPrefsTeacher", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
 
-            saveLoginCheckBox = findViewById(R.id.TeacherLogin_Cb_remmemberme);
-            loginPreferences = getSharedPreferences("loginPrefsTeacher", MODE_PRIVATE);
-            loginPrefsEditor = loginPreferences.edit();
-
-            saveLogin = loginPreferences.getBoolean("saveLogin", false);
-            if (saveLogin == true) {
-                et_Email.setText(loginPreferences.getString("username", ""));
-                et_password.setText(loginPreferences.getString("password", ""));
-                saveLoginCheckBox.setChecked(true);
-            }
-
-
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            et_Email.setText(loginPreferences.getString("username", ""));
+            et_password.setText(loginPreferences.getString("password", ""));
+            saveLoginCheckBox.setChecked(true);
             TextView_EditFont(tv_Login, "Hacen_Tunisia_Bold.ttf");
 
             btn_Login.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
@@ -153,8 +243,7 @@ public class TeacherLogin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
-        editor = sp.edit();
+
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,18 +293,18 @@ public class TeacherLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
 //                            getInfoTeacher("D6jM6n7JHpQoL3UdsUGfo3ykm5x2", user.getDisplayName());
-                            editor.putString(ID_LOGIN_TEACHER, "D6jM6n7JHpQoL3UdsUGfo3ykm5x2");
-                            editor.putString(ID_LOGIN_TEC_CENTER, "EOsjhaSEWch1I8y3TQun1pJk2i32");
+                            editor.putString(ID_LOGIN_TEACHER, user.getPhotoUrl().toString());
+                            editor.putString(ID_LOGIN_TEC_CENTER, user.getDisplayName());
                             editor.commit();
-                            Log.d("****************", user.getEmail() + "******************");
+//                            Log.d("****************", user.getEmail() + "******************");
 
                             Toast.makeText(TeacherLogin.this, user.getEmail(), Toast.LENGTH_SHORT).show();
-                            getInfoTeacher("D6jM6n7JHpQoL3UdsUGfo3ykm5x2", "EOsjhaSEWch1I8y3TQun1pJk2i32");
+//                            getInfoTeacher(user.getPhotoUrl().toString(), user.getDisplayName());
 //                            Toast.makeText(getBaseContext(),user())
+                            getGroups_Student_Saves();
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG,
                                     FancyToast.SUCCESS, false).show();
-                            realm.close();
-                            startActivity(new Intent(getBaseContext(), Main_teacher.class));
+//                            realm.close();
 
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
@@ -236,17 +325,9 @@ public class TeacherLogin extends AppCompatActivity {
         editText.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
-    public void add_info_group_to_realm(String id_group, String id_center) {
 
-        realm.beginTransaction();
-
-        realm.copyToRealm(group_info);
-        realm.commitTransaction();
-
-
-    }//اضافة بيانات
-
-    public Group_Info getInfoTeacher(String id_group, String id_center) {
+    public String getInfoTeacher(String id_group, String id_center) {
+        final String[] re = {""};
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("group_info");
@@ -258,12 +339,17 @@ public class TeacherLogin extends AppCompatActivity {
 
                 Group_Info val = snapshot.getValue(Group_Info.class);
                 group_info = val;
-                Log.d("****************", val.getEmail() + "******************");
-
-                realm.beginTransaction();
-
-                realm.copyToRealm(val);
+                re[0] = val.getAuto_sutdent_id();
+                Log.d("****************", val.getEmail() + "TEST");
+                realm = Realm.getDefaultInstance();
+                if (!realm.isInTransaction())
+                    realm.beginTransaction();
+                realm.insertOrUpdate(val);
                 realm.commitTransaction();
+                realm.close();
+                startActivity(new Intent(getBaseContext(), Main_teacher.class));
+
+                reference.removeEventListener(this);
             }
 
             @Override
@@ -290,8 +376,76 @@ public class TeacherLogin extends AppCompatActivity {
 //            }
 //        });
 
-        return group_info;
+        return re[0];
     }//جلب البيانات2020-10-03 18:08:33.109 32003-32003/com.example.quranprojectdemo D/****************: group_info******************
+
+    private void getGroups_Student_Saves() {
+        final String id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
+        final String id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+                .child("groups").child(id_group);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Group_Info g = snapshot.child("group_info").getValue(Group_Info.class);
+
+
+                realm = Realm.getDefaultInstance();
+                if (!realm.isInTransaction())
+                    realm.beginTransaction();
+                realm.insertOrUpdate(g);
+                realm.commitTransaction();
+                realm.close();
+
+                DataSnapshot snapshot_std = snapshot.child("student_group");
+                for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
+                    Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
+                    Log.d("re", s.getId_Student() + " ! ");
+                    Log.d("re", s.getEmail() + " email ");
+                    Log.d("re", s.getId_group() + " id g ");
+                    Log.d("re", s.getId_center() + " id c  ");
+                    Log.d("re", s.getName() + " name ");
+
+                    realm = Realm.getDefaultInstance();
+                    if (!realm.isInTransaction())
+                        realm.beginTransaction();
+                    realm.insertOrUpdate(s);
+                    realm.commitTransaction();
+                    realm.close();
+                    DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
+                    for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
+
+                        Log.d("re", snapshot2.getValue(Student_data.class).getDate_id() + " ! ");
+
+                        realm = Realm.getDefaultInstance();
+                        if (!realm.isInTransaction())
+                            realm.beginTransaction();
+                        realm.insertOrUpdate(snapshot2.getValue(Student_data.class));
+                        realm.commitTransaction();
+                        realm.close();
+//
+                    }
+
+
+                }
+
+
+                startActivity(new Intent(getBaseContext(), Main_teacher.class));
+
+                reference.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
 
 
 }

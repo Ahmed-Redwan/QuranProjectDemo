@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -41,6 +42,8 @@ import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
+import static com.example.quranprojectdemo.Activities.GuardianLogin.INFO_STUDENT_LOGIN;
+
 public class Main_student extends AppCompatActivity {
 
     Toolbar toolbar_student;
@@ -62,6 +65,8 @@ public class Main_student extends AppCompatActivity {
     TextView tv_date, tv_day, tv_attendess;
     RecyclerView rv;
     private Realm realm;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +103,14 @@ public class Main_student extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuStudentHomeExit:
-                        finish();
+                        realm.beginTransaction();
+                        realm.deleteAll();
+                        realm.commitTransaction();
+                        realm.close();                        sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
+                        editor = sp.edit();
+                        editor.clear();
+                        editor.commit();
+                        System.exit(0);
                         return true;
                 }
                 return false;
@@ -219,7 +231,7 @@ public class Main_student extends AppCompatActivity {
                         } else {
 
                             final String year = parent.getItemAtPosition(position).toString();
-                             Number x = realm.where(Student_data.class)
+                            Number x = realm.where(Student_data.class)
                                     .equalTo("year_save", "Year : " + year).max("month_save");
                             list_spinner_month.clear();
                             list_spinner_month.add("اختر الشهر");

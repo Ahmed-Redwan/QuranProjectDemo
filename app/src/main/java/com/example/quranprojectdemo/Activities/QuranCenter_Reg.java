@@ -48,6 +48,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         setContentView(R.layout.activity_quran_center__reg);
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(QuranCenter_Reg.this);
+        Realm.init(getBaseContext());
 
 
         et_centerName = findViewById(R.id.QuranCenter_et_CenterName);
@@ -167,7 +168,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                                     et_Phone.getText().toString(), et_Email.getText().toString(), et_country.getText().toString()
                                     , et_city.getText().toString(), et_Address.getText().toString(),
                                     et_Password.getText().toString(), mAuth.getUid().toString()
-                                    , "01");
+                                    , "00");
 
                             sp = getSharedPreferences(INFO_CENTER_REG, MODE_PRIVATE);
                             editor = sp.edit();
@@ -216,14 +217,14 @@ public class QuranCenter_Reg extends AppCompatActivity {
     }//اضافة بيانات
 
     public void add_info_center_to_realm() {
-        Realm.init(getBaseContext());
+
         realm = Realm.getDefaultInstance();
+        if (!realm.isInTransaction())
 
-        realm.beginTransaction();
-
-        realm.copyToRealm(centeruser);
+            realm.beginTransaction();
+        realm.insertOrUpdate(centeruser);
         realm.commitTransaction();
-
+        realm.close();
 
     }//اضافة بيانات
 

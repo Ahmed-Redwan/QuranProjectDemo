@@ -28,7 +28,8 @@ public class Student_Info extends RealmObject {
                         String phoneNo, String email,
                         String academic_level, String birth_date,
                         String img_student, String id_center,
-                        String id_group) {
+                        String id_group, String id_Student) {
+        this.id_Student = id_Student;
         this.name = name;
         this.id_number = id_number;
         this.phoneNo = phoneNo;

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,25 +38,25 @@ import io.realm.Realm;
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class AddNewGroup extends AppCompatActivity {
-    TextView tv_AddNewGroup;
+     TextView tv_AddNewGroup;
     EditText et_GroupName, et_TeacherName, et_TeacherEmail, et_TeacherPassword, et_TeacherPhone;
     Button btn_add, btn_Cancel;
     FirebaseAuth mAuth;
     private String id_center;
     SharedPreferences sp;
-    private String auto_id_group;
+    private String auto_id_group = null ;
     Realm realm;
+    private Group_Info group_info;
+    private CenterUser value;
 
-    private void addNewGroupDataBase(String id_group, String name_groub, String id_center, String email, String password, String phone
-            , String teacher_name, String auto_student_id) {
+    private void addNewGroupDataBase(Group_Info group_info) {
 
-        Group_Info group_info = new Group_Info(email, name_groub, password, phone, teacher_name, id_group, id_center, auto_student_id);
         try {
-            realm.beginTransaction();
             realm.copyToRealm(group_info);
 
 
             realm.commitTransaction();
+            realm.close();
         } catch (Exception e) {
 
 
@@ -70,7 +71,6 @@ public class AddNewGroup extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_group);
         mAuth = FirebaseAuth.getInstance();
         Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
@@ -165,9 +165,10 @@ public class AddNewGroup extends AppCompatActivity {
                                 public void run() {
                                     getAutoIdGroup(id_center, user);
 
+
                                 }
                             }).start();
-                            finish();
+
 
                         } else {
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
@@ -197,20 +198,14 @@ public class AddNewGroup extends AppCompatActivity {
 
     }
 
-    public void create_new_group(String name_groub, String center_name, String email, String password, String phone
-            , String teacher_name) {
-
+    public void create_new_group(Group_Info group_info, String id_center) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers").
-                child(center_name).child("groups").child(auto_id_group).child("group_info");//already found
+                child(id_center).child("groups").child(auto_id_group).child("group_info");//already found
 
-        reference.setValue(new
-                Group_Info(email, name_groub, password, phone, teacher_name, auto_id_group, id_center, "01"));//add info As value
+        reference.setValue(group_info);//add info As value
 
 
-//        FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
-//        final DatabaseReference reference1 = rootNode.getReference("CenterUsers").child(id_center).child("Center information");
-//        reference1.setValue();
     }
 
     public void getAutoIdGroup(String centerId, final FirebaseUser user) {
@@ -219,11 +214,12 @@ public class AddNewGroup extends AppCompatActivity {
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                CenterUser value = dataSnapshot.getValue(CenterUser.class);
+
+
+                value = snapshot.getValue(CenterUser.class);
+
                 auto_id_group = value.getAuto_id_group();
                 int id_group = Integer.parseInt(auto_id_group) + 1;
                 String new_id_group = "";
@@ -235,30 +231,45 @@ public class AddNewGroup extends AppCompatActivity {
                     new_id_group = "" + id_group;
 
                 }
-                value.setAuto_id_group(new_id_group);
-                reference.setValue(value);
-                updatename(user, id_center, new_id_group);
-                addNewGroupDataBase(new_id_group, et_GroupName.getText().toString(),
-                        id_center, et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString(),
-                        et_TeacherPhone.getText().toString(), et_TeacherName.getText().toString(), "01");
-                create_new_group(et_GroupName.getText().toString()
-                        , id_center, et_TeacherEmail.getText().toString(),
-                        et_TeacherPassword.getText().toString(), et_TeacherPhone.getText().toString(),
-                        et_TeacherName.getText().toString());
+                auto_id_group = new_id_group;
+
+                group_info = new Group_Info(et_TeacherEmail.getText().toString(),
+                        et_GroupName.getText().toString(), et_TeacherPassword.getText().toString()
+                        , et_TeacherPhone.getText().toString(), et_TeacherName.getText().toString()
+                        , auto_id_group, id_center, "00");
+                updatename(user, id_center, auto_id_group);
+
+                addNewGroupDataBase(group_info);
+                create_new_group(group_info, id_center);
+                value.setAuto_id_group(auto_id_group);
+                save_new_id_group(value);
+                realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                realm.insertOrUpdate(value);
+                realm.commitTransaction();
+                realm.close();
+                finish();
+                reference.removeEventListener(this);
 
 
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
 
     }//جلب البيانات
 
+    private void save_new_id_group(CenterUser centerUser) {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center).
+                child("Center information");
+        reference.setValue(centerUser);
+
+    }
 
 }
 

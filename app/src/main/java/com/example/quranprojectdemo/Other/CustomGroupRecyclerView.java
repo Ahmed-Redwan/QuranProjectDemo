@@ -32,7 +32,8 @@ public class CustomGroupRecyclerView extends RecyclerView.Adapter<CustomGroupRec
     @NonNull
     @Override
     public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_group, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customgroup_recyclerview,
+                null, false);
 
         CustomGroupRecyclerView.View_holder v = new CustomGroupRecyclerView.View_holder(view);
         return v;
@@ -52,8 +53,8 @@ public class CustomGroupRecyclerView extends RecyclerView.Adapter<CustomGroupRec
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(view.getContext(), Show_group_student.class);
-                i.putExtra("id_group", arrayList.get(position).getId_group());
                 i.putExtra("id_center", arrayList.get(position).getId_center());
+                i.putExtra("id_group", arrayList.get(position).getId_group());
                 view.getContext().startActivity(i);
 
             }

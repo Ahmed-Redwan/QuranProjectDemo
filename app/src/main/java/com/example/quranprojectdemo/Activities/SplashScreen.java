@@ -16,6 +16,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.quranprojectdemo.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 

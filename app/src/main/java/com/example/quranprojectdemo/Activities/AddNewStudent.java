@@ -60,6 +60,7 @@ public class AddNewStudent extends AppCompatActivity {
 
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
@@ -117,12 +118,7 @@ public class AddNewStudent extends AppCompatActivity {
                     return;
                 }
                 sign_up();
-                try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                finish();
+
             }
         });
 
@@ -145,9 +141,7 @@ public class AddNewStudent extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            getAutoStudentID(id_group, id_center);
-                            create_new_student(auto_student_id, id_group, id_center);
-                            updatename(user);
+                            getAutoStudentID(id_group, id_center,user);
 
 //                            FirebaseAuth.getInstance().signOut();
                             FancyToast.makeText(getBaseContext(), "تم إضافة طالب جديد.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
@@ -197,24 +191,23 @@ public class AddNewStudent extends AppCompatActivity {
                 et_Phone.getText().toString(),
                 et_Email.getText().toString(),
                 et_Grade.getText().toString(),
-                birth_day, null, id_center, id_group));
+                birth_day, null, id_center, id_group, id_student));
 
-        realm.beginTransaction();
         realm.copyToRealm(new Student_Info(et_studentName.getText().toString(),
                 et_studentId.getText().toString(),
                 et_Phone.getText().toString(),
                 et_Email.getText().toString(),
                 et_Grade.getText().toString(),
-                birth_day, null, id_center, id_group));
+                birth_day, null, id_center, id_group, id_student));
 
 
         realm.commitTransaction();
-
+        realm.close();
 
     }
 
 
-    public void getAutoStudentID(String id_group, String id_center) {
+    public void getAutoStudentID(String id_group, final String id_center, final FirebaseUser user) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("group_info");
@@ -236,6 +229,12 @@ public class AddNewStudent extends AppCompatActivity {
                 }
                 val.setAuto_sutdent_id(new_id_group);
                 reference.setValue(val);
+                create_new_student(auto_student_id, new_id_group, id_center);
+                updatename(user);
+
+                finish();
+
+                reference.removeEventListener(this);
             }
 
 

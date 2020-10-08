@@ -3,10 +3,9 @@ package com.example.quranprojectdemo.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.quranprojectdemo.Activities.Add_a_new_save;
-import com.example.quranprojectdemo.Other.CustomStudentRecyclerView2;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
@@ -26,11 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+
+import static com.example.quranprojectdemo.Activities.TeacherLogin.INFO_TEACHER;
 
 public class Main_teacher extends AppCompatActivity {
 
@@ -39,20 +37,19 @@ public class Main_teacher extends AppCompatActivity {
     FirebaseAuth mAuth;
     Toolbar toolbar_teacher;
     Realm realm;
-    ArrayList<Student_Info>student_infos;
-    RecyclerView recyclerView;
-    CustomStudentRecyclerView2 customStudentRecyclerView2;
-    RecyclerView.LayoutManager layoutManager;
+    private SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_teacher);
         mAuth = FirebaseAuth.getInstance();
         Realm.init(getBaseContext());
-         realm = Realm.getDefaultInstance();
-//     Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
+        realm = Realm.getDefaultInstance();
+        //     Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
 //     'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
- //       getInfoTeacher();
+        //       getInfoTeacher();
         image_backe_teacher = findViewById(R.id.teacher_main_image_center);
         /*image_teacher = findViewById(R.id.teacher_main_image_teacher);*/
         tv_teacher_name = findViewById(R.id.teacher_main_tv_name_teacher);
@@ -80,7 +77,16 @@ public class Main_teacher extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuTeacherHomeExit:
-                        finish();
+                        if (!realm.isInTransaction())
+                            realm.beginTransaction();
+                        realm.deleteAll();
+                        realm.commitTransaction();
+                        realm.close();
+                        sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
+                        editor = sp.edit();
+                        editor.clear();
+                        editor.commit();
+                        System.exit(0);
                         return true;
                 }
                 return false;
@@ -92,28 +98,19 @@ public class Main_teacher extends AppCompatActivity {
         TextView_EditFont(tv_teacher_name, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_teacher_name_ring, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_teacher_phone, "Hacen_Tunisia.ttf");
-
-        recyclerView=findViewById(R.id.mainTeacher_rv);
-        student_infos=new ArrayList<>();
-        student_infos.add(new Student_Info("Ahmed Abdelghsssssssssafoor","0594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghsssafoosr","0594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoorss","0594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoossssr","0594119"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafosssor","0594sssssss114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoor","0sss594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoorsssssssssss","0594114029"));
-        customStudentRecyclerView2=new CustomStudentRecyclerView2(student_infos,getBaseContext());
-        layoutManager=new LinearLayoutManager(getBaseContext(),RecyclerView.HORIZONTAL,false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(customStudentRecyclerView2);
-        customStudentRecyclerView2.notifyDataSetChanged();
-        recyclerView.setHasFixedSize(true);
-
     }
 
     //change font type for textview.
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        getInfoTeacher();
+
     }
 
     public void getInfoTeacher() {
@@ -131,7 +128,6 @@ public class Main_teacher extends AppCompatActivity {
 //        tv_teacher_count_student.setText("عدد طلاب الحلقة:" + query1.count());
 
     }
-
 
 
 }

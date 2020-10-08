@@ -58,7 +58,7 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
                 Intent i = new Intent(view.getContext(), StudentDetails.class);
                 i.putExtra("id_center",student_imageand_names.get(position).getId_center());
                 i.putExtra("id_group",student_imageand_names.get(position).getId_group());
-                i.putExtra("id_student",student_imageand_names.get(position).getId_Student());
+                i.putExtra("id_student",student_imageand_names.get(position).getId_Student()    );
                 view.getContext().startActivity(i);
 
             }

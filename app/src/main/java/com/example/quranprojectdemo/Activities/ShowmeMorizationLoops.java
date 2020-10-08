@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +41,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     RecyclerView rv_List;
     Toolbar toolbar;
     List<Group> data;
-    private boolean is_finsh;
-    SharedPreferences sp;
+     SharedPreferences sp;
     private String id_center;
     Realm realm;
 
@@ -108,16 +108,15 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     }
 
 
-
-
     public void getGroups(final String id_center) {
 
         RealmQuery<Group_Info> query = realm.where(Group_Info.class);
 
-
+        data.clear();
         RealmResults<Group_Info> realmResults = query.findAll();
         for (int i = 0; i < realmResults.size(); i++) {
             String id_group = realmResults.get(i).getGroup_id();
+            Log.d("dre",id_group+" ! ");
             String name_group = realmResults.get(i).getGroup_name();
             String name_tech = realmResults.get(i).getTeacher_name();
             data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group, id_center));

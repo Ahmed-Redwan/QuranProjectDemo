@@ -187,10 +187,10 @@ public class JoinRequests extends AppCompatActivity {
 //                    this.id_center = id_center;
 //                    this.id_group = id_group;
 
-                    requests.add(new Student_Info(re.getName(), re.getId_number(), re.getPhoneNo(), re.getEmail(),
-                            re.getAcademic_level(), re.getBirth_date(), null, Centerid, id_group
-
-                    ));
+//                    requests.add(new Student_Info(re.getName(), re.getId_number(), re.getPhoneNo(), re.getEmail(),
+//                            re.getAcademic_level(), re.getBirth_date(), null, Centerid, id_group
+//
+//                    ));
 
 //                    requests.add(new Request(R.drawable.mustafa, c.getValue(Request.class).getName(), c.getValue(Request.class).getId(), c.getValue(Request.class).getDate(),
 //                            c.getValue(Request.class).getEmail(), c.getValue(Request.class).getGrade(), c.getValue(Request.class).getPhone()));

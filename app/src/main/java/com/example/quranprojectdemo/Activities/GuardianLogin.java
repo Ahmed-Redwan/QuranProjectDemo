@@ -40,7 +40,7 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class GuardianLogin extends AppCompatActivity {
-    private static final String INFO_STUDENT_LOGIN = "std_info";
+    public static final String INFO_STUDENT_LOGIN = "std_info";
     private static final String STD_ID_STUDENT = "std_id";
     private static final String STD_ID_GROUP = "std_group_id";
     private static final String STD_ID_CENTER = "std_center_id";
@@ -84,7 +84,6 @@ public class GuardianLogin extends AppCompatActivity {
 
                         if (d.getTime_save() > time) {
 
-                            realm.beginTransaction();
                             try {
                                 realm.copyToRealmOrUpdate(d);
                             } catch (Exception e) {
@@ -92,6 +91,7 @@ public class GuardianLogin extends AppCompatActivity {
 
                             }
                             realm.commitTransaction();
+                            realm.close();
                         }
                     }
                 }
@@ -106,38 +106,42 @@ public class GuardianLogin extends AppCompatActivity {
 
     }//جلب البيانات
 
-    private void get_student_info() {
+    private void get_student_save() {
         sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
 
         if (checkInternet()) {
 
             FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-            DatabaseReference reference = rootNode.getReference("CenterUsers").child(sp.getString(STD_ID_CENTER, "0"))
+            final DatabaseReference reference = rootNode.getReference("CenterUsers").child(sp.getString(STD_ID_CENTER, "0"))
                     .child("groups").child(sp.getString(STD_ID_GROUP, "-1")).child("student_group").child(
                             sp.getString(STD_ID_STUDENT, "-1")).child("student_save");
+            final Number query = realm.where(Student_data.class).max("time_save");
 
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    try {
-                        count = dataSnapshot.getChildrenCount();
 
-                    } catch (Exception e) {
+                    if (query.longValue() < Long.parseLong(dataSnapshot.getKey())) {
+                        realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+
+//
+                        realm.insertOrUpdate(dataSnapshot.getValue(Student_data.class));
+
+                        realm.commitTransaction();
+                        realm.close();
+
                     }
+                    startActivity(new Intent(getBaseContext(), Main_student.class));
 
-
+                    reference.removeEventListener(this);
                 }
 
                 @Override
                 public void onCancelled(DatabaseError error) {
                 }
             });
-            Number query = realm.where(Student_data.class).max("time");
-            if (query.longValue() < count) {
-                getSavesStudent(sp.getString(STD_ID_CENTER, "0"),
-                        sp.getString(STD_ID_GROUP, "-1"), sp.getString(STD_ID_STUDENT, "-1"), query.longValue());
 
-            }
 //            realm.beginTransaction();
 //
 //            realm.copyToRealmOrUpdate(user);
@@ -154,17 +158,19 @@ public class GuardianLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guardian_login);
         Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
+
         mAuth = FirebaseAuth.getInstance();
         tv_Login = findViewById(R.id.GuardianLogin_tv_login);
         et_Email = findViewById(R.id.GuardianLogin_et_EmailOrphone);
-
+        realm = Realm.getDefaultInstance();
         RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();/// this is
 
         if (!realmResults.isEmpty()) {
+            get_student_save();
+            if (!realm.isClosed())
+                realm.close();
             startActivity(new Intent(getBaseContext(), Main_student.class));
-            get_student_info();
-            realm.close();
+
         } else {
             /*   فحص هل الجدزل تاع الطالب مليان ولا فاضي ؟  اذا فاضي روح ع اللوج ان دغري , اذا مليان روح ع الفحص و بعدين روح  ع المين ستيودنت   */
 
@@ -257,12 +263,8 @@ public class GuardianLogin extends AppCompatActivity {
                             editor.commit();
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                             getStudnetInfo(user.getDisplayName(), id_group, id_sutdent);
-                            save_student_to_realm();
 
-                            get_student_info();
-                            realm.close();
 
-                            startActivity(new Intent(getBaseContext(), Main_student.class));
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_password.setError("تأكد من الإيميل و كلمة المرور.");
@@ -274,17 +276,31 @@ public class GuardianLogin extends AppCompatActivity {
     }//للدخول
 
     //dont klfmlkewf
-    public Student_Info getStudnetInfo(String id_center, String id_group, String id_student) {
+    public Student_Info getStudnetInfo(final String id_center, final String id_group, final String id_student) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("student_group").child(
                         id_student).child("student_info");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
-                user = studentInfo;
+                Log.d("c", id_center);
+                Log.d("g", id_group);
+                Log.d("s", id_student);
+
+                //                realm = Realm.getDefaultInstance();
+//                realm.beginTransaction();
+//
+//                realm.insertOrUpdate(studentInfo);
+//
+//
+//                realm.commitTransaction();
+//                realm.close();
+//                get_student_save();
+//
+                reference.removeEventListener(this);
             }
 
             @Override
@@ -293,19 +309,6 @@ public class GuardianLogin extends AppCompatActivity {
         });
         return user;
     }//جلب البيانات
-
-    private void save_student_to_realm() {
-
-        realm.beginTransaction();
-        try {
-            realm.copyToRealmOrUpdate(user);
-        } catch (Exception e) {
-
-
-        }
-        realm.commitTransaction();
-
-    }
 
 
 }

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -35,7 +36,6 @@ public class Show_group_student extends AppCompatActivity {
     RecyclerView rv;
     TextView tv_show;
     Toolbar toolbar;
-    private FirebaseAuth mAuth;
     ArrayList<Student_Info> arrayList;
     private SharedPreferences sp;
     String id_group;
@@ -48,7 +48,6 @@ public class Show_group_student extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_group_student);
-        mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
@@ -57,14 +56,19 @@ public class Show_group_student extends AppCompatActivity {
         Intent i = getIntent();
         id_center_c = i.getStringExtra("id_center");
         id_group_c = i.getStringExtra("id_group");
-        String groupName=i.getStringExtra("groupName");
+        Log.d("re", id_center_c + " ! ");
+        Log.d("re", id_group_c + " ! ");
         if (id_center_c == null) {
 
             id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
             id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+            Log.d("rere ", id_group + " !");
+            Log.d("rere ", id_center + " !");
         } else {
             id_center = id_center_c;
             id_group = id_group_c;
+            Log.d("re", id_group_c + " !!! ");
+
 
         }
 
@@ -72,8 +76,6 @@ public class Show_group_student extends AppCompatActivity {
         rv = findViewById(R.id.recycler_show_group_student);
         tv_show = findViewById(R.id.ShowStudentsList_tv_show);
         tv_show.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-
-        toolbar.setTitle("حلقة "+groupName);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -85,15 +87,7 @@ public class Show_group_student extends AppCompatActivity {
                 return false;
             }
         });
-        arrayList = new ArrayList<Student_Info>();
-
-
-//        arrayList.add(new Student_imageand_name("مصطفى محمد الاسطل"));
-//        arrayList.add(new Student_imageand_name("أحمد عبد الغفور"));
-//        arrayList.add(new Student_imageand_name("محمد الاغا"));
-//        arrayList.add(new Student_imageand_name("عبد الرحيم شراب"));
-//        arrayList.add(new Student_imageand_name("أحمد اليعقوبي"));
-//        arrayList.add(new Student_imageand_name("معتز ماضي"));
+        arrayList = new ArrayList<>();
 
 
     }
@@ -101,7 +95,7 @@ public class Show_group_student extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        get_student_group( );
+        get_student_group();
 
 
     }
@@ -109,11 +103,11 @@ public class Show_group_student extends AppCompatActivity {
     public void get_student_group() {
 
 
+        RealmResults<Student_Info> realmResults = realm.where(Student_Info.class)
+                .equalTo("id_group", id_group)
+                .findAll();
         arrayList.clear();
 
-
-
-        RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).equalTo("id_group", id_group).findAll();
         for (int i = 0; i < realmResults.size(); i++) {
 
             String id_student = realmResults.get(i).getId_Student();

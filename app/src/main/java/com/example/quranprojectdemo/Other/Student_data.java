@@ -31,26 +31,26 @@ public class Student_data extends RealmObject {
     private String date_id;
     private String id_group;
 
-
-
-    public Student_data(String date__student, String day_student,
-                        String save_student, String review_student,
-                        String attendess_student, double counnt_page_save,
-                        double counnt_page_review, String month_save, String year_save, long time_save, String id_student, String date_id,String id_group) {
+    public Student_data(String date__student,
+                        String day_student, String save_student,
+                        String review_student, String attendess_student,
+                        double counnt_page_save, double counnt_page_review, String month_save,
+                        String year_save, long time_save, String id_student, String date_id, String id_group) {
         this.date__student = date__student;
-        this.date_id = date_id;
         this.day_student = day_student;
         this.save_student = save_student;
         this.review_student = review_student;
-        this.id_group=id_group;
-        this.id_student = id_student;
         this.attendess_student = attendess_student;
         this.counnt_page_save = counnt_page_save;
         this.counnt_page_review = counnt_page_review;
         this.month_save = month_save;
         this.year_save = year_save;
         this.time_save = time_save;
+        this.id_student = id_student;
+        this.date_id = date_id;
+        this.id_group = id_group;
     }
+
 //
 //    public Student_data(String date__student, String day_student, String save_student,
 //                        String review_student, String attendess_student, double counnt_page_save, double counnt_page_review) {
@@ -66,78 +66,6 @@ public class Student_data extends RealmObject {
 
     public Student_data() {
 
-    }
-
-    public String getMonth_save() {
-        return month_save;
-    }
-
-    public void setMonth_save(String month_save) {
-        this.month_save = month_save;
-    }
-
-    public String getYear_save() {
-        return year_save;
-    }
-
-    public String getDate_id() {
-        return date_id;
-    }
-
-    public void setDate_id(String date_id) {
-        this.date_id = date_id;
-    }
-
-    public String getId_group() {
-        return id_group;
-    }
-
-    public void setId_group(String id_group) {
-        this.id_group = id_group;
-    }
-
-    public void setYear_save(String year_save) {
-        this.year_save = year_save;
-    }
-
-    public long getTime_save() {
-        return time_save;
-    }
-
-    public void setTime_save(long time_save) {
-        this.time_save = time_save;
-    }
-
-    public double getCounnt_page_save() {
-        return counnt_page_save;
-    }
-
-    public String getId_student() {
-        return id_student;
-    }
-
-    public void setId_student(String id_student) {
-        this.id_student = id_student;
-    }
-
-    public void setCounnt_page_save(double counnt_page_save) {
-        this.counnt_page_save = counnt_page_save;
-    }
-
-    public double getCounnt_page_review() {
-        return counnt_page_review;
-    }
-
-    public void setCounnt_page_review(double counnt_page_review) {
-        this.counnt_page_review = counnt_page_review;
-    }
-
-    public String getdate_id() {
-        return date_id;
-    }
-
-    public void setdate_id(String date_id) {
-        this.date_id = date_id;
     }
 
     public String getDate__student() {
@@ -178,6 +106,70 @@ public class Student_data extends RealmObject {
 
     public void setAttendess_student(String attendess_student) {
         this.attendess_student = attendess_student;
+    }
+
+    public double getCounnt_page_save() {
+        return counnt_page_save;
+    }
+
+    public void setCounnt_page_save(double counnt_page_save) {
+        this.counnt_page_save = counnt_page_save;
+    }
+
+    public double getCounnt_page_review() {
+        return counnt_page_review;
+    }
+
+    public void setCounnt_page_review(double counnt_page_review) {
+        this.counnt_page_review = counnt_page_review;
+    }
+
+    public String getMonth_save() {
+        return month_save;
+    }
+
+    public void setMonth_save(String month_save) {
+        this.month_save = month_save;
+    }
+
+    public String getYear_save() {
+        return year_save;
+    }
+
+    public void setYear_save(String year_save) {
+        this.year_save = year_save;
+    }
+
+    public long getTime_save() {
+        return time_save;
+    }
+
+    public void setTime_save(long time_save) {
+        this.time_save = time_save;
+    }
+
+    public String getId_student() {
+        return id_student;
+    }
+
+    public void setId_student(String id_student) {
+        this.id_student = id_student;
+    }
+
+    public String getDate_id() {
+        return date_id;
+    }
+
+    public void setDate_id(String date_id) {
+        this.date_id = date_id;
+    }
+
+    public String getId_group() {
+        return id_group;
+    }
+
+    public void setId_group(String id_group) {
+        this.id_group = id_group;
     }
 }
 

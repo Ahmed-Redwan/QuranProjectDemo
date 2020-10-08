@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,7 +74,7 @@ public class StudentDetails extends AppCompatActivity {
         id_student_c = i.getStringExtra("id_student");
         id_group_c = i.getStringExtra("id_group");
         id_center_c = i.getStringExtra("id_center");
-        if (!id_student_c.isEmpty()) {
+        if (id_student_c != null) {
             id_group = id_group_c;
             id_center = id_center_c;
             id_student = id_student_c;
@@ -192,9 +193,9 @@ public class StudentDetails extends AppCompatActivity {
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         String date_month = "Month : " + monthForamt.format(date);
 
-        RealmQuery<Student_data> query = realm.where(Student_data.class);
-        query.equalTo("year_save", date_year);
-        query.and().equalTo("month_save", date_month).and().equalTo("id_studnt", id_student)
+        RealmQuery<Student_data> query = realm.where(Student_data.class)
+                .equalTo("year_save", date_year).
+                        and().equalTo("month_save", date_month).and().equalTo("id_student", id_student)
                 .and().equalTo("id_group", id_group);
         RealmResults<Student_data> realmResults = query.findAll();
 
@@ -209,16 +210,20 @@ public class StudentDetails extends AppCompatActivity {
 
 
     public void getStudnetInfo(String id_student, String id_group) {
-        Student_Info studentInfo = realm.where(Student_Info.class).equalTo("id_number", id_student)
+        Student_Info studentInfo = realm.where(Student_Info.class)
+                .equalTo("id_Student", id_student)
                 .and().equalTo("id_group", id_group)
                 .findFirst();
-
-
+//        if (studentInfo != null) {
+        Log.d("eer", id_center_c + " 0");
+        Log.d("eer", id_group + " 2");
+        Log.d("eer", id_student + " 1");
+//        }
         tv_student_name.setText("الطالب " + studentInfo.getName());
         tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
         tv_student_phone.setText(studentInfo.getPhoneNo());
         tv_student_identity.setText("رقم الهوية:" + studentInfo.getId_number());
-
+//
 
     }
 //    public void getStudnetInfo(String id_center, String id_group, String id_student) {

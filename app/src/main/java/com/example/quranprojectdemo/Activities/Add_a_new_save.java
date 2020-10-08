@@ -87,16 +87,18 @@ public class Add_a_new_save extends AppCompatActivity {
 
         Student_data student_data = new Student_data(date__student, day_student, save_student, review_student
                 , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save, id_group);
-
-        realm.beginTransaction();
+        realm = Realm.getDefaultInstance();
+        if (!realm.isInTransaction())
+            realm.beginTransaction();
         try {
-            realm.copyToRealmOrUpdate(student_data);
+            realm.insertOrUpdate(student_data);
+
+            realm.commitTransaction();
+            realm.close();
         } catch (Exception e) {
 
 
         }
-        realm.commitTransaction();
-
     }
 
 
@@ -107,17 +109,19 @@ public class Add_a_new_save extends AppCompatActivity {
                                        String year_save, long time_save, String id_student, String date_save) {
 
         Student_data_cash student_data = new Student_data_cash(date__student, day_student, save_student, review_student
-                , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save);
-
-        realm.beginTransaction();
+                , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save, id_group);
+        realm = Realm.getDefaultInstance();
+        if (!realm.isInTransaction())
+            realm.beginTransaction();
         try {
-            realm.copyToRealmOrUpdate(student_data);
+            realm.insertOrUpdate(student_data);
+
+            realm.commitTransaction();
+            realm.close();
         } catch (Exception e) {
 
 
         }
-        realm.commitTransaction();
-
     }
 
 
@@ -126,7 +130,8 @@ public class Add_a_new_save extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
         Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
+
+
         et_numOfSavePages = findViewById(R.id.student_add_new_save_et_numOfSavePages);
         et_numOfRevPages = findViewById(R.id.student_add_new_save_et_numOfRevPages);
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
@@ -262,7 +267,9 @@ public class Add_a_new_save extends AppCompatActivity {
 
     public ArrayList<Student_Info> get_student_group() {
         ArrayList<Student_Info> arrayList = new ArrayList<>();
-
+        realm = Realm.getDefaultInstance();
+        if (!realm.isInTransaction())
+            realm.beginTransaction();
         RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).equalTo("id_group", id_group).findAll();
         for (int i = 0; i < realmResults.size(); i++) {
 
@@ -276,6 +283,7 @@ public class Add_a_new_save extends AppCompatActivity {
             arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
 
         }
+        realm.close();
         return arrayList;
 
     }
@@ -296,10 +304,10 @@ public class Add_a_new_save extends AppCompatActivity {
                     Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
                 } else {
                     insert_new_save(id_student, id_group, id_center);
-                    if (checkInternet()) {
-                        insert_new_save_fireBase(id_student, id_group, id_center);
-
-                    }
+//                    if (checkInternet()) {
+//                        insert_new_save_fireBase(id_student, id_group, id_center);
+//
+//                    }
 
 
                 }
@@ -346,13 +354,13 @@ public class Add_a_new_save extends AppCompatActivity {
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
                 date.getTime(), id_student, date_now + id_student, id_groub);
-        if (!checkInternet()) {
-            addSaveToCashDataBase(date_now, getDay(), save_all, review_all,
-                    "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                    Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
-                    date.getTime(), id_student, date_now + id_student);
+//        if (!checkInternet()) {
+        addSaveToCashDataBase(date_now, getDay(), save_all, review_all,
+                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
+                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
+                date.getTime(), id_student, date_now + id_student);
 
-        }
+//        }
 
     }
 
@@ -377,7 +385,7 @@ public class Add_a_new_save extends AppCompatActivity {
         String date_month = "Month : " + monthForamt.format(date);
 
 
-        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
+        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى      " + text_save_to;
         review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
 
         SimpleDateFormat dayForamt = new SimpleDateFormat("dd");
@@ -385,7 +393,7 @@ public class Add_a_new_save extends AppCompatActivity {
         Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
-                time, id_student, date_now + id_student,id_group);
+                time, id_student, date_now + id_student, id_group);
         DatabaseReference student = my_student_group.child(id_student);
 
 
@@ -428,20 +436,10 @@ public class Add_a_new_save extends AppCompatActivity {
 
     public void show_spinner() {
 //
-//        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-//        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
-//        DatabaseReference my_center = reference.child(id_center);//already found
-//        DatabaseReference my_center_groups = my_center.child("groups");//already found or not
-//        DatabaseReference my_group = my_center_groups.child(id_group);// add new group
-//        DatabaseReference my_student_group = my_group.child("student_group");
 
-//        my_student_group.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
         infoArrayList.clear();
 
-//                for (DataSnapshot d : snapshot.getChildren()) {
-        ArrayList<Student_Info> arrayList = get_student_group();
+         ArrayList<Student_Info> arrayList = get_student_group();
         for (int i = 0; i < arrayList.size(); i++) {
 
             String student_id = arrayList.get(i).getId_Student();
@@ -449,7 +447,6 @@ public class Add_a_new_save extends AppCompatActivity {
             infoArrayList.add(new Student_Info(student_name, student_id, null));
 
         }
-//                }
 
         if (infoArrayList.isEmpty()) {
             check_show_spinner = false;
