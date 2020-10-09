@@ -40,7 +40,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation "com.google.android.material:material:1.1.0"
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:+'
 
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.firebase:firebase-firestore:+'
@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.firebase:firebase-database:+'
     implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:+'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.8'
     implementation 'com.github.chuross:extra-textview:1.1.3'

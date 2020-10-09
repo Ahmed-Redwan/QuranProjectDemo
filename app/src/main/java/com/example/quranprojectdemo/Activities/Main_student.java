@@ -1,11 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -21,11 +15,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_Info;
-import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Other.Student_data;
-import com.google.common.reflect.TypeResolver;
+import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +43,6 @@ import io.realm.RealmResults;
 import static com.example.quranprojectdemo.Activities.GuardianLogin.INFO_STUDENT_LOGIN;
 
 public class Main_student extends AppCompatActivity {
-    //maa
 
     Toolbar toolbar_student;
     Spinner spinner_year, spinner_month;
@@ -107,10 +104,14 @@ public class Main_student extends AppCompatActivity {
                         realm.beginTransaction();
                         realm.deleteAll();
                         realm.commitTransaction();
-                        realm.close();                        sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
+                        realm.close();
+                        sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
                         editor = sp.edit();
                         editor.clear();
                         editor.commit();
+                        System.exit(0);
+                        System.exit(0);
+                        finish();
                         System.exit(0);
                         return true;
                 }

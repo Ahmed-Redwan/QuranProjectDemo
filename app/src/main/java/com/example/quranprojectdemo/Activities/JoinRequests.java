@@ -1,13 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,14 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.quranprojectdemo.Other.Center;
-import com.example.quranprojectdemo.Other.CenterUser;
-import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.quranprojectdemo.Other.CustomRequests;
-import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.OnClick;
-import com.example.quranprojectdemo.Other.Request;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,8 +42,6 @@ import java.util.ArrayList;
 import static android.Manifest.permission.CALL_PHONE;
 
 public class JoinRequests extends AppCompatActivity {
-    //maa
-
     RecyclerView rv;
     ArrayList<Student_Info> requests;
     String Centerid;

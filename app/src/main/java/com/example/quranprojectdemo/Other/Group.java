@@ -1,21 +1,14 @@
 package com.example.quranprojectdemo.Other;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
-public class Group  extends RealmObject {
-    //maa
+public class Group {
     private int img;
     private String GroupName;
     private String TeacherName;
-
     private int id;
-    @PrimaryKey
     private String id_group;
-    
     private String id_center;
 
-    public Group(String id_group, String groupName, String teacherName,String id_center) {
+    public Group(String id_group, String groupName, String teacherName, String id_center) {
         this.id_group = id_group;
         GroupName = groupName;
         TeacherName = teacherName;
@@ -47,9 +40,7 @@ public class Group  extends RealmObject {
 
     }
 
-
-
-    public Group(int img, String groupName, String teacherName,String id_group,String id_center) {
+    public Group(int img, String groupName, String teacherName, String id_group, String id_center) {
         this.img = img;
         GroupName = groupName;
         TeacherName = teacherName;
@@ -57,11 +48,10 @@ public class Group  extends RealmObject {
         this.id_center=id_center;
     }
 
-    public Group(int img, String groupName, String teacherName) {
-        this.img = img;
-        GroupName = groupName;
-        TeacherName = teacherName;
-    }
+//    public Group(String groupName, String teacherName) {
+//        GroupName = groupName;
+//        TeacherName = teacherName;
+//    }
 
     public Group(int id, int img, String groupName, String teacherName) {
         this.id = id;

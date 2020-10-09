@@ -19,7 +19,6 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 
 public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_show_group_student.View_holder> {
-    //maa
 
 
     ArrayList<Student_Info> student_imageand_names;

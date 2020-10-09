@@ -1,7 +1,6 @@
 package com.example.quranprojectdemo.Other;
 
 public class Request {
-    //maa
 
     private String name;
     private String id_number;

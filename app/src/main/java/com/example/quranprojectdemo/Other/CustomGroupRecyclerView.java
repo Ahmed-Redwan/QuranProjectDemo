@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomGroupRecyclerView extends RecyclerView.Adapter<CustomGroupRecyclerView.View_holder> {
-    //maa
-
     List<Group> arrayList;
     Context context;
 

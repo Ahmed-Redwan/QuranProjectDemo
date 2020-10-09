@@ -246,16 +246,15 @@
                         >
 
                         <TextView
+                            android:id="@+id/StudentDetails_review"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="المراجعه"
                             android:gravity="center"
+                            android:text="المراجعه"
                             android:textColor="@color/color_whigt"
                             android:textSize="@dimen/_13ssp"
-                            android:textStyle="bold"
 
-                            android:id="@+id/StudentDetails_review"
-                            />
+                            android:textStyle="bold" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -295,7 +294,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_100sdp"
+                android:layout_marginBottom="@dimen/_140sdp"
                 android:id="@+id/StudentDetails_recycler"
 
 

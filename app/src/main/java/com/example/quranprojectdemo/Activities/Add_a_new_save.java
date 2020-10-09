@@ -1,14 +1,8 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,40 +10,29 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.quranprojectdemo.Other.Adabter_student_image_and_name;
 import com.example.quranprojectdemo.Other.CheckInternet;
-import com.example.quranprojectdemo.Other.Recycler_show_group_student;
 import com.example.quranprojectdemo.Other.Sora;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.Other.Student_imageand_name;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
 //asd
 public class Add_a_new_save extends AppCompatActivity {
-    //maa
+    //jhklhkljh
     SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too;
     SearchableSpinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
     Spinner spinner_select_student;

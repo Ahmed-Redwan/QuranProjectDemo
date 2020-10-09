@@ -1,8 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -13,15 +10,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.Other.CheckInternet;
-import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
-import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,15 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import java.util.ArrayList;
-
 import io.realm.Realm;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class QuranCenter_Login extends AppCompatActivity {
-    //maa
-
     public static final String ID_CENTER_LOGIN = "id_center_log";
     public static final String INFO_CENTER_LOGIN = "Info_center";
     TextView tv_Login, tv_iDontHaveAnAccount, tv_NewAccount;
@@ -80,35 +72,40 @@ public class QuranCenter_Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Group_Info g = dataSnapshot.child("group_info").getValue(Group_Info.class);
-                    realm = Realm.getDefaultInstance();
-                    if (!realm.isInTransaction())
-                        realm.beginTransaction();
-                    realm.insertOrUpdate(g);
-                    realm.commitTransaction();
-                    realm.close();
+                    if (g != null) {
+                        realm = Realm.getDefaultInstance();
+                        if (!realm.isInTransaction())
+                            realm.beginTransaction();
+                        realm.insertOrUpdate(g);
+                        realm.commitTransaction();
+                        realm.close();
+                    }
 
                     DataSnapshot snapshot_std = dataSnapshot.child("student_group");
                     for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
                         Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
-                        Log.d("re", s.getEmail() + " ! ");
-                        realm = Realm.getDefaultInstance();
-                        if (!realm.isInTransaction())
-                            realm.beginTransaction();
-                        realm.insertOrUpdate(s);
-                        realm.commitTransaction();
-                        realm.close();
-                        DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
-                        for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
-                            Student_data data = snapshot2.getValue(Student_data.class);
-                            Log.d("re", data.getSave_student() + " ! ");
-
+                        if (s != null) {
+                            Log.d("re", s.getEmail() + " ! ");
                             realm = Realm.getDefaultInstance();
                             if (!realm.isInTransaction())
                                 realm.beginTransaction();
-                            realm.insertOrUpdate(data);
+                            realm.insertOrUpdate(s);
                             realm.commitTransaction();
                             realm.close();
+                        }
+                        DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
+                        for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
+                            Student_data data = snapshot2.getValue(Student_data.class);
+                            if (data != null) {
+                                Log.d("re", data.getSave_student() + " ! ");
 
+                                realm = Realm.getDefaultInstance();
+                                if (!realm.isInTransaction())
+                                    realm.beginTransaction();
+                                realm.insertOrUpdate(data);
+                                realm.commitTransaction();
+                                realm.close();
+                            }
                         }
 
 

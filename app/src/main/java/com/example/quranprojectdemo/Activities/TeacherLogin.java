@@ -34,18 +34,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import io.realm.Realm;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class TeacherLogin extends AppCompatActivity {
-    //maa
-
     public static final String INFO_TEACHER = "info_tet";
     public static final String ID_LOGIN_TEACHER = "tet_id";
     public static final String ID_LOGIN_TEC_CENTER = "tet_log_center_id";
@@ -405,39 +397,37 @@ public class TeacherLogin extends AppCompatActivity {
                 DataSnapshot snapshot_std = snapshot.child("student_group");
                 for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
                     Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
-                    Log.d("re", s.getId_Student() + " ! ");
-                    Log.d("re", s.getEmail() + " email ");
-                    Log.d("re", s.getId_group() + " id g ");
-                    Log.d("re", s.getId_center() + " id c  ");
-                    Log.d("re", s.getName() + " name ");
-
-                    realm = Realm.getDefaultInstance();
-                    if (!realm.isInTransaction())
-                        realm.beginTransaction();
-                    realm.insertOrUpdate(s);
-                    realm.commitTransaction();
-                    realm.close();
-                    DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
-                    for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
-
-                        Log.d("re", snapshot2.getValue(Student_data.class).getDate_id() + " ! ");
+                    if (s != null) {
 
                         realm = Realm.getDefaultInstance();
                         if (!realm.isInTransaction())
                             realm.beginTransaction();
-                        realm.insertOrUpdate(snapshot2.getValue(Student_data.class));
+                        realm.insertOrUpdate(s);
                         realm.commitTransaction();
                         realm.close();
-//
+                    }
+                    DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
+
+                    for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
+                        Student_data student_data = snapshot2.getValue(Student_data.class);
+
+                        if (student_data != null) {
+                            realm = Realm.getDefaultInstance();
+                            if (!realm.isInTransaction())
+                                realm.beginTransaction();
+                            realm.insertOrUpdate(student_data);
+                            realm.commitTransaction();
+                            realm.close();
+                        }
                     }
 
 
                 }
 
+                reference.removeEventListener(this);
 
                 startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
-                reference.removeEventListener(this);
             }
 
             @Override

@@ -1,18 +1,17 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.example.quranprojectdemo.R;
 
 public class RegisterAs extends AppCompatActivity {
-    //maa
 
     TextView tv_MakeAccount, tv_QuranCenter, tv_Teacher, tv_guardian, tv_AddRequest, tv_or;
     CardView crV_QuranCenter, crV_Teacher, crV_guardian, crVAddRequest;

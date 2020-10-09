@@ -1,31 +1,21 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
-import com.example.quranprojectdemo.Other.Student_Info;
-import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +27,6 @@ import io.realm.RealmResults;
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class ShowmeMorizationLoops extends AppCompatActivity {
-    //maa
-
     TextView tv_ShowMemorizationLoops;
     RecyclerView rv_List;
     Toolbar toolbar;
@@ -83,20 +71,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         rv_List = findViewById(R.id.ShowMemorizationLoops_Rv_List);
 
         tv_ShowMemorizationLoops.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-      //  int img, String groupName, String teacherName,String id_group,String id_center
-         data.add(new Group(R.drawable.ahmed_abd,"ابو بكر الصديق","ahmed"));
-         data.add(new Group(R.drawable.ahmed_ali,"ابو بكر الصديق","ahmed"));
-         data.add(new Group(R.drawable.mustafa,"ابو بكر الصديق","mustafa"));
-
-
-
-        LinearLayoutManager layoutManager1 =new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL
-                ,false);
-        rv_List.setLayoutManager(layoutManager1);
-        rv_List.setItemAnimator(new DefaultItemAnimator());
-
-        final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data, getBaseContext());
-        rv_List.setAdapter(customGroupRecyclerView);
+//          data.add(new Group(R.drawable.arabian, "ابو بكر الصديق", "احمد عبد الغفور"));
 
 
     }
@@ -104,7 +79,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-       // getGroups(id_center);
+        getGroups(id_center);
 
 
     }
@@ -128,10 +103,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         rv_List.setHasFixedSize(true);
         rv_List.setAdapter(customGroupRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
-        LinearLayoutManager layoutManager1 =new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL
-                ,false);
-        rv_List.setLayoutManager(layoutManager1);
-        rv_List.setItemAnimator(new DefaultItemAnimator());
+        rv_List.setLayoutManager(layoutManager);
 
 
     }

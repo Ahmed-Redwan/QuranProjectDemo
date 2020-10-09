@@ -2,16 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quranprojectdemo">
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity android:name=".Activities.AboutApp"></activity>
         <activity android:name=".Activities.JoinRequests"></activity>
         <activity android:name=".Activities.StudentDetails" />
@@ -19,30 +16,27 @@
         <activity android:name=".Activities.AddNewStudent" />
         <activity android:name=".Activities.AddNewGroup" />
         <activity android:name=".Activities.Main_student" />
-        <activity android:name=".Activities.Main_teacher" >
-        </activity>
+        <activity android:name=".Activities.Main_teacher"></activity>
         <activity android:name=".Activities.GuardianLogin"></activity>
         <activity android:name=".Activities.TeacherLogin"></activity>
         <activity android:name=".Activities.QuranCenter_Login"></activity>
         <activity android:name=".Activities.QuranCenter_Reg" />
-        <activity android:name=".Activities.RegisterAs"></activity>
-        <activity
-            android:name=".Activities.SplashScreen"
-            android:configChanges="locale"></activity>
-        <activity android:name=".Activities.Main_center" >
-        </activity>
-        <activity android:name=".Activities.JoinRequest1" />
-        <activity android:name=".Activities.JoinRequest2" />
-        <activity android:name=".Activities.Reprts" >
+        <activity android:name=".Activities.RegisterAs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activities.SplashScreen"
+            android:configChanges="locale"></activity>
+        <activity android:name=".Activities.Main_center"></activity>
+        <activity android:name=".Activities.JoinRequest1" />
+        <activity android:name=".Activities.JoinRequest2" />
+
         <activity android:name=".Activities.JoinRequest3"></activity>
         <activity android:name=".Activities.Show_group_student" />
-        <activity android:name=".Activities.ShowmeMorizationLoops" >
-        </activity>
+        <activity android:name=".Activities.ShowmeMorizationLoops"></activity>
 
 
         <meta-data
@@ -54,8 +48,5 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
-
-
 
 </manifest>

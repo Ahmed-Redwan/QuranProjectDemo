@@ -1,30 +1,22 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,8 +27,6 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class StudentDetails extends AppCompatActivity {
-    //maa
-
     TextView tv_student_name, tv_student_name_ring, tv_student_phone, tv_student_identity;
     ImageView image_backe_student, image_student;
     final ArrayList<Student_data> student_data = new ArrayList<>();
@@ -62,7 +52,7 @@ public class StudentDetails extends AppCompatActivity {
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
         StudentDetails_recycler = findViewById(R.id.StudentDetails_recycler);
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.StudentDetails_toolBar);
+        Toolbar toolbar = findViewById(R.id.StudentDetails_toolBar);
         image_backe_student = findViewById(R.id.StudentDetails_image_center);
         image_student = findViewById(R.id.StudentDetails_image_student);
         tv_student_name = findViewById(R.id.StudentDetails_tv_name_student);

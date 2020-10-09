@@ -1,24 +1,20 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.Other.Group_Info;
-import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,14 +34,13 @@ import io.realm.Realm;
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class AddNewGroup extends AppCompatActivity {
-    //maa
-     TextView tv_AddNewGroup;
+    TextView tv_AddNewGroup;
     EditText et_GroupName, et_TeacherName, et_TeacherEmail, et_TeacherPassword, et_TeacherPhone;
     Button btn_add, btn_Cancel;
     FirebaseAuth mAuth;
     private String id_center;
     SharedPreferences sp;
-    private String auto_id_group = null ;
+    private String auto_id_group = null;
     Realm realm;
     private Group_Info group_info;
     private CenterUser value;
@@ -218,7 +213,6 @@ public class AddNewGroup extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-
                 value = snapshot.getValue(CenterUser.class);
 
                 auto_id_group = value.getAuto_id_group();
@@ -241,7 +235,7 @@ public class AddNewGroup extends AppCompatActivity {
                 updatename(user, id_center, auto_id_group);
 
                 addNewGroupDataBase(group_info);
-                create_new_group(group_info, id_center);
+                create_new_group(group_info , id_center);
                 value.setAuto_id_group(auto_id_group);
                 save_new_id_group(value);
                 realm = Realm.getDefaultInstance();
@@ -271,6 +265,7 @@ public class AddNewGroup extends AppCompatActivity {
         reference.setValue(centerUser);
 
     }
+
 
 }
 

@@ -1,8 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.R;
@@ -28,7 +28,6 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import io.realm.Realm;
 
 public class QuranCenter_Reg extends AppCompatActivity {
-    //maa
 
     public static final String INFO_CENTER_REG = "info_reg";
     public static final String ID_CENTER_REG = "id_center_reg";

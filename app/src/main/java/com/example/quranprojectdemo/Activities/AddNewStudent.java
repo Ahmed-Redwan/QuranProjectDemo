@@ -1,24 +1,22 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.quranprojectdemo.Other.CenterUser;
-import com.example.quranprojectdemo.Other.Group;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.quranprojectdemo.Other.Group_Info;
+import com.example.quranprojectdemo.Other.Student_Info;
+import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,9 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import com.example.quranprojectdemo.Other.Student_Info;
-import com.example.quranprojectdemo.R;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -39,7 +34,6 @@ import io.realm.Realm;
 
 
 public class AddNewStudent extends AppCompatActivity {
-    //maa
     TextView tv_Add;
     Button btn_Add, btn_Cancel;
     EditText et_studentName, et_studentId, et_Phone, et_Email, et_Grade, et_Year, et_Month, et_Day;
@@ -142,7 +136,7 @@ public class AddNewStudent extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            getAutoStudentID(id_group, id_center,user);
+                            getAutoStudentID(id_group, id_center, user);
 
 //                            FirebaseAuth.getInstance().signOut();
                             FancyToast.makeText(getBaseContext(), "تم إضافة طالب جديد.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
@@ -161,9 +155,9 @@ public class AddNewStudent extends AppCompatActivity {
     }//للتسجيل
 
 
-    private void updatename(FirebaseUser user) {// space = 32
+    private void updatename(FirebaseUser user, String id_center1, String id_group1, String auto_student_id1) {// space = 32
         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                .setDisplayName(id_center).setPhotoUri(Uri.parse(id_group + " " + auto_student_id))
+                .setDisplayName(id_center1).setPhotoUri(Uri.parse(id_group1 + " " + auto_student_id1))
                 .build();
         user.updateProfile(profileUpdate)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -175,31 +169,21 @@ public class AddNewStudent extends AppCompatActivity {
 
     }
 
-    public void create_new_student(String id_student, String id_groub, String id_center) {
+    public void create_new_student(Student_Info info, String id_student, String id_groub1, String id_center) {
         String birth_day = et_Day.getText().toString() + "/" + et_Month.getText().toString() + "/" + et_Year.getText().toString();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference center = reference.child(id_center);//already found
         DatabaseReference center_groups = center.child("groups");//already found or not
-        DatabaseReference new_group = center_groups.child(id_groub);// add new group
+        DatabaseReference new_group = center_groups.child(id_groub1);// add new group
 
         DatabaseReference student_group = new_group.child("student_group");
         DatabaseReference new_student = student_group.child(id_student);
 
         DatabaseReference student_info = new_student.child("student_info");
-        student_info.setValue(new Student_Info(et_studentName.getText().toString(),
-                et_studentId.getText().toString(),
-                et_Phone.getText().toString(),
-                et_Email.getText().toString(),
-                et_Grade.getText().toString(),
-                birth_day, null, id_center, id_group, id_student));
+        student_info.setValue(info);
 
-        realm.copyToRealm(new Student_Info(et_studentName.getText().toString(),
-                et_studentId.getText().toString(),
-                et_Phone.getText().toString(),
-                et_Email.getText().toString(),
-                et_Grade.getText().toString(),
-                birth_day, null, id_center, id_group, id_student));
+        realm.copyToRealm(info);
 
 
         realm.commitTransaction();
@@ -208,7 +192,7 @@ public class AddNewStudent extends AppCompatActivity {
     }
 
 
-    public void getAutoStudentID(String id_group, final String id_center, final FirebaseUser user) {
+    public void getAutoStudentID(final String id_group, final String id_center, final FirebaseUser user) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("group_info");
@@ -218,24 +202,30 @@ public class AddNewStudent extends AppCompatActivity {
                 Group_Info val = dataSnapshot.getValue(Group_Info.class);
                 auto_student_id = val.getAuto_sutdent_id();
 
-                int id_group = Integer.parseInt(auto_student_id) + 1;
-                String new_id_group = "";
-                if (id_group < 10) {
-                    new_id_group = "0" + id_group;
+                int id_student = Integer.parseInt(auto_student_id) + 1;
+                String new_id_student = "";
+                if (id_student < 10) {
+                    new_id_student = "0" + id_student;
 
                 } else {
 
-                    new_id_group = "" + id_group;
+                    new_id_student = "" + id_student;
 
                 }
-                val.setAuto_sutdent_id(new_id_group);
-                reference.setValue(val);
-                create_new_student(auto_student_id, new_id_group, id_center);
-                updatename(user);
+                val.setAuto_sutdent_id(new_id_student);
+                Student_Info s = new Student_Info(et_studentName.getText().toString(),
+                        et_studentId.getText().toString(),
+                        et_Phone.getText().toString(),
+                        et_Email.getText().toString(),
+                        et_Grade.getText().toString(),
+                        et_Day.getText().toString(), null, id_center, id_group, new_id_student);
+                create_new_student(s, auto_student_id, id_group, id_center);
+                updatename(user, id_center, id_group, new_id_student);
+                save_new_id_group(val, id_center, id_group);
+                reference.removeEventListener(this);
 
                 finish();
 
-                reference.removeEventListener(this);
             }
 
 
@@ -246,5 +236,13 @@ public class AddNewStudent extends AppCompatActivity {
 
 
         });
+    }
+
+    private void save_new_id_group(Group_Info group_info, String center_id, String group_id) {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(center_id).
+                child("groups").child(group_id).child("group_info");
+        reference.setValue(group_info);
+
     }
 }

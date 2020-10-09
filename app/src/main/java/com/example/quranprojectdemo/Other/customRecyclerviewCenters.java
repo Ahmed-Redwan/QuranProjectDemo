@@ -25,11 +25,10 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 
 public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecyclerviewCenters.View_holder> {
-    //maa
 
     private ArrayList<Center>centers;
     Context context;
-    public customRecyclerviewCenters(ArrayList<Center>centers,Context context){
+    public customRecyclerviewCenters(ArrayList<Center>centers, Context context){
         this.centers=centers;
         this.context=context;
     }
@@ -61,8 +60,13 @@ public void addNewCenter(Center centers){
             @Override
             public void onClick(View view) {
 
-                view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class).putExtra
-                        ("CenterId",centers.get(position).getId()));
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        view.getContext().startActivity(new Intent(view.getContext(), JoinRequest3.class).putExtra
+                                ("CenterId",centers.get(position).getId()));
+                    }
+                });
 
             }
         });

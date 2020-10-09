@@ -1,8 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -13,13 +10,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.quranprojectdemo.Other.CenterUser;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.quranprojectdemo.Other.CheckInternet;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
-import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,14 +30,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import java.security.spec.ECField;
-
 import io.realm.Realm;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class GuardianLogin extends AppCompatActivity {
-    //maa
     public static final String INFO_STUDENT_LOGIN = "std_info";
     private static final String STD_ID_STUDENT = "std_id";
     private static final String STD_ID_GROUP = "std_group_id";
@@ -121,21 +114,40 @@ public class GuardianLogin extends AppCompatActivity {
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    Student_data std = dataSnapshot.getValue(Student_data.class);
 
-                    if (query.longValue() < Long.parseLong(dataSnapshot.getKey())) {
-                        realm = Realm.getDefaultInstance();
-                        realm.beginTransaction();
+                    if (std != null) {
+
+                        if (realm.where(Student_data.class).findAll().isEmpty()) {
+//                        Log.d("er",dataSnapshot.getKey());
+
+                            realm = Realm.getDefaultInstance();
+                            realm.beginTransaction();
+
+
+                            realm.insertOrUpdate(std);
+
+                            realm.commitTransaction();
+                            realm.close();
+                            reference.removeEventListener(this);
+
+
+                        } else if (query.longValue() < Long.parseLong(dataSnapshot.getKey())) {
+                            realm = Realm.getDefaultInstance();
+                            realm.beginTransaction();
 
 //
-                        realm.insertOrUpdate(dataSnapshot.getValue(Student_data.class));
+                            realm.insertOrUpdate(dataSnapshot.getValue(Student_data.class));
 
-                        realm.commitTransaction();
-                        realm.close();
+                            realm.commitTransaction();
+                            realm.close();
 
+                        }
                     }
+                    reference.removeEventListener(this);
+
                     startActivity(new Intent(getBaseContext(), Main_student.class));
 
-                    reference.removeEventListener(this);
                 }
 
                 @Override
@@ -281,27 +293,30 @@ public class GuardianLogin extends AppCompatActivity {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("student_group").child(
+                .child("groups").child("02").child("student_group").child(
                         id_student).child("student_info");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+
                 Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
                 Log.d("c", id_center);
                 Log.d("g", id_group);
                 Log.d("s", id_student);
+//
+                    realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
 
-                //                realm = Realm.getDefaultInstance();
-//                realm.beginTransaction();
+                    realm.insertOrUpdate(studentInfo);
+
+
+                    realm.commitTransaction();
+                    realm.close();
 //
-//                realm.insertOrUpdate(studentInfo);
-//
-//
-//                realm.commitTransaction();
-//                realm.close();
-//                get_student_save();
 //
                 reference.removeEventListener(this);
+                get_student_save();
             }
 
             @Override

@@ -1,10 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -13,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Other.Center;
 import com.example.quranprojectdemo.Other.CenterUser;
-import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.customRecyclerviewCenters;
 import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class JoinRequest2 extends AppCompatActivity {
-    //maa
     TextView tv_ListOfCenters;
     Button btn_Next;
     RecyclerView rv;
@@ -71,7 +67,6 @@ public class JoinRequest2 extends AppCompatActivity {
 
         tv_ListOfCenters.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
 
-
     }
 
     @Override
@@ -97,15 +92,14 @@ public class JoinRequest2 extends AppCompatActivity {
                                 c.getValue(CenterUser.class).getPhone(), c.getKey()));
 
 
-
+                        customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
+                        rv.setAdapter(customRecyclerviewCenters);
+                        //LinearLayoutManager layoutManager=new LinearLayoutManager(getBaseContext(),LinearLayoutManager.HORIZONTAL,false);
+                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
+                        rv.setLayoutManager(layoutManager);
+                        rv.setHasFixedSize(true);
 
                     }
-                    customRecyclerviewCenters customRecyclerviewCenters = new customRecyclerviewCenters(centers, getBaseContext());
-                    rv.setAdapter(customRecyclerviewCenters);
-                    //LinearLayoutManager layoutManager=new LinearLayoutManager(getBaseContext(),LinearLayoutManager.HORIZONTAL,false);
-                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
-                    rv.setLayoutManager(layoutManager);
-                    rv.setHasFixedSize(true);
 
                 }
 
