@@ -6,6 +6,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class Group_Info extends RealmObject {
+    //maa
     @Required
     private String email;
     @Required

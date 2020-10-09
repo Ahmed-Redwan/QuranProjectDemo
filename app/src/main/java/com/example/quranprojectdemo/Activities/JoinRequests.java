@@ -48,6 +48,8 @@ import java.util.ArrayList;
 import static android.Manifest.permission.CALL_PHONE;
 
 public class JoinRequests extends AppCompatActivity {
+    //maa
+
     RecyclerView rv;
     ArrayList<Student_Info> requests;
     String Centerid;

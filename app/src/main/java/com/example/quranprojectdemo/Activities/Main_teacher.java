@@ -31,6 +31,7 @@ import io.realm.RealmResults;
 import static com.example.quranprojectdemo.Activities.TeacherLogin.INFO_TEACHER;
 
 public class Main_teacher extends AppCompatActivity {
+    //maa
 
     ImageView image_backe_teacher, image_teacher;
     TextView tv_teacher_name, tv_teacher_name_ring, tv_teacher_phone, tv_teacher_count_student;

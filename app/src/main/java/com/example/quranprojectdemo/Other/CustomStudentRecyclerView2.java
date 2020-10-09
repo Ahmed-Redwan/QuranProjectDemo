@@ -16,6 +16,7 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 
 public class CustomStudentRecyclerView2 extends RecyclerView.Adapter<CustomStudentRecyclerView2.View_holder> {
+    //maa
     ArrayList<Student_Info> arrayList;
     Context context;
 

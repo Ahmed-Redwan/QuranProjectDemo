@@ -14,6 +14,7 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 
 public class Adabter_student_image_and_name extends BaseAdapter {
+    //maa
 
     Context context;
     int resourse;

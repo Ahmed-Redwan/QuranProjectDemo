@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.quranprojectdemo.R;
 
 public class RegisterAs extends AppCompatActivity {
+    //maa
 
     TextView tv_MakeAccount, tv_QuranCenter, tv_Teacher, tv_guardian, tv_AddRequest, tv_or;
     CardView crV_QuranCenter, crV_Teacher, crV_guardian, crVAddRequest;

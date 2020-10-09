@@ -19,6 +19,8 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 
 public class CustomGroupRecyclerView2 extends RecyclerView.Adapter<CustomGroupRecyclerView2.View_holder> {
+    //maa
+
     ArrayList<Group> arrayList;
     Context context;
 

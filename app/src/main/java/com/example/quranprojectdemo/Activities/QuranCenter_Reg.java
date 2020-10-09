@@ -28,6 +28,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import io.realm.Realm;
 
 public class QuranCenter_Reg extends AppCompatActivity {
+    //maa
 
     public static final String INFO_CENTER_REG = "info_reg";
     public static final String ID_CENTER_REG = "id_center_reg";

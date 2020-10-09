@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SpanningLinearLayoutManager extends LinearLayoutManager {
+    //maa
 
     public SpanningLinearLayoutManager(Context context) {
         super(context);

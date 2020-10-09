@@ -2,6 +2,7 @@ package com.example.quranprojectdemo.Other;
 
 public class Student_imageand_name {
     String   name ,image;
+    //maa
 
 
     public Student_imageand_name(String name) {

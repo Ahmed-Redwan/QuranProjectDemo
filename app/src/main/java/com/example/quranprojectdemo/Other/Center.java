@@ -3,6 +3,8 @@ package com.example.quranprojectdemo.Other;
 import io.realm.RealmObject;
 
 public class Center  {
+    //maa
+
     private String id;
     private int img;
     private String Name;

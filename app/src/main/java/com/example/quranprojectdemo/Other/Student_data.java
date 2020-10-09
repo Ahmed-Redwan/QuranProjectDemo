@@ -6,6 +6,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class Student_data extends RealmObject {
+    //maa
 
     @Required
     private String date__student;

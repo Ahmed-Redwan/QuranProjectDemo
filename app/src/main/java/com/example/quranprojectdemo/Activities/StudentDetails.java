@@ -35,6 +35,8 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class StudentDetails extends AppCompatActivity {
+    //maa
+
     TextView tv_student_name, tv_student_name_ring, tv_student_phone, tv_student_identity;
     ImageView image_backe_student, image_student;
     final ArrayList<Student_data> student_data = new ArrayList<>();

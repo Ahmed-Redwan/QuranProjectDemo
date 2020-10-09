@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class JoinRequest3 extends AppCompatActivity {
+    //maa
+
     public static final String INFO_CENTER_REG = "info_reg";
     public static final String ID_CENTER_REG = "id_center_reg";
     TextView tv_JoinRequest;

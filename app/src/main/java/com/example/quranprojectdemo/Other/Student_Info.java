@@ -6,6 +6,8 @@ import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
 
 public class Student_Info extends RealmObject {
+    //maa
+
     private String name;
     @PrimaryKey
     @Index

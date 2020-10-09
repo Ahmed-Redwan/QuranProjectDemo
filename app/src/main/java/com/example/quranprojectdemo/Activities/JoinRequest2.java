@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class JoinRequest2 extends AppCompatActivity {
+    //maa
     TextView tv_ListOfCenters;
     Button btn_Next;
     RecyclerView rv;

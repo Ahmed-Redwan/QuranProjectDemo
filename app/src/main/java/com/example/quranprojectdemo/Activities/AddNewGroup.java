@@ -38,6 +38,7 @@ import io.realm.Realm;
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class AddNewGroup extends AppCompatActivity {
+    //maa
      TextView tv_AddNewGroup;
     EditText et_GroupName, et_TeacherName, et_TeacherEmail, et_TeacherPassword, et_TeacherPhone;
     Button btn_add, btn_Cancel;

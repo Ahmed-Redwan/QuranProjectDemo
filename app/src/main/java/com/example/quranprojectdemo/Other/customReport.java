@@ -15,6 +15,7 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 
 public class customReport extends RecyclerView.Adapter<customReport.View_Holder> {
+    //maa
     Context context;
     ArrayList<Report> reports;
 

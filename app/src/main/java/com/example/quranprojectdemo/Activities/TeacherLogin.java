@@ -44,6 +44,8 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class TeacherLogin extends AppCompatActivity {
+    //maa
+
     public static final String INFO_TEACHER = "info_tet";
     public static final String ID_LOGIN_TEACHER = "tet_id";
     public static final String ID_LOGIN_TEC_CENTER = "tet_log_center_id";

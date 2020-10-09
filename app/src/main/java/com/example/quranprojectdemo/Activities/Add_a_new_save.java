@@ -49,7 +49,7 @@ import android.net.NetworkInfo;
 
 //asd
 public class Add_a_new_save extends AppCompatActivity {
-    //jhklhkljh
+    //maa
     SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too;
     SearchableSpinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
     Spinner spinner_select_student;

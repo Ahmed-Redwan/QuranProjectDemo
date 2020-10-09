@@ -4,6 +4,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Group  extends RealmObject {
+    //maa
     private int img;
     private String GroupName;
     private String TeacherName;

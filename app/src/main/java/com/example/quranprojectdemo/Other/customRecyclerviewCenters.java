@@ -25,6 +25,7 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 
 public class customRecyclerviewCenters extends RecyclerView.Adapter<customRecyclerviewCenters.View_holder> {
+    //maa
 
     private ArrayList<Center>centers;
     Context context;

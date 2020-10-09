@@ -8,6 +8,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class CenterUser extends RealmObject implements Serializable  {
+    //maa
 
     @Required
     private String centerName;

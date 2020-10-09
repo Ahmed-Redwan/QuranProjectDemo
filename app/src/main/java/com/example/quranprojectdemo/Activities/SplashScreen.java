@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Locale;
 
 public class SplashScreen extends AppCompatActivity {
+    //maa
+
     TextView tv_Title;
 
     @Override

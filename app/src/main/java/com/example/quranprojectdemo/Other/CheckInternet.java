@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 
 @SuppressWarnings("deprecation")
 public class CheckInternet {
+    //maa
 
     public boolean isConnected(Context context){
 

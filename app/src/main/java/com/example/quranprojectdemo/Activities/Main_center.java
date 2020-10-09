@@ -40,6 +40,7 @@ import io.realm.RealmQuery;
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class Main_center extends AppCompatActivity {
+    //maa
 
     Toolbar toolbar_center;
     ImageView image_center;

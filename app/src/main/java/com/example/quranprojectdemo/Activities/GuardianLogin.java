@@ -40,6 +40,7 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class GuardianLogin extends AppCompatActivity {
+    //maa
     public static final String INFO_STUDENT_LOGIN = "std_info";
     private static final String STD_ID_STUDENT = "std_id";
     private static final String STD_ID_GROUP = "std_group_id";

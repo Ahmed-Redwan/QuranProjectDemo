@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Recycler_student extends RecyclerView.Adapter<Recycler_student.View_holder> {
+    //maa
 
 
     List<Student_data> arrayList_student;

@@ -37,6 +37,8 @@ import io.realm.RealmResults;
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class ShowmeMorizationLoops extends AppCompatActivity {
+    //maa
+
     TextView tv_ShowMemorizationLoops;
     RecyclerView rv_List;
     Toolbar toolbar;

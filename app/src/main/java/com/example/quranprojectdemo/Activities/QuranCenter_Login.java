@@ -42,6 +42,8 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class QuranCenter_Login extends AppCompatActivity {
+    //maa
+
     public static final String ID_CENTER_LOGIN = "id_center_log";
     public static final String INFO_CENTER_LOGIN = "Info_center";
     TextView tv_Login, tv_iDontHaveAnAccount, tv_NewAccount;
