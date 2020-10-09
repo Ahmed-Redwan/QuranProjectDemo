@@ -124,19 +124,22 @@ public class Reprts extends AppCompatActivity {
         canvas.drawBitmap(bitmap, 0, 0, null);
         document.finishPage(page);
 
-        String fileName = "myFile.pdf";
-        File filePath;
-        filePath = new File(fileName);
-        try {
-            document.writeTo(new FileOutputStream(filePath));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
-        }
-        document.close();
-        Toast.makeText(this, "PDF is created!!!", Toast.LENGTH_SHORT).show();
-        /*// write the document content
-        String targetPdf = "pdffromlayout.pdf";
+//        String fileName = "myFile.pdf";
+//        File filePath;
+//        filePath = new File(fileName);
+//        try {
+//            document.writeTo(new FileOutputStream(filePath));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+//        }
+//        document.close();
+//        Toast.makeText(this, "PDF is created!!!", Toast.LENGTH_SHORT).show();
+
+//*******************************************************************************************
+
+      // write the document content
+      /*  String targetPdf = "pdffromlayout.pdf";
         File filePath;
         filePath = new File(targetPdf);
         try {
@@ -144,18 +147,34 @@ public class Reprts extends AppCompatActivity {
 
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("mass","******************************"+e.toString());
+            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+        }*/
+        // write the document content
+        String targetPdf = "/sdcard/pdffromlayout.pdf";
+        File filePath;
+        filePath = new File(targetPdf);
+        try {
+            document.writeTo(new FileOutputStream(filePath));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("mass","******************************"+e.toString());
+
             Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
         }
 
         // close the document
         document.close();
-        Toast.makeText(this, "PDF is created!!!", Toast.LENGTH_SHORT).show();*/
+        Toast.makeText(this, "PDF is created!!!", Toast.LENGTH_SHORT).show();
+
+
 
         openGeneratedPDF();
 
     }
 
-    private void openGeneratedPDF() {
+    private void openGeneratedPDFs() {
         File file = new File("myFile.pdf");
         if (file.exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -166,6 +185,26 @@ public class Reprts extends AppCompatActivity {
             try {
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
+                Toast.makeText(Reprts.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void openGeneratedPDF(){
+        File file = new File("/sdcard/pdffromlayout.pdf");
+        if (file.exists())
+        {
+            Intent intent=new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.fromFile(file);
+            intent.setDataAndType(uri, "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            try
+            {
+                startActivity(intent);
+            }
+            catch(ActivityNotFoundException e)
+            {
                 Toast.makeText(Reprts.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
             }
         }
