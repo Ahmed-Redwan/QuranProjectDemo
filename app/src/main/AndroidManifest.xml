@@ -11,6 +11,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.AboutApp"></activity>
         <activity android:name=".Activities.JoinRequests"></activity>
+        <activity android:name=".Activities.Reprts">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activities.StudentDetails" />
         <activity android:name=".Activities.Add_a_new_save"></activity>
         <activity android:name=".Activities.AddNewStudent" />
@@ -22,10 +28,6 @@
         <activity android:name=".Activities.QuranCenter_Login"></activity>
         <activity android:name=".Activities.QuranCenter_Reg" />
         <activity android:name=".Activities.RegisterAs">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.SplashScreen"

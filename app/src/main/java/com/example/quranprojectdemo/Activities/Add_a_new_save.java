@@ -10,17 +10,23 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Other.Adabter_student_image_and_name;
 import com.example.quranprojectdemo.Other.CheckInternet;
+import com.example.quranprojectdemo.Other.Report;
 import com.example.quranprojectdemo.Other.Sora;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +42,7 @@ public class Add_a_new_save extends AppCompatActivity {
     SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too;
     SearchableSpinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
     Spinner spinner_select_student;
-    Button btn_addSave;
+    Button btn_addSave,btn_addAbcens;
     private EditText et_numOfSavePages, et_numOfRevPages;
     private String id_center;
     private String id_student;
@@ -47,7 +53,7 @@ public class Add_a_new_save extends AppCompatActivity {
     ArrayList<String> sorasName;
     ArrayList<String> save = new ArrayList<>();
     ArrayAdapter<String> adapter_save_from;
-
+    boolean isAbcens;
     ArrayAdapter<String> adapter_save_to;
 
     String text_save;
@@ -131,6 +137,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
+        btn_addAbcens=findViewById(R.id.student_add_new_save_btn_addAbsence);
 
         spinner_saves = findViewById(R.id.spinner_save);
         spinner_save_from = findViewById(R.id.spinner_save_from);
@@ -378,9 +385,22 @@ public class Add_a_new_save extends AppCompatActivity {
                 Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
                 time, id_student, date_now + id_student, id_group);
         DatabaseReference student = my_student_group.child(id_student);
-
-
         DatabaseReference student_save = student.child("student_save").child(time + "");
+        Report report1 = getReport(student, date_year, date_month);
+        btn_addAbcens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isAbcens=true;
+                FancyToast.makeText(getBaseContext(), "تم تسجيل غياب لهذا الطالب", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+            }
+        });
+        if (isAbcens){
+            Report report = new Report(0+report1.getNumOfAttendanceDays(), 1+report1.getNumOfNonAttendanceDays(), 0+report1.getNumOfSavePages(), 0+report1.getNumOfReviewPages());
+        }else{
+            Report report = new Report(1+report1.getNumOfAttendanceDays(), 0+report1.getNumOfNonAttendanceDays(), Integer.parseInt(et_numOfSavePages.getText().toString())+report1.getNumOfSavePages(), Integer.parseInt(et_numOfRevPages.getText().toString())+report1.getNumOfReviewPages());
+        }
+        DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
+        reports.setValue(report);
 
         student_save.setValue(student_data);
 
@@ -422,7 +442,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
         infoArrayList.clear();
 
-         ArrayList<Student_Info> arrayList = get_student_group();
+        ArrayList<Student_Info> arrayList = get_student_group();
         for (int i = 0; i < arrayList.size(); i++) {
 
             String student_id = arrayList.get(i).getId_Student();
@@ -721,5 +741,27 @@ public class Add_a_new_save extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+
+    Report report;
+
+    private Report getReport(DatabaseReference student, String date_year, String date_month) {
+        DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
+        reports.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot != null) {
+                    report = snapshot.getValue(Report.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return report;
+
     }
 }

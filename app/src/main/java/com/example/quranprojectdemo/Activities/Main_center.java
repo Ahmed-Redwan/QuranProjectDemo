@@ -10,11 +10,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Other.CenterUser;
+import com.example.quranprojectdemo.Other.CustomGroupRecyclerView2;
+import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
@@ -30,6 +36,10 @@ public class Main_center extends AppCompatActivity {
     private String centerId;
     Realm realm;
     private SharedPreferences.Editor editor;
+    ArrayList<Group> groups;
+    RecyclerView.LayoutManager layoutManager;
+    CustomGroupRecyclerView2 customGroupRecyclerView2;
+    RecyclerView recyclerView;
 
     @Override
     protected void onStart() {
@@ -52,6 +62,32 @@ public class Main_center extends AppCompatActivity {
         tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
         tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+
+        recyclerView=findViewById(R.id.mainCenter_rv);
+        groups=new ArrayList<>();
+        groups.add(new Group(R.drawable.arabian,"",""));
+        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
+        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
+        groups.add(new Group(R.drawable.arabian,"",""));
+        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
+        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
+        groups.add(new Group(R.drawable.arabian,"",""));
+        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
+        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
+        groups.add(new Group(R.drawable.arabian,"",""));
+        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
+        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
+
+        layoutManager=new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
+        customGroupRecyclerView2=new CustomGroupRecyclerView2(groups,getBaseContext());
+        recyclerView.setAdapter(customGroupRecyclerView2);
+        recyclerView.setLayoutManager(layoutManager);
+        customGroupRecyclerView2.notifyDataSetChanged();
+        recyclerView.setHasFixedSize(true);
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);

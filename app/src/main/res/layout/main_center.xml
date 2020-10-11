@@ -184,7 +184,7 @@
         android:id="@+id/mainCenter_rv"
         tools:listitem="@layout/custom_horizintal_group"
         android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 

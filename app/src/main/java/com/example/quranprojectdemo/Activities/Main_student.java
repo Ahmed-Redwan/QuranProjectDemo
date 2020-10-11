@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Other.CustomStudentRecyclerView2;
 import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
@@ -66,6 +67,7 @@ public class Main_student extends AppCompatActivity {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +82,7 @@ public class Main_student extends AppCompatActivity {
         tv_student_phone = findViewById(R.id.student_main_tv_phone);
         tv_student_identity = findViewById(R.id.student_main_tv_identity);
 //
+
 
 
         spinner_year = findViewById(R.id.spinner_choose_date_year);
@@ -133,6 +136,10 @@ public class Main_student extends AppCompatActivity {
         TextView_EditFont(tv_student_name, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_student_name_ring, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_student_phone, "Hacen_Tunisia.ttf");
+
+
+
+
     }
 
     //change font type for textview.
