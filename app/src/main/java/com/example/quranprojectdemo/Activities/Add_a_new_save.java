@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 //asd
@@ -196,6 +197,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
             }
         });
+        //                          ****************************************************************
 
         final ArrayAdapter<String> adapteReview = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sorasName);
         spinner_reviews.setAdapter(adapter_save);
@@ -386,6 +388,8 @@ public class Add_a_new_save extends AppCompatActivity {
                 time, id_student, date_now + id_student, id_group);
         DatabaseReference student = my_student_group.child(id_student);
         DatabaseReference student_save = student.child("student_save").child(time + "");
+
+
         Report report1 = getReport(student, date_year, date_month);
         btn_addAbcens.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -394,13 +398,16 @@ public class Add_a_new_save extends AppCompatActivity {
                 FancyToast.makeText(getBaseContext(), "تم تسجيل غياب لهذا الطالب", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
             }
         });
+        Report report2;
         if (isAbcens){
-            Report report = new Report(0+report1.getNumOfAttendanceDays(), 1+report1.getNumOfNonAttendanceDays(), 0+report1.getNumOfSavePages(), 0+report1.getNumOfReviewPages());
+             report2 = new Report(0+report1.getNumOfAttendanceDays(),
+                    1+report1.getNumOfNonAttendanceDays(),
+                    0+report1.getNumOfSavePages(), 0+report1.getNumOfReviewPages());
         }else{
-            Report report = new Report(1+report1.getNumOfAttendanceDays(), 0+report1.getNumOfNonAttendanceDays(), Integer.parseInt(et_numOfSavePages.getText().toString())+report1.getNumOfSavePages(), Integer.parseInt(et_numOfRevPages.getText().toString())+report1.getNumOfReviewPages());
+             report2 = new Report(1+report1.getNumOfAttendanceDays(), 0+report1.getNumOfNonAttendanceDays(), Integer.parseInt(et_numOfSavePages.getText().toString())+report1.getNumOfSavePages(), Integer.parseInt(et_numOfRevPages.getText().toString())+report1.getNumOfReviewPages());
         }
         DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
-        reports.setValue(report);
+        reports.setValue(report2);
 
         student_save.setValue(student_data);
 

@@ -1,72 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:id="@+id/reports_linearla"
+    >
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+
+
+<LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.Reprts"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    >
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:title="التقرير الشهري"
-        app:titleTextColor="@android:color/white"
-        app:menu="@menu/group_list"
-        />
 
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_15sdp"
     >
-    <Button
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_5sdp"
-        android:id="@+id/reports_btn_createa_report"
-        android:text="تصدير ملف pdf."
-        android:background="@android:drawable/btn_default_small"
-        android:textColor="@android:color/black"
+        android:id="@+id/reports_tv_title"
+        android:text="التقرير الشهري"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_35ssp"
         android:textStyle="bold"
-        android:textSize="@dimen/_10ssp"
-        android:layout_margin="@dimen/_5sdp"/>
+        android:layout_marginTop="@dimen/_10sdp"/>
+
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reports_sp"
         app:hintText="select a month."
-        android:layout_margin="@dimen/_5sdp"
+        android:layout_margin="@dimen/_20sdp"
         />
-</LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="@dimen/_20sdp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/reports_tv_reportMonth"
-            android:text="تقرير عن شهر 3 من عام 2020"
-            android:padding="@dimen/_5sdp"
-            android:textColor="#E3BF53"
-            android:textStyle="bold"
-            android:textSize="@dimen/_22ssp"
-            android:background="@color/colorPrimaryDark"
-            android:visibility="visible"/>
-    </androidx.cardview.widget.CardView>
-
-
+        android:id="@+id/reports_btn_createa_report"
+        android:text="create pdf."/>
     <HorizontalScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reports_linearla"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -169,17 +159,17 @@
 
 
             </LinearLayout>
-
             <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-                android:id="@+id/reports_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:shimmer_demo_angle="20"
+                android:id="@+id/reports_rv"
+                tools:listitem="@layout/custom_row_reports"
                 app:shimmer_demo_child_count="10"
                 app:shimmer_demo_grid_child_count="2"
                 app:shimmer_demo_layout="@layout/custom_row_reports"
                 app:shimmer_demo_layout_manager_type="grid"
-                tools:listitem="@layout/custom_row_reports" />
+                app:shimmer_demo_angle="20"
+                />
         </LinearLayout>
 
     </HorizontalScrollView>
@@ -187,5 +177,9 @@
 
 
 
+
+</LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

@@ -206,6 +206,11 @@ public class TeacherLogin extends AppCompatActivity {
                 getGroups_Student_Saves();
 
 
+            } else {
+                startActivity(new Intent(getBaseContext(), Main_teacher.class));
+                finish();
+
+
             }
 //            startActivity(new Intent(getBaseContext(), Main_teacher.class));
         }
@@ -386,13 +391,14 @@ public class TeacherLogin extends AppCompatActivity {
 
                 Group_Info g = snapshot.child("group_info").getValue(Group_Info.class);
 
-
-                realm = Realm.getDefaultInstance();
-                if (!realm.isInTransaction())
-                    realm.beginTransaction();
-                realm.insertOrUpdate(g);
-                realm.commitTransaction();
-                realm.close();
+                if (g != null) {
+                    realm = Realm.getDefaultInstance();
+                    if (!realm.isInTransaction())
+                        realm.beginTransaction();
+                    realm.insertOrUpdate(g);
+                    realm.commitTransaction();
+                    realm.close();
+                }
 
                 DataSnapshot snapshot_std = snapshot.child("student_group");
                 for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
@@ -425,7 +431,7 @@ public class TeacherLogin extends AppCompatActivity {
                 }
 
                 reference.removeEventListener(this);
-
+                finish();
                 startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
             }

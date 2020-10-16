@@ -136,7 +136,8 @@ public class QuranCenter_Login extends AppCompatActivity {
         setContentView(R.layout.activity_quran_center__login);
         mAuth = FirebaseAuth.getInstance();
         realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
+        if (!realm.isInTransaction())
+            realm.beginTransaction();
         RealmResults<CenterUser> realmResults = realm.where(CenterUser.class).findAll();
 
         if (!realmResults.isEmpty()) {
@@ -146,6 +147,9 @@ public class QuranCenter_Login extends AppCompatActivity {
                 getGroups_Student_Saves();
             }
 
+        } else {
+//            startActivity(new Intent(getBaseContext(), Main_center.class));
+//            finish();
         }
         tv_Login = findViewById(R.id.QuranCenterLogin_tv_login);
         tv_NewAccount = findViewById(R.id.QuranCenterLogin_tv_NewAccount);

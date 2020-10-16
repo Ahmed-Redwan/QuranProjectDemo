@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,14 +46,21 @@ public class AddNewGroup extends AppCompatActivity {
     private Group_Info group_info;
     private CenterUser value;
 
+    // 249 - 259 ,,, 52- 64
     private void addNewGroupDataBase(Group_Info group_info) {
-
         try {
-            realm.copyToRealm(group_info);
+            if (group_info != null) {
+                realm = Realm.getDefaultInstance();
+                if (!realm.isInTransaction())
+                    realm.beginTransaction();
 
+                realm.copyToRealm(group_info);
 
-            realm.commitTransaction();
-            realm.close();
+                realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            } else
+                Toast.makeText(getBaseContext(), "لم تنجح الاضافة", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
 
 
@@ -65,6 +73,7 @@ public class AddNewGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_group);
+
         mAuth = FirebaseAuth.getInstance();
         Realm.init(getBaseContext());
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
@@ -110,14 +119,14 @@ public class AddNewGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (et_GroupName.getText().toString().isEmpty() || et_TeacherName.getText().toString().isEmpty() || et_TeacherEmail.getText().toString().isEmpty()
-                        || et_TeacherPassword.getText().toString().isEmpty() || et_TeacherPhone.getText().toString().isEmpty()) {
-                    et_TeacherPhone.setError("يجب تعبئة جميع الحقول.");
-                    et_TeacherPassword.setError("يجب تعبئة جميع الحقول.");
-                    et_TeacherEmail.setError("يجب تعبئة جميع الحقول.");
-                    et_TeacherName.setError("يجب تعبئة جميع الحقول.");
-                    et_GroupName.setError("يجب تعبئة جميع الحقول.");
-                    return;
+            if (et_GroupName.getText().toString().isEmpty() || et_TeacherName.getText().toString().isEmpty() || et_TeacherEmail.getText().toString().isEmpty()
+                    || et_TeacherPassword.getText().toString().isEmpty() || et_TeacherPhone.getText().toString().isEmpty()) {
+                et_TeacherPhone.setError("يجب تعبئة جميع الحقول.");
+                et_TeacherPassword.setError("يجب تعبئة جميع الحقول.");
+                et_TeacherEmail.setError("يجب تعبئة جميع الحقول.");
+                et_TeacherName.setError("يجب تعبئة جميع الحقول.");
+                et_GroupName.setError("يجب تعبئة جميع الحقول.");
+                return;
                 }
                 sign_up(et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString());
 
@@ -206,7 +215,8 @@ public class AddNewGroup extends AppCompatActivity {
 
     public void getAutoIdGroup(String centerId, final FirebaseUser user) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId).child("Center information");
+        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerId)
+                .child("Center information");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -235,16 +245,26 @@ public class AddNewGroup extends AppCompatActivity {
                 updatename(user, id_center, auto_id_group);
 
                 addNewGroupDataBase(group_info);
-                create_new_group(group_info , id_center);
+                create_new_group(group_info, id_center);
                 value.setAuto_id_group(auto_id_group);
                 save_new_id_group(value);
-                realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                realm.insertOrUpdate(value);
-                realm.commitTransaction();
-                realm.close();
-                finish();
+
+                if (value != null) {
+                    realm = Realm.getDefaultInstance();
+                    if (!realm.isInTransaction())
+                        realm.beginTransaction();
+
+                    realm.insertOrUpdate(value);
+
+                    realm.commitTransaction();
+                    if (!realm.isClosed())
+                        realm.close();
+                } else
+                    Toast.makeText(getBaseContext(), "لم تنجح الاضافة", Toast.LENGTH_LONG).show();
                 reference.removeEventListener(this);
+
+
+                finish();
 
 
             }

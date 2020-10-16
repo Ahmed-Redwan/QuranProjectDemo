@@ -81,7 +81,9 @@
             android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
             android:textColorHint="@color/colorPrimary"
-            app:startIconDrawable="@drawable/iconfinder_contact_126567">
+            app:startIconDrawable="@drawable/iconfinder_contact_126567"
+
+            >
 
             <EditText
                 android:id="@+id/AddNewGroup_et_Teacher_Email"

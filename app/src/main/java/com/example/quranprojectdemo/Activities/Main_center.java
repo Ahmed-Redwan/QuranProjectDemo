@@ -63,27 +63,27 @@ public class Main_center extends AppCompatActivity {
         tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
-        recyclerView=findViewById(R.id.mainCenter_rv);
-        groups=new ArrayList<>();
-        groups.add(new Group(R.drawable.arabian,"",""));
-        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
-        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
-        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
-        groups.add(new Group(R.drawable.arabian,"",""));
-        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
-        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
-        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
-        groups.add(new Group(R.drawable.arabian,"",""));
-        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
-        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
-        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
-        groups.add(new Group(R.drawable.arabian,"",""));
-        groups.add(new Group(R.drawable.ahmed_abd,"Ahmed Redwan Abdelghafoor","0594114029"));
-        groups.add(new Group(R.drawable.ahmed_ali,"Ahmed Ali Alyaqubi","0594111238"));
-        groups.add(new Group(R.drawable.mustafa,"mustafa muhammed alastal","0594115468"));
+        recyclerView = findViewById(R.id.mainCenter_rv);
+        groups = new ArrayList<>();
+        groups.add(new Group(R.drawable.arabian, "", ""));
+        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
+        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
+        groups.add(new Group(R.drawable.arabian, "", ""));
+        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
+        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
+        groups.add(new Group(R.drawable.arabian, "", ""));
+        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
+        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
+        groups.add(new Group(R.drawable.arabian, "", ""));
+        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
+        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
+        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
 
-        layoutManager=new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
-        customGroupRecyclerView2=new CustomGroupRecyclerView2(groups,getBaseContext());
+        layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        customGroupRecyclerView2 = new CustomGroupRecyclerView2(groups, getBaseContext());
         recyclerView.setAdapter(customGroupRecyclerView2);
         recyclerView.setLayoutManager(layoutManager);
         customGroupRecyclerView2.notifyDataSetChanged();
@@ -124,14 +124,15 @@ public class Main_center extends AppCompatActivity {
                         editor = sp.edit();
                         editor.clear();
                         editor.commit();
-                        realm.beginTransaction();
+                        if (!realm.isInTransaction())
+                            realm.beginTransaction();
                         realm.deleteAll();
                         realm.commitTransaction();
                         realm.close();
                         FancyToast.makeText(getBaseContext(), "تم تسجيل الخروج.", FancyToast.LENGTH_LONG, FancyToast.DEFAULT, false).show();
-                        System.exit(0);
                         finish();
-                        System.exit(0);
+                        startActivity(new Intent(getBaseContext(), RegisterAs.class));
+
                         return true;
                     case R.id.MenuCenterHomeSettings:
                         return true;
@@ -161,6 +162,9 @@ public class Main_center extends AppCompatActivity {
     public void getInRealTimeUsers() {
 
 
+
+
+
         RealmQuery<CenterUser> query = realm.where(CenterUser.class);
         CenterUser value = query.findFirst();
 
@@ -177,6 +181,13 @@ public class Main_center extends AppCompatActivity {
         tv_center_name_maneger.setText("مدير المركز:" + value.getManagerName());
         tv_center_phone.setText("هاتف:" + value.getPhone());
         toolbar_center.setTitle("مركز:" + value.getCenterName());
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
 
 
     }

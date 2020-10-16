@@ -194,7 +194,7 @@ public class JoinRequests extends AppCompatActivity {
                 CustomRequests customRequests = new CustomRequests(requests, getBaseContext(), new OnClick() {
                     @Override
                     public void OnCLick(Student_Info request, int i) {
-
+  //                      Accept
                         if (i == 1) {
                             if (isSelected){
                                 sign_up(request);
@@ -205,13 +205,13 @@ public class JoinRequests extends AppCompatActivity {
                             }
 
 
-
+//                           Refuse
                         } else {
                             Toast.makeText(JoinRequests.this, "ahmed", Toast.LENGTH_SHORT).show();
                             Toast.makeText(JoinRequests.this, request.getId_number(), Toast.LENGTH_SHORT).show();
                             FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
                             final DatabaseReference reference1 = rootNode1.getReference("CenterUsers");
-
+///                              Delete to request
                             reference1.child(id_center).child("Requests").child(request.getId_number()).setValue(null);
 
                         }

@@ -86,7 +86,9 @@ public class Main_teacher extends AppCompatActivity {
                         editor = sp.edit();
                         editor.clear();
                         editor.commit();
-                        System.exit(0);
+                        finish();
+                        startActivity(new Intent(getBaseContext(), RegisterAs.class));
+
                         return true;
                 }
                 return false;
@@ -99,17 +101,17 @@ public class Main_teacher extends AppCompatActivity {
         TextView_EditFont(tv_teacher_name_ring, "Hacen_Tunisia.ttf");
         TextView_EditFont(tv_teacher_phone, "Hacen_Tunisia.ttf");
 
-        recyclerView=findViewById(R.id.mainTeacher_rv);
-        student_infos=new ArrayList<>();
-        student_infos.add(new Student_Info("Ahmed Abdelghsssssssssafoor","0594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghsssafoosr","0594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoorss","0594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoossssr","0594119"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafosssor","0594sssssss114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoor","0sss594114029"));
-        student_infos.add(new Student_Info("Ahmed Abdelghafoorsssssssssss","0594114029"));
-        customStudentRecyclerView2=new CustomStudentRecyclerView2(student_infos,getBaseContext());
-        layoutManager=new LinearLayoutManager(getBaseContext(),RecyclerView.HORIZONTAL,false);
+        recyclerView = findViewById(R.id.mainTeacher_rv);
+        student_infos = new ArrayList<>();
+        student_infos.add(new Student_Info("Ahmed Abdelghsssssssssafoor", "0594114029"));
+        student_infos.add(new Student_Info("Ahmed Abdelghsssafoosr", "0594114029"));
+        student_infos.add(new Student_Info("Ahmed Abdelghafoorss", "0594114029"));
+        student_infos.add(new Student_Info("Ahmed Abdelghafoossssr", "0594119"));
+        student_infos.add(new Student_Info("Ahmed Abdelghafosssor", "0594sssssss114029"));
+        student_infos.add(new Student_Info("Ahmed Abdelghafoor", "0sss594114029"));
+        student_infos.add(new Student_Info("Ahmed Abdelghafoorsssssssssss", "0594114029"));
+        customStudentRecyclerView2 = new CustomStudentRecyclerView2(student_infos, getBaseContext());
+        layoutManager = new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(customStudentRecyclerView2);
         customStudentRecyclerView2.notifyDataSetChanged();
@@ -142,6 +144,13 @@ public class Main_teacher extends AppCompatActivity {
 //        RealmQuery<Student_Info> query1 = realm.where(Student_Info.class);
 //
 //        tv_teacher_count_student.setText("عدد طلاب الحلقة:" + query1.count());
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+
 
     }
 

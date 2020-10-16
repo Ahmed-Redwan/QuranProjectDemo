@@ -161,6 +161,10 @@ public class GuardianLogin extends AppCompatActivity {
 //
 //            realm.commitTransaction();
 
+        } else {
+            startActivity(new Intent(getBaseContext(), Main_student.class));
+            finish();
+
         }
 
 
@@ -301,18 +305,18 @@ public class GuardianLogin extends AppCompatActivity {
 
 
                 Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
-                Log.d("c", id_center);
-                Log.d("g", id_group);
-                Log.d("s", id_student);
-//
+
+                if (studentInfo != null) {
                     realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
+                    if (!realm.isInTransaction())
+                        realm.beginTransaction();
 
                     realm.insertOrUpdate(studentInfo);
 
 
                     realm.commitTransaction();
                     realm.close();
+                }
 //
 //
                 reference.removeEventListener(this);

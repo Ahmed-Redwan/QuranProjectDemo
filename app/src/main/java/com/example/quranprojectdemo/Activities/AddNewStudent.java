@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,8 +55,7 @@ public class AddNewStudent extends AppCompatActivity {
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
 
         Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
+
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
@@ -73,17 +73,17 @@ public class AddNewStudent extends AppCompatActivity {
         et_Day = findViewById(R.id.AddNewStudent_et_day);
         btn_Add = findViewById(R.id.AddNewStudent_btn_AddNewStudent);
         btn_Cancel = findViewById(R.id.AddNewStudent_btn_cancel);
-
-        TextView_EditFont(tv_Add, "Hacen_Tunisia_Bold.ttf");
-        EditText_EditFont(et_studentName, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_studentId, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Grade, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Phone, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Month, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Year, "Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Day, "Hacen_Tunisia.ttf");
-
+        {
+            TextView_EditFont(tv_Add, "Hacen_Tunisia_Bold.ttf");
+            EditText_EditFont(et_studentName, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_studentId, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_Email, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_Grade, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_Phone, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_Month, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_Year, "Hacen_Tunisia.ttf");
+            EditText_EditFont(et_Day, "Hacen_Tunisia.ttf");
+        }
         btn_Add.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
         btn_Cancel.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
 
@@ -182,12 +182,15 @@ public class AddNewStudent extends AppCompatActivity {
 
         DatabaseReference student_info = new_student.child("student_info");
         student_info.setValue(info);
-
-        realm.copyToRealm(info);
-
-
-        realm.commitTransaction();
-        realm.close();
+        if (info != null) {
+            realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+            realm.copyToRealm(info);
+            realm.commitTransaction();
+            if (!realm.isClosed())
+                realm.close();
+        } else Toast.makeText(getBaseContext(), "لم تتم الاضافة بنجاح", Toast.LENGTH_SHORT).show();
 
     }
 

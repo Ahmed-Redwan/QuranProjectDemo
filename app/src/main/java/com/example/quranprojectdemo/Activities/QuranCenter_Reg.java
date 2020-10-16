@@ -180,10 +180,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
 //                            editor.commit();
                             FancyToast.makeText(getBaseContext(), "تم إنشاء الحساب بنجاح", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                             setInRealTimeUsers(user.getUid());
-                            // progressDialog.dismiss();
-                            //   userId=user.getUid();
-//                            editor.putString("UID_CENTER", user.getUid())
-                            //         create_new_center();
+
                             startActivity(new Intent(getBaseContext(), Main_center.class));
 
                         } else {
@@ -206,12 +203,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(name).child("Center information");
-//        final DatabaseReference reference2 = rootNode.getReference();
 
-        //int id, String name, int age, String address, String email, String phone
         reference.setValue(centeruser);
-//        reference2.child("Countries").child(et_country.getText().toString()).
-//                child(et_city.getText().toString()).child(name).setValue(centeruser);
 
 
     }//اضافة بيانات
@@ -220,9 +213,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
         if (!realm.isInTransaction())
-
             realm.beginTransaction();
-        realm.insertOrUpdate(centeruser);
+        realm.copyToRealm(centeruser);
         realm.commitTransaction();
         realm.close();
 
