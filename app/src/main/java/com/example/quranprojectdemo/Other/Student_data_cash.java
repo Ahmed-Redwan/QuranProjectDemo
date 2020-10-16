@@ -7,7 +7,7 @@ import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class Student_data_cash extends RealmObject   {
+public class Student_data_cash extends RealmObject {
 
     @Required
     private String date__student;

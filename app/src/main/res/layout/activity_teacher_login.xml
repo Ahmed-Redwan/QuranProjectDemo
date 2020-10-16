@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.TeacherLogin"
-    android:background="#E3E9EF">
+    android:background="#E3E9EF"
+    tools:context=".Activities.TeacherLogin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,28 +14,25 @@
 
 
         <TextView
+            android:id="@+id/TeacheLogin_tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="تسجيل الدخول"
-            android:id="@+id/TeacheLogin_tv_login"
-            android:textColor="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_30sdp"
+            android:text="تسجيل الدخول"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_26ssp"
-            android:textStyle="bold"
-            />
-
-
+            android:textStyle="bold" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
             android:layout_width="match_parent"
-            android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
+            android:textColorHint="@color/colorPrimary"
             app:startIconDrawable="@drawable/iconfinder_contact_126567">
 
             <EditText
@@ -44,22 +41,22 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="الإيميل"
+                android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
-                android:textSize="@dimen/_23ssp"
-                android:maxLines="1"/>
+                android:textSize="@dimen/_23ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
             android:layout_width="match_parent"
-            android:textColorHint="@color/colorPrimary"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:textAlignment="center"
+            android:textColorHint="@color/colorPrimary"
             app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/iconfinder_key_16_22584">
 
@@ -70,42 +67,40 @@
                 android:gravity="center"
                 android:hint="كلمة المرور"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"
-                android:textSize="@dimen/_23ssp"
-                android:maxLines="1"
-                />
+                android:textSize="@dimen/_23ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/TeacherLogin_Cb_remmemberme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="تذكرني دائما"
             android:layout_marginStart="@dimen/_30sdp"
-            android:textSize="@dimen/_18ssp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:id="@+id/TeacherLogin_Cb_remmemberme"
             android:layout_marginTop="@dimen/_3sdp"
-            android:buttonTint="@color/colorPrimary"/>
+            android:buttonTint="@color/colorPrimary"
+            android:text="تذكرني دائما"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold" />
 
         <Button
+            android:id="@+id/TeacheLogin_btn_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/TeacheLogin_btn_Login"
-            android:background="@drawable/btn_background"
-            android:layout_marginTop="@dimen/_60sdp"
             android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_60sdp"
             android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/btn_background"
+            android:padding="@dimen/_4sdp"
             android:text="تسجيل الدخول"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_24ssp"
-            android:textStyle="bold"
-            android:padding="@dimen/_4sdp"
-            />
+            android:textStyle="bold" />
 
     </LinearLayout>
 

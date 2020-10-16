@@ -39,11 +39,10 @@ import io.realm.RealmResults;
 
 //asd
 public class Add_a_new_save extends AppCompatActivity {
-    //jhklhkljh
     SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too;
     SearchableSpinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
     Spinner spinner_select_student;
-    Button btn_addSave,btn_addAbcens;
+    Button btn_addSave, btn_addAbcens;
     private EditText et_numOfSavePages, et_numOfRevPages;
     private String id_center;
     private String id_student;
@@ -84,7 +83,8 @@ public class Add_a_new_save extends AppCompatActivity {
             realm.insertOrUpdate(student_data);
 
             realm.commitTransaction();
-            realm.close();
+            if (!realm.isClosed())
+                realm.close();
         } catch (Exception e) {
 
 
@@ -100,17 +100,26 @@ public class Add_a_new_save extends AppCompatActivity {
 
         Student_data_cash student_data = new Student_data_cash(date__student, day_student, save_student, review_student
                 , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save, id_group);
-        realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
-        try {
-            realm.insertOrUpdate(student_data);
+        if (student_data != null) {
+            try {
+                realm = Realm.getDefaultInstance();
+                if (!realm.isInTransaction())
+                    realm.beginTransaction();
 
-            realm.commitTransaction();
-            realm.close();
-        } catch (Exception e) {
+                realm.insertOrUpdate(student_data);
+
+                realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+
+                else {
+                    Toast.makeText(getBaseContext(), "لم تتم الاضافة ", Toast.LENGTH_SHORT).show();
+
+                }
+            } catch (Exception e) {
 
 
+            }
         }
     }
 
@@ -138,7 +147,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
-        btn_addAbcens=findViewById(R.id.student_add_new_save_btn_addAbsence);
+        btn_addAbcens = findViewById(R.id.student_add_new_save_btn_addAbsence);
 
         spinner_saves = findViewById(R.id.spinner_save);
         spinner_save_from = findViewById(R.id.spinner_save_from);
@@ -298,7 +307,7 @@ public class Add_a_new_save extends AppCompatActivity {
                     insert_new_save(id_student, id_group, id_center);
 //                    if (checkInternet()) {
 //                        insert_new_save_fireBase(id_student, id_group, id_center);
-//
+//1- اسم التطبيق ما يكون لشركات ماركة او مشهورة (مهم) 2- نقرات غير شرعية  اذا عليك 3 مخالفات اعمل حساب تاني خلص
 //                    }
 
 
@@ -331,6 +340,10 @@ public class Add_a_new_save extends AppCompatActivity {
         SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
         String date_now = Foramt_date.format(date);
 
+        SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
+        String date_now_t = Foramt_date.format(date);
+        int tt = Integer.parseInt(date_now_t);
+        System.out.println(tt);
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
         String date_year = "Year : " + yearForamt.format(date);
 
@@ -345,18 +358,21 @@ public class Add_a_new_save extends AppCompatActivity {
         addSaveToDataBase(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
-                date.getTime(), id_student, date_now + id_student, id_groub);
-//        if (!checkInternet()) {
-        addSaveToCashDataBase(date_now, getDay(), save_all, review_all,
-                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
-                date.getTime(), id_student, date_now + id_student);
+                tt, id_student, date_now + id_student, id_groub);
+        if (!checkInternet()) {
+            addSaveToCashDataBase(date_now, getDay(), save_all, review_all,
+                    "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
+                    Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
+                    tt, id_student, date_now + id_student);
 
-//        }
+        } else {
+            insert_new_save_fireBase(id_student, id_group, id_center, tt);
 
+
+        }
     }
 
-    public void insert_new_save_fireBase(final String id_student, String id_groub, String id_center) {
+    public void insert_new_save_fireBase(final String id_student, String id_groub, String id_center, int time) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference my_center = reference.child(id_center);//already found
@@ -366,7 +382,6 @@ public class Add_a_new_save extends AppCompatActivity {
         DatabaseReference my_student_group = my_group.child("student_group");
         Date date = new Date();
 
-        long time = date.getTime();
         SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
         String date_now = Foramt_date.format(date);
 
@@ -394,17 +409,17 @@ public class Add_a_new_save extends AppCompatActivity {
         btn_addAbcens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isAbcens=true;
+                isAbcens = true;
                 FancyToast.makeText(getBaseContext(), "تم تسجيل غياب لهذا الطالب", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
             }
         });
         Report report2;
-        if (isAbcens){
-             report2 = new Report(0+report1.getNumOfAttendanceDays(),
-                    1+report1.getNumOfNonAttendanceDays(),
-                    0+report1.getNumOfSavePages(), 0+report1.getNumOfReviewPages());
-        }else{
-             report2 = new Report(1+report1.getNumOfAttendanceDays(), 0+report1.getNumOfNonAttendanceDays(), Integer.parseInt(et_numOfSavePages.getText().toString())+report1.getNumOfSavePages(), Integer.parseInt(et_numOfRevPages.getText().toString())+report1.getNumOfReviewPages());
+        if (isAbcens) {
+            report2 = new Report(0 + report1.getNumOfAttendanceDays(),
+                    1 + report1.getNumOfNonAttendanceDays(),
+                    0 + report1.getNumOfSavePages(), 0 + report1.getNumOfReviewPages());
+        } else {
+            report2 = new Report(1 + report1.getNumOfAttendanceDays(), 0 + report1.getNumOfNonAttendanceDays(), Integer.parseInt(et_numOfSavePages.getText().toString()) + report1.getNumOfSavePages(), Integer.parseInt(et_numOfRevPages.getText().toString()) + report1.getNumOfReviewPages());
         }
         DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
         reports.setValue(report2);

@@ -19,6 +19,7 @@ import com.example.quranprojectdemo.Other.CheckInternet;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
+import com.example.quranprojectdemo.Other.Student_data_cash;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,6 +72,7 @@ public class QuranCenter_Login extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
                     Group_Info g = dataSnapshot.child("group_info").getValue(Group_Info.class);
                     if (g != null) {
                         realm = Realm.getDefaultInstance();
@@ -82,20 +84,29 @@ public class QuranCenter_Login extends AppCompatActivity {
                     }
 
                     DataSnapshot snapshot_std = dataSnapshot.child("student_group");
-                    for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
-                        Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
-                        if (s != null) {
-                            Log.d("re", s.getEmail() + " ! ");
-                            realm = Realm.getDefaultInstance();
-                            if (!realm.isInTransaction())
-                                realm.beginTransaction();
-                            realm.insertOrUpdate(s);
-                            realm.commitTransaction();
-                            realm.close();
+                    RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();/// this is
+                    if (snapshot_std.getChildrenCount() > realmResults.size()) {
+                        for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
+                            Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
+                            if (s != null) {
+                                Log.d("re", s.getEmail() + " ! ");
+                                realm = Realm.getDefaultInstance();
+                                if (!realm.isInTransaction())
+                                    realm.beginTransaction();
+                                realm.insertOrUpdate(s);
+                                realm.commitTransaction();
+                                realm.close();
+                            }
                         }
-                        DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
-                        for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
-                            Student_data data = snapshot2.getValue(Student_data.class);
+                    }
+                    for (DataSnapshot snapshot2 : snapshot_std.getChildren()) {
+                        DataSnapshot dataSnapshot1 = snapshot2.child("student_save");
+                        RealmResults<Student_data> results = realm.where(Student_data.class)
+                                .equalTo("id_student", snapshot2.getKey()).and().equalTo("id_group",
+                                        dataSnapshot.getKey()).findAll();/// this is
+
+                        if (dataSnapshot1.getChildrenCount() > results.size()) {
+                            Student_data data = dataSnapshot1.getValue(Student_data.class);
                             if (data != null) {
                                 Log.d("re", data.getSave_student() + " ! ");
 
@@ -107,8 +118,6 @@ public class QuranCenter_Login extends AppCompatActivity {
                                 realm.close();
                             }
                         }
-
-
                     }
 
 
@@ -136,15 +145,16 @@ public class QuranCenter_Login extends AppCompatActivity {
         setContentView(R.layout.activity_quran_center__login);
         mAuth = FirebaseAuth.getInstance();
         realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
+//        if (!realm.isInTransaction())
+//            realm.beginTransaction();
         RealmResults<CenterUser> realmResults = realm.where(CenterUser.class).findAll();
+        String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
 
         if (!realmResults.isEmpty()) {
-            realm.close();
+//            realm.close();
             if (checkInternet()) {
 
-                getGroups_Student_Saves();
+                getInRealTimeUsers(id_center);
             }
 
         } else {

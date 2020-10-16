@@ -122,21 +122,19 @@ public class GuardianLogin extends AppCompatActivity {
 //                        Log.d("er",dataSnapshot.getKey());
 
                             realm = Realm.getDefaultInstance();
-                            realm.beginTransaction();
-
-
+                            if (!realm.isInTransaction())
+                                realm.beginTransaction();
                             realm.insertOrUpdate(std);
-
                             realm.commitTransaction();
-                            realm.close();
+                            if (!realm.isClosed())
+                                realm.close();
                             reference.removeEventListener(this);
-
-
                         } else if (query.longValue() < Long.parseLong(dataSnapshot.getKey())) {
+
                             realm = Realm.getDefaultInstance();
                             realm.beginTransaction();
 
-//
+
                             realm.insertOrUpdate(dataSnapshot.getValue(Student_data.class));
 
                             realm.commitTransaction();
@@ -155,11 +153,6 @@ public class GuardianLogin extends AppCompatActivity {
                 }
             });
 
-//            realm.beginTransaction();
-//
-//            realm.copyToRealmOrUpdate(user);
-//
-//            realm.commitTransaction();
 
         } else {
             startActivity(new Intent(getBaseContext(), Main_student.class));

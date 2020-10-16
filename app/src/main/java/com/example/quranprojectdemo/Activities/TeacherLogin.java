@@ -298,12 +298,9 @@ public class TeacherLogin extends AppCompatActivity {
 //                            Log.d("****************", user.getEmail() + "******************");
 
                             Toast.makeText(TeacherLogin.this, user.getEmail(), Toast.LENGTH_SHORT).show();
-//                            getInfoTeacher(user.getPhotoUrl().toString(), user.getDisplayName());
-//                            Toast.makeText(getBaseContext(),user())
-                            getGroups_Student_Saves();
+                               getGroups_Student_Saves();
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG,
                                     FancyToast.SUCCESS, false).show();
-//                            realm.close();
 
                         } else {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
@@ -324,59 +321,6 @@ public class TeacherLogin extends AppCompatActivity {
         editText.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
-
-    public String getInfoTeacher(String id_group, String id_center) {
-        final String[] re = {""};
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child(id_group).child("group_info");
-        Log.d("****************", reference.getKey() + "******************");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("123", snapshot.getKey() + "*********************************");
-
-                Group_Info val = snapshot.getValue(Group_Info.class);
-                group_info = val;
-                re[0] = val.getAuto_sutdent_id();
-                Log.d("****************", val.getEmail() + "TEST");
-                realm = Realm.getDefaultInstance();
-                if (!realm.isInTransaction())
-                    realm.beginTransaction();
-                realm.insertOrUpdate(val);
-                realm.commitTransaction();
-                realm.close();
-                startActivity(new Intent(getBaseContext(), Main_teacher.class));
-
-                reference.removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Log.d("****************",dataSnapshot.getKey()+"******************");
-//                Group_Info val = dataSnapshot.getValue(Group_Info.class);
-//                group_info = val;
-//                Log.d("****************",val.getEmail()+"******************");
-//
-//                realm.beginTransaction();
-//
-//                realm.copyToRealm(val);
-//                realm.commitTransaction();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//            }
-//        });
-
-        return re[0];
-    }//جلب البيانات2020-10-03 18:08:33.109 32003-32003/com.example.quranprojectdemo D/****************: group_info******************
 
     private void getGroups_Student_Saves() {
         final String id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
@@ -399,35 +343,41 @@ public class TeacherLogin extends AppCompatActivity {
                     realm.commitTransaction();
                     realm.close();
                 }
+                final RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();
 
                 DataSnapshot snapshot_std = snapshot.child("student_group");
-                for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
-                    Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
-                    if (s != null) {
 
-                        realm = Realm.getDefaultInstance();
-                        if (!realm.isInTransaction())
-                            realm.beginTransaction();
-                        realm.insertOrUpdate(s);
-                        realm.commitTransaction();
-                        realm.close();
-                    }
-                    DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
+                if (snapshot_std.getChildrenCount() > realmResults.size()) {
+                    for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
+                        Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
 
-                    for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
-                        Student_data student_data = snapshot2.getValue(Student_data.class);
+                        if (s != null) {
 
-                        if (student_data != null) {
                             realm = Realm.getDefaultInstance();
                             if (!realm.isInTransaction())
                                 realm.beginTransaction();
-                            realm.insertOrUpdate(student_data);
+                            realm.insertOrUpdate(s);
                             realm.commitTransaction();
                             realm.close();
                         }
+
+                        DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
+
+                        for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
+                            Student_data student_data = snapshot2.getValue(Student_data.class);
+
+                            if (student_data != null) {
+                                realm = Realm.getDefaultInstance();
+                                if (!realm.isInTransaction())
+                                    realm.beginTransaction();
+                                realm.insertOrUpdate(student_data);
+                                realm.commitTransaction();
+                                realm.close();
+                            }
+                        }
+
+
                     }
-
-
                 }
 
                 reference.removeEventListener(this);

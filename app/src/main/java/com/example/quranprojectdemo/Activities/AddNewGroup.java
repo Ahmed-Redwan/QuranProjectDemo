@@ -266,6 +266,8 @@ public class AddNewGroup extends AppCompatActivity {
 
                 finish();
 
+                finish();
+
 
             }
 
