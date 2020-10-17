@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -115,7 +116,7 @@ public class Show_group_student extends AppCompatActivity {
 
         Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);
         rv.setAdapter(recycler_show_group_student);
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
+        RecyclerView.LayoutManager lm = new GridLayoutManager(getBaseContext(),2);
         rv.setLayoutManager(lm);
 
     }
