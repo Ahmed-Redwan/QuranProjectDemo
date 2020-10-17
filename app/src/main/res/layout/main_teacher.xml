@@ -111,7 +111,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="اسم المحفظ"
-
+                            android:shadowColor = "#D8000000"
+                            android:shadowDx = "-2"
+                            android:shadowDy = "-5"
+                            android:shadowRadius = "5"
                             android:textColor="#ffffff"
                             android:layout_marginBottom="@dimen/_15sdp"
                             android:textStyle="bold"
@@ -125,6 +128,10 @@
                             android:layout_weight="0"
                             android:text="اسم الحلقة"
                             android:gravity="center"
+                            android:shadowColor = "#D8000000"
+                            android:shadowDx = "-2"
+                            android:shadowDy = "-5"
+                            android:shadowRadius = "5"
                             android:textStyle="bold"
                             android:textColor="#ffffff"
                             android:layout_marginBottom="@dimen/_15sdp"
@@ -143,7 +150,10 @@
                             android:layout_marginBottom="@dimen/_15sdp"
                             android:textSize="@dimen/_20ssp"
                             android:id="@+id/teacher_main_tv_phone"
-
+                            android:shadowColor = "#D8000000"
+                            android:shadowDx = "-2"
+                            android:shadowDy = "-5"
+                            android:shadowRadius = "5"
                             />
                         <TextView
                             android:layout_width="match_parent"
@@ -155,7 +165,10 @@
                             android:textStyle="bold"
                             android:textSize="@dimen/_20ssp"
                             android:id="@+id/teacher_main_tv_count_student"
-
+                            android:shadowColor = "#D8000000"
+                            android:shadowDx = "-2"
+                            android:shadowDy = "-5"
+                            android:shadowRadius = "5"
                             />
 
                     </LinearLayout>

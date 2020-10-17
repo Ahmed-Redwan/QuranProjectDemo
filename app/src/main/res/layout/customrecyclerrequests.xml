@@ -29,10 +29,11 @@
                 android:id="@+id/requests_iv_student"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="30dip"
-                app:riv_border_width="@dimen/_3sdp"
+                app:riv_border_width="@dimen/_2sdp"
                 app:riv_border_color="#D1D4D6"
                 app:riv_oval="true"
                 android:padding="@dimen/_4sdp"
+                android:src="@drawable/male"
                 />
 
             <TextView
@@ -45,7 +46,11 @@
                 android:textColor="@android:color/white"
                 android:gravity="center"
                 android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "15"
+                android:shadowDy = "15"
+                android:shadowRadius = "15"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +62,11 @@
                 android:gravity="center"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "15"
+                android:shadowDy = "15"
+                android:shadowRadius = "15"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +78,11 @@
                 android:textColor="@android:color/white"
                 android:gravity="center"
                 android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "15"
+                android:shadowDy = "15"
+                android:shadowRadius = "15"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +94,11 @@
                 android:textColor="@android:color/white"
                 android:gravity="center"
                 android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "15"
+                android:shadowDy = "15"
+                android:shadowRadius = "15"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,7 +110,11 @@
                 android:textColor="@android:color/white"
                 android:gravity="center"
                 android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "15"
+                android:shadowDy = "15"
+                android:shadowRadius = "15"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +126,11 @@
                 android:textColor="@android:color/white"
                 android:gravity="center"
                 android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "15"
+                android:shadowDy = "15"
+                android:shadowRadius = "15"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -150,7 +175,10 @@
     android:drawableTint="@android:color/holo_green_dark"
     android:background="@drawable/ripple_backgeround2"
     android:padding="@dimen/_5sdp"
-
+    android:shadowColor = "#D8000000"
+    android:shadowDx = "15"
+    android:shadowDy = "15"
+    android:shadowRadius = "25"
     />
     <TextView
         android:layout_width="wrap_content"
@@ -165,6 +193,10 @@
         android:textStyle="bold"
         android:drawableTint="@android:color/holo_red_dark"
         android:background="@drawable/ripple_backgeround2"
+        android:shadowColor = "#D8000000"
+        android:shadowDx = "15"
+        android:shadowDy = "15"
+        android:shadowRadius = "20"
         />
 
 </LinearLayout>

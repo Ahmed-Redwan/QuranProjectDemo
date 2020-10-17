@@ -24,6 +24,10 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:textSize="@dimen/_26ssp"
             android:textStyle="bold"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"
             />
 
 
@@ -105,6 +109,10 @@
             android:textSize="@dimen/_24ssp"
             android:textStyle="bold"
             android:padding="@dimen/_4sdp"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"
             />
 
 

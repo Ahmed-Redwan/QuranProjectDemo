@@ -20,6 +20,10 @@
         android:textSize="@dimen/_22ssp"
         android:textStyle="bold"
         android:layout_marginBottom="@dimen/_10sdp"
+        android:shadowColor = "#D8000000"
+        android:shadowDx = "5"
+        android:shadowDy = "5"
+        android:shadowRadius = "20"
         android:text="قائمة المراكز القريبة منك قم بأختيار إحدى المراكز للانضمام اليها." />
 
 
@@ -31,6 +35,8 @@
         android:layout_marginEnd="@dimen/_1sdp"
         android:layout_weight="1"
         tools:listitem="@layout/custom_center_item"
+        app:spanCount="2"
+        android:paddingStart="@dimen/_5sdp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
 
     </androidx.recyclerview.widget.RecyclerView>

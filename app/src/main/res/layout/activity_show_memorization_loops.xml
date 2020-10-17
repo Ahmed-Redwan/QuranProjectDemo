@@ -28,14 +28,21 @@
         android:layout_marginTop="@dimen/_23sdp"
         android:textSize="@dimen/_26ssp"
         android:textStyle="bold"
+        android:shadowColor = "#D8000000"
+        android:shadowDx = "-2"
+        android:shadowDy = "-5"
+        android:shadowRadius = "10"
         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ShowMemorizationLoops_Rv_List"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:paddingStart="@dimen/_17sdp"
+        tools:listitem="@layout/customgroup_recyclerview"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
        />
 
 

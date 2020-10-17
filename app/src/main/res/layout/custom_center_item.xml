@@ -34,6 +34,10 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/_2sdp"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "5"
+                android:shadowDy = "5"
+                android:shadowRadius = "15"
                 />
 
 
@@ -47,6 +51,10 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/_2sdp"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "5"
+                android:shadowDy = "5"
+                android:shadowRadius = "15"
                 />
 
 

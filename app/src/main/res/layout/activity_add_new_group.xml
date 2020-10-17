@@ -23,7 +23,11 @@
             android:text="إضافة حلقة جديدة"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_26ssp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -181,7 +185,12 @@
             android:text="إضافة حلقة جديدة"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_24ssp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"
+            />
 
         <Button
             android:id="@+id/AddNewGroup_btn_cancel"
@@ -195,6 +204,10 @@
             android:text="إلغاء"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_24ssp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"/>
     </LinearLayout>
 </ScrollView>

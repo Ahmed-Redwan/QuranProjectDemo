@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -103,7 +104,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data, getBaseContext());
         rv_List.setHasFixedSize(true);
         rv_List.setAdapter(customGroupRecyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(),2);
         rv_List.setLayoutManager(layoutManager);
 
 

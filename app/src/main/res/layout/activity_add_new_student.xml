@@ -25,6 +25,10 @@
             android:layout_marginTop="@dimen/_23sdp"
             android:textSize="@dimen/_26ssp"
             android:textStyle="bold"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"
             />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -261,7 +265,11 @@
             android:text="إضافة طالب جديد"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_24ssp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"/>
 
         <Button
             android:layout_width="match_parent"
@@ -276,6 +284,10 @@
             android:textSize="@dimen/_24ssp"
             android:textStyle="bold"
             android:padding="@dimen/_4sdp"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"
             />
     </LinearLayout>
 

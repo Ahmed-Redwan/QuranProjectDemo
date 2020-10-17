@@ -28,6 +28,10 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textSize="@dimen/_26ssp"
                 android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "10"
+                android:shadowDy = "10"
+                android:shadowRadius = "10"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -244,6 +248,10 @@
                 android:textSize="@dimen/_24ssp"
                 android:textStyle="bold"
                 android:padding="@dimen/_4sdp"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "10"
+                android:shadowDy = "10"
+                android:shadowRadius = "10"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -254,7 +262,11 @@
                 android:textSize="@dimen/_15ssp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/_6sdp"/>
+                android:layout_marginTop="@dimen/_6sdp"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "10"
+                android:shadowDy = "10"
+                android:shadowRadius = "10"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -264,8 +276,13 @@
                 android:textSize="@dimen/_23ssp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:shadowColor = "#D8000000"
+                android:shadowDx = "10"
+                android:shadowDy = "10"
+                android:shadowRadius = "10"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_10sdp"/>
+                android:layout_marginBottom="@dimen/_10sdp"
+                />
 
 
         </LinearLayout>

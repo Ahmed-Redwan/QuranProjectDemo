@@ -20,7 +20,6 @@ public class RegisterAs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_as);
-
         tv_MakeAccount = findViewById(R.id.RegAs_tv_MakeAnAccount);
         tv_AddRequest = findViewById(R.id.RegAs_tv_AddRequest);
         tv_guardian = findViewById(R.id.RegAs_tv_guardian);

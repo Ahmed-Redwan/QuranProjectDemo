@@ -24,6 +24,10 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:textSize="@dimen/_26ssp"
             android:textStyle="bold"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"
             />
 
 
@@ -92,7 +96,11 @@
             android:textStyle="bold"
             android:id="@+id/QuranCenterLogin_Cb_remmemberme"
             android:layout_marginTop="@dimen/_3sdp"
-            android:buttonTint="@color/colorPrimary"/>
+            android:buttonTint="@color/colorPrimary"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "5"
+            android:shadowDy = "5"
+            android:shadowRadius = "10"/>
 
         <Button
             android:layout_width="match_parent"
@@ -107,6 +115,10 @@
             android:textSize="@dimen/_24ssp"
             android:textStyle="bold"
             android:padding="@dimen/_4sdp"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -117,7 +129,11 @@
             android:textSize="@dimen/_15ssp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/_6sdp"/>
+            android:layout_marginTop="@dimen/_6sdp"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "5"
+            android:shadowDy = "5"
+            android:shadowRadius = "15"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,7 +143,11 @@
             android:textSize="@dimen/_23ssp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/_6sdp"/>
+            android:layout_marginTop="@dimen/_6sdp"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "15"
+            android:shadowDy = "15"
+            android:shadowRadius = "15"/>
 
 
 
