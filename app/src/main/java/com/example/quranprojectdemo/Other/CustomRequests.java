@@ -1,42 +1,25 @@
 package com.example.quranprojectdemo.Other;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.Activities.AddNewStudent;
-import com.example.quranprojectdemo.Activities.JoinRequests;
 import com.example.quranprojectdemo.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.quranprojectdemo.interfaces.OnClick;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.zip.Inflater;
 
 public class CustomRequests extends RecyclerView.Adapter<CustomRequests.View_Holder> {
 

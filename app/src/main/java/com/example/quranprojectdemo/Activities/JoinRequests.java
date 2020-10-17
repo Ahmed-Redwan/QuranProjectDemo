@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Other.CustomRequests;
 import com.example.quranprojectdemo.Other.Group_Info;
-import com.example.quranprojectdemo.Other.OnClick;
+import com.example.quranprojectdemo.interfaces.OnClick;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
