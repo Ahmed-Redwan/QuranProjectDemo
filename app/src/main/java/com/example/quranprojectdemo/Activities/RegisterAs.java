@@ -1,6 +1,7 @@
 package com.example.quranprojectdemo.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -16,10 +17,13 @@ public class RegisterAs extends AppCompatActivity {
     TextView tv_MakeAccount, tv_QuranCenter, tv_Teacher, tv_guardian, tv_AddRequest, tv_or;
     CardView crV_QuranCenter, crV_Teacher, crV_guardian, crVAddRequest;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_as);
+
+
         tv_MakeAccount = findViewById(R.id.RegAs_tv_MakeAnAccount);
         tv_AddRequest = findViewById(R.id.RegAs_tv_AddRequest);
         tv_guardian = findViewById(R.id.RegAs_tv_guardian);

@@ -30,6 +30,10 @@ import static com.example.quranprojectdemo.Activities.TeacherLogin.INFO_TEACHER;
 
 public class Main_teacher extends AppCompatActivity {
 
+
+    public static final String CHECK_REG_TEACHER = "teacher_check";
+    public static final String CHECK_REG_TEACHER_ID = "id_teacher_check";
+
     ImageView image_backe_teacher;
     TextView tv_teacher_name, tv_teacher_name_ring, tv_teacher_phone, tv_teacher_count_student;
     FirebaseAuth mAuth;
@@ -49,6 +53,13 @@ public class Main_teacher extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
+
+        sp=getSharedPreferences(CHECK_REG_TEACHER,MODE_PRIVATE);
+        editor=sp.edit();
+        editor.putInt(CHECK_REG_TEACHER_ID,1);
+        editor.commit();
+
+
         //     Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
 //     'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
         //       getInfoTeacher();
@@ -79,6 +90,12 @@ public class Main_teacher extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuTeacherHomeExit:
+
+                        sp=getSharedPreferences(Main_teacher.CHECK_REG_TEACHER,MODE_PRIVATE);
+                        editor=sp.edit();
+                        editor.clear();
+
+
                         if (!realm.isInTransaction())
                             realm.beginTransaction();
                         realm.deleteAll();

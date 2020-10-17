@@ -49,6 +49,9 @@ public class JoinRequest2 extends AppCompatActivity {
         editor = sharedPreferences.edit();
         progressBar = findViewById(R.id.request2_progressBar);
 
+        progressBar.setVisibility(View.VISIBLE);
+
+
         Intent getintent = getIntent();
         country = getintent.getStringExtra("Country");
         city = getintent.getStringExtra("City");
@@ -72,7 +75,7 @@ public class JoinRequest2 extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        progressBar.setVisibility(View.VISIBLE);
+
         getCenters(country, city);
         progressBar.setVisibility(View.GONE);
     }

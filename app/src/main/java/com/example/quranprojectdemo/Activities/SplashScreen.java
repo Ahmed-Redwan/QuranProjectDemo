@@ -1,6 +1,7 @@
 package com.example.quranprojectdemo.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -22,21 +23,52 @@ import java.util.Locale;
 public class SplashScreen extends AppCompatActivity {
     TextView tv_Title;
 
+    SharedPreferences sp ;
+    SharedPreferences.Editor editor;
+    int check_center;
+    int check_teacher;
+    int check_student;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        sp=getSharedPreferences(Main_center.CHECK_REG_CENTER,MODE_PRIVATE);
+        check_center= sp.getInt(Main_center.CHECK_REG_CENTER_ID,0);
+
+        sp=getSharedPreferences(Main_teacher.CHECK_REG_TEACHER,MODE_PRIVATE);
+        check_teacher= sp.getInt(Main_teacher.CHECK_REG_TEACHER_ID,0);
+
+        sp=getSharedPreferences(Main_student.CHECK_REG_STUDENT,MODE_PRIVATE);
+        check_student= sp.getInt(Main_student.CHECK_REG_STUDENT_ID,0);
+
+
+        if (check_center==1){
+            Intent intent=new Intent(getBaseContext(),Main_center.class);
+            startActivity(intent);
+        }else if (check_teacher==1){
+            Intent intent=new Intent(getBaseContext(),Main_teacher.class);
+            startActivity(intent);
+        }else if (check_student==1){
+            Intent intent=new Intent(getBaseContext(),Main_student.class);
+            startActivity(intent);
+        }else {
+
+            blink(tv_Title);
+
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getBaseContext(), RegisterAs.class));
+                    finish();
+                }
+            }, 6000);
+        }
         setLocale("ar");
-        blink(tv_Title);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(getBaseContext(), RegisterAs.class));
-                finish();
-            }
-        }, 6000);
     }
 
     public void blink(View view) {

@@ -203,7 +203,9 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(name).child("Center information");
-
+        DatabaseReference reference2 = rootNode.getReference("Countries").child(et_country.getText().toString())
+                .child(et_city.getText().toString()).child(mAuth.getUid());
+        reference2.setValue(centeruser);
         reference.setValue(centeruser);
 
 

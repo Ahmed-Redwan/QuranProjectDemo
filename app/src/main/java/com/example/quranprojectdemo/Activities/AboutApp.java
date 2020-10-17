@@ -1,5 +1,37 @@
 package com.example.quranprojectdemo.Activities;
 
+//          Student
+//sp=getSharedPreferences(CHECK_REG_STUDENT,MODE_PRIVATE);
+//        editor=sp.edit();
+//        editor.putInt(CHECK_REG_STUDENT_ID,1);
+//        editor.commit();
+
+//          Teacher
+// sp=getSharedPreferences(CHECK_REG_TEACHER,MODE_PRIVATE);
+//        editor=sp.edit();
+//        editor.putInt(CHECK_REG_TEACHER_ID,1);
+//        editor.commit();
+
+//              Center
+//    sp=getSharedPreferences(CHECK_REG_CENTER,MODE_PRIVATE);
+//        editor=sp.edit();
+//        editor.putInt(CHECK_REG_CENTER_ID,1);
+//        editor.commit();
+
+
+//                        sp=getSharedPreferences(Main_center.CHECK_REG_CENTER,MODE_PRIVATE);
+//                        editor=sp.edit();
+//                        editor.clear();
+//                        editor.commit();
+//                        sp=getSharedPreferences(Main_teacher.CHECK_REG_TEACHER,MODE_PRIVATE);
+//                        editor=sp.edit();
+//                        editor.clear();
+//                        editor.commit();
+//                        sp=getSharedPreferences(Main_student.CHECK_REG_STUDENT,MODE_PRIVATE);
+//                        editor=sp.edit();
+//                        editor.clear();
+//                        editor.commit();
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;

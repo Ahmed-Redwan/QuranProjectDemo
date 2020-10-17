@@ -265,12 +265,14 @@ public class GuardianLogin extends AppCompatActivity {
                             String ids = user.getPhotoUrl().toString();
                             String id_group = ids.substring(0, 2);
                             String id_sutdent = ids.substring(3, ids.length());
+
                             sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
                             editor = sp.edit();
                             editor.putString(STD_ID_STUDENT, id_sutdent);
                             editor.putString(STD_ID_GROUP, id_group);
                             editor.putString(STD_ID_CENTER, user.getDisplayName());
                             editor.commit();
+
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                             getStudnetInfo(user.getDisplayName(), id_group, id_sutdent);
 

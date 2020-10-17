@@ -59,16 +59,18 @@ boolean isCountrySelected,isCitySelected;
         btn_Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (et_Country.getText().toString().isEmpty()){
-                    et_Country.setError("يجب ادخال الدولة");
-                    return;
-                }else if (et_City.getText().toString().isEmpty()){
-                    et_City.setError("يجب إدخال المدينة");
-                    return;
-                }
+//                if (et_Country.getText().toString().isEmpty()){
+//                    et_Country.setError("يجب ادخال الدولة");
+//                    return;
+//                }else if (et_City.getText().toString().isEmpty()){
+//                    et_City.setError("يجب إدخال المدينة");
+//                    return;
+//                }
+
+
                 Intent intent=new Intent(getBaseContext(),JoinRequest2.class);
-                intent.putExtra("Country",et_Country.getText().toString());
-                intent.putExtra("City",et_City.getText().toString());
+                intent.putExtra("Country",countries.get(sp_country.getSelectedItemPosition()));
+                intent.putExtra("City",cities.get(sp_city.getSelectedItemPosition()));
                 startActivity(intent);
                 finish();
             }

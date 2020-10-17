@@ -44,6 +44,8 @@ import static com.example.quranprojectdemo.Activities.GuardianLogin.INFO_STUDENT
 
 public class Main_student extends AppCompatActivity {
 
+    public static final String CHECK_REG_STUDENT = "student";
+    public static final String CHECK_REG_STUDENT_ID = "id_student";
     Toolbar toolbar_student;
     Spinner spinner_year, spinner_month;
 
@@ -80,6 +82,10 @@ public class Main_student extends AppCompatActivity {
         tv_student_phone = findViewById(R.id.student_main_tv_phone);
         tv_student_identity = findViewById(R.id.student_main_tv_identity);
 //
+        sp=getSharedPreferences(CHECK_REG_STUDENT,MODE_PRIVATE);
+        editor=sp.edit();
+        editor.putInt(CHECK_REG_STUDENT_ID,1);
+        editor.commit();
 
 
         spinner_year = findViewById(R.id.spinner_choose_date_year);
@@ -101,6 +107,20 @@ public class Main_student extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuStudentHomeExit:
+
+
+//                        sp=getSharedPreferences(Main_center.CHECK_REG_CENTER,MODE_PRIVATE);
+//                        editor=sp.edit();
+//                        editor.clear();
+//                        sp=getSharedPreferences(Main_teacher.CHECK_REG_TEACHER,MODE_PRIVATE);
+//                        editor=sp.edit();
+//                        editor.clear();
+                        sp=getSharedPreferences(Main_student.CHECK_REG_STUDENT,MODE_PRIVATE);
+                        editor=sp.edit();
+                        editor.clear();
+                        editor.commit();
+
+
                         if (!realm.isInTransaction())
                             realm.beginTransaction();
                         realm.deleteAll();
