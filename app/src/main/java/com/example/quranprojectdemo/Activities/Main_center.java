@@ -34,9 +34,9 @@ import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CEN
 
 public class Main_center extends AppCompatActivity {
 
-    public static final String CHECK_REG_CENTER = "center_check";
-    public static final String CHECK_REG_CENTER_ID = "id_center_check";
-    Toolbar toolbar_center;
+    public static final String CHECK_REG_CENTER ="check_center" ;
+    public static final String CHECK_REG_CENTER_ID ="check_center_id" ;
+    public    Toolbar toolbar_center;
     ImageView image_center;
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
     SharedPreferences sp;
@@ -72,7 +72,7 @@ public class Main_center extends AppCompatActivity {
         tv_center_phone = findViewById(R.id.center_main_tv_phone);
         tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
         tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
-
+        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
         recyclerView = findViewById(R.id.mainCenter_rv);
         //        groups.add(new Group(R.drawable.arabian, "", ""));
@@ -93,11 +93,6 @@ public class Main_center extends AppCompatActivity {
 //        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
 
 
-
-
-
-
-        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
             centerId = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
@@ -105,7 +100,6 @@ public class Main_center extends AppCompatActivity {
         } else {
             centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
         }
-
 
         sp=getSharedPreferences(CHECK_REG_CENTER,MODE_PRIVATE);
         editor=sp.edit();
@@ -141,20 +135,10 @@ public class Main_center extends AppCompatActivity {
                         editor.clear();
                         editor.commit();
 
-
                         sp=getSharedPreferences(Main_center.CHECK_REG_CENTER,MODE_PRIVATE);
                         editor=sp.edit();
                         editor.clear();
                         editor.commit();
-//                        sp=getSharedPreferences(Main_teacher.CHECK_REG_TEACHER,MODE_PRIVATE);
-//                        editor=sp.edit();
-//                        editor.clear();
-//                        sp=getSharedPreferences(Main_student.CHECK_REG_STUDENT,MODE_PRIVATE);
-//                        editor=sp.edit();
-//                        editor.clear();
-
-
-
 
                         if (!realm.isInTransaction())
                             realm.beginTransaction();
@@ -252,4 +236,3 @@ public class Main_center extends AppCompatActivity {
     }
 
 }
-
