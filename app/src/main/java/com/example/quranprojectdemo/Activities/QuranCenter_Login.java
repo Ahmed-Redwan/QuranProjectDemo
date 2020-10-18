@@ -148,13 +148,16 @@ public class QuranCenter_Login extends AppCompatActivity {
 //        if (!realm.isInTransaction())
 //            realm.beginTransaction();
         RealmResults<CenterUser> realmResults = realm.where(CenterUser.class).findAll();
-        String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
 
         if (!realmResults.isEmpty()) {
+            sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+
+            String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+
 //            realm.close();
             if (checkInternet()) {
 
-                getInRealTimeUsers(id_center);
+                getGroups_Student_Saves();
             }
 
         } else {
@@ -259,6 +262,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+
                             editor = sp.edit();
                             editor.putString(ID_CENTER_LOGIN, user.getUid());
                             editor.commit();
@@ -297,7 +301,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                 realm.insertOrUpdate(value);
                 realm.commitTransaction();
                 realm.close();
-                getGroups_Student_Saves();
+                    getGroups_Student_Saves();
 
 
             }

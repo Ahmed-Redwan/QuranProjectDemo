@@ -7,22 +7,22 @@ import io.realm.annotations.Required;
 
 public class Student_data extends RealmObject {
 
-    @Required
+
     private String date__student;
-    @Required
+
     private String day_student;
-    @Required
+
     private String save_student;
-    @Required
+
     private String review_student;
-    @Required
+
     private String attendess_student;
     private double counnt_page_save;
         
     private double counnt_page_review;
-    @Index
+
     private String month_save;
-    @Index
+
     private String year_save;
     private long time_save;
 

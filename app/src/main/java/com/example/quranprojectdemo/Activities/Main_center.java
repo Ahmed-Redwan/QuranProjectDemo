@@ -66,7 +66,7 @@ public class Main_center extends AppCompatActivity {
         setContentView(R.layout.main_center);
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
-
+        data=new ArrayList<>();
         tv_center_name = findViewById(R.id.center_main_tv_name_center);
         tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
         tv_center_phone = findViewById(R.id.center_main_tv_phone);

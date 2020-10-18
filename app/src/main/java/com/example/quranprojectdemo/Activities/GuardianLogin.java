@@ -292,16 +292,18 @@ public class GuardianLogin extends AppCompatActivity {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-                .child("groups").child("02").child("student_group").child(
+                .child("groups").child(id_group).child("student_group").child(
                         id_student).child("student_info");
+        Log.d("ttt", "c " + id_center + "d "+ id_group + "s"+ id_student);
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-                Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
+                        Student_Info studentInfo = dataSnapshot.getValue(Student_Info.class);
 
                 if (studentInfo != null) {
+
                     realm = Realm.getDefaultInstance();
                     if (!realm.isInTransaction())
                         realm.beginTransaction();
@@ -314,8 +316,10 @@ public class GuardianLogin extends AppCompatActivity {
                 }
 //
 //
+
                 reference.removeEventListener(this);
                 get_student_save();
+
             }
 
             @Override

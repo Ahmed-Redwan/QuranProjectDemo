@@ -1,6 +1,7 @@
 package com.example.quranprojectdemo.Activities;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 //asd
@@ -341,7 +341,7 @@ public class Add_a_new_save extends AppCompatActivity {
         String date_now = Foramt_date.format(date);
 
         SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
-        String date_now_t = Foramt_date.format(date);
+        String date_now_t = Foramt_date_time.format(date);
         int tt = Integer.parseInt(date_now_t);
         System.out.println(tt);
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
@@ -404,8 +404,8 @@ public class Add_a_new_save extends AppCompatActivity {
         DatabaseReference student = my_student_group.child(id_student);
         DatabaseReference student_save = student.child("student_save").child(time + "");
 
-
-        Report report1 = getReport(student, date_year, date_month);
+//        async(student, date_year, date_month);
+        getReport(student, date_year, date_month);
         btn_addAbcens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -413,16 +413,7 @@ public class Add_a_new_save extends AppCompatActivity {
                 FancyToast.makeText(getBaseContext(), "تم تسجيل غياب لهذا الطالب", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
             }
         });
-        Report report2;
-        if (isAbcens) {
-            report2 = new Report(0 + report1.getNumOfAttendanceDays(),
-                    1 + report1.getNumOfNonAttendanceDays(),
-                    0 + report1.getNumOfSavePages(), 0 + report1.getNumOfReviewPages());
-        } else {
-            report2 = new Report(1 + report1.getNumOfAttendanceDays(), 0 + report1.getNumOfNonAttendanceDays(), Integer.parseInt(et_numOfSavePages.getText().toString()) + report1.getNumOfSavePages(), Integer.parseInt(et_numOfRevPages.getText().toString()) + report1.getNumOfReviewPages());
-        }
-        DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
-        reports.setValue(report2);
+
 
         student_save.setValue(student_data);
 
@@ -766,16 +757,55 @@ public class Add_a_new_save extends AppCompatActivity {
     }
 
 
-    Report report;
+    Report report1;
 
-    private Report getReport(DatabaseReference student, String date_year, String date_month) {
-        DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
+    private void getReport(final DatabaseReference student, final String date_year, final String date_month) {
+        final DatabaseReference reports = student.child("student_save").child("report").
+                child(date_month + "/" + date_year);
         reports.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot != null) {
-                    report = snapshot.getValue(Report.class);
+                    report1 = snapshot.getValue(Report.class);
+                    Report report2 = null;
+                    if (isAbcens) {
+                        if (report2 != null) {
+                            report2 = new Report(0 +
+                                    report1.getNumOfAttendanceDays(),
+                                    1 + report1.getNumOfNonAttendanceDays(),
+                                    0 + report1.getNumOfSavePages(),
+                                    0 + report1.getNumOfReviewPages());
+                        } else {
+                            report2 = new Report(0
+                                    ,
+                                    1,
+                                    0,
+                                    0);
+                        }
+                    } else {
+                        if (report2 != null) {
+                            report2 = new Report(1
+                                    + report1.getNumOfAttendanceDays()
+                                    , 0 + report1.getNumOfNonAttendanceDays()
+                                    , Integer.parseInt(et_numOfSavePages.getText().toString())
+                                    + report1.getNumOfSavePages(),
+                                    Integer.parseInt(et_numOfRevPages.getText().toString())
+                                            + report1.getNumOfReviewPages());
+                        } else {
+                            report2 = new Report(1
+                                    , 0
+                                    , Integer.parseInt(et_numOfSavePages.getText().toString())
+                                    ,
+                                    Integer.parseInt(et_numOfRevPages.getText().toString())
+                            );
+
+                        }
+                    }
+                    DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
+                    reports.setValue(report2);
+
                 }
+                reports.removeEventListener(this);
             }
 
             @Override
@@ -783,7 +813,24 @@ public class Add_a_new_save extends AppCompatActivity {
 
             }
         });
-        return report;
+
 
     }
+
+//    public void async(DatabaseReference student, String date_year, String date_month) {
+//        AsyncTask<Object, Object, Object> task = new AsyncTask<Object, Object, Object>() {
+//            @Override
+//            protected void onPostExecute(Object o) {
+//                super.onPostExecute(o);
+//
+//            }
+//
+//            @Override
+//            protected Object doInBackground(Object... objects) {
+//                return getReport((DatabaseReference)objects[0],(String)objects[1],(String)objects[2]);
+//
+//            }
+//        };
+//
+//    }
 }

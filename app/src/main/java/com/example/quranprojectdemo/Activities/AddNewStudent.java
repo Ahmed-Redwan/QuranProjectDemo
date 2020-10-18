@@ -206,6 +206,7 @@ public class AddNewStudent extends AppCompatActivity {
                 auto_student_id = val.getAuto_sutdent_id();
 
                 int id_student = Integer.parseInt(auto_student_id) + 1;
+                int my_id = id_student - 1;
                 String new_id_student = "";
                 if (id_student < 10) {
                     new_id_student = "0" + id_student;
@@ -221,9 +222,9 @@ public class AddNewStudent extends AppCompatActivity {
                         et_Phone.getText().toString(),
                         et_Email.getText().toString(),
                         et_Grade.getText().toString(),
-                        et_Day.getText().toString(), null, id_center, id_group, new_id_student);
+                        et_Day.getText().toString(), null, id_center, id_group, auto_student_id);
                 create_new_student(s, auto_student_id, id_group, id_center);
-                updatename(user, id_center, id_group, new_id_student);
+                updatename(user, id_center, id_group, auto_student_id);
                 save_new_id_group(val, id_center, id_group);
                 reference.removeEventListener(this);
 
