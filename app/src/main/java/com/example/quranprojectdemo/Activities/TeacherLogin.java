@@ -125,83 +125,8 @@ public class TeacherLogin extends AppCompatActivity {
         final RealmResults<Group_Info> realmResults = realm.where(Group_Info.class).findAll();
         if (!realmResults.isEmpty()) {
             if (checkInternet()) {
-//                Log.d("beeeeeeeb", "bebebebebebeb");
-//                Log.d("beeeeeeeb", realmResults.get(0).getPassword());
-//                final String id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
-//                final String id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
-////                final String num_std = getInfoTeacher(id_group, id_center);
-//
-//                FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-//                final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
-//                        .child("groups").child(id_group).child("group_info");
-//                Log.d("****************", reference.getKey() + "******************");
-//                reference.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        Log.d("123", snapshot.getKey() + "*********************************");
-//
-//                        final Group_Info val = snapshot.getValue(Group_Info.class);
-//                        group_info = val;
-//                        Log.d("****************", val.getEmail() + "TEST");
-//                        realm = Realm.getDefaultInstance();
-//                        if (!realm.isInTransaction())
-//                            realm.beginTransaction();
-//                        realm.insertOrUpdate(val);
-//                        realm.commitTransaction();
-//                        realm.close();
-//                        startActivity(new Intent(getBaseContext(), Main_teacher.class));
-//                        finish();
-//                        String num_std_realm = realm.where(Group_Info.class).findFirst().getAuto_sutdent_id();/// this is
-//                        if (!val.getAuto_sutdent_id().equalsIgnoreCase(num_std_realm)) {
-//
-//                            FirebaseDatabase rootNode1 = FirebaseDatabase.getInstance();
-//
-//                            final DatabaseReference reference1 = rootNode1.getReference("CenterUsers").
-//                                    child(id_center).child("groups").child(id_group).child("student_group");//already found or not
-//                            final ArrayList<Student_Info> arrayList = new ArrayList<>();
-//                            reference1.addValueEventListener(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//
-//
-//                                        if (Integer.parseInt(dataSnapshot.getKey()) >
-//                                                Integer.parseInt(val.getAuto_sutdent_id())) {
-//                                            arrayList.add(dataSnapshot.child("student_info").getValue(Student_Info.class));
-//
-//
-//                                        }
-//
-//                                    }
-//                                    if (!arrayList.isEmpty()) {
-//                                        realm = Realm.getDefaultInstance();
-//                                        if (!realm.isInTransaction())
-//                                            realm.beginTransaction();
-//                                        realm.copyToRealm(arrayList);
-//
-//                                        realm.commitTransaction();
-//                                        realm.close();
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                }
-//                            });
-//                        }
-//                        upload_save_to_firaBase();
-//                        reference.removeEventListener(this);
-//                        startActivity(new Intent(getBaseContext(), Main_teacher.class));
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//
+
+
                 upload_save_to_firaBase();
                 getGroups_Student_Saves();
 
@@ -298,7 +223,7 @@ public class TeacherLogin extends AppCompatActivity {
 //                            Log.d("****************", user.getEmail() + "******************");
 
                             Toast.makeText(TeacherLogin.this, user.getEmail(), Toast.LENGTH_SHORT).show();
-                               getGroups_Student_Saves();
+                            getGroups_Student_Saves();
                             FancyToast.makeText(getBaseContext(), "تم تسجيل الدخول بنجاح.", FancyToast.LENGTH_LONG,
                                     FancyToast.SUCCESS, false).show();
 

@@ -109,7 +109,7 @@ public class GuardianLogin extends AppCompatActivity {
             final DatabaseReference reference = rootNode.getReference("CenterUsers").child(sp.getString(STD_ID_CENTER, "0"))
                     .child("groups").child(sp.getString(STD_ID_GROUP, "-1")).child("student_group").child(
                             sp.getString(STD_ID_STUDENT, "-1")).child("student_save");
-            final Number query = realm.where(Student_data.class).max("time_save");
+//            final Number query = realm.where(Student_data.class).max("time_save");
 
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -118,7 +118,7 @@ public class GuardianLogin extends AppCompatActivity {
 
                     if (std != null) {
 
-                        if (realm.where(Student_data.class).findAll().isEmpty()) {
+//                        if (realm.where(Student_data.class).findAll().isEmpty()) {
 //                        Log.d("er",dataSnapshot.getKey());
 
                             realm = Realm.getDefaultInstance();
@@ -129,18 +129,18 @@ public class GuardianLogin extends AppCompatActivity {
                             if (!realm.isClosed())
                                 realm.close();
                             reference.removeEventListener(this);
-                        } else if (query.longValue() < Long.parseLong(dataSnapshot.getKey())) {
-
-                            realm = Realm.getDefaultInstance();
-                            realm.beginTransaction();
-
-
-                            realm.insertOrUpdate(dataSnapshot.getValue(Student_data.class));
-
-                            realm.commitTransaction();
-                            realm.close();
-
-                        }
+//                        } else if (query.longValue() < Long.parseLong(dataSnapshot.getKey())) {
+//
+//                            realm = Realm.getDefaultInstance();
+//                            realm.beginTransaction();
+//
+//
+//                            realm.insertOrUpdate(dataSnapshot.getValue(Student_data.class));
+//
+//                            realm.commitTransaction();
+//                            realm.close();
+//
+//                        }
                     }
                     reference.removeEventListener(this);
 

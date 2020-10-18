@@ -44,7 +44,7 @@ import static com.example.quranprojectdemo.Activities.GuardianLogin.INFO_STUDENT
 
 public class Main_student extends AppCompatActivity {
 
-    public static final String CHECK_REG_STUDENT ="check_student" ;
+    public static final String CHECK_REG_STUDENT = "check_student";
     public static final String CHECK_REG_STUDENT_ID = "check_student_id";
     Toolbar toolbar_student;
     Spinner spinner_year, spinner_month;
@@ -76,9 +76,9 @@ public class Main_student extends AppCompatActivity {
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
 
-        sp=getSharedPreferences(CHECK_REG_STUDENT,MODE_PRIVATE);
-        editor=sp.edit();
-        editor.putInt(CHECK_REG_STUDENT_ID,1);
+        sp = getSharedPreferences(CHECK_REG_STUDENT, MODE_PRIVATE);
+        editor = sp.edit();
+        editor.putInt(CHECK_REG_STUDENT_ID, 1);
         editor.commit();
 
 
@@ -110,8 +110,8 @@ public class Main_student extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuStudentHomeExit:
-                        sp=getSharedPreferences(Main_student.CHECK_REG_STUDENT,MODE_PRIVATE);
-                        editor=sp.edit();
+                        sp = getSharedPreferences(Main_student.CHECK_REG_STUDENT, MODE_PRIVATE);
+                        editor = sp.edit();
                         editor.clear();
                         editor.commit();
                         if (!realm.isInTransaction())
@@ -192,10 +192,10 @@ public class Main_student extends AppCompatActivity {
         Date date = new Date();
 
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-        String date_year = "Year : " + yearForamt.format(date);
+        int date_year = Integer.parseInt(yearForamt.format(date));
 
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-        String date_month = "Month : " + monthForamt.format(date);
+        int date_month = Integer.parseInt(monthForamt.format(date));
 
         RealmQuery<Student_data> query = realm.where(Student_data.class);
         query.equalTo("year_save", date_year);
@@ -224,9 +224,10 @@ public class Main_student extends AppCompatActivity {
                 list_spinner_year.add("اختر السنة");
                 RealmQuery<Student_data> query = realm.where(Student_data.class);
 
-                Number max = query.max("year_save");
-                Number min = query.min("year_save");
-                for (int i = min.intValue(); i <= max.intValue(); i++) {
+                final String max = query.max("year_save").toString();
+
+                String min = query.min("year_save").toString();
+                for (int i = Integer.parseInt(min); i <= Integer.parseInt(max); i++) {
 
                     list_spinner_year.add(i + "");
 
@@ -246,9 +247,9 @@ public class Main_student extends AppCompatActivity {
                             Toast.makeText(Main_student.this, "من فضلك اختر السنة", Toast.LENGTH_SHORT).show();
                         } else {
 
-                            final String year = parent.getItemAtPosition(position).toString();
+                            final int year = Integer.parseInt((String) parent.getItemAtPosition(position));
                             Number x = realm.where(Student_data.class)
-                                    .equalTo("year_save", "Year : " + year).max("month_save");
+                                    .equalTo("year_save", year).max("month_save");
                             list_spinner_month.clear();
                             list_spinner_month.add("اختر الشهر");
 
@@ -270,8 +271,13 @@ public class Main_student extends AppCompatActivity {
                             spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    int month = 0;
+                                    if (parent.getItemAtPosition(position).toString().equals("اختر الشهر")) {
 
-                                    String month = parent.getItemAtPosition(position).toString();
+                                        month = 0;
+                                    } else {
+                                        month = Integer.parseInt(parent.getItemAtPosition(position).toString());
+                                    }
                                     RealmQuery<Student_data> query = realm.where(Student_data.class);
                                     query.equalTo("year_save", year);
                                     query.and().equalTo("month_save", month);

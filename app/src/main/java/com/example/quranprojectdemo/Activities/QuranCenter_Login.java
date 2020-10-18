@@ -84,8 +84,8 @@ public class QuranCenter_Login extends AppCompatActivity {
                     }
 
                     DataSnapshot snapshot_std = dataSnapshot.child("student_group");
-                    RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();/// this is
-                    if (snapshot_std.getChildrenCount() > realmResults.size()) {
+//                    RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();/// this is
+//                    if (snapshot_std.getChildrenCount() > realmResults.size()) {
                         for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
                             Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
                             if (s != null) {
@@ -98,17 +98,20 @@ public class QuranCenter_Login extends AppCompatActivity {
                                 realm.close();
                             }
                         }
-                    }
+//                    }
                     for (DataSnapshot snapshot2 : snapshot_std.getChildren()) {
                         DataSnapshot dataSnapshot1 = snapshot2.child("student_save");
-                        RealmResults<Student_data> results = realm.where(Student_data.class)
-                                .equalTo("id_student", snapshot2.getKey()).and().equalTo("id_group",
-                                        dataSnapshot.getKey()).findAll();/// this is
-
-                        if (dataSnapshot1.getChildrenCount() > results.size()) {
+//                        RealmResults<Student_data> results = realm.where(Student_data.class)
+//                                .equalTo("id_student", snapshot2.getKey()).and().equalTo
+//                                        ("id_group",
+//                                                dataSnapshot.getKey()).findAll();/// this is
+//                        Log.d("hhh", snapshot2.getKey() + " ! ");
+//                        Log.d("hhh", snapshot2.getKey() + " ! ");
+//                        Log.d("hhh", snapshot2.getKey() + " ! ");
+//
+//                        if (dataSnapshot1.getChildrenCount() > results.size()) {
                             Student_data data = dataSnapshot1.getValue(Student_data.class);
                             if (data != null) {
-                                Log.d("re", data.getSave_student() + " ! ");
 
                                 realm = Realm.getDefaultInstance();
                                 if (!realm.isInTransaction())
@@ -118,7 +121,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                                 realm.close();
                             }
                         }
-                    }
+//                    }
 
 
                 }

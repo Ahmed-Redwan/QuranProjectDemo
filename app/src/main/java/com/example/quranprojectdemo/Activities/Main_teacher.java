@@ -54,9 +54,9 @@ public class Main_teacher extends AppCompatActivity {
         Realm.init(getBaseContext());
         realm = Realm.getDefaultInstance();
 
-        sp=getSharedPreferences(CHECK_REG_TEACHER,MODE_PRIVATE);
-        editor=sp.edit();
-        editor.putInt(CHECK_REG_TEACHER_ID,1);
+        sp = getSharedPreferences(CHECK_REG_TEACHER, MODE_PRIVATE);
+        editor = sp.edit();
+        editor.putInt(CHECK_REG_TEACHER_ID, 1);
         editor.commit();
 
 
@@ -91,8 +91,8 @@ public class Main_teacher extends AppCompatActivity {
                         return true;
                     case R.id.MenuTeacherHomeExit:
 
-                        sp=getSharedPreferences(Main_teacher.CHECK_REG_TEACHER,MODE_PRIVATE);
-                        editor=sp.edit();
+                        sp = getSharedPreferences(Main_teacher.CHECK_REG_TEACHER, MODE_PRIVATE);
+                        editor = sp.edit();
                         editor.clear();
 
 
@@ -142,13 +142,18 @@ public class Main_teacher extends AppCompatActivity {
 
         RealmQuery<Group_Info> query = realm.where(Group_Info.class);
         Group_Info val = query.findFirst();
+        if (val != null) {
 
-        tv_teacher_name.setText("المحفظ " + val.getTeacher_name());
-        tv_teacher_phone.setText("رقم الهاتف:" + val.getPhone());
-        tv_teacher_name_ring.setText("حلقة " + val.getGroup_name());
-        toolbar_teacher.setTitle("حلقة " + val.getGroup_name());
-        tv_teacher_count_student.setText(val.getAuto_sutdent_id());
+            tv_teacher_name.setText("المحفظ " + val.getTeacher_name());
+            tv_teacher_phone.setText("رقم الهاتف:" + val.getPhone());
+            tv_teacher_name_ring.setText("حلقة " + val.getGroup_name());
+            toolbar_teacher.setTitle("حلقة " + val.getGroup_name());
+            tv_teacher_count_student.setText(val.getAuto_sutdent_id());
 //        RealmQuery<Student_Info> query1 = realm.where(Student_Info.class);
+            finishAffinity();
+
+
+        }
     }
 
     @Override

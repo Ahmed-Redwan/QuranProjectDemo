@@ -180,10 +180,10 @@ public class StudentDetails extends AppCompatActivity {
         Date date = new Date();
 
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-        String date_year = "Year : " + yearForamt.format(date);
+        int date_year = Integer.parseInt(yearForamt.format(date));
 
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-        String date_month = "Month : " + monthForamt.format(date);
+        int date_month = Integer.parseInt(monthForamt.format(date));
 
         RealmQuery<Student_data> query = realm.where(Student_data.class)
                 .equalTo("year_save", date_year).

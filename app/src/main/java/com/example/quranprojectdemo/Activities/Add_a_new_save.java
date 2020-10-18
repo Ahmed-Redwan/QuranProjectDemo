@@ -51,7 +51,6 @@ public class Add_a_new_save extends AppCompatActivity {
     ArrayList<Student_Info> infoArrayList;
     ArrayList<Sora> soras;
     ArrayList<String> sorasName;
-    ArrayList<String> save = new ArrayList<>();
     ArrayAdapter<String> adapter_save_from;
     boolean isAbcens;
     ArrayAdapter<String> adapter_save_to;
@@ -71,8 +70,8 @@ public class Add_a_new_save extends AppCompatActivity {
     private void addSaveToDataBase(String date__student, String day_student,
                                    String save_student, String review_student,
                                    String attendess_student, double counnt_page_save,
-                                   double counnt_page_review, String month_save,
-                                   String year_save, long time_save, String id_student, String date_save, String id_group) {
+                                   double counnt_page_review, int month_save,
+                                   int year_save, long time_save, String id_student, String date_save, String id_group) {
 
         Student_data student_data = new Student_data(date__student, day_student, save_student, review_student
                 , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save, id_group);
@@ -95,8 +94,8 @@ public class Add_a_new_save extends AppCompatActivity {
     private void addSaveToCashDataBase(String date__student, String day_student,
                                        String save_student, String review_student,
                                        String attendess_student, double counnt_page_save,
-                                       double counnt_page_review, String month_save,
-                                       String year_save, long time_save, String id_student, String date_save) {
+                                       double counnt_page_review, int month_save,
+                                       int year_save, long time_save, String id_student, String date_save) {
 
         Student_data_cash student_data = new Student_data_cash(date__student, day_student, save_student, review_student
                 , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save, id_group);
@@ -345,10 +344,10 @@ public class Add_a_new_save extends AppCompatActivity {
         int tt = Integer.parseInt(date_now_t);
         System.out.println(tt);
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-        String date_year = "Year : " + yearForamt.format(date);
+        int date_year = Integer.parseInt(yearForamt.format(date));
 
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-        String date_month = "Month : " + monthForamt.format(date);
+        int date_month = Integer.parseInt(monthForamt.format(date));
 
 
         save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
@@ -386,10 +385,10 @@ public class Add_a_new_save extends AppCompatActivity {
         String date_now = Foramt_date.format(date);
 
         SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-        String date_year = "Year : " + yearForamt.format(date);
+        int date_year = Integer.parseInt(yearForamt.format(date));
 
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-        String date_month = "Month : " + monthForamt.format(date);
+        int date_month = Integer.parseInt(monthForamt.format(date));
 
 
         save_all = "السورة  " + text_save + " من  " + text_save_from + " الى      " + text_save_to;
@@ -759,7 +758,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
     Report report1;
 
-    private void getReport(final DatabaseReference student, final String date_year, final String date_month) {
+    private void getReport(final DatabaseReference student, final int date_year, final int date_month) {
         final DatabaseReference reports = student.child("student_save").child("report").
                 child(date_month + "/" + date_year);
         reports.addValueEventListener(new ValueEventListener() {
