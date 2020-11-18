@@ -1,38 +1,5 @@
 package com.example.quranprojectdemo.Activities;
 
-//          Student
-//sp=getSharedPreferences(CHECK_REG_STUDENT,MODE_PRIVATE);
-//        editor=sp.edit();
-//        editor.putInt(CHECK_REG_STUDENT_ID,1);
-//        editor.commit();
-
-//          Teacher
-// sp=getSharedPreferences(CHECK_REG_TEACHER,MODE_PRIVATE);
-//        editor=sp.edit();
-//        editor.putInt(CHECK_REG_TEACHER_ID,1);
-//        editor.commit();
-
-//              Center
-//    sp=getSharedPreferences(CHECK_REG_CENTER,MODE_PRIVATE);
-//        editor=sp.edit();
-//        editor.putInt(CHECK_REG_CENTER_ID,1);
-//        editor.commit();
-
-
-//                        sp=getSharedPreferences(Main_center.CHECK_REG_CENTER,MODE_PRIVATE);
-//                        editor=sp.edit();
-//                        editor.clear();
-//                        editor.commit();
-//                        sp=getSharedPreferences(Main_teacher.CHECK_REG_TEACHER,MODE_PRIVATE);
-//                        editor=sp.edit();
-//                        editor.clear();
-//                        editor.commit();
-//                        sp=getSharedPreferences(Main_student.CHECK_REG_STUDENT,MODE_PRIVATE);
-//                        editor=sp.edit();
-//                        editor.clear();
-//                        editor.commit();
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -59,43 +26,10 @@ public class AboutApp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
+        definitionItems();
+        fonts();
 
-        tv1 = findViewById(R.id.aboutApp_tv_about);
-        tv2 = findViewById(R.id.aboutApp_tv_AppIdea);
-        tv3 = findViewById(R.id.aboutApp_tv_AppIdeaText);
-        tv4 = findViewById(R.id.aboutApp_tv_FirstName);
-        tv5 = findViewById(R.id.aboutApp_tv_skill1);
-        tv6 = findViewById(R.id.aboutApp_tv_text);
-        tv7 = findViewById(R.id.aboutApp_tv_secondName);
-        tv8 = findViewById(R.id.aboutApp_tv_skill2);
-        tv9 = findViewById(R.id.aboutApp_tv_ThirdName);
-        tv10 = findViewById(R.id.aboutApp_tv_skill3);
-
-        call1 = findViewById(R.id.aboutApp_iv_call1);
-        call2 = findViewById(R.id.aboutApp_iv_call2);
-        call3 = findViewById(R.id.aboutApp_iv_call3);
-        gmail1 = findViewById(R.id.aboutApp_iv_gmail1);
-        gmail2 = findViewById(R.id.aboutApp_iv_gmail2);
-        gmail3 = findViewById(R.id.aboutApp_iv_gmail3);
-        face1 = findViewById(R.id.aboutApp_iv_facebook1);
-        face2 = findViewById(R.id.aboutApp_iv_facebook2);
-        face3 = findViewById(R.id.aboutApp_iv_facebook3);
-        git1 = findViewById(R.id.aboutApp_iv_github1);
-        git2 = findViewById(R.id.aboutApp_iv_github2);
-        git3 = findViewById(R.id.aboutApp_iv_github3);
-
-        TextView_EditFont(tv1, "Hacen_Tunisia_Bold.ttf");
-        TextView_EditFont(tv2, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv3, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv4, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv5, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv6, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv7, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv8, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv9, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv10, "Hacen_Tunisia.ttf");
-
-        checkPermission("",1);
+        checkPermission("", 1);
 
 
         call1.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +113,6 @@ public class AboutApp extends AppCompatActivity {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
 
-    @SuppressLint("MissingPermission")
     public void make_A_Call(String Number) {
         Intent i = new Intent(Intent.ACTION_CALL);
         i.setData(Uri.parse("tel:" + Number));
@@ -200,6 +133,47 @@ public class AboutApp extends AppCompatActivity {
         startActivity(launchBrowser);
     }
 
+    private void definitionItems() {
+
+        tv1 = findViewById(R.id.aboutApp_tv_about);
+        tv2 = findViewById(R.id.aboutApp_tv_AppIdea);
+        tv3 = findViewById(R.id.aboutApp_tv_AppIdeaText);
+        tv4 = findViewById(R.id.aboutApp_tv_FirstName);
+        tv5 = findViewById(R.id.aboutApp_tv_skill1);
+        tv6 = findViewById(R.id.aboutApp_tv_text);
+        tv7 = findViewById(R.id.aboutApp_tv_secondName);
+        tv8 = findViewById(R.id.aboutApp_tv_skill2);
+        tv9 = findViewById(R.id.aboutApp_tv_ThirdName);
+        tv10 = findViewById(R.id.aboutApp_tv_skill3);
+
+        call1 = findViewById(R.id.aboutApp_iv_call1);
+        call2 = findViewById(R.id.aboutApp_iv_call2);
+        call3 = findViewById(R.id.aboutApp_iv_call3);
+        gmail1 = findViewById(R.id.aboutApp_iv_gmail1);
+        gmail2 = findViewById(R.id.aboutApp_iv_gmail2);
+        gmail3 = findViewById(R.id.aboutApp_iv_gmail3);
+        face1 = findViewById(R.id.aboutApp_iv_facebook1);
+        face2 = findViewById(R.id.aboutApp_iv_facebook2);
+        face3 = findViewById(R.id.aboutApp_iv_facebook3);
+        git1 = findViewById(R.id.aboutApp_iv_github1);
+        git2 = findViewById(R.id.aboutApp_iv_github2);
+        git3 = findViewById(R.id.aboutApp_iv_github3);
+
+    }
+
+    private void fonts() {
+
+        TextView_EditFont(tv1, "Hacen_Tunisia_Bold.ttf");
+        TextView_EditFont(tv2, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv3, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv4, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv5, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv6, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv7, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv8, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv9, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv10, "Hacen_Tunisia.ttf");
+    }
 
     // Function to check and request permission
     public void checkPermission(String permission, int requestCode) {

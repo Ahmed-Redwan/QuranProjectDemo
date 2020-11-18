@@ -45,13 +45,13 @@ public class SplashScreen extends AppCompatActivity {
 
 
         if (check_center==1){
-            Intent intent=new Intent(getBaseContext(),Main_center.class);
+            Intent intent=new Intent(getBaseContext(),QuranCenter_Login.class);
             startActivity(intent);
         }else if (check_teacher==1){
-            Intent intent=new Intent(getBaseContext(),Main_teacher.class);
+            Intent intent=new Intent(getBaseContext(),TeacherLogin.class);
             startActivity(intent);
         }else if (check_student==1){
-            Intent intent=new Intent(getBaseContext(),Main_student.class);
+            Intent intent=new Intent(getBaseContext(),GuardianLogin.class);
             startActivity(intent);
         }else {
 
@@ -64,7 +64,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(new Intent(getBaseContext(), RegisterAs.class));
                     finish();
                 }
-            }, 6000);
+            }, 500);
         }
         setLocale("ar");
 

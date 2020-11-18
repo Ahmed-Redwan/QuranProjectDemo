@@ -37,44 +37,48 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-//asd
 public class Add_a_new_save extends AppCompatActivity {
-    SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too;
-    SearchableSpinner spinner_reviews, spinner_reviews_from, spinner_reviews_too;
-    Spinner spinner_select_student;
-    Button btn_addSave, btn_addAbcens;
+    private SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too, spinner_reviews, spinner_reviews_from, spinner_reviews_too;
+    private Spinner spinner_select_student;
+    private Button btn_addSave, btn_addAbcens;
     private EditText et_numOfSavePages, et_numOfRevPages;
-    private String id_center;
+    private String id_center, text_save, review_all, text_review_to, text_review_from, text_review, save_all, text_save_to, text_save_from;
     private String id_student;
     private String id_group;
-    SharedPreferences sp;
-    ArrayList<Student_Info> infoArrayList;
-    ArrayList<Sora> soras;
-    ArrayList<String> sorasName;
-    ArrayAdapter<String> adapter_save_from;
-    boolean isAbcens;
-    ArrayAdapter<String> adapter_save_to;
+    private SharedPreferences sp;
+    private ArrayList<Student_Info> infoArrayList;
+    private ArrayList<Sora> soras;
+    private ArrayList<String> sorasName;
+    private ArrayAdapter<String> adapter_save_from, adapter_save_to;
+    private boolean isAbcens, check_show_spinner;
+    private Realm realm;
+    private Report report1;
+    private CheckInternet checkInternet;
 
-    String text_save;
-    String text_save_from;
-    String text_save_to;
-    String save_all;
-    Realm realm;
-    String text_review;
-    String text_review_from;
-    String text_review_to;
-    String review_all;
-    CheckInternet checkInternet;
-    boolean check_show_spinner;
+    private void addSaveToDataBase(String id_groub) {
 
-    private void addSaveToDataBase(String date__student, String day_student,
-                                   String save_student, String review_student,
-                                   String attendess_student, double counnt_page_save,
-                                   double counnt_page_review, int month_save,
-                                   int year_save, long time_save, String id_student, String date_save, String id_group) {
+        Date date = new Date();
+        SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
+        String date_now = Foramt_date.format(date);
 
-        Student_data student_data = new Student_data(date__student, day_student, save_student, review_student
-                , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save, id_group);
+        SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
+        String date_now_t = Foramt_date_time.format(date);
+        int tt = Integer.parseInt(date_now_t);
+        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
+        int date_year = Integer.parseInt(yearForamt.format(date));
+
+        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
+        int date_month = Integer.parseInt(monthForamt.format(date));
+
+
+        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
+        review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
+
+
+        Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
+                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
+                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
+                tt, id_student, date_now + id_student, id_groub);
         realm = Realm.getDefaultInstance();
         if (!realm.isInTransaction())
             realm.beginTransaction();
@@ -91,14 +95,29 @@ public class Add_a_new_save extends AppCompatActivity {
     }
 
 
-    private void addSaveToCashDataBase(String date__student, String day_student,
-                                       String save_student, String review_student,
-                                       String attendess_student, double counnt_page_save,
-                                       double counnt_page_review, int month_save,
-                                       int year_save, long time_save, String id_student, String date_save) {
+    private void addSaveToCashDataBase() {
+        Date date = new Date();
+        SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
+        String date_now = Foramt_date.format(date);
 
-        Student_data_cash student_data = new Student_data_cash(date__student, day_student, save_student, review_student
-                , attendess_student, counnt_page_save, counnt_page_review, month_save, year_save, time_save, id_student, date_save, id_group);
+        SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
+        String date_now_t = Foramt_date_time.format(date);
+        int tt = Integer.parseInt(date_now_t);
+        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
+        int date_year = Integer.parseInt(yearForamt.format(date));
+
+        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
+        int date_month = Integer.parseInt(monthForamt.format(date));
+
+
+        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
+        review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
+
+
+        Student_data_cash student_data = new Student_data_cash(date_now, getDay(), save_all, review_all,
+                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
+                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
+                tt, id_student, date_now + id_student, id_group);
         if (student_data != null) {
             try {
                 realm = Realm.getDefaultInstance();
@@ -112,7 +131,7 @@ public class Add_a_new_save extends AppCompatActivity {
                     realm.close();
 
                 else {
-                    Toast.makeText(getBaseContext(), "لم تتم الاضافة ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "  احمد الهلس لم تتم الاضافة ", Toast.LENGTH_SHORT).show();
 
                 }
             } catch (Exception e) {
@@ -333,45 +352,22 @@ public class Add_a_new_save extends AppCompatActivity {
 
     }
 
-    public void insert_new_save(final String id_student, String id_groub, String id_center) {
+    private void insert_new_save(final String id_student, String id_groub, String id_center) {
 
         Date date = new Date();
-        SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
-        String date_now = Foramt_date.format(date);
 
         SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
         String date_now_t = Foramt_date_time.format(date);
         int tt = Integer.parseInt(date_now_t);
-        System.out.println(tt);
-        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-        int date_year = Integer.parseInt(yearForamt.format(date));
-
-        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-        int date_month = Integer.parseInt(monthForamt.format(date));
-
-
-        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
-        review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
-
-
-        addSaveToDataBase(date_now, getDay(), save_all, review_all,
-                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
-                tt, id_student, date_now + id_student, id_groub);
+        addSaveToDataBase(id_groub);
         if (!checkInternet()) {
-            addSaveToCashDataBase(date_now, getDay(), save_all, review_all,
-                    "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                    Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
-                    tt, id_student, date_now + id_student);
-
+            addSaveToCashDataBase();
         } else {
             insert_new_save_fireBase(id_student, id_group, id_center, tt);
-
-
         }
     }
 
-    public void insert_new_save_fireBase(final String id_student, String id_groub, String id_center, int time) {
+    private void insert_new_save_fireBase(final String id_student, String id_groub, String id_center, int time) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference my_center = reference.child(id_center);//already found
@@ -449,7 +445,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
     }
 
-    public void show_spinner() {
+    private void show_spinner() {
 //
 
         infoArrayList.clear();
@@ -508,7 +504,7 @@ public class Add_a_new_save extends AppCompatActivity {
         return day;
     }
 
-    void soras() {
+    private void soras() {
         soras = new ArrayList<>();
         soras.add(new Sora("الفاتحة", 7));
         soras.add(new Sora("البقرة", 286));
@@ -756,8 +752,6 @@ public class Add_a_new_save extends AppCompatActivity {
     }
 
 
-    Report report1;
-
     private void getReport(final DatabaseReference student, final int date_year, final int date_month) {
         final DatabaseReference reports = student.child("student_save").child("report").
                 child(date_month + "/" + date_year);
@@ -816,20 +810,5 @@ public class Add_a_new_save extends AppCompatActivity {
 
     }
 
-//    public void async(DatabaseReference student, String date_year, String date_month) {
-//        AsyncTask<Object, Object, Object> task = new AsyncTask<Object, Object, Object>() {
-//            @Override
-//            protected void onPostExecute(Object o) {
-//                super.onPostExecute(o);
-//
-//            }
-//
-//            @Override
-//            protected Object doInBackground(Object... objects) {
-//                return getReport((DatabaseReference)objects[0],(String)objects[1],(String)objects[2]);
-//
-//            }
-//        };
-//
-//    }
+
 }

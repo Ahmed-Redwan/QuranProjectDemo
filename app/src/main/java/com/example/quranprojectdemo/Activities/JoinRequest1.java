@@ -25,36 +25,33 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class JoinRequest1 extends AppCompatActivity {
-TextView tv_JoinRequest;
-EditText et_City,et_Country;
-Button btn_Next;
-Spinner sp_country,sp_city;
-ArrayList<String>countries,cities;
-boolean isCountrySelected,isCitySelected;
+    TextView tv_JoinRequest;
+    EditText et_City, et_Country;
+    Button btn_Next;
+    Spinner sp_country, sp_city;
+    ArrayList<String> countries, cities;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_request1);
 
-        tv_JoinRequest=findViewById(R.id.request1_tv_joinRequest);
-        et_City=findViewById(R.id.request1_et_City);
-        et_Country=findViewById(R.id.request1_et_Country);
-        sp_country=findViewById(R.id.request1_sp_Country);
-        sp_city=findViewById(R.id.request1_sp_City);
-        btn_Next=findViewById(R.id.request1_btn_Next);
+        tv_JoinRequest = findViewById(R.id.request1_tv_joinRequest);
+        et_City = findViewById(R.id.request1_et_City);
+        et_Country = findViewById(R.id.request1_et_Country);
+        sp_country = findViewById(R.id.request1_sp_Country);
+        sp_city = findViewById(R.id.request1_sp_City);
+        btn_Next = findViewById(R.id.request1_btn_Next);
 
-        countries=new ArrayList<>();
-        cities=new ArrayList<>();
-
-
+        countries = new ArrayList<>();
+        cities = new ArrayList<>();
 
 
+        TextView_EditFont(tv_JoinRequest, "Hacen_Tunisia_Bold.ttf");
+        EditText_EditFont(et_City, "Hacen_Tunisia.ttf");
+        EditText_EditFont(et_Country, "Hacen_Tunisia.ttf");
 
-        TextView_EditFont(tv_JoinRequest,"Hacen_Tunisia_Bold.ttf");
-        EditText_EditFont(et_City,"Hacen_Tunisia.ttf");
-        EditText_EditFont(et_Country,"Hacen_Tunisia.ttf");
-
-        btn_Next.setTypeface(Typeface.createFromAsset(getAssets(),"Hacen_Tunisia.ttf"));
+        btn_Next.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
 
         btn_Next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,9 +65,9 @@ boolean isCountrySelected,isCitySelected;
 //                }
 
 
-                Intent intent=new Intent(getBaseContext(),JoinRequest2.class);
-                intent.putExtra("Country",countries.get(sp_country.getSelectedItemPosition()));
-                intent.putExtra("City",cities.get(sp_city.getSelectedItemPosition()));
+                Intent intent = new Intent(getBaseContext(), JoinRequest2.class);
+                intent.putExtra("Country", countries.get(sp_country.getSelectedItemPosition()));
+                intent.putExtra("City", cities.get(sp_city.getSelectedItemPosition()));
                 startActivity(intent);
                 finish();
             }
@@ -100,6 +97,7 @@ boolean isCountrySelected,isCitySelected;
     public void TextView_EditFont(TextView textView, String path) {
         textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
     }
+
     //change font type for edittext.
     public void EditText_EditFont(EditText editText, String path) {
         editText.setTypeface(Typeface.createFromAsset(getAssets(), path));
@@ -117,9 +115,9 @@ boolean isCountrySelected,isCitySelected;
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 countries.clear();
-                for (DataSnapshot dataSnapshot :snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Toast.makeText(JoinRequest1.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
-                    String country=dataSnapshot.getKey();
+                    String country = dataSnapshot.getKey();
                     Toast.makeText(JoinRequest1.this, country, Toast.LENGTH_SHORT).show();
                     countries.add(country);
                 }
@@ -149,7 +147,7 @@ boolean isCountrySelected,isCitySelected;
             public void onDataChange(DataSnapshot dataSnapshot) {
                 cities.clear();
                 for (DataSnapshot c : dataSnapshot.getChildren()) {
-                    String city=c.getKey();
+                    String city = c.getKey();
                     cities.add(city);
 
                 }

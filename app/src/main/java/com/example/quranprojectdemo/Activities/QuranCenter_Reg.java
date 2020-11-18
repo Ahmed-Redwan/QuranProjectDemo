@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import io.realm.Realm;
 
 public class QuranCenter_Reg extends AppCompatActivity {
 
@@ -39,8 +39,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     SharedPreferences sp;
     ProgressDialog progressDialog;
     SharedPreferences.Editor editor;
-
-    Realm realm;
+    RealmDataBaseItems dataBaseItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +47,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         setContentView(R.layout.activity_quran_center__reg);
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(QuranCenter_Reg.this);
-        Realm.init(getBaseContext());
-
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
 
         et_centerName = findViewById(R.id.QuranCenter_et_CenterName);
         et_ManagerName = findViewById(R.id.QuranCenter_et_ManagerName);
@@ -179,7 +177,9 @@ public class QuranCenter_Reg extends AppCompatActivity {
 //                            editor.clear();
 //                            editor.commit();
                             FancyToast.makeText(getBaseContext(), "تم إنشاء الحساب بنجاح", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
-                            setInRealTimeUsers(user.getUid());
+
+                                setInRealTimeUsers(user.getUid());
+
 
                             startActivity(new Intent(getBaseContext(), Main_center.class));
 
@@ -198,7 +198,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
     }//للتسجيل
 
 
-    public void setInRealTimeUsers(String name) {
+    public void setInRealTimeUsers(String name)   {
         add_info_center_to_realm();
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -211,14 +211,9 @@ public class QuranCenter_Reg extends AppCompatActivity {
 
     }//اضافة بيانات
 
-    public void add_info_center_to_realm() {
+    public void add_info_center_to_realm()  {
 
-        realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
-        realm.copyToRealm(centeruser);
-        realm.commitTransaction();
-        realm.close();
+        dataBaseItems.copyObjectToDataToRealm(centeruser,CenterUser.class);
 
     }//اضافة بيانات
 

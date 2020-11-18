@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.CustomGroupRecyclerView2;
@@ -26,22 +27,19 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class Main_center extends AppCompatActivity {
 
-    public static final String CHECK_REG_CENTER ="check_center" ;
-    public static final String CHECK_REG_CENTER_ID ="check_center_id" ;
-    public    Toolbar toolbar_center;
+    public static final String CHECK_REG_CENTER = "check_center";
+    public static final String CHECK_REG_CENTER_ID = "check_center_id";
+    public Toolbar toolbar_center;
     ImageView image_center;
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
     SharedPreferences sp;
     private String centerId;
-    Realm realm;
+
     private SharedPreferences.Editor editor;
     RecyclerView.LayoutManager layoutManager;
     CustomGroupRecyclerView2 customGroupRecyclerView2;
@@ -50,7 +48,7 @@ public class Main_center extends AppCompatActivity {
     RecyclerView rv_List;
 
     ArrayList<Group> data;
-
+    RealmDataBaseItems dataBaseItems;
 
     @Override
     protected void onStart() {
@@ -64,34 +62,15 @@ public class Main_center extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_center);
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-        data=new ArrayList<>();
+        data = new ArrayList<>();
         tv_center_name = findViewById(R.id.center_main_tv_name_center);
         tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
         tv_center_phone = findViewById(R.id.center_main_tv_phone);
         tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
         tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
-
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         recyclerView = findViewById(R.id.mainCenter_rv);
-        //        groups.add(new Group(R.drawable.arabian, "", ""));
-//        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
-//        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
-//        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
-//        groups.add(new Group(R.drawable.arabian, "", ""));
-//        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
-//        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
-//        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
-//        groups.add(new Group(R.drawable.arabian, "", ""));
-//        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
-//        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
-//        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
-//        groups.add(new Group(R.drawable.arabian, "", ""));
-//        groups.add(new Group(R.drawable.ahmed_abd, "Ahmed Redwan Abdelghafoor", "0594114029"));
-//        groups.add(new Group(R.drawable.ahmed_ali, "Ahmed Ali Alyaqubi", "0594111238"));
-//        groups.add(new Group(R.drawable.mustafa, "mustafa muhammed alastal", "0594115468"));
-
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
@@ -101,9 +80,9 @@ public class Main_center extends AppCompatActivity {
             centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
         }
 
-        sp=getSharedPreferences(CHECK_REG_CENTER,MODE_PRIVATE);
-        editor=sp.edit();
-        editor.putInt(CHECK_REG_CENTER_ID,1);
+        sp = getSharedPreferences(CHECK_REG_CENTER, MODE_PRIVATE);
+        editor = sp.edit();
+        editor.putInt(CHECK_REG_CENTER_ID, 1);
         editor.commit();
 
 
@@ -135,16 +114,12 @@ public class Main_center extends AppCompatActivity {
                         editor.clear();
                         editor.commit();
 
-                        sp=getSharedPreferences(Main_center.CHECK_REG_CENTER,MODE_PRIVATE);
-                        editor=sp.edit();
+                        sp = getSharedPreferences(Main_center.CHECK_REG_CENTER, MODE_PRIVATE);
+                        editor = sp.edit();
                         editor.clear();
                         editor.commit();
 
-                        if (!realm.isInTransaction())
-                            realm.beginTransaction();
-                        realm.deleteAll();
-                        realm.commitTransaction();
-                        realm.close();
+                        dataBaseItems.deleteAllData();
                         FancyToast.makeText(getBaseContext(), "تم تسجيل الخروج.", FancyToast.LENGTH_LONG, FancyToast.DEFAULT, false).show();
                         finish();
                         startActivity(new Intent(getBaseContext(), RegisterAs.class));
@@ -178,30 +153,31 @@ public class Main_center extends AppCompatActivity {
     public void getInRealTimeUsers() {
 
 
-        RealmQuery<CenterUser> query = realm.where(CenterUser.class);
-        CenterUser value = query.findFirst();
+        List<CenterUser> centerUserList = dataBaseItems.getAllCenterUser();
+        if (centerUserList != null) {
+            CenterUser value = centerUserList.get(0);
 
-        RealmQuery<Student_Info> queryStudent = realm.where(Student_Info.class);
-
-
-        tv_center_count_ring.setText("عدد الحلقات : " + value.getAuto_id_group());
-
-
-        if (queryStudent.findAll().isEmpty()) {
-            tv_center_count_student.setText("عدد طلاب المركز:" + "0");
-        } else {
-            tv_center_count_student.setText("عدد طلاب المركز:" + queryStudent.count());
+            List<Student_Info> studentInfos = dataBaseItems.getAllStudentInfo();
+            if (studentInfos != null) {
+                tv_center_count_ring.setText("عدد الحلقات : " + value.getAuto_id_group());
 
 
+                if (studentInfos.isEmpty()) {
+                    tv_center_count_student.setText("عدد طلاب المركز:" + "0");
+                } else {
+                    tv_center_count_student.setText("عدد طلاب المركز:" + studentInfos.size());
+
+
+                }
+
+
+                tv_center_name.setText("مركز:" + value.getCenterName());
+                tv_center_name_maneger.setText("مدير المركز:" + value.getManagerName());
+                tv_center_phone.setText("هاتف:" + value.getPhone());
+                toolbar_center.setTitle("مركز:" + value.getCenterName());
+
+            }
         }
-
-
-        tv_center_name.setText("مركز:" + value.getCenterName());
-        tv_center_name_maneger.setText("مدير المركز:" + value.getManagerName());
-        tv_center_phone.setText("هاتف:" + value.getPhone());
-        toolbar_center.setTitle("مركز:" + value.getCenterName());
-
-
     }
 
     @Override
@@ -213,25 +189,24 @@ public class Main_center extends AppCompatActivity {
 
     public void getGroups(final String id_center) {
 
-        RealmQuery<Group_Info> query = realm.where(Group_Info.class);
-
+        List<Group_Info> group_infos = dataBaseItems.getAllGroup_Info();
         data.clear();
-        RealmResults<Group_Info> realmResults = query.findAll();
-        for (int i = 0; i < realmResults.size(); i++) {
-            String id_group = realmResults.get(i).getGroup_id();
-            Log.d("dre", id_group + " ! ");
-            String name_group = realmResults.get(i).getGroup_name();
-            String name_tech = realmResults.get(i).getTeacher_name();
-            data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group, id_center));
+        if (group_infos != null) {
+            for (int i = 0; i < group_infos.size(); i++) {
+                String id_group = group_infos.get(i).getGroup_id();
+                Log.d("dre", id_group + " ! ");
+                String name_group = group_infos.get(i).getGroup_name();
+                String name_tech = group_infos.get(i).getTeacher_name();
+                data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group, id_center));
+            }
+
+            layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+            customGroupRecyclerView2 = new CustomGroupRecyclerView2(data, getBaseContext());
+            recyclerView.setAdapter(customGroupRecyclerView2);
+            recyclerView.setLayoutManager(layoutManager);
+            customGroupRecyclerView2.notifyDataSetChanged();
+            recyclerView.setHasFixedSize(true);
         }
-
-        layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-        customGroupRecyclerView2 = new CustomGroupRecyclerView2(data, getBaseContext());
-        recyclerView.setAdapter(customGroupRecyclerView2);
-        recyclerView.setLayoutManager(layoutManager);
-        customGroupRecyclerView2.notifyDataSetChanged();
-        recyclerView.setHasFixedSize(true);
-
 
     }
 

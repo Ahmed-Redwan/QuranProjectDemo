@@ -14,7 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CenterUser;
+import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import io.realm.Realm;
 
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
@@ -42,23 +43,15 @@ public class AddNewGroup extends AppCompatActivity {
     private String id_center;
     SharedPreferences sp;
     private String auto_id_group = null;
-    Realm realm;
     private Group_Info group_info;
     private CenterUser value;
+    RealmDataBaseItems dataBaseItems;
 
     // 249 - 259 ,,, 52- 64
     private void addNewGroupDataBase(Group_Info group_info) {
         try {
             if (group_info != null) {
-                realm = Realm.getDefaultInstance();
-                if (!realm.isInTransaction())
-                    realm.beginTransaction();
-
-                realm.copyToRealm(group_info);
-
-                realm.commitTransaction();
-                if (!realm.isClosed())
-                    realm.close();
+                dataBaseItems.copyObjectToDataToRealm(group_info, Group.class);
             } else
                 Toast.makeText(getBaseContext(), "لم تنجح الاضافة", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
@@ -73,9 +66,9 @@ public class AddNewGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_group);
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
 
         mAuth = FirebaseAuth.getInstance();
-        Realm.init(getBaseContext());
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
@@ -119,14 +112,14 @@ public class AddNewGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            if (et_GroupName.getText().toString().isEmpty() || et_TeacherName.getText().toString().isEmpty() || et_TeacherEmail.getText().toString().isEmpty()
-                    || et_TeacherPassword.getText().toString().isEmpty() || et_TeacherPhone.getText().toString().isEmpty()) {
-                et_TeacherPhone.setError("يجب تعبئة جميع الحقول.");
-                et_TeacherPassword.setError("يجب تعبئة جميع الحقول.");
-                et_TeacherEmail.setError("يجب تعبئة جميع الحقول.");
-                et_TeacherName.setError("يجب تعبئة جميع الحقول.");
-                et_GroupName.setError("يجب تعبئة جميع الحقول.");
-                return;
+                if (et_GroupName.getText().toString().isEmpty() || et_TeacherName.getText().toString().isEmpty() || et_TeacherEmail.getText().toString().isEmpty()
+                        || et_TeacherPassword.getText().toString().isEmpty() || et_TeacherPhone.getText().toString().isEmpty()) {
+                    et_TeacherPhone.setError("يجب تعبئة جميع الحقول.");
+                    et_TeacherPassword.setError("يجب تعبئة جميع الحقول.");
+                    et_TeacherEmail.setError("يجب تعبئة جميع الحقول.");
+                    et_TeacherName.setError("يجب تعبئة جميع الحقول.");
+                    et_GroupName.setError("يجب تعبئة جميع الحقول.");
+                    return;
                 }
                 sign_up(et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString());
 
@@ -250,15 +243,8 @@ public class AddNewGroup extends AppCompatActivity {
                 save_new_id_group(value);
 
                 if (value != null) {
-                    realm = Realm.getDefaultInstance();
-                    if (!realm.isInTransaction())
-                        realm.beginTransaction();
+                         dataBaseItems.insertObjectToDataToRealm(value,CenterUser.class);
 
-                    realm.insertOrUpdate(value);
-
-                    realm.commitTransaction();
-                    if (!realm.isClosed())
-                        realm.close();
                 } else
                     Toast.makeText(getBaseContext(), "لم تنجح الاضافة", Toast.LENGTH_LONG).show();
                 reference.removeEventListener(this);

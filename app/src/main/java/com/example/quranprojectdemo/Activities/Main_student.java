@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
@@ -36,9 +37,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 import static com.example.quranprojectdemo.Activities.GuardianLogin.INFO_STUDENT_LOGIN;
 
@@ -61,10 +59,9 @@ public class Main_student extends AppCompatActivity {
 
     ArrayList<String> list_spinner_year = new ArrayList<>();
     ArrayList<String> list_spinner_month = new ArrayList<>();
-    //    FirebaseAuth  ;
-    TextView tv_date, tv_day, tv_attendess;
+
+    RealmDataBaseItems dataBaseItems;
     RecyclerView rv;
-    private Realm realm;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
@@ -73,9 +70,7 @@ public class Main_student extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_student);
         mAuth = FirebaseAuth.getInstance();
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         sp = getSharedPreferences(CHECK_REG_STUDENT, MODE_PRIVATE);
         editor = sp.edit();
         editor.putInt(CHECK_REG_STUDENT_ID, 1);
@@ -114,12 +109,7 @@ public class Main_student extends AppCompatActivity {
                         editor = sp.edit();
                         editor.clear();
                         editor.commit();
-                        if (!realm.isInTransaction())
-                            realm.beginTransaction();
-                        realm.deleteAll();
-                        realm.commitTransaction();
-                        if (!realm.isClosed())
-                            realm.close();
+                        dataBaseItems.deleteAllData();
                         sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
                         editor = sp.edit();
                         editor.clear();
@@ -197,17 +187,14 @@ public class Main_student extends AppCompatActivity {
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
 
-        RealmQuery<Student_data> query = realm.where(Student_data.class);
-        query.equalTo("year_save", date_year);
-        query.and().equalTo("month_save", date_month);
-        RealmResults<Student_data> realmResults = query.findAll();
-
-        Recycler_student r_s = new Recycler_student(realmResults);
-        rv.setAdapter(r_s);
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(lm);
-
+        List<Student_data> student_dataList = dataBaseItems.getAllStudent_data(date_year, date_month);
+        if (student_dataList != null) {
+            Recycler_student r_s = new Recycler_student(student_dataList);
+            rv.setAdapter(r_s);
+            RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
+            rv.setHasFixedSize(true);
+            rv.setLayoutManager(lm);
+        }
 
     }
 
@@ -222,12 +209,9 @@ public class Main_student extends AppCompatActivity {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 list_spinner_year.add("اختر السنة");
-                RealmQuery<Student_data> query = realm.where(Student_data.class);
 
-                final String max = query.max("year_save").toString();
-
-                String min = query.min("year_save").toString();
-                for (int i = Integer.parseInt(min); i <= Integer.parseInt(max); i++) {
+                int[] maxMin = dataBaseItems.getMaxMinStudentData(0);
+                for (int i = maxMin[0]; i <= maxMin[1]; i++) {
 
                     list_spinner_year.add(i + "");
 
@@ -248,12 +232,11 @@ public class Main_student extends AppCompatActivity {
                         } else {
 
                             final int year = Integer.parseInt((String) parent.getItemAtPosition(position));
-                            Number x = realm.where(Student_data.class)
-                                    .equalTo("year_save", year).max("month_save");
+                            int x = dataBaseItems.getMaxMinStudentData(year)[2];
                             list_spinner_month.clear();
                             list_spinner_month.add("اختر الشهر");
 
-                            for (int i = 1; i <= x.intValue(); i++) {
+                            for (int i = 1; i <= x; i++) {
                                 list_spinner_month.add("" + i);
 
 
@@ -278,17 +261,16 @@ public class Main_student extends AppCompatActivity {
                                     } else {
                                         month = Integer.parseInt(parent.getItemAtPosition(position).toString());
                                     }
-                                    RealmQuery<Student_data> query = realm.where(Student_data.class);
-                                    query.equalTo("year_save", year);
-                                    query.and().equalTo("month_save", month);
-                                    RealmResults<Student_data> realmResults = query.findAll();
 
+                                    List<Student_data> student_dataList = dataBaseItems.getAllStudent_data(year, month);
+                                    if (student_dataList != null) {
 
-                                    Recycler_student r_s = new Recycler_student(realmResults);
-                                    rv.setAdapter(r_s);
-                                    RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
-                                    rv.setHasFixedSize(true);
-                                    rv.setLayoutManager(lm);
+                                        Recycler_student r_s = new Recycler_student(student_dataList);
+                                        rv.setAdapter(r_s);
+                                        RecyclerView.LayoutManager lm = new LinearLayoutManager(getBaseContext());
+                                        rv.setHasFixedSize(true);
+                                        rv.setLayoutManager(lm);
+                                    }
                                 }
 
                                 @Override
@@ -317,16 +299,15 @@ public class Main_student extends AppCompatActivity {
 
 
     public void getStudnetInfo() {
-        RealmQuery<Student_Info> query = realm.where(Student_Info.class);
-        Student_Info studentInfo = query.findFirst();
+        Student_Info studentInfo = dataBaseItems.getAllStudentInfo().get(0);
+        if (studentInfo != null) {
 
-
-        tv_student_name.setText("الطالب " + studentInfo.getName());
-        tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
-        tv_student_phone.setText(studentInfo.getPhoneNo());
-        tv_student_identity.setText("رقم الهوية:" + studentInfo.getId_number());
-        toolbar_student.setTitle("الطالب " + studentInfo.getName());
-
+            tv_student_name.setText("الطالب " + studentInfo.getName());
+            tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
+            tv_student_phone.setText(studentInfo.getPhoneNo());
+            tv_student_identity.setText("رقم الهوية:" + studentInfo.getId_number());
+            toolbar_student.setTitle("الطالب " + studentInfo.getName());
+        }
 
     }
 

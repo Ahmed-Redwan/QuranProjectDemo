@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
@@ -21,9 +22,6 @@ import com.example.quranprojectdemo.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 import static com.example.quranprojectdemo.Activities.QuranCenter_Login.INFO_CENTER_LOGIN;
 
@@ -32,18 +30,16 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     RecyclerView rv_List;
     Toolbar toolbar;
     List<Group> data;
-     SharedPreferences sp;
+    SharedPreferences sp;
     private String id_center;
-    Realm realm;
+    RealmDataBaseItems dataBaseItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_memorization_loops);
-
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         toolbar = findViewById(R.id.ShowMemorizationLoops_ToolBar);
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
@@ -89,25 +85,24 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
 
     public void getGroups(final String id_center) {
 
-        RealmQuery<Group_Info> query = realm.where(Group_Info.class);
+        List<Group_Info> group_infoList = dataBaseItems.getAllGroup_Info();
+        if (group_infoList != null) {
+            data.clear();
+            for (int i = 0; i < group_infoList.size(); i++) {
+                String id_group = group_infoList.get(i).getGroup_id();
+                Log.d("dre", id_group + " ! ");
+                String name_group = group_infoList.get(i).getGroup_name();
+                String name_tech = group_infoList.get(i).getTeacher_name();
+                data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group, id_center));
+            }
 
-        data.clear();
-        RealmResults<Group_Info> realmResults = query.findAll();
-        for (int i = 0; i < realmResults.size(); i++) {
-            String id_group = realmResults.get(i).getGroup_id();
-            Log.d("dre",id_group+" ! ");
-            String name_group = realmResults.get(i).getGroup_name();
-            String name_tech = realmResults.get(i).getTeacher_name();
-            data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group, id_center));
+            final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data, getBaseContext());
+            rv_List.setHasFixedSize(true);
+            rv_List.setAdapter(customGroupRecyclerView);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
+            rv_List.setLayoutManager(layoutManager);
+
         }
-
-        final CustomGroupRecyclerView customGroupRecyclerView = new CustomGroupRecyclerView(data, getBaseContext());
-        rv_List.setHasFixedSize(true);
-        rv_List.setAdapter(customGroupRecyclerView);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getBaseContext(),2);
-        rv_List.setLayoutManager(layoutManager);
-
-
     }
 
 

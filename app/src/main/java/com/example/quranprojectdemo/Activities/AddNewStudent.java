@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
@@ -31,8 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import io.realm.Realm;
-
 
 public class AddNewStudent extends AppCompatActivity {
     TextView tv_Add;
@@ -44,8 +43,7 @@ public class AddNewStudent extends AppCompatActivity {
     Spinner spinner;
     private FirebaseAuth mAuth;
     private String auto_student_id;
-
-    Realm realm;
+    RealmDataBaseItems dataBaseItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +51,7 @@ public class AddNewStudent extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_student);
         mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-
-        Realm.init(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
 
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
@@ -169,8 +166,9 @@ public class AddNewStudent extends AppCompatActivity {
 
     }
 
-    public void create_new_student(Student_Info info, String id_student, String id_groub1, String id_center) {
-        String birth_day = et_Day.getText().toString() + "/" + et_Month.getText().toString() + "/" + et_Year.getText().toString();
+    public void create_new_student(Student_Info info, String id_student, String id_groub1, String id_center)
+
+        {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference center = reference.child(id_center);//already found
@@ -183,13 +181,7 @@ public class AddNewStudent extends AppCompatActivity {
         DatabaseReference student_info = new_student.child("student_info");
         student_info.setValue(info);
         if (info != null) {
-            realm = Realm.getDefaultInstance();
-            if (!realm.isInTransaction())
-                realm.beginTransaction();
-            realm.copyToRealm(info);
-            realm.commitTransaction();
-            if (!realm.isClosed())
-                realm.close();
+            dataBaseItems.copyObjectToDataToRealm(info,Student_Info.class);
         } else Toast.makeText(getBaseContext(), "لم تتم الاضافة بنجاح", Toast.LENGTH_SHORT).show();
 
     }
@@ -223,7 +215,9 @@ public class AddNewStudent extends AppCompatActivity {
                         et_Email.getText().toString(),
                         et_Grade.getText().toString(),
                         et_Day.getText().toString(), null, id_center, id_group, auto_student_id);
-                create_new_student(s, auto_student_id, id_group, id_center);
+
+                    create_new_student(s, auto_student_id, id_group, id_center);
+
                 updatename(user, id_center, id_group, auto_student_id);
                 save_new_id_group(val, id_center, id_group);
                 reference.removeEventListener(this);

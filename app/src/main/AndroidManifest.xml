@@ -47,7 +47,12 @@
             </intent-filter>
         </activity>
 
-
+        <service
+            android:name=".MymessageService">
+        <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+        </intent-filter>
+        </service>
         <activity android:name=".Activities.Main_center" />
         <activity android:name=".Activities.JoinRequest1" />
         <activity android:name=".Activities.JoinRequest2" />

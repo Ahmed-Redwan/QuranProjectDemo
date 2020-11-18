@@ -49,7 +49,7 @@ public class JoinRequests extends AppCompatActivity {
     SearchableSpinner spinner;
     ArrayList<String> groupsID;
     ArrayList<String> groupsName;
-    int index;
+
     String id_group;
     private FirebaseAuth mAuth;
     boolean isSelected;

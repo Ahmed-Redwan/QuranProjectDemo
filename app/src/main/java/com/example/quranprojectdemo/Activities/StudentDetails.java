@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.Recycler_student;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
@@ -21,10 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
+import java.util.List;
 
 public class StudentDetails extends AppCompatActivity {
     TextView tv_student_name, tv_student_name_ring, tv_student_phone, tv_student_identity;
@@ -35,8 +33,7 @@ public class StudentDetails extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String id_center, id_group, id_student;
     String id_center_c, id_group_c, id_student_c;
-    private Realm realm;
-
+    RealmDataBaseItems dataBaseItems;
     private SharedPreferences sp;
 
     @Override
@@ -45,9 +42,7 @@ public class StudentDetails extends AppCompatActivity {
         setContentView(R.layout.activity_student_details);
         mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
@@ -184,39 +179,31 @@ public class StudentDetails extends AppCompatActivity {
 
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
+        List<Student_data> student_dataList = dataBaseItems.getStudentData(date_year, date_month, id_student, id_group);
+        if (student_dataList != null) {
 
-        RealmQuery<Student_data> query = realm.where(Student_data.class)
-                .equalTo("year_save", date_year).
-                        and().equalTo("month_save", date_month).and().equalTo("id_student", id_student)
-                .and().equalTo("id_group", id_group);
-        RealmResults<Student_data> realmResults = query.findAll();
-
-
-        recycler_student = new Recycler_student(realmResults);
-        RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
-        StudentDetails_recycler.setHasFixedSize(true);
-        StudentDetails_recycler.setLayoutManager(l);
-        StudentDetails_recycler.setAdapter(recycler_student);
-
+            recycler_student = new Recycler_student(student_dataList);
+            RecyclerView.LayoutManager l = new GridLayoutManager(getBaseContext(), 1);
+            StudentDetails_recycler.setHasFixedSize(true);
+            StudentDetails_recycler.setLayoutManager(l);
+            StudentDetails_recycler.setAdapter(recycler_student);
+        }
     }
 
 
     public void getStudnetInfo(String id_student, String id_group) {
-        Student_Info studentInfo = realm.where(Student_Info.class)
-                .equalTo("id_Student", id_student)
-                .and().equalTo("id_group", id_group)
-                .findFirst();
-//        if (studentInfo != null) {
-        Log.d("eer", id_center_c + " 0");
-        Log.d("eer", id_group + " 2");
-        Log.d("eer", id_student + " 1");
-//        }
-        tv_student_name.setText("الطالب " + studentInfo.getName());
-        tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
-        tv_student_phone.setText(studentInfo.getPhoneNo());
-        tv_student_identity.setText("رقم الهوية:" + studentInfo.getId_number());
-//
+        Student_Info student_info = dataBaseItems.getStudentInfo(id_student, id_group);
+        if (student_info != null) {
+            Log.d("eer", id_center_c + " 0");
+            Log.d("eer", id_group + " 2");
+            Log.d("eer", id_student + " 1");
 
+            tv_student_name.setText("الطالب " + student_info.getName());
+            tv_student_name_ring.setText("الإيميل:" + student_info.getEmail());
+            tv_student_phone.setText(student_info.getPhoneNo());
+            tv_student_identity.setText("رقم الهوية:" + student_info.getId_number());
+//
+        }
     }
 //    public void getStudnetInfo(String id_center, String id_group, String id_student) {
 //

@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.Recycler_show_group_student;
 import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class Show_group_student extends AppCompatActivity {
     //show
@@ -35,16 +35,15 @@ public class Show_group_student extends AppCompatActivity {
     String id_center;
     String id_group_c;
     String id_center_c;
-    Realm realm;
+    RealmDataBaseItems dataBaseItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_group_student);
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-//        i.putExtra("id_group", arrayList.get(position).getId_group());
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        //        i.putExtra("id_group", arrayList.get(position).getId_group());
 //        i.putExtra("id_center", arrayList.get(position).getId_center());
         Intent i = getIntent();
         id_center_c = i.getStringExtra("id_center");
@@ -95,30 +94,28 @@ public class Show_group_student extends AppCompatActivity {
 
     public void get_student_group() {
 
+        List<Student_Info> studentInfoList = dataBaseItems.getStudentInfo(id_group);
+        if (studentInfoList != null) {
+            arrayList.clear();
 
-        RealmResults<Student_Info> realmResults = realm.where(Student_Info.class)
-                .equalTo("id_group", id_group)
-                .findAll();
-        arrayList.clear();
+            for (int i = 0; i < studentInfoList.size(); i++) {
 
-        for (int i = 0; i < realmResults.size(); i++) {
-
-            String id_student = realmResults.get(i).getId_Student();
+                String id_student = studentInfoList.get(i).getId_Student();
 
 
-            String name_student = realmResults.get(i).getName();
+                String name_student = studentInfoList.get(i).getName();
 
-            String id_center = realmResults.get(i).getId_center();
-            String id_group = realmResults.get(i).getId_group();
-            arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
+                String id_center = studentInfoList.get(i).getId_center();
+                String id_group = studentInfoList.get(i).getId_group();
+                arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
 
+            }
+
+            Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);
+            rv.setAdapter(recycler_show_group_student);
+            RecyclerView.LayoutManager lm = new GridLayoutManager(getBaseContext(), 2);
+            rv.setLayoutManager(lm);
         }
-
-        Recycler_show_group_student recycler_show_group_student = new Recycler_show_group_student(arrayList);
-        rv.setAdapter(recycler_show_group_student);
-        RecyclerView.LayoutManager lm = new GridLayoutManager(getBaseContext(),2);
-        rv.setLayoutManager(lm);
-
     }
 
 

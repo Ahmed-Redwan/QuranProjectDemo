@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CustomStudentRecyclerView2;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Recycler_show_group_student;
@@ -21,10 +22,8 @@ import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 import static com.example.quranprojectdemo.Activities.TeacherLogin.INFO_TEACHER;
 
@@ -38,33 +37,27 @@ public class Main_teacher extends AppCompatActivity {
     TextView tv_teacher_name, tv_teacher_name_ring, tv_teacher_phone, tv_teacher_count_student;
     FirebaseAuth mAuth;
     Toolbar toolbar_teacher;
-    Realm realm;
     private SharedPreferences sp;
     SharedPreferences.Editor editor;
     ArrayList<Student_Info> student_infos;
     RecyclerView recyclerView;
     CustomStudentRecyclerView2 customStudentRecyclerView2;
     RecyclerView.LayoutManager layoutManager;
+    RealmDataBaseItems dataBaseItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_teacher);
         mAuth = FirebaseAuth.getInstance();
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         sp = getSharedPreferences(CHECK_REG_TEACHER, MODE_PRIVATE);
         editor = sp.edit();
         editor.putInt(CHECK_REG_TEACHER_ID, 1);
         editor.commit();
 
 
-        //     Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
-//     'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
-        //       getInfoTeacher();
         image_backe_teacher = findViewById(R.id.teacher_main_image_center);
-        /*image_teacher = findViewById(R.id.teacher_main_image_teacher);*/
         tv_teacher_name = findViewById(R.id.teacher_main_tv_name_teacher);
         tv_teacher_name_ring = findViewById(R.id.teacher_main_tv_name_ring);
         tv_teacher_phone = findViewById(R.id.teacher_main_tv_phone);
@@ -96,11 +89,7 @@ public class Main_teacher extends AppCompatActivity {
                         editor.clear();
 
 
-                        if (!realm.isInTransaction())
-                            realm.beginTransaction();
-                        realm.deleteAll();
-                        realm.commitTransaction();
-                        realm.close();
+                        dataBaseItems.deleteAllData();
                         sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
                         editor = sp.edit();
                         editor.clear();
@@ -140,8 +129,7 @@ public class Main_teacher extends AppCompatActivity {
 
     public void getInfoTeacher() {
 
-        RealmQuery<Group_Info> query = realm.where(Group_Info.class);
-        Group_Info val = query.findFirst();
+        Group_Info val = dataBaseItems.getAllGroup_Info().get(0);
         if (val != null) {
 
             tv_teacher_name.setText("المحفظ " + val.getTeacher_name());
@@ -169,31 +157,30 @@ public class Main_teacher extends AppCompatActivity {
         student_infos = new ArrayList<>();
 
 
-        RealmResults<Student_Info> realmResults = realm.where(Student_Info.class)
-                .equalTo("id_group", sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "1"))
-                .findAll();
-        student_infos.clear();
+        List<Student_Info> studentInfos = dataBaseItems.getStudentInfo(sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "1"));
+        if (studentInfos != null) {
+            student_infos.clear();
 
-        for (int i = 0; i < realmResults.size(); i++) {
+            for (int i = 0; i < studentInfos.size(); i++) {
 
-            String id_student = realmResults.get(i).getId_Student();
+                String id_student = studentInfos.get(i).getId_Student();
 
 
-            String name_student = realmResults.get(i).getName();
+                String name_student = studentInfos.get(i).getName();
 
-            String id_center = realmResults.get(i).getId_center();
-            String id_group = realmResults.get(i).getId_group();
-            student_infos.add(new Student_Info(null, name_student, id_student, id_group, id_center));
+                String id_center = studentInfos.get(i).getId_center();
+                String id_group = studentInfos.get(i).getId_group();
+                student_infos.add(new Student_Info(null, name_student, id_student, id_group, id_center));
 
+            }
+
+            customStudentRecyclerView2 = new CustomStudentRecyclerView2(student_infos, getBaseContext());
+            layoutManager = new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(customStudentRecyclerView2);
+            customStudentRecyclerView2.notifyDataSetChanged();
+            recyclerView.setHasFixedSize(true);
         }
-
-        customStudentRecyclerView2 = new CustomStudentRecyclerView2(student_infos, getBaseContext());
-        layoutManager = new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(customStudentRecyclerView2);
-        customStudentRecyclerView2.notifyDataSetChanged();
-        recyclerView.setHasFixedSize(true);
-
     }
 
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CheckInternet;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Student_Info;
@@ -34,8 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
+import java.util.List;
+
 
 public class TeacherLogin extends AppCompatActivity {
     public static final String INFO_TEACHER = "info_tet";
@@ -54,7 +55,7 @@ public class TeacherLogin extends AppCompatActivity {
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
-    private Realm realm;
+    private RealmDataBaseItems dataBaseItems;
 
     private boolean checkInternet() {
         checkInternet = new CheckInternet();
@@ -71,42 +72,33 @@ public class TeacherLogin extends AppCompatActivity {
         String id_center = sp.getString(ID_LOGIN_TEC_CENTER, "-1");
         String id_groubsp = sp.getString(ID_LOGIN_TEACHER, "-1");
 
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
-        RealmResults<Student_data_cash> realmResults = realm.where(Student_data_cash.class).findAll();/// this is
+        List<Student_data_cash> data_cashes = dataBaseItems.getAllStudent_data_cash();
+        if (data_cashes != null) {
+            if (!data_cashes.isEmpty()) {
+                FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+
+                DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
+                DatabaseReference my_center = reference.child(id_center);//already found
+                DatabaseReference my_center_groups = my_center.child("groups");//already found or not
+                DatabaseReference my_group = my_center_groups.child(id_groubsp);// add new group
+
+                DatabaseReference my_student_group = my_group.child("student_group");
+                for (int i = 0; i < data_cashes.size(); i++) {
+                    DatabaseReference student = my_student_group.child(data_cashes.get(i).getId_student());
 
 
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+                    DatabaseReference student_save = student.child("student_save").child(String.valueOf(data_cashes.get(i).getTime_save()));
+                    Student_data s = new Student_data(data_cashes.get(i).getDate__student(), data_cashes.get(i).getDay_student()
+                            , data_cashes.get(i).getSave_student(), data_cashes.get(i).getReview_student()
+                            , data_cashes.get(i).getAttendess_student(), data_cashes.get(i).getCounnt_page_save(), data_cashes.get(i).getCounnt_page_review()
+                            , data_cashes.get(i).getMonth_save(), data_cashes.get(i).getYear_save(), data_cashes.get(i).getTime_save(), data_cashes.get(i).getId_student(), data_cashes.get(i).getDate__student(), data_cashes.get(i).getId_group());
 
-        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
-        DatabaseReference my_center = reference.child(id_center);//already found
-        DatabaseReference my_center_groups = my_center.child("groups");//already found or not
-        DatabaseReference my_group = my_center_groups.child(id_groubsp);// add new group
-
-        DatabaseReference my_student_group = my_group.child("student_group");
-        for (int i = 0; i < realmResults.size(); i++) {
-            DatabaseReference student = my_student_group.child(realmResults.get(i).getId_student());
+                    student_save.setValue(s);
 
 
-            DatabaseReference student_save = student.child("student_save").child(String.valueOf(realmResults.get(i).getTime_save()));
-            Student_data s = new Student_data(realmResults.get(i).getDate__student(), realmResults.get(i).getDay_student()
-                    , realmResults.get(i).getSave_student(), realmResults.get(i).getReview_student()
-                    , realmResults.get(i).getAttendess_student(), realmResults.get(i).getCounnt_page_save(), realmResults.get(i).getCounnt_page_review()
-                    , realmResults.get(i).getMonth_save(), realmResults.get(i).getYear_save(), realmResults.get(i).getTime_save(), realmResults.get(i).getId_student(), realmResults.get(i).getDate__student(), realmResults.get(i).getId_group());
-
-            student_save.setValue(s);
-
-
+                }
+            }
         }
-        realm.close();
-        realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
-        realm.delete(Student_data_cash.class);
-        realm.commitTransaction();
-        realm.close();
 //            startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
     }
@@ -118,12 +110,11 @@ public class TeacherLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
         editor = sp.edit();
-        Realm.init(getBaseContext());
-        realm = Realm.getDefaultInstance();
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
 
 
-        final RealmResults<Group_Info> realmResults = realm.where(Group_Info.class).findAll();
-        if (!realmResults.isEmpty()) {
+        final List<Group_Info> group_infos = dataBaseItems.getAllGroup_Info();
+        if (group_infos != null) {
             if (checkInternet()) {
 
 
@@ -261,52 +252,43 @@ public class TeacherLogin extends AppCompatActivity {
                 Group_Info g = snapshot.child("group_info").getValue(Group_Info.class);
 
                 if (g != null) {
-                    realm = Realm.getDefaultInstance();
-                    if (!realm.isInTransaction())
-                        realm.beginTransaction();
-                    realm.insertOrUpdate(g);
-                    realm.commitTransaction();
-                    realm.close();
+
+                        dataBaseItems.insertObjectToDataToRealm(g, Group_Info.class);
+
                 }
-                final RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();
+                final List<Student_Info> studentInfos = dataBaseItems.getAllStudentInfo();
+                if (studentInfos != null) {
+                    DataSnapshot snapshot_std = snapshot.child("student_group");
 
-                DataSnapshot snapshot_std = snapshot.child("student_group");
+                    if (snapshot_std.getChildrenCount() > studentInfos.size()) {
+                        for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
+                            Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
 
-                if (snapshot_std.getChildrenCount() > realmResults.size()) {
-                    for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
-                        Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
+                            if (s != null) {
 
-                        if (s != null) {
+                                    dataBaseItems.insertObjectToDataToRealm(s, Student_Info.class);
 
-                            realm = Realm.getDefaultInstance();
-                            if (!realm.isInTransaction())
-                                realm.beginTransaction();
-                            realm.insertOrUpdate(s);
-                            realm.commitTransaction();
-                            realm.close();
-                        }
-
-                        DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
-
-                        for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
-                            Student_data student_data = snapshot2.getValue(Student_data.class);
-
-                            if (student_data != null) {
-                                realm = Realm.getDefaultInstance();
-                                if (!realm.isInTransaction())
-                                    realm.beginTransaction();
-                                realm.insertOrUpdate(student_data);
-                                realm.commitTransaction();
-                                realm.close();
                             }
+
+                            DataSnapshot dataSnapshot1 = snapshot1.child("student_save");
+
+                            for (DataSnapshot snapshot2 : dataSnapshot1.getChildren()) {
+                                Student_data student_data = snapshot2.getValue(Student_data.class);
+
+                                if (student_data != null) {
+
+                                        dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
+
+                                }
+                            }
+
+
                         }
-
-
                     }
                 }
-
                 reference.removeEventListener(this);
                 finish();
+
                 startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
             }

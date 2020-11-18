@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CenterUser;
 import com.example.quranprojectdemo.Other.CheckInternet;
 import com.example.quranprojectdemo.Other.Group_Info;
@@ -33,8 +34,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
+import java.util.List;
+
 
 public class QuranCenter_Login extends AppCompatActivity {
     public static final String ID_CENTER_LOGIN = "id_center_log";
@@ -51,7 +52,7 @@ public class QuranCenter_Login extends AppCompatActivity {
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     private CenterUser user;
-    Realm realm;
+    RealmDataBaseItems dataBaseItems;
 
     private boolean checkInternet() {
         CheckInternet checkInternet;
@@ -75,52 +76,38 @@ public class QuranCenter_Login extends AppCompatActivity {
 
                     Group_Info g = dataSnapshot.child("group_info").getValue(Group_Info.class);
                     if (g != null) {
-                        realm = Realm.getDefaultInstance();
-                        if (!realm.isInTransaction())
-                            realm.beginTransaction();
-                        realm.insertOrUpdate(g);
-                        realm.commitTransaction();
-                        realm.close();
+
+                            dataBaseItems.insertObjectToDataToRealm(g, Group_Info.class);
+
                     }
 
                     DataSnapshot snapshot_std = dataSnapshot.child("student_group");
 //                    RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).findAll();/// this is
 //                    if (snapshot_std.getChildrenCount() > realmResults.size()) {
-                        for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
-                            Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
-                            if (s != null) {
-                                Log.d("re", s.getEmail() + " ! ");
-                                realm = Realm.getDefaultInstance();
-                                if (!realm.isInTransaction())
-                                    realm.beginTransaction();
-                                realm.insertOrUpdate(s);
-                                realm.commitTransaction();
-                                realm.close();
-                            }
+                    for (DataSnapshot snapshot1 : snapshot_std.getChildren()) {
+                        Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
+                        if (s != null) {
+
+                                dataBaseItems.insertObjectToDataToRealm(s,Student_Info.class);
+
                         }
+                    }
 //                    }
                     for (DataSnapshot snapshot2 : snapshot_std.getChildren()) {
                         DataSnapshot dataSnapshot1 = snapshot2.child("student_save");
-//                        RealmResults<Student_data> results = realm.where(Student_data.class)
-//                                .equalTo("id_student", snapshot2.getKey()).and().equalTo
-//                                        ("id_group",
-//                                                dataSnapshot.getKey()).findAll();/// this is
-//                        Log.d("hhh", snapshot2.getKey() + " ! ");
-//                        Log.d("hhh", snapshot2.getKey() + " ! ");
-//                        Log.d("hhh", snapshot2.getKey() + " ! ");
+                        List<Student_data> studentDataList = dataBaseItems.getStudentData(dataSnapshot.getKey(), snapshot2.getKey());
+
+
 //
 //                        if (dataSnapshot1.getChildrenCount() > results.size()) {
-                            Student_data data = dataSnapshot1.getValue(Student_data.class);
-                            if (data != null) {
+                        Student_data data = dataSnapshot1.getValue(Student_data.class);
+                        if (data != null) {
 
-                                realm = Realm.getDefaultInstance();
-                                if (!realm.isInTransaction())
-                                    realm.beginTransaction();
-                                realm.insertOrUpdate(data);
-                                realm.commitTransaction();
-                                realm.close();
-                            }
+
+                                dataBaseItems.insertObjectToDataToRealm(data,Student_data.class);
+
                         }
+                    }
 //                    }
 
 
@@ -144,26 +131,26 @@ public class QuranCenter_Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Realm.init(getBaseContext());
         setContentView(R.layout.activity_quran_center__login);
         mAuth = FirebaseAuth.getInstance();
-        realm = Realm.getDefaultInstance();
-//        if (!realm.isInTransaction())
-//            realm.beginTransaction();
-        RealmResults<CenterUser> realmResults = realm.where(CenterUser.class).findAll();
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+//        String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
 
-        if (!realmResults.isEmpty()) {
-            sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+        List<CenterUser> centerUserList = dataBaseItems.getAllCenterUser();
+        if (centerUserList != null) {
+            if (!centerUserList.isEmpty()) {
+                Log.d("vvvv", centerUserList.size() + " 3033");
+                sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
 
-            String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
 
-//            realm.close();
-            if (checkInternet()) {
+                if (checkInternet()) {
 
-                getGroups_Student_Saves();
+                    getGroups_Student_Saves();
+                }
             }
-
         } else {
+
+//            getInRealTimeUsers(id_center);
 //            startActivity(new Intent(getBaseContext(), Main_center.class));
 //            finish();
         }
@@ -298,12 +285,11 @@ public class QuranCenter_Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 CenterUser value = snapshot.getValue(CenterUser.class);
                 Log.w("TAG", value.getEmail() + "***");
-                realm = Realm.getDefaultInstance();
-                if (!realm.isInTransaction())
-                    realm.beginTransaction();
-                realm.insertOrUpdate(value);
-                realm.commitTransaction();
-                realm.close();
+
+                    dataBaseItems.insertObjectToDataToRealm (value,CenterUser.class);
+
+
+                Log.d("ffff", value.getAddress() + " rr ");
                 getGroups_Student_Saves();
 
 
