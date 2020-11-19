@@ -44,20 +44,20 @@ public class SplashScreen extends AppCompatActivity {
         check_student= sp.getInt(Main_student.CHECK_REG_STUDENT_ID,0);
 
 
-        if (check_center==1){
-            Intent intent=new Intent(getBaseContext(),QuranCenter_Login.class);
-            startActivity(intent);
-        }else if (check_teacher==1){
-            Intent intent=new Intent(getBaseContext(),TeacherLogin.class);
-            startActivity(intent);
-        }else if (check_student==1){
-            Intent intent=new Intent(getBaseContext(),GuardianLogin.class);
-            startActivity(intent);
-        }else {
-
+//        if (check_center==1){
+//            Intent intent=new Intent(getBaseContext(),QuranCenter_Login.class);
+//            startActivity(intent);
+//        }else if (check_teacher==1){
+//            Intent intent=new Intent(getBaseContext(),TeacherLogin.class);
+//            startActivity(intent);
+//        }else if (check_student==1){
+//            Intent intent=new Intent(getBaseContext(),GuardianLogin.class);
+//            startActivity(intent);
+//        }else {
+//
             blink(tv_Title);
-
-
+//
+//
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -65,7 +65,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 }
             }, 500);
-        }
+//        }
         setLocale("ar");
 
 

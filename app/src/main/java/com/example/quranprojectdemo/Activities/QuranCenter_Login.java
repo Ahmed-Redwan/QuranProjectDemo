@@ -77,7 +77,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                     Group_Info g = dataSnapshot.child("group_info").getValue(Group_Info.class);
                     if (g != null) {
 
-                            dataBaseItems.insertObjectToDataToRealm(g, Group_Info.class);
+                        dataBaseItems.insertObjectToDataToRealm(g, Group_Info.class);
 
                     }
 
@@ -88,23 +88,26 @@ public class QuranCenter_Login extends AppCompatActivity {
                         Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
                         if (s != null) {
 
-                                dataBaseItems.insertObjectToDataToRealm(s,Student_Info.class);
+                            dataBaseItems.insertObjectToDataToRealm(s, Student_Info.class);
 
                         }
                     }
 //                    }
                     for (DataSnapshot snapshot2 : snapshot_std.getChildren()) {
                         DataSnapshot dataSnapshot1 = snapshot2.child("student_save");
-                        List<Student_data> studentDataList = dataBaseItems.getStudentData(dataSnapshot.getKey(), snapshot2.getKey());
+//                        List<Student_data> studentDataList = dataBaseItems.getStudentData(dataSnapshot.getKey(), snapshot2.getKey());
 
 
 //
 //                        if (dataSnapshot1.getChildrenCount() > results.size()) {
-                        Student_data data = dataSnapshot1.getValue(Student_data.class);
-                        if (data != null) {
+                        int count = (int) dataSnapshot1.getChildrenCount();
+                        if (count > 0) {
+                            for (DataSnapshot snapshot1 : dataSnapshot1.getChildren()) {
+                                Student_data data = snapshot1.getValue(Student_data.class);
+                                dataBaseItems.insertObjectToDataToRealm(data, Student_data.class);
 
+                            }
 
-                                dataBaseItems.insertObjectToDataToRealm(data,Student_data.class);
 
                         }
                     }
@@ -286,7 +289,7 @@ public class QuranCenter_Login extends AppCompatActivity {
                 CenterUser value = snapshot.getValue(CenterUser.class);
                 Log.w("TAG", value.getEmail() + "***");
 
-                    dataBaseItems.insertObjectToDataToRealm (value,CenterUser.class);
+                dataBaseItems.insertObjectToDataToRealm(value, CenterUser.class);
 
 
                 Log.d("ffff", value.getAddress() + " rr ");

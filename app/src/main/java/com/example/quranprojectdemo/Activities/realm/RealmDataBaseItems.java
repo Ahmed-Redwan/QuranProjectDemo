@@ -113,6 +113,7 @@ public class RealmDataBaseItems {
                     .equalTo("id_Student", id_student)
                     .and().equalTo("id_group", id_group)
                     .findFirst();
+
             student_info = realm.copyFromRealm(student_info);
 
         } catch (Exception e) {
@@ -128,7 +129,7 @@ public class RealmDataBaseItems {
     public List<Student_data> getStudentData(String idGroup, String idStudent) {
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
-        List<Student_data> list = new ArrayList<>();
+        List<Student_data> list;
         try {
             RealmResults realmResults = realm.where(Student_data.class)
                     .equalTo("id_student", idStudent).and().equalTo
@@ -186,7 +187,7 @@ public class RealmDataBaseItems {
 
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
-        List<Student_data_cash> list = new ArrayList<>();
+        List<Student_data_cash> list;
         try {
             RealmResults realmResults = realm.where(Student_data_cash.class).findAll();/// this is
             list = realm.copyFromRealm(realmResults);
@@ -211,7 +212,7 @@ public class RealmDataBaseItems {
                                              int date_month, String id_student, String id_group) {
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
-        List<Student_data> list = new ArrayList<>();
+        List<Student_data> list ;
         try {
             RealmResults realmResults = realm.where(Student_data.class)
                     .equalTo("year_save", date_year).
@@ -233,7 +234,7 @@ public class RealmDataBaseItems {
     public List<Student_data> getAllStudent_data(int date_year, int date_month) {
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
-        List<Student_data> list = new ArrayList<>();
+        List<Student_data> list  ;
         try {
             RealmResults realmResults = realm.where(Student_data.class).equalTo("year_save", date_year).
                     and().equalTo("month_save", date_month).findAll();
@@ -281,4 +282,18 @@ public class RealmDataBaseItems {
         realm.commitTransaction();
         realm.close();
     }
+
+    public boolean idNumberFound(String idNumber) {
+        Realm.init(this.context);
+        realm = Realm.getDefaultInstance();
+        boolean isFound;
+        isFound = realm.where(Student_Info.class)
+                .contains("id_number", idNumber).findAll().isEmpty();
+
+
+        if (!realm.isClosed())
+            realm.close();
+        return !isFound;
+    }
+
 }

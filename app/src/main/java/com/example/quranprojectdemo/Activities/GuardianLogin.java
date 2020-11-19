@@ -79,7 +79,7 @@ public class GuardianLogin extends AppCompatActivity {
                         if (d.getTime_save() > time) {
 
 
-                                dataBaseItems.insertObjectToDataToRealm(d,Student_data.class);
+                            dataBaseItems.insertObjectToDataToRealm(d, Student_data.class);
 
                         }
                     }
@@ -112,15 +112,16 @@ public class GuardianLogin extends AppCompatActivity {
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Student_data std = dataSnapshot.getValue(Student_data.class);
+                    int count = (int) dataSnapshot.getChildrenCount();
 
-                    if (std != null) {
+                    if (count > 0) {
 
 //                        if (realm.where(Student_data.class).findAll().isEmpty()) {
-//                        Log.d("er",dataSnapshot.getKey());
-
-
-                            dataBaseItems.insertObjectToDataToRealm(std,Student_data.class);
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Student_data std = snapshot.getValue(Student_data.class);
+                            dataBaseItems.insertObjectToDataToRealm(std, Student_data.class);
+                            Log.d("vvvv",std.getTime_save()+"");
+                        }
 
 //                            reference.removeEventListener(this);
 //                        } else if (query.longValue() < Long.parseLong(dataSnapshot.getKey())) {
@@ -166,11 +167,10 @@ public class GuardianLogin extends AppCompatActivity {
         tv_Login = findViewById(R.id.GuardianLogin_tv_login);
         et_Email = findViewById(R.id.GuardianLogin_et_EmailOrphone);
         List<Student_Info> studentInfos = dataBaseItems.getAllStudentInfo();
-        if (studentInfos != null) {
-            if (!studentInfos.isEmpty()) {
-                get_student_save();
-                startActivity(new Intent(getBaseContext(), Main_student.class));
-            }
+        if (studentInfos != null && !studentInfos.isEmpty()) {
+            get_student_save();
+            startActivity(new Intent(getBaseContext(), Main_student.class));
+
         } else {
             /*   فحص هل الجدزل تاع الطالب مليان ولا فاضي ؟  اذا فاضي روح ع اللوج ان دغري , اذا مليان روح ع الفحص و بعدين روح  ع المين ستيودنت   */
 
@@ -294,7 +294,7 @@ public class GuardianLogin extends AppCompatActivity {
 
                 if (studentInfo != null) {
 
-                        dataBaseItems.insertObjectToDataToRealm(studentInfo,Student_Info.class);
+                    dataBaseItems.insertObjectToDataToRealm(studentInfo, Student_Info.class);
 
 
                 }

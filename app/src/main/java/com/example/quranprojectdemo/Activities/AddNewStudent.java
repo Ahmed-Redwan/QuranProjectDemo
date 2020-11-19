@@ -109,6 +109,15 @@ public class AddNewStudent extends AppCompatActivity {
                     et_Grade.setError("يجب تعبئة جميع الحقول.");
                     return;
                 }
+                if (!et_studentId.getText().toString().isEmpty()) {
+                    if (dataBaseItems.idNumberFound(et_studentId.getText().toString())) {
+                        et_studentId.setText(null);
+                        et_studentId.setError("رقم الهوية مستخدم ");
+                        FancyToast.makeText(getBaseContext(), "رقم الهوية مستخدم ادخل رقم اخر",   FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                        return;
+                    }
+
+                }
                 sign_up();
 
             }
@@ -166,9 +175,7 @@ public class AddNewStudent extends AppCompatActivity {
 
     }
 
-    public void create_new_student(Student_Info info, String id_student, String id_groub1, String id_center)
-
-        {
+    public void create_new_student(Student_Info info, String id_student, String id_groub1, String id_center) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference center = reference.child(id_center);//already found
@@ -181,7 +188,7 @@ public class AddNewStudent extends AppCompatActivity {
         DatabaseReference student_info = new_student.child("student_info");
         student_info.setValue(info);
         if (info != null) {
-            dataBaseItems.copyObjectToDataToRealm(info,Student_Info.class);
+            dataBaseItems.copyObjectToDataToRealm(info, Student_Info.class);
         } else Toast.makeText(getBaseContext(), "لم تتم الاضافة بنجاح", Toast.LENGTH_SHORT).show();
 
     }
@@ -216,7 +223,7 @@ public class AddNewStudent extends AppCompatActivity {
                         et_Grade.getText().toString(),
                         et_Day.getText().toString(), null, id_center, id_group, auto_student_id);
 
-                    create_new_student(s, auto_student_id, id_group, id_center);
+                create_new_student(s, auto_student_id, id_group, id_center);
 
                 updatename(user, id_center, id_group, auto_student_id);
                 save_new_id_group(val, id_center, id_group);

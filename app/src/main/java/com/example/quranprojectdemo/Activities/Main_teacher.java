@@ -138,7 +138,7 @@ public class Main_teacher extends AppCompatActivity {
             toolbar_teacher.setTitle("حلقة " + val.getGroup_name());
             tv_teacher_count_student.setText(val.getAuto_sutdent_id());
 //        RealmQuery<Student_Info> query1 = realm.where(Student_Info.class);
-            finishAffinity();
+//            finishAffinity();
 
 
         }

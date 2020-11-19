@@ -42,13 +42,12 @@ public class TeacherLogin extends AppCompatActivity {
     public static final String INFO_TEACHER = "info_tet";
     public static final String ID_LOGIN_TEACHER = "tet_id";
     public static final String ID_LOGIN_TEC_CENTER = "tet_log_center_id";
-    TextView tv_Login, tv_iDontHaveAnAccount, tv_NewAccount;
+    TextView tv_Login;
     EditText et_Email, et_password;
     Button btn_Login;
     public FirebaseAuth mAuth;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    Group_Info group_info;
     CheckInternet checkInternet;
 
     private CheckBox saveLoginCheckBox;
@@ -115,18 +114,20 @@ public class TeacherLogin extends AppCompatActivity {
 
         final List<Group_Info> group_infos = dataBaseItems.getAllGroup_Info();
         if (group_infos != null) {
-            if (checkInternet()) {
+            if (!group_infos.isEmpty()) {
+                if (checkInternet()) {
 
 
-                upload_save_to_firaBase();
-                getGroups_Student_Saves();
+                    upload_save_to_firaBase();
+                    getGroups_Student_Saves();
 
 
-            } else {
-                startActivity(new Intent(getBaseContext(), Main_teacher.class));
-                finish();
+                } else {
+                    startActivity(new Intent(getBaseContext(), Main_teacher.class));
+                    finish();
 
 
+                }
             }
 //            startActivity(new Intent(getBaseContext(), Main_teacher.class));
         }
@@ -253,7 +254,7 @@ public class TeacherLogin extends AppCompatActivity {
 
                 if (g != null) {
 
-                        dataBaseItems.insertObjectToDataToRealm(g, Group_Info.class);
+                    dataBaseItems.insertObjectToDataToRealm(g, Group_Info.class);
 
                 }
                 final List<Student_Info> studentInfos = dataBaseItems.getAllStudentInfo();
@@ -266,7 +267,7 @@ public class TeacherLogin extends AppCompatActivity {
 
                             if (s != null) {
 
-                                    dataBaseItems.insertObjectToDataToRealm(s, Student_Info.class);
+                                dataBaseItems.insertObjectToDataToRealm(s, Student_Info.class);
 
                             }
 
@@ -277,7 +278,7 @@ public class TeacherLogin extends AppCompatActivity {
 
                                 if (student_data != null) {
 
-                                        dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
+                                    dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
 
                                 }
                             }
