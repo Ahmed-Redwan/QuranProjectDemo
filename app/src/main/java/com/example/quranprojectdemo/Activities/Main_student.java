@@ -212,8 +212,10 @@ public class Main_student extends AppCompatActivity {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 list_spinner_year.add("اختر السنة");
-
-                int[] maxMin = dataBaseItems.getMaxMinStudentData(0);
+//
+                String typeName[] = {};
+                String value[] = {};
+                int[] maxMin = dataBaseItems.getMaxAndMinValue("year_save", typeName, value, Student_data.class);
                 for (int i = maxMin[0]; i <= maxMin[1]; i++) {
 
                     list_spinner_year.add(i + "");
@@ -233,13 +235,19 @@ public class Main_student extends AppCompatActivity {
 
                             Toast.makeText(Main_student.this, "من فضلك اختر السنة", Toast.LENGTH_SHORT).show();
                         } else {
+                            final String year = (String) parent.getItemAtPosition(position);
 
-                            final int year = Integer.parseInt((String) parent.getItemAtPosition(position));
-                            int x = dataBaseItems.getMaxMinStudentData(year)[2];
+                            String typeName[] = {"year_save"};
+                            String value[] = {year};
+                            int[] maxMin = dataBaseItems.getMaxAndMinValue("month_save", typeName, value, Student_data.class);
+                            int max = maxMin[1];
+                            int min = maxMin[0];
+
+//                            int x = dataBaseItems.getMaxMinStudentData(year)[2];
                             list_spinner_month.clear();
                             list_spinner_month.add("اختر الشهر");
 
-                            for (int i = 1; i <= x; i++) {
+                            for (int i = 1; i <= max; i++) {
                                 list_spinner_month.add("" + i);
 
 
