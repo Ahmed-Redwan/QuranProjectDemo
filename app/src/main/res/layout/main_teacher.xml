@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Main_teacher"
+    tools:context=".activities.mainActivity.Main_teacher"
     android:fitsSystemWindows="true"
     android:background= "#E3E9EF"
     >

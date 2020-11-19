@@ -19,26 +19,26 @@
 
 
 
-        <activity android:name=".Activities.Reperts_pdf" />
-        <activity android:name=".Activities.AboutApp" />
-        <activity android:name=".Activities.JoinRequests" />
-        <activity android:name=".Activities.StudentDetails" />
-        <activity android:name=".Activities.Add_a_new_save" />
-        <activity android:name=".Activities.AddNewStudent" />
-        <activity android:name=".Activities.AddNewGroup" />
-        <activity android:name=".Activities.Main_student" />
-        <activity android:name=".Activities.Main_teacher" />
-        <activity android:name=".Activities.GuardianLogin" />
-        <activity android:name=".Activities.TeacherLogin" />
-        <activity android:name=".Activities.QuranCenter_Login" />
-        <activity android:name=".Activities.QuranCenter_Reg" />
-        <activity android:name=".Activities.RegisterAs">
+        <activity android:name=".activities.otherActivity.Reperts_pdf" />
+        <activity android:name=".activities.otherActivity.AboutApp" />
+        <activity android:name=".activities.joinRequsers.JoinRequests" />
+        <activity android:name=".activities.showDetails.StudentDetails" />
+        <activity android:name=".activities.registrar.Add_a_new_save" />
+        <activity android:name=".activities.registrar.AddNewStudent" />
+        <activity android:name=".activities.registrar.AddNewGroup" />
+        <activity android:name=".activities.mainActivity.Main_student" />
+        <activity android:name=".activities.mainActivity.Main_teacher" />
+        <activity android:name=".activities.logIn.GuardianLogin" />
+        <activity android:name=".activities.logIn.TeacherLogin" />
+        <activity android:name=".activities.logIn.QuranCenter_Login" />
+        <activity android:name=".activities.registrar.QuranCenter_Reg" />
+        <activity android:name=".activities.registrar.RegisterAs">
 
         </activity>
 
 
         <activity
-            android:name=".Activities.SplashScreen"
+            android:name=".activities.otherActivity.SplashScreen"
             android:configChanges="locale" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,13 +53,13 @@
             <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
         </intent-filter>
         </service>
-        <activity android:name=".Activities.Main_center" />
-        <activity android:name=".Activities.JoinRequest1" />
-        <activity android:name=".Activities.JoinRequest2" />
-        <activity android:name=".Activities.Reprts"></activity>
-        <activity android:name=".Activities.JoinRequest3" />
-        <activity android:name=".Activities.Show_group_student" />
-        <activity android:name=".Activities.ShowmeMorizationLoops" />
+        <activity android:name=".activities.mainActivity.Main_center" />
+        <activity android:name=".activities.joinRequsers.JoinRequest1" />
+        <activity android:name=".activities.joinRequsers.JoinRequest2" />
+        <activity android:name=".activities.otherActivity.Reprts"></activity>
+        <activity android:name=".activities.joinRequsers.JoinRequest3" />
+        <activity android:name=".activities.showDetails.Show_group_student" />
+        <activity android:name=".activities.showDetails.ShowmeMorizationLoops" />
 
         <meta-data
             android:name="preloaded_fonts"

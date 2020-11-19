@@ -1,0 +1,219 @@
+package com.example.quranprojectdemo.activities.mainActivity;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.quranprojectdemo.activities.otherActivity.AboutApp;
+import com.example.quranprojectdemo.activities.joinRequsers.JoinRequests;
+import com.example.quranprojectdemo.activities.showDetails.ShowmeMorizationLoops;
+import com.example.quranprojectdemo.activities.registrar.QuranCenter_Reg;
+import com.example.quranprojectdemo.activities.logIn.QuranCenter_Login;
+import com.example.quranprojectdemo.realm.RealmDataBaseItems;
+import com.example.quranprojectdemo.models.centers.CenterUser;
+import com.example.quranprojectdemo.recyclerView.group.CustomGroupRecyclerView2;
+import com.example.quranprojectdemo.models.groups.Group;
+import com.example.quranprojectdemo.models.groups.Group_Info;
+import com.example.quranprojectdemo.models.students.Student_Info;
+import com.example.quranprojectdemo.R;
+import com.example.quranprojectdemo.activities.registrar.AddNewGroup;
+import com.example.quranprojectdemo.activities.registrar.RegisterAs;
+import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import static com.example.quranprojectdemo.activities.logIn.QuranCenter_Login.INFO_CENTER_LOGIN;
+
+public class Main_center extends AppCompatActivity {
+
+    public static final String CHECK_REG_CENTER = "check_center";
+    public static final String CHECK_REG_CENTER_ID = "check_center_id";
+    public Toolbar toolbar_center;
+    ImageView image_center;
+    TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
+    SharedPreferences sp;
+    private String centerId;
+
+    private SharedPreferences.Editor editor;
+    RecyclerView.LayoutManager layoutManager;
+    CustomGroupRecyclerView2 customGroupRecyclerView2;
+    RecyclerView recyclerView;
+
+    RecyclerView rv_List;
+
+    ArrayList<Group> data;
+    RealmDataBaseItems dataBaseItems;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        getInRealTimeUsers();
+        getGroups(centerId);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_center);
+        data = new ArrayList<>();
+        tv_center_name = findViewById(R.id.center_main_tv_name_center);
+        tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
+        tv_center_phone = findViewById(R.id.center_main_tv_phone);
+        tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
+        tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
+        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        recyclerView = findViewById(R.id.mainCenter_rv);
+
+        if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
+            sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
+            centerId = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
+
+        } else {
+            centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+        }
+
+        sp = getSharedPreferences(CHECK_REG_CENTER, MODE_PRIVATE);
+        editor = sp.edit();
+        editor.putInt(CHECK_REG_CENTER_ID, 1);
+        editor.commit();
+
+
+        toolbar_center = findViewById(R.id.center_main_tool);
+        toolbar_center.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.MenuCentreHomeAddGroub:
+                        startActivity(new Intent(getBaseContext(), AddNewGroup.class));
+
+                        return true;
+//                    case R.id.MenuCentreHomeAddStudent:
+//                        startActivity(new Intent(getBaseContext(), AddNewStudent.class));
+//                        return true;
+                    case R.id.MenuCentreHomeShowInfo:
+                        startActivity(new Intent(getBaseContext(), ShowmeMorizationLoops.class));
+                        return true;
+                    case R.id.MenuCentreHomeRequestsList:
+                        startActivity(new Intent(getBaseContext(), JoinRequests.class).putExtra("CenterId", centerId));
+                        return true;
+                    case R.id.MenuCenterHomeExit:
+                        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+                        editor = sp.edit();
+                        editor.clear();
+                        editor.commit();
+                        sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
+                        editor = sp.edit();
+                        editor.clear();
+                        editor.commit();
+
+                        sp = getSharedPreferences(Main_center.CHECK_REG_CENTER, MODE_PRIVATE);
+                        editor = sp.edit();
+                        editor.clear();
+                        editor.commit();
+
+                        dataBaseItems.deleteAllData();
+                        FancyToast.makeText(getBaseContext(), "تم تسجيل الخروج.", FancyToast.LENGTH_LONG, FancyToast.DEFAULT, false).show();
+                        finish();
+                        startActivity(new Intent(getBaseContext(), RegisterAs.class));
+
+                        return true;
+                    case R.id.MenuCenterHomeSettings:
+                        return true;
+                    case R.id.MenuCenterHomeAbout:
+                        startActivity(new Intent(getBaseContext(), AboutApp.class));
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        TextView_EditFont(tv_center_count_ring, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_count_student, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_name, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_name_maneger, "Hacen_Tunisia.ttf");
+        TextView_EditFont(tv_center_phone, "Hacen_Tunisia.ttf");
+
+
+    }
+
+    //change font type for textview.
+    public void TextView_EditFont(TextView textView, String path) {
+        textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
+    }
+
+
+    public void getInRealTimeUsers() {
+
+
+        List<CenterUser> centerUserList = dataBaseItems.getAllDataFromRealm(CenterUser.class    );
+        if (centerUserList != null) {
+            CenterUser value = centerUserList.get(0);
+
+            List<Student_Info> studentInfos = dataBaseItems.getAllDataFromRealm(Student_Info.class);
+            if (studentInfos != null) {
+                tv_center_count_ring.setText("عدد الحلقات : " + value.getAuto_id_group());
+
+
+                if (studentInfos.isEmpty()) {
+                    tv_center_count_student.setText("عدد طلاب المركز:" + "0");
+                } else {
+                    tv_center_count_student.setText("عدد طلاب المركز:" + studentInfos.size());
+
+
+                }
+
+
+                tv_center_name.setText("مركز:" + value.getCenterName());
+                tv_center_name_maneger.setText("مدير المركز:" + value.getManagerName());
+                tv_center_phone.setText("هاتف:" + value.getPhone());
+                toolbar_center.setTitle("مركز:" + value.getCenterName());
+
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+
+
+    }
+
+    public void getGroups(final String id_center) {
+
+        List<Group_Info> group_infos = dataBaseItems.getAllDataFromRealm(Group_Info.class);
+        data.clear();
+        if (group_infos != null) {
+            for (int i = 0; i < group_infos.size(); i++) {
+                String id_group = group_infos.get(i).getGroup_id();
+                Log.d("dre", id_group + " ! ");
+                String name_group = group_infos.get(i).getGroup_name();
+                String name_tech = group_infos.get(i).getTeacher_name();
+                data.add(new Group(R.drawable.arabian, name_group, name_tech, id_group, id_center));
+            }
+
+            layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+            customGroupRecyclerView2 = new CustomGroupRecyclerView2(data, getBaseContext());
+            recyclerView.setAdapter(customGroupRecyclerView2);
+            recyclerView.setLayoutManager(layoutManager);
+            customGroupRecyclerView2.notifyDataSetChanged();
+            recyclerView.setHasFixedSize(true);
+        }
+
+    }
+
+}

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.QuranCenter_Reg"
+    tools:context=".activities.registrar.QuranCenter_Reg"
     android:orientation="vertical"
     android:background="#E3E9EF">
 
