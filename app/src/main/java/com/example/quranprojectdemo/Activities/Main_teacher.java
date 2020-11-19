@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Activities.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.Other.CustomStudentRecyclerView2;
+import com.example.quranprojectdemo.Other.Group;
 import com.example.quranprojectdemo.Other.Group_Info;
 import com.example.quranprojectdemo.Other.Recycler_show_group_student;
 import com.example.quranprojectdemo.Other.Student_Info;
@@ -129,7 +130,7 @@ public class Main_teacher extends AppCompatActivity {
 
     public void getInfoTeacher() {
 
-        Group_Info val = dataBaseItems.getAllGroup_Info().get(0);
+        Group_Info val = (Group_Info) dataBaseItems.getAllDataFromRealm(Group_Info.class).get(0);
         if (val != null) {
 
             tv_teacher_name.setText("المحفظ " + val.getTeacher_name());
@@ -156,8 +157,10 @@ public class Main_teacher extends AppCompatActivity {
 
         student_infos = new ArrayList<>();
 
-
-        List<Student_Info> studentInfos = dataBaseItems.getStudentInfo(sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "1"));
+        //id_group
+        String typeName[] = {"id_group"};
+        String value[] = {sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "1")};
+        List<Student_Info> studentInfos = dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class);
         if (studentInfos != null) {
             student_infos.clear();
 

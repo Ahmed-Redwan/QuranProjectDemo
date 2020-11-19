@@ -71,7 +71,7 @@ public class TeacherLogin extends AppCompatActivity {
         String id_center = sp.getString(ID_LOGIN_TEC_CENTER, "-1");
         String id_groubsp = sp.getString(ID_LOGIN_TEACHER, "-1");
 
-        List<Student_data_cash> data_cashes = dataBaseItems.getAllStudent_data_cash();
+        List<Student_data_cash> data_cashes = dataBaseItems.getAllDataFromRealm(Student_data_cash.class);
         if (data_cashes != null) {
             if (!data_cashes.isEmpty()) {
                 FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -90,7 +90,7 @@ public class TeacherLogin extends AppCompatActivity {
                     Student_data s = new Student_data(data_cashes.get(i).getDate__student(), data_cashes.get(i).getDay_student()
                             , data_cashes.get(i).getSave_student(), data_cashes.get(i).getReview_student()
                             , data_cashes.get(i).getAttendess_student(), data_cashes.get(i).getCounnt_page_save(), data_cashes.get(i).getCounnt_page_review()
-                            , data_cashes.get(i).getMonth_save(), data_cashes.get(i).getYear_save(), data_cashes.get(i).getTime_save(), data_cashes.get(i).getId_student(), data_cashes.get(i).getDate__student(), data_cashes.get(i).getId_group());
+                            , String.valueOf(data_cashes.get(i).getMonth_save()), String.valueOf(data_cashes.get(i).getYear_save()), data_cashes.get(i).getTime_save(), data_cashes.get(i).getId_student(), data_cashes.get(i).getDate__student(), data_cashes.get(i).getId_group());
 
                     student_save.setValue(s);
 
@@ -112,7 +112,7 @@ public class TeacherLogin extends AppCompatActivity {
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
 
 
-        final List<Group_Info> group_infos = dataBaseItems.getAllGroup_Info();
+        final List<Group_Info> group_infos = dataBaseItems.getAllDataFromRealm(Group_Info.class);
         if (group_infos != null) {
             if (!group_infos.isEmpty()) {
                 if (checkInternet()) {
@@ -257,7 +257,7 @@ public class TeacherLogin extends AppCompatActivity {
                     dataBaseItems.insertObjectToDataToRealm(g, Group_Info.class);
 
                 }
-                final List<Student_Info> studentInfos = dataBaseItems.getAllStudentInfo();
+                final List<Student_Info> studentInfos = dataBaseItems.getAllDataFromRealm(Student_Info.class);
                 if (studentInfos != null) {
                     DataSnapshot snapshot_std = snapshot.child("student_group");
 

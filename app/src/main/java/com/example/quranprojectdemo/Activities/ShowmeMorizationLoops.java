@@ -85,7 +85,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
 
     public void getGroups(final String id_center) {
 
-        List<Group_Info> group_infoList = dataBaseItems.getAllGroup_Info();
+        List<Group_Info> group_infoList = dataBaseItems.getAllDataFromRealm(Group_Info.class);
         if (group_infoList != null) {
             data.clear();
             for (int i = 0; i < group_infoList.size(); i++) {

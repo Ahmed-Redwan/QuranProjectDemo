@@ -179,7 +179,17 @@ public class StudentDetails extends AppCompatActivity {
 
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
-        List<Student_data> student_dataList = dataBaseItems.getStudentData(date_year, date_month, id_student, id_group);
+        String typeName[] = {"year_save", "month_save", "id_student", "id_group"};
+        String value[] = {String.valueOf(date_year), String.valueOf(date_month), id_student, id_group};
+        List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
+
+
+//                    .equalTo("year_save", date_year).
+//                            and().equalTo("month_save", date_month).and().equalTo("id_student", id_student)
+//                    .and().equalTo("id_group", id_group).findAll();
+
+
+//        List<Student_data> student_dataList = dataBaseItems.getStudentData(date_year, date_month, id_student, id_group);
         if (student_dataList != null) {
 
             recycler_student = new Recycler_student(student_dataList);
@@ -192,7 +202,10 @@ public class StudentDetails extends AppCompatActivity {
 
 
     public void getStudnetInfo(String id_student, String id_group) {
-        Student_Info student_info = dataBaseItems.getStudentInfo(id_student, id_group);
+        String typeName[] = {"id_group", "id_Student"};
+        String value[] = {id_group, id_student};
+
+        Student_Info student_info = (Student_Info) dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class).get(0);
         if (student_info != null) {
             Log.d("eer", id_center_c + " 0");
             Log.d("eer", id_group + " 2");

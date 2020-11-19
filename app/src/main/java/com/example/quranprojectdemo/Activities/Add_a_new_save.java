@@ -77,7 +77,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
         Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
+                Double.parseDouble(et_numOfRevPages.getText().toString()), String.valueOf(date_month), String.valueOf(date_year),
                 tt, id_student, date_now + id_student, id_groub);
         realm = Realm.getDefaultInstance();
         if (!realm.isInTransaction())
@@ -394,7 +394,7 @@ public class Add_a_new_save extends AppCompatActivity {
         String date_day = "Day : " + dayForamt.format(date);
         Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
+                Double.parseDouble(et_numOfRevPages.getText().toString()), String.valueOf(date_month), String.valueOf(date_year),
                 time, id_student, date_now + id_student, id_group);
         DatabaseReference student = my_student_group.child(id_student);
         DatabaseReference student_save = student.child("student_save").child(time + "");

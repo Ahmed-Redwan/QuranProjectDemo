@@ -186,8 +186,11 @@ public class Main_student extends AppCompatActivity {
 
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
+        String typeName[] = {"year_save", "month_save"};
+        String value[] = {String.valueOf(date_year), String.valueOf(date_month)};
+        List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
 
-        List<Student_data> student_dataList = dataBaseItems.getAllStudent_data(date_year, date_month);
+//        List<Student_data> student_dataList = dataBaseItems.getAllStudent_data(date_year, date_month);
         if (student_dataList != null) {
             Recycler_student r_s = new Recycler_student(student_dataList);
             rv.setAdapter(r_s);
@@ -262,7 +265,11 @@ public class Main_student extends AppCompatActivity {
                                         month = Integer.parseInt(parent.getItemAtPosition(position).toString());
                                     }
 
-                                    List<Student_data> student_dataList = dataBaseItems.getAllStudent_data(year, month);
+                                    String typeName[] = {"year_save", "month_save"};
+                                    String value[] = {String.valueOf(year), String.valueOf(month)};
+                                    List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
+
+//                                    List<Student_data> student_dataList = dataBaseItems.getAllStudent_data(year, month);
                                     if (student_dataList != null) {
 
                                         Recycler_student r_s = new Recycler_student(student_dataList);
@@ -299,7 +306,7 @@ public class Main_student extends AppCompatActivity {
 
 
     public void getStudnetInfo() {
-        Student_Info studentInfo = dataBaseItems.getAllStudentInfo().get(0);
+        Student_Info studentInfo = (Student_Info) dataBaseItems.getAllDataFromRealm(Student_Info.class).get(0);
         if (studentInfo != null) {
 
             tv_student_name.setText("الطالب " + studentInfo.getName());

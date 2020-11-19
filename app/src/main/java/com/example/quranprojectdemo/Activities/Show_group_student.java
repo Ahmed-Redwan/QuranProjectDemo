@@ -93,9 +93,10 @@ public class Show_group_student extends AppCompatActivity {
     }
 
     public void get_student_group() {
-
-        List<Student_Info> studentInfoList = dataBaseItems.getStudentInfo(id_group);
-        if (studentInfoList != null) {
+        String typeName[] = {"id_group"};
+        String value[] = {id_group};
+        List<Student_Info> studentInfoList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class);
+         if (studentInfoList != null) {
             arrayList.clear();
 
             for (int i = 0; i < studentInfoList.size(); i++) {

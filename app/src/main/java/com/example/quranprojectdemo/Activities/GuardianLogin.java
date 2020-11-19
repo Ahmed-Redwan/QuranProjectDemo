@@ -166,7 +166,7 @@ public class GuardianLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         tv_Login = findViewById(R.id.GuardianLogin_tv_login);
         et_Email = findViewById(R.id.GuardianLogin_et_EmailOrphone);
-        List<Student_Info> studentInfos = dataBaseItems.getAllStudentInfo();
+        List<Student_Info> studentInfos = dataBaseItems.getAllDataFromRealm(Student_Info.class);
         if (studentInfos != null && !studentInfos.isEmpty()) {
             get_student_save();
             startActivity(new Intent(getBaseContext(), Main_student.class));

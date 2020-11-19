@@ -153,11 +153,11 @@ public class Main_center extends AppCompatActivity {
     public void getInRealTimeUsers() {
 
 
-        List<CenterUser> centerUserList = dataBaseItems.getAllCenterUser();
+        List<CenterUser> centerUserList = dataBaseItems.getAllDataFromRealm(CenterUser.class    );
         if (centerUserList != null) {
             CenterUser value = centerUserList.get(0);
 
-            List<Student_Info> studentInfos = dataBaseItems.getAllStudentInfo();
+            List<Student_Info> studentInfos = dataBaseItems.getAllDataFromRealm(Student_Info.class);
             if (studentInfos != null) {
                 tv_center_count_ring.setText("عدد الحلقات : " + value.getAuto_id_group());
 
@@ -189,7 +189,7 @@ public class Main_center extends AppCompatActivity {
 
     public void getGroups(final String id_center) {
 
-        List<Group_Info> group_infos = dataBaseItems.getAllGroup_Info();
+        List<Group_Info> group_infos = dataBaseItems.getAllDataFromRealm(Group_Info.class);
         data.clear();
         if (group_infos != null) {
             for (int i = 0; i < group_infos.size(); i++) {

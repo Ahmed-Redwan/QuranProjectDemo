@@ -139,7 +139,7 @@ public class QuranCenter_Login extends AppCompatActivity {
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
 //        String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
 
-        List<CenterUser> centerUserList = dataBaseItems.getAllCenterUser();
+        List<CenterUser> centerUserList = dataBaseItems.getAllDataFromRealm(CenterUser.class);
         if (centerUserList != null) {
             if (!centerUserList.isEmpty()) {
                 Log.d("vvvv", centerUserList.size() + " 3033");

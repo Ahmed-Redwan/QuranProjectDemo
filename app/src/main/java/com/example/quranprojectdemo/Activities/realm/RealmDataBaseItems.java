@@ -9,14 +9,11 @@ import com.example.quranprojectdemo.Other.Student_Info;
 import com.example.quranprojectdemo.Other.Student_data;
 import com.example.quranprojectdemo.Other.Student_data_cash;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.internal.operators.observable.ObservableBlockingSubscribe;
 import io.realm.Realm;
 import io.realm.RealmModel;
-import io.realm.RealmObject;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
@@ -67,73 +64,14 @@ public class RealmDataBaseItems {
     }
 
 
-    public List<Student_Info> getAllStudentInfo() {
+    public <T> List<T> getAllDataFromRealm(Class classType) {
+        List<T> list;
+
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
-        List<Student_Info> list;
+
         try {
-            RealmResults realmResults = realm.where(Student_Info.class).findAll();/// this is
-            list = realm.copyFromRealm(realmResults);
-        } catch (Exception e) {
-
-            list = null;
-        }
-        if (!realm.isClosed())
-            realm.close();
-        return list;
-    }
-
-
-    public List<Student_Info> getStudentInfo(String idGroup) {
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        List<Student_Info> list = new ArrayList<>();
-        try {
-            RealmResults realmResults = realm.where(Student_Info.class)
-                    .equalTo("id_group", idGroup)
-                    .findAll();
-            list = realm.copyFromRealm(realmResults);
-
-        } catch (Exception e) {
-            list = null;
-
-        }
-
-        if (!realm.isClosed())
-            realm.close();
-        return list;
-    }
-
-    public Student_Info getStudentInfo(String id_student, String id_group) {
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        Student_Info student_info;
-        try {
-            student_info = realm.where(Student_Info.class)
-                    .equalTo("id_Student", id_student)
-                    .and().equalTo("id_group", id_group)
-                    .findFirst();
-
-            student_info = realm.copyFromRealm(student_info);
-
-        } catch (Exception e) {
-            student_info = null;
-
-        }
-
-        if (!realm.isClosed())
-            realm.close();
-        return student_info;
-    }
-
-    public List<Student_data> getStudentData(String idGroup, String idStudent) {
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        List<Student_data> list;
-        try {
-            RealmResults realmResults = realm.where(Student_data.class)
-                    .equalTo("id_student", idStudent).and().equalTo
-                            ("id_group", idGroup).findAll();/// this is
+            RealmResults realmResults = realm.where(classType).findAll();/// this is
             list = realm.copyFromRealm(realmResults);
 
         } catch (Exception e) {
@@ -145,109 +83,7 @@ public class RealmDataBaseItems {
         return list;
     }
 
-    public List<CenterUser> getAllCenterUser() {
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        List<CenterUser> list = new ArrayList<>();
-        try {
-            RealmResults realmResults = realm.where(CenterUser.class).findAll();/// this is
-            list = realm.copyFromRealm(realmResults);
-            Log.d("rrrr", "done");
 
-        } catch (Exception e) {
-            list = null;
-            Log.d("rrrr", "Not done");
-
-        }
-        if (!realm.isClosed())
-            realm.close();
-        return list;
-    }
-
-    public List<Group_Info> getAllGroup_Info() {
-        List<Group_Info> list = new ArrayList<>();
-
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-
-        try {
-            RealmResults realmResults = realm.where(Group_Info.class).findAll();/// this is
-            list = realm.copyFromRealm(realmResults);
-
-        } catch (Exception e) {
-            list = null;
-
-        }
-        if (!realm.isClosed())
-            realm.close();
-        return list;
-    }
-
-    public List<Student_data_cash> getAllStudent_data_cash() {
-
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        List<Student_data_cash> list;
-        try {
-            RealmResults realmResults = realm.where(Student_data_cash.class).findAll();/// this is
-            list = realm.copyFromRealm(realmResults);
-
-            realm = Realm.getDefaultInstance();
-            if (!realm.isInTransaction())
-                realm.beginTransaction();
-            realm.delete(Student_data_cash.class);
-            realm.commitTransaction();
-            realm.close();
-        } catch (Exception e) {
-            list = null;
-
-        }
-        if (!realm.isClosed())
-            realm.close();
-        return list;
-    }
-
-
-    public List<Student_data> getStudentData(int date_year,
-                                             int date_month, String id_student, String id_group) {
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        List<Student_data> list ;
-        try {
-            RealmResults realmResults = realm.where(Student_data.class)
-                    .equalTo("year_save", date_year).
-                            and().equalTo("month_save", date_month).and().equalTo("id_student", id_student)
-                    .and().equalTo("id_group", id_group).findAll();
-            list = realm.copyFromRealm(realmResults);
-
-        } catch (Exception e) {
-            list = null;
-
-        }
-        if (!realm.isClosed())
-            realm.close();
-
-        return list;
-    }
-
-
-    public List<Student_data> getAllStudent_data(int date_year, int date_month) {
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        List<Student_data> list  ;
-        try {
-            RealmResults realmResults = realm.where(Student_data.class).equalTo("year_save", date_year).
-                    and().equalTo("month_save", date_month).findAll();
-            list = realm.copyFromRealm(realmResults);
-
-        } catch (Exception e) {
-            list = null;
-
-        }
-        if (!realm.isClosed())
-            realm.close();
-        return list;
-    }
 
     public int[] getMaxMinStudentData(int year) {
         Realm.init(this.context);
@@ -282,6 +118,106 @@ public class RealmDataBaseItems {
         realm.commitTransaction();
         realm.close();
     }
+
+    public <T> List<T> getDataWithAndStatement(String[] nameType, String[] value, Class classType) {
+        int length = nameType.length;
+        Realm.init(this.context);
+        realm = Realm.getDefaultInstance();
+        List<T> list;
+        RealmResults realmResults;
+        try {
+
+            switch (length) {
+                case 1:
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).findAll();
+                    list = realm.copyFromRealm(realmResults);
+
+
+                    break;
+                case 2:
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).
+                            and().equalTo(nameType[1], value[1])
+                            .findAll();
+                    list = realm.copyFromRealm(realmResults);
+
+                    break;
+                case 3:
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).
+                            and().equalTo(nameType[1], value[1])
+                            .and().equalTo(nameType[2], value[2])
+                            .findAll();
+                    list = realm.copyFromRealm(realmResults);
+                    break;
+                case 4:
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).
+                            and().equalTo(nameType[1], value[1])
+                            .and().equalTo(nameType[2], value[2])
+                            .and().equalTo(nameType[3], value[3])
+                            .findAll();
+                    list = realm.copyFromRealm(realmResults);
+
+                    break;
+                case 5:
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).
+                            and().equalTo(nameType[1], value[1])
+                            .and().equalTo(nameType[2], value[2])
+                            .and().equalTo(nameType[3], value[3])
+                            .and().equalTo(nameType[4], value[4])
+                            .findAll();
+                    list = realm.copyFromRealm(realmResults);
+                    break;
+                case 6:
+
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).
+                            and().equalTo(nameType[1], value[1])
+                            .and().equalTo(nameType[2], value[2])
+                            .and().equalTo(nameType[3], value[3])
+                            .and().equalTo(nameType[4], value[4])
+                            .and().equalTo(nameType[5], value[5])
+                            .findAll();
+                    list = realm.copyFromRealm(realmResults);
+                    break;
+
+                case 7:
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).
+                            and().equalTo(nameType[1], value[1])
+                            .and().equalTo(nameType[2], value[2])
+                            .and().equalTo(nameType[3], value[3])
+                            .and().equalTo(nameType[4], value[4])
+                            .and().equalTo(nameType[5], value[5])
+                            .and().equalTo(nameType[6], value[6]).findAll();
+                    list = realm.copyFromRealm(realmResults);
+                    break;
+
+                case 8:
+                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).
+                            and().equalTo(nameType[1], value[1])
+                            .and().equalTo(nameType[2], value[2])
+                            .and().equalTo(nameType[3], value[3])
+                            .and().equalTo(nameType[4], value[4])
+                            .and().equalTo(nameType[5], value[5])
+                            .and().equalTo(nameType[6], value[6])
+                            .and().equalTo(nameType[7], value[7])
+                            .findAll();
+                    list = realm.copyFromRealm(realmResults);
+                    break;
+                default:
+                    list = null;
+
+                    break;
+
+            }
+
+
+        } catch (Exception e) {
+            list = null;
+
+        }
+        if (!realm.isClosed())
+            realm.close();
+        return list;
+    }
+
 
     public boolean idNumberFound(String idNumber) {
         Realm.init(this.context);
