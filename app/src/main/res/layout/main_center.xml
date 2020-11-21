@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.mainActivity.Main_center"
+    tools:context=".Activities.mainActivity.Main_center"
     android:background="#E3E9EF">
 
     <com.google.android.material.appbar.AppBarLayout

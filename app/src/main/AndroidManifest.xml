@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,51 +16,46 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".service.AlarmBroadcastReceiverToGetData"
+            android:enabled="true"
+            android:exported="true"></receiver>
 
+        <service
+            android:name=".service.GetDataService"
+            android:enabled="true"
+            android:exported="true" />
 
-
-
-        <activity android:name=".activities.otherActivity.Reperts_pdf" />
-        <activity android:name=".activities.otherActivity.AboutApp" />
-        <activity android:name=".activities.joinRequsers.JoinRequests" />
-        <activity android:name=".activities.showDetails.StudentDetails" />
-        <activity android:name=".activities.registrar.Add_a_new_save" />
-        <activity android:name=".activities.registrar.AddNewStudent" />
-        <activity android:name=".activities.registrar.AddNewGroup" />
-        <activity android:name=".activities.mainActivity.Main_student" />
-        <activity android:name=".activities.mainActivity.Main_teacher" />
-        <activity android:name=".activities.logIn.GuardianLogin" />
-        <activity android:name=".activities.logIn.TeacherLogin" />
-        <activity android:name=".activities.logIn.QuranCenter_Login" />
-        <activity android:name=".activities.registrar.QuranCenter_Reg" />
-        <activity android:name=".activities.registrar.RegisterAs">
-
-        </activity>
-
-
+        <activity android:name=".Activities.otherActivity.Reperts_pdf" />
+        <activity android:name=".Activities.otherActivity.AboutApp" />
+        <activity android:name=".Activities.joinRequsers.JoinRequests" />
+        <activity android:name=".Activities.showDetails.StudentDetails" />
+        <activity android:name=".Activities.registrar.Add_a_new_save" />
+        <activity android:name=".Activities.registrar.AddNewStudent" />
+        <activity android:name=".Activities.registrar.AddNewGroup" />
+        <activity android:name=".Activities.mainActivity.Main_student" />
+        <activity android:name=".Activities.mainActivity.Main_teacher" />
+        <activity android:name=".Activities.logIn.GuardianLogin" />
+        <activity android:name=".Activities.logIn.TeacherLogin" />
+        <activity android:name=".Activities.logIn.QuranCenter_Login" />
+        <activity android:name=".Activities.registrar.QuranCenter_Reg" />
+        <activity android:name=".Activities.registrar.RegisterAs" />
         <activity
-            android:name=".activities.otherActivity.SplashScreen"
-            android:configChanges="locale" >
+            android:name=".Activities.otherActivity.SplashScreen"
+            android:configChanges="locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".MymessageService">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-        </intent-filter>
-        </service>
-        <activity android:name=".activities.mainActivity.Main_center" />
-        <activity android:name=".activities.joinRequsers.JoinRequest1" />
-        <activity android:name=".activities.joinRequsers.JoinRequest2" />
-        <activity android:name=".activities.otherActivity.Reprts"></activity>
-        <activity android:name=".activities.joinRequsers.JoinRequest3" />
-        <activity android:name=".activities.showDetails.Show_group_student" />
-        <activity android:name=".activities.showDetails.ShowmeMorizationLoops" />
+        <activity android:name=".Activities.mainActivity.Main_center" />
+        <activity android:name=".Activities.joinRequsers.JoinRequest1" />
+        <activity android:name=".Activities.joinRequsers.JoinRequest2" />
+        <activity android:name=".Activities.otherActivity.Reprts" />
+        <activity android:name=".Activities.joinRequsers.JoinRequest3" />
+        <activity android:name=".Activities.showDetails.Show_group_student" />
+        <activity android:name=".Activities.showDetails.ShowmeMorizationLoops" />
 
         <meta-data
             android:name="preloaded_fonts"

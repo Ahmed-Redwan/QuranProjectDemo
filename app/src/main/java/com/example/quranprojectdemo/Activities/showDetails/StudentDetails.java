@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.showDetails;
+package com.example.quranprojectdemo.Activities.showDetails;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.Recycler_student;
 import com.example.quranprojectdemo.models.students.Student_Info;

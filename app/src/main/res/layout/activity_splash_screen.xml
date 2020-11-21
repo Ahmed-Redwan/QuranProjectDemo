@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.otherActivity.SplashScreen"
+    tools:context=".Activities.otherActivity.SplashScreen"
     android:orientation="vertical"
     android:gravity="center"
     android:fitsSystemWindows="true"

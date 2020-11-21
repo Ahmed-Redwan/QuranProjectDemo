@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.registrar;
+package com.example.quranprojectdemo.Activities.registrar;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -14,11 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.quranprojectdemo.activities.joinRequsers.JoinRequest1;
-import com.example.quranprojectdemo.activities.logIn.GuardianLogin;
-import com.example.quranprojectdemo.activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.Activities.joinRequsers.JoinRequest1;
+import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
+import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
 import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.activities.logIn.QuranCenter_Login;
+import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;

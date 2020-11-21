@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.mainActivity;
+package com.example.quranprojectdemo.Activities.mainActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,21 +13,24 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.activities.otherActivity.AboutApp;
-import com.example.quranprojectdemo.activities.showDetails.Show_group_student;
-import com.example.quranprojectdemo.activities.logIn.TeacherLogin;
-import com.example.quranprojectdemo.activities.registrar.AddNewStudent;
-import com.example.quranprojectdemo.activities.registrar.Add_a_new_save;
+import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
+import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
+import com.example.quranprojectdemo.Activities.showDetails.Show_group_student;
+import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.Activities.registrar.AddNewStudent;
+import com.example.quranprojectdemo.Activities.registrar.Add_a_new_save;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.CustomStudentRecyclerView2;
 import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.activities.registrar.RegisterAs;
+import com.example.quranprojectdemo.Activities.registrar.RegisterAs;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.CHEACKHOWISLOGGED;
 
 public class Main_teacher extends AppCompatActivity {
 
@@ -51,6 +54,8 @@ public class Main_teacher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_teacher);
+        if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
+            getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 1).commit();
         mAuth = FirebaseAuth.getInstance();
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         sp = getSharedPreferences(CHECK_REG_TEACHER, MODE_PRIVATE);
@@ -90,6 +95,7 @@ public class Main_teacher extends AppCompatActivity {
                         editor = sp.edit();
                         editor.clear();
 
+                        getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
 
                         dataBaseItems.deleteAllData();
                         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
@@ -131,18 +137,19 @@ public class Main_teacher extends AppCompatActivity {
 
     public void getInfoTeacher() {
 
-        Group_Info val = (Group_Info) dataBaseItems.getAllDataFromRealm(Group_Info.class).get(0);
-        if (val != null) {
+        if (!dataBaseItems.getAllDataFromRealm(Group_Info.class).isEmpty()) {
+            Group_Info val = (Group_Info) dataBaseItems.getAllDataFromRealm(Group_Info.class).get(0);
+            if (val != null) {
 
-            tv_teacher_name.setText("المحفظ " + val.getTeacher_name());
-            tv_teacher_phone.setText("رقم الهاتف:" + val.getPhone());
-            tv_teacher_name_ring.setText("حلقة " + val.getGroup_name());
-            toolbar_teacher.setTitle("حلقة " + val.getGroup_name());
-            tv_teacher_count_student.setText(val.getAuto_sutdent_id());
+                tv_teacher_name.setText("المحفظ " + val.getTeacher_name());
+                tv_teacher_phone.setText("رقم الهاتف:" + val.getPhone());
+                tv_teacher_name_ring.setText("حلقة " + val.getGroup_name());
+                toolbar_teacher.setTitle("حلقة " + val.getGroup_name());
+                tv_teacher_count_student.setText(val.getAuto_sutdent_id());
 //        RealmQuery<Student_Info> query1 = realm.where(Student_Info.class);
 //            finishAffinity();
 
-
+            }
         }
     }
 

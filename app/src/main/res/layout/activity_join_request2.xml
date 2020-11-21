@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#DDE7F1"
     android:orientation="vertical"
-    tools:context=".activities.joinRequsers.JoinRequest2">
+    tools:context=".Activities.joinRequsers.JoinRequest2">
 
     <TextView
         android:id="@+id/request2_tv_listOfCenters"

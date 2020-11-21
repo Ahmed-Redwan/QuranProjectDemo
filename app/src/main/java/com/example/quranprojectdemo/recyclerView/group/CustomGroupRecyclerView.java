@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.activities.showDetails.Show_group_student;
+import com.example.quranprojectdemo.Activities.showDetails.Show_group_student;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.models.groups.Group;
 

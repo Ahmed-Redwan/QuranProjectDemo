@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.mainActivity;
+package com.example.quranprojectdemo.Activities.mainActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,11 +14,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.activities.otherActivity.AboutApp;
-import com.example.quranprojectdemo.activities.joinRequsers.JoinRequests;
-import com.example.quranprojectdemo.activities.showDetails.ShowmeMorizationLoops;
-import com.example.quranprojectdemo.activities.registrar.QuranCenter_Reg;
-import com.example.quranprojectdemo.activities.logIn.QuranCenter_Login;
+import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
+import com.example.quranprojectdemo.Activities.joinRequsers.JoinRequests;
+import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
+import com.example.quranprojectdemo.Activities.showDetails.ShowmeMorizationLoops;
+import com.example.quranprojectdemo.Activities.registrar.QuranCenter_Reg;
+import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.models.centers.CenterUser;
 import com.example.quranprojectdemo.recyclerView.group.CustomGroupRecyclerView2;
@@ -26,22 +27,22 @@ import com.example.quranprojectdemo.models.groups.Group;
 import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.activities.registrar.AddNewGroup;
-import com.example.quranprojectdemo.activities.registrar.RegisterAs;
+import com.example.quranprojectdemo.Activities.registrar.AddNewGroup;
+import com.example.quranprojectdemo.Activities.registrar.RegisterAs;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-import static com.example.quranprojectdemo.activities.logIn.QuranCenter_Login.INFO_CENTER_LOGIN;
+import static com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login.INFO_CENTER_LOGIN;
+import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.CHEACKHOWISLOGGED;
 
 public class Main_center extends AppCompatActivity {
 
     public static final String CHECK_REG_CENTER = "check_center";
     public static final String CHECK_REG_CENTER_ID = "check_center_id";
     public Toolbar toolbar_center;
-    ImageView image_center;
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
     SharedPreferences sp;
     private String centerId;
@@ -50,8 +51,7 @@ public class Main_center extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     CustomGroupRecyclerView2 customGroupRecyclerView2;
     RecyclerView recyclerView;
-
-    RecyclerView rv_List;
+    static int x = 0;
 
     ArrayList<Group> data;
     RealmDataBaseItems dataBaseItems;
@@ -64,10 +64,21 @@ public class Main_center extends AppCompatActivity {
         getGroups(centerId);
     }
 
+    private void ref() {
+        if (x == 0) {
+            startActivity(new Intent(getBaseContext(), Main_center.class));
+            x = 1;
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_center);
+        if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
+            getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 0).commit();
+
         data = new ArrayList<>();
         tv_center_name = findViewById(R.id.center_main_tv_name_center);
         tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
@@ -77,7 +88,7 @@ public class Main_center extends AppCompatActivity {
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         recyclerView = findViewById(R.id.mainCenter_rv);
-
+        ref();
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
             centerId = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
@@ -119,7 +130,7 @@ public class Main_center extends AppCompatActivity {
                         editor = sp.edit();
                         editor.clear();
                         editor.commit();
-
+                        getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
                         sp = getSharedPreferences(Main_center.CHECK_REG_CENTER, MODE_PRIVATE);
                         editor = sp.edit();
                         editor.clear();
@@ -159,7 +170,7 @@ public class Main_center extends AppCompatActivity {
     public void getInRealTimeUsers() {
 
 
-        List<CenterUser> centerUserList = dataBaseItems.getAllDataFromRealm(CenterUser.class    );
+        List<CenterUser> centerUserList = dataBaseItems.getAllDataFromRealm(CenterUser.class);
         if (centerUserList != null) {
             CenterUser value = centerUserList.get(0);
 

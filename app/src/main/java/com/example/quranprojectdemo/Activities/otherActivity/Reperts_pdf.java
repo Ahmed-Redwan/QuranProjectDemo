@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.otherActivity;
+package com.example.quranprojectdemo.Activities.otherActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

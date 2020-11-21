@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.otherActivity;
+package com.example.quranprojectdemo.Activities.otherActivity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;

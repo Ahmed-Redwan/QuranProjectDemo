@@ -25,7 +25,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.otherActivity.Reprts"
+    tools:context=".Activities.otherActivity.Reprts"
     android:orientation="vertical"
     android:gravity="center_horizontal"
 

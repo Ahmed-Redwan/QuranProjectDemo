@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.registrar;
+package com.example.quranprojectdemo.Activities.registrar;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quranprojectdemo.activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.fireBase.SetStudentData;
+import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.Adabter_student_image_and_name;
 import com.example.quranprojectdemo.models.CheckInternet;
 import com.example.quranprojectdemo.models.otherModels.Report;
@@ -33,9 +35,10 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
+
 
 public class Add_a_new_save extends AppCompatActivity {
     private SearchableSpinner spinner_saves, spinner_save_from, spinner_save_too, spinner_reviews, spinner_reviews_from, spinner_reviews_too;
@@ -45,17 +48,19 @@ public class Add_a_new_save extends AppCompatActivity {
     private String id_center, text_save, review_all, text_review_to, text_review_from, text_review, save_all, text_save_to, text_save_from;
     private String id_student;
     private String id_group;
+    private SetStudentData setStudentData;
+    private RealmDataBaseItems dataBaseItems;
     private SharedPreferences sp;
-    private ArrayList<Student_Info> infoArrayList;
+    private ArrayList<Student_Info> infoArrayList = new ArrayList<>();
     private ArrayList<Sora> soras;
     private ArrayList<String> sorasName;
     private ArrayAdapter<String> adapter_save_from, adapter_save_to;
-    private boolean isAbcens, check_show_spinner;
-    private Realm realm;
+    private boolean   check_show_spinner;
     private Report report1;
     private CheckInternet checkInternet;
+    private boolean isAbcens;
 
-    private void addSaveToDataBase(String id_groub) {
+    private void uploadAndSave(String id_groub) {
 
         Date date = new Date();
         SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
@@ -70,75 +75,28 @@ public class Add_a_new_save extends AppCompatActivity {
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
 
-
-        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
+        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى      " + text_save_to;
         review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
-
 
         Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
                 Double.parseDouble(et_numOfRevPages.getText().toString()), String.valueOf(date_month), String.valueOf(date_year),
                 tt, id_student, date_now + id_student, id_groub);
-        realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
-        try {
-            realm.insertOrUpdate(student_data);
 
-            realm.commitTransaction();
-            if (!realm.isClosed())
-                realm.close();
-        } catch (Exception e) {
-
-
-        }
-    }
-
-
-    private void addSaveToCashDataBase() {
-        Date date = new Date();
-        SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
-        String date_now = Foramt_date.format(date);
-
-        SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
-        String date_now_t = Foramt_date_time.format(date);
-        int tt = Integer.parseInt(date_now_t);
-        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-        int date_year = Integer.parseInt(yearForamt.format(date));
-
-        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-        int date_month = Integer.parseInt(monthForamt.format(date));
-
-
-        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى    " + text_save_to;
-        review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
-
-
-        Student_data_cash student_data = new Student_data_cash(date_now, getDay(), save_all, review_all,
+        Student_data_cash student_data_cash = new Student_data_cash(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), date_month, date_year,
+                Double.parseDouble(et_numOfRevPages.getText().toString()), String.valueOf(date_month), String.valueOf(date_year),
                 tt, id_student, date_now + id_student, id_group);
-        if (student_data != null) {
-            try {
-                realm = Realm.getDefaultInstance();
-                if (!realm.isInTransaction())
-                    realm.beginTransaction();
 
-                realm.insertOrUpdate(student_data);
+        dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
+        if (checkInternet()) {
+            setStudentData.uploadOneNewSave(student_data_cash);
+        } else {
+            dataBaseItems.insertObjectToDataToRealm(student_data_cash, Student_data_cash.class);
 
-                realm.commitTransaction();
-                if (!realm.isClosed())
-                    realm.close();
-
-                else {
-                    Toast.makeText(getBaseContext(), "  احمد الهلس لم تتم الاضافة ", Toast.LENGTH_SHORT).show();
-
-                }
-            } catch (Exception e) {
-
-
-            }
         }
+
+
     }
 
 
@@ -146,23 +104,83 @@ public class Add_a_new_save extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
-        Realm.init(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        setStudentData = SetStudentData.getinstance(getBaseContext());
+        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
+        id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
+        id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
+        def();
+        soras();
+        soraname();
+
+        setSaveAndrev();
+
+        btn_addSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_numOfRevPages.getText().toString().isEmpty() || et_numOfSavePages.getText().toString().isEmpty()) {
+                    et_numOfSavePages.setError("يجب إدخال عدد صفحات الحفظ.");
+                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
+                    return;
+                }
+                if (check_show_spinner == false) {
+                    Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
+                } else {
+                    uploadAndSave(id_group);
+
+                }
+
+            }
+        });
+
+        show_spinner();
+        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(Add_a_new_save.this, infoArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                id_student = infoArrayList.get(position).getId_Student();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+
+    public ArrayList<Student_Info> get_student_group() {
+        ArrayList<Student_Info> arrayList = new ArrayList<>();
+
+        String typeName[] = {"id_group"};
+        String value[] = {id_group};
+        List<Student_Info> infoList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class);
+
+
+        for (int i = 0; i < infoList.size(); i++) {
+
+            String id_student = infoList.get(i).getId_Student();
+
+
+            String name_student = infoList.get(i).getName();
+
+            String id_center = infoList.get(i).getId_center();
+            String id_group = infoList.get(i).getId_group();
+            arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
+
+        }
+        return arrayList;
+
+    }
+
+
+    private void def() {
 
 
         et_numOfSavePages = findViewById(R.id.student_add_new_save_et_numOfSavePages);
         et_numOfRevPages = findViewById(R.id.student_add_new_save_et_numOfRevPages);
-        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-
-        id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
-        id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
-
-        soras();
-        soraname();
-
-
-        infoArrayList = new ArrayList<>();
-
-
         spinner_select_student = findViewById(R.id.spinner_selection_student);
         btn_addSave = findViewById(R.id.student_add_new_save_btn_addSave);
         btn_addAbcens = findViewById(R.id.student_add_new_save_btn_addAbsence);
@@ -175,10 +193,38 @@ public class Add_a_new_save extends AppCompatActivity {
         spinner_reviews_from = findViewById(R.id.spinner_review_from);
         spinner_reviews_too = findViewById(R.id.spinner_review_to);
 
+    }
 
+    private void show_spinner() {
+
+
+        infoArrayList.clear();
+
+        ArrayList<Student_Info> arrayList = get_student_group();
+        for (int i = 0; i < arrayList.size(); i++) {
+
+            String student_id = arrayList.get(i).getId_Student();
+            String student_name = arrayList.get(i).getName();
+            infoArrayList.add(new Student_Info(student_name, student_id, null));
+
+        }
+
+        if (infoArrayList.isEmpty()) {
+            check_show_spinner = false;
+        } else {
+            check_show_spinner = true;
+        }
+
+        Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(getApplicationContext(),
+                R.layout.student_recycler_image_and_name, infoArrayList);
+
+        spinner_select_student.setAdapter(adabter);
+
+    }
+
+    private void setSaveAndrev() {
         ArrayAdapter<String> adapter_save = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sorasName);
         spinner_saves.setAdapter(adapter_save);
-
 
         spinner_saves.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -224,7 +270,6 @@ public class Add_a_new_save extends AppCompatActivity {
 
             }
         });
-        //                          ****************************************************************
 
         final ArrayAdapter<String> adapteReview = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sorasName);
         spinner_reviews.setAdapter(adapter_save);
@@ -240,6 +285,7 @@ public class Add_a_new_save extends AppCompatActivity {
                     review_from.add(j + "");
                     review_to.add(j + "");
                 }
+
                 ArrayAdapter adapteReviewfrom = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, review_from);
                 spinner_reviews_from.setAdapter(adapteReviewfrom);
 
@@ -283,195 +329,6 @@ public class Add_a_new_save extends AppCompatActivity {
 
 
     }
-
-    public ArrayList<Student_Info> get_student_group() {
-        ArrayList<Student_Info> arrayList = new ArrayList<>();
-        realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
-        RealmResults<Student_Info> realmResults = realm.where(Student_Info.class).equalTo("id_group", id_group).findAll();
-        for (int i = 0; i < realmResults.size(); i++) {
-
-            String id_student = realmResults.get(i).getId_Student();
-
-
-            String name_student = realmResults.get(i).getName();
-
-            String id_center = realmResults.get(i).getId_center();
-            String id_group = realmResults.get(i).getId_group();
-            arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
-
-        }
-        realm.close();
-        return arrayList;
-
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        btn_addSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et_numOfRevPages.getText().toString().isEmpty() || et_numOfSavePages.getText().toString().isEmpty()) {
-                    et_numOfSavePages.setError("يجب إدخال عدد صفحات الحفظ.");
-                    et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
-                    return;
-                }
-                if (check_show_spinner == false) {
-                    Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
-                } else {
-                    insert_new_save(id_student, id_group, id_center);
-//                    if (checkInternet()) {
-//                        insert_new_save_fireBase(id_student, id_group, id_center);
-//1- اسم التطبيق ما يكون لشركات ماركة او مشهورة (مهم) 2- نقرات غير شرعية  اذا عليك 3 مخالفات اعمل حساب تاني خلص
-//                    }
-
-
-                }
-
-            }
-        });
-
-        show_spinner();
-        spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(Add_a_new_save.this, infoArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
-                id_student = infoArrayList.get(position).getId_Student();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-    }
-
-    private void insert_new_save(final String id_student, String id_groub, String id_center) {
-
-        Date date = new Date();
-
-        SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
-        String date_now_t = Foramt_date_time.format(date);
-        int tt = Integer.parseInt(date_now_t);
-        addSaveToDataBase(id_groub);
-        if (!checkInternet()) {
-            addSaveToCashDataBase();
-        } else {
-            insert_new_save_fireBase(id_student, id_group, id_center, tt);
-        }
-    }
-
-    private void insert_new_save_fireBase(final String id_student, String id_groub, String id_center, int time) {
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
-        DatabaseReference my_center = reference.child(id_center);//already found
-        DatabaseReference my_center_groups = my_center.child("groups");//already found or not
-        DatabaseReference my_group = my_center_groups.child(id_groub);// add new group
-
-        DatabaseReference my_student_group = my_group.child("student_group");
-        Date date = new Date();
-
-        SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
-        String date_now = Foramt_date.format(date);
-
-        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
-        int date_year = Integer.parseInt(yearForamt.format(date));
-
-        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
-        int date_month = Integer.parseInt(monthForamt.format(date));
-
-
-        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى      " + text_save_to;
-        review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
-
-        SimpleDateFormat dayForamt = new SimpleDateFormat("dd");
-        String date_day = "Day : " + dayForamt.format(date);
-        Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
-                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), String.valueOf(date_month), String.valueOf(date_year),
-                time, id_student, date_now + id_student, id_group);
-        DatabaseReference student = my_student_group.child(id_student);
-        DatabaseReference student_save = student.child("student_save").child(time + "");
-
-//        async(student, date_year, date_month);
-        getReport(student, date_year, date_month);
-        btn_addAbcens.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isAbcens = true;
-                FancyToast.makeText(getBaseContext(), "تم تسجيل غياب لهذا الطالب", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
-            }
-        });
-
-
-        student_save.setValue(student_data);
-
-//        addSaveToDataBase();
-
-//        my_student_group.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot d : snapshot.getChildren()) {
-//                    String student_id = d.getKey();
-//                    String student_name = d.child("student_group").getValue(Student_Info.class).getName();
-//                    infoArrayList.add(new Student_Info(student_name, student_id, null));
-//
-//                }
-//                Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(getApplicationContext(),
-//                        R.layout.student_recycler_image_and_name, infoArrayList);
-//
-//                spinner_select_student.setAdapter(adabter);
-////                spinner_select_student.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////                    @Override
-////                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////
-////
-////                        infoArrayList.get(position);
-////                    }
-////                });
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-    }
-
-    private void show_spinner() {
-//
-
-        infoArrayList.clear();
-
-        ArrayList<Student_Info> arrayList = get_student_group();
-        for (int i = 0; i < arrayList.size(); i++) {
-
-            String student_id = arrayList.get(i).getId_Student();
-            String student_name = arrayList.get(i).getName();
-            infoArrayList.add(new Student_Info(student_name, student_id, null));
-
-        }
-
-        if (infoArrayList.isEmpty()) {
-            check_show_spinner = false;
-        } else {
-            check_show_spinner = true;
-        }
-
-        Adabter_student_image_and_name adabter = new Adabter_student_image_and_name(getApplicationContext(),
-                R.layout.student_recycler_image_and_name, infoArrayList);
-
-        spinner_select_student.setAdapter(adabter);
-
-    }
-
 
     private String getDay() {
         Date date = new Date();

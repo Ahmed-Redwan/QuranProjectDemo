@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.mainActivity;
+package com.example.quranprojectdemo.Activities.mainActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,13 +20,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.activities.otherActivity.AboutApp;
+import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
+import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.Recycler_student;
 import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.models.students.Student_data;
 import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.activities.registrar.RegisterAs;
+import com.example.quranprojectdemo.Activities.registrar.RegisterAs;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +41,8 @@ import java.util.Date;
 import java.util.List;
 
 
-import static com.example.quranprojectdemo.activities.logIn.GuardianLogin.INFO_STUDENT_LOGIN;
+import static com.example.quranprojectdemo.Activities.logIn.GuardianLogin.INFO_STUDENT_LOGIN;
+import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.CHEACKHOWISLOGGED;
 
 public class Main_student extends AppCompatActivity {
 
@@ -71,6 +73,8 @@ public class Main_student extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_student);
+        if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
+            getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 2).commit();
         mAuth = FirebaseAuth.getInstance();
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         sp = getSharedPreferences(CHECK_REG_STUDENT, MODE_PRIVATE);
@@ -111,6 +115,8 @@ public class Main_student extends AppCompatActivity {
                         editor = sp.edit();
                         editor.clear();
                         editor.commit();
+                        getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
+
                         dataBaseItems.deleteAllData();
                         sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
                         editor = sp.edit();
@@ -217,8 +223,8 @@ public class Main_student extends AppCompatActivity {
 //
                 String typeName[] = {};
                 String value[] = {};
-                int[] maxMin = dataBaseItems.getMaxAndMinValue("year_save", typeName, value, Student_data.class);
-                for (int i = maxMin[0]; i <= maxMin[1]; i++) {
+                long[] maxMin = dataBaseItems.getMaxAndMinAndCountValue("year_save", typeName, value, Student_data.class);
+                for (int i = (int) maxMin[0]; i <= maxMin[1]; i++) {
 
                     list_spinner_year.add(i + "");
 
@@ -241,9 +247,9 @@ public class Main_student extends AppCompatActivity {
 
                             String typeName[] = {"year_save"};
                             String value[] = {year};
-                            int[] maxMin = dataBaseItems.getMaxAndMinValue("month_save", typeName, value, Student_data.class);
-                            int max = maxMin[1];
-                            int min = maxMin[0];
+                            long[] maxMin = dataBaseItems.getMaxAndMinAndCountValue("month_save", typeName, value, Student_data.class);
+                            int max = (int) maxMin[1];
+                            int min = (int) maxMin[0];
 
 //                            int x = dataBaseItems.getMaxMinStudentData(year)[2];
                             list_spinner_month.clear();

@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.otherActivity;
+package com.example.quranprojectdemo.Activities.otherActivity;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;

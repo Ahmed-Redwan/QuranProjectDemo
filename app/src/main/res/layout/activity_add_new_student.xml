@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.registrar.AddNewStudent"
+    tools:context=".Activities.registrar.AddNewStudent"
     android:background="#E3E9EF"
     android:paddingBottom="@dimen/_10sdp"
     android:scrollbarSize="@dimen/_5sdp">

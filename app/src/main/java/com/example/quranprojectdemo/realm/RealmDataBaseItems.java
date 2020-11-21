@@ -1,10 +1,13 @@
 package com.example.quranprojectdemo.realm;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.models.students.Student_data;
+import com.example.quranprojectdemo.models.students.Student_data_cash;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -45,17 +48,34 @@ public class RealmDataBaseItems {
     }
 
     public void insertObjectToDataToRealm(Object object, Class classType) {
-        Realm.init(this.context);
-        realm = Realm.getDefaultInstance();
-        if (!realm.isInTransaction())
-            realm.beginTransaction();
+        if (object != null) {
+            Realm.init(this.context);
+            realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
 
-        realm.insertOrUpdate((RealmModel) classType.cast(object));
+            realm.insertOrUpdate((RealmModel) classType.cast(object));
 
-        realm.commitTransaction();
-        if (!realm.isClosed())
-            realm.close();
+            realm.commitTransaction();
+            if (!realm.isClosed())
+                realm.close();
+        }
+    }
 
+    public <T> void insertListDataToRealm(List object) {
+        if (object != null) {
+            Realm.init(this.context);
+            realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+
+
+            realm.insertOrUpdate(object);
+
+            realm.commitTransaction();
+            if (!realm.isClosed())
+                realm.close();
+        }
     }
 
 
@@ -89,6 +109,17 @@ public class RealmDataBaseItems {
         realm.close();
     }
 
+    public void deleteCashData() {
+        Realm.init(this.context);
+        realm = Realm.getDefaultInstance();
+        if (!realm.isInTransaction())
+            realm.beginTransaction();
+        realm.delete(Student_data_cash.class);
+        realm.commitTransaction();
+        realm.close();
+    }
+
+
     public <T> List<T> getDataWithAndStatement(String[] nameType, String[] value, Class classType) {
         int length = nameType.length;
         Realm.init(this.context);
@@ -99,9 +130,11 @@ public class RealmDataBaseItems {
 
             switch (length) {
                 case 1:
-                    realmResults = realm.where(classType).equalTo(nameType[0], value[0]).findAll();
-                    list = realm.copyFromRealm(realmResults);
+                    realmResults = realm.where(classType)
+                            .findAll().where().equalTo(nameType[0], value[0]).findAll();
 
+                    list = realm.copyFromRealm(realmResults);
+                    Log.d("sssss", list.size() + "size" + length + nameType[0] + " h " + value[0]);
 
                     break;
                 case 2:
@@ -189,72 +222,73 @@ public class RealmDataBaseItems {
     }
 
 
-    public int[] getMaxAndMinValue(String filedType, String[] nameType, String[] value, Class classType) {
+    public long[] getMaxAndMinAndCountValue(String filedType, String[] nameType, String[] value, Class classType) {
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
         RealmQuery<Student_data> query = realm.where(classType);
         int length = nameType.length;
         Number max;
         Number min;
-        int[] arr = {0, 0};
+        long[] arr = {0, 0, 0};
 
         try {
 
             switch (length) {
                 case 0:
-                    max = query.max("year_save");
-                    min = query.min("year_save");
+                    max = query.max(filedType);
+                    min = query.min(filedType);
+                    arr[2] = query.count();
                     arr[0] = min.intValue();
                     arr[1] = max.intValue();
                     break;
                 case 1:
-                    max = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).max(filedType);
-                    min = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).max(filedType);
+                    max = query.equalTo(nameType[0], value[0]).max(filedType);
+                    min = query.equalTo(nameType[0], value[0]).max(filedType);
+                    arr[2] = query.equalTo(nameType[0], value[0]).count();
+
                     arr[0] = min.intValue();
                     arr[1] = max.intValue();
 
 
                     break;
                 case 2:
-                    max = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
+                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
                             .max(filedType);
-                    min = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
+                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
                             .max(filedType);
+                    arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
+                            .count();
                     arr[0] = min.intValue();
                     arr[1] = max.intValue();
                     break;
                 case 3:
-                    max = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
+                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
                             .max(filedType);
-                    min = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
+                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
                             .max(filedType);
+                    arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
+                            .count();
                     arr[0] = min.intValue();
                     arr[1] = max.intValue();
                     break;
                 case 4:
 
-                    max = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
+                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
                             .max(filedType);
-                    min = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
+                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
                             .max(filedType);
+                    arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
+                            .count();
                     arr[0] = min.intValue();
                     arr[1] = max.intValue();
                     break;
                 case 5:
-                    max = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
+                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
                             .max(filedType);
-                    min = realm.where(Student_data.class)
-                            .equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
+                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
                             .max(filedType);
+                    arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
+                            .count();
                     arr[0] = min.intValue();
                     arr[1] = max.intValue();
                     break;

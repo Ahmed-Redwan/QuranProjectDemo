@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.quranprojectdemo.activities.joinRequsers.JoinRequest3;
+import com.example.quranprojectdemo.Activities.joinRequsers.JoinRequest3;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.models.centers.Center;
 

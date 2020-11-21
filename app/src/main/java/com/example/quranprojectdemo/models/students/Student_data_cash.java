@@ -21,9 +21,9 @@ public class Student_data_cash extends RealmObject {
 
     private double counnt_page_review;
     @Index
-    private int month_save;
+    private String month_save;
     @Index
-    private int year_save;
+    private String year_save;
     private long time_save;
 
     private String id_student;
@@ -34,8 +34,8 @@ public class Student_data_cash extends RealmObject {
     public Student_data_cash(String date__student,
                              String day_student, String save_student,
                              String review_student, String attendess_student,
-                             double counnt_page_save, double counnt_page_review, int month_save,
-                             int year_save, long time_save, String id_student, String date_id, String id_group) {
+                             double counnt_page_save, double counnt_page_review, String month_save,
+                             String year_save, long time_save, String id_student, String date_id, String id_group) {
         this.date__student = date__student;
         this.day_student = day_student;
         this.save_student = save_student;
@@ -51,18 +51,6 @@ public class Student_data_cash extends RealmObject {
         this.id_group = id_group;
     }
 
-//
-//    public Student_data(String date__student, String day_student, String save_student,
-//                        String review_student, String attendess_student, double counnt_page_save, double counnt_page_review) {
-//
-//        this.date__student = date__student;
-//        this.day_student = day_student;
-//        this.save_student = save_student;
-//        this.review_student = review_student;
-//        this.attendess_student = attendess_student;
-//        this.counnt_page_save = counnt_page_save;
-//        this.counnt_page_review = counnt_page_review;
-//    }
 
     public Student_data_cash() {
 
@@ -124,19 +112,19 @@ public class Student_data_cash extends RealmObject {
         this.counnt_page_review = counnt_page_review;
     }
 
-    public int getMonth_save() {
+    public String getMonth_save() {
         return month_save;
     }
 
-    public void setMonth_save(int month_save) {
+    public void setMonth_save(String month_save) {
         this.month_save = month_save;
     }
 
-    public int getYear_save() {
+    public String getYear_save() {
         return year_save;
     }
 
-    public void setYear_save(int year_save) {
+    public void setYear_save(String year_save) {
         this.year_save = year_save;
     }
 

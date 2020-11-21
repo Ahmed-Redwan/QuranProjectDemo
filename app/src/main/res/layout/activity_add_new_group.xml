@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E3E9EF"
-    tools:context=".activities.registrar.AddNewGroup">
+    tools:context=".Activities.registrar.AddNewGroup">
 
 
     <LinearLayout

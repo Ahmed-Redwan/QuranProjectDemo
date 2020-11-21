@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.joinRequsers;
+package com.example.quranprojectdemo.Activities.joinRequsers;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;

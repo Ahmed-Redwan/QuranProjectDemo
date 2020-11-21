@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.showDetails;
+package com.example.quranprojectdemo.Activities.showDetails;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.Recycler_show_group_student;
 import com.example.quranprojectdemo.models.students.Student_Info;
@@ -48,18 +48,15 @@ public class Show_group_student extends AppCompatActivity {
         Intent i = getIntent();
         id_center_c = i.getStringExtra("id_center");
         id_group_c = i.getStringExtra("id_group");
-        Log.d("re", id_center_c + " ! ");
-        Log.d("re", id_group_c + " ! ");
+
         if (id_center_c == null) {
 
             id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
             id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
-            Log.d("rere ", id_group + " !");
-            Log.d("rere ", id_center + " !");
+
         } else {
             id_center = id_center_c;
             id_group = id_group_c;
-            Log.d("re", id_group_c + " !!! ");
 
 
         }
@@ -96,7 +93,8 @@ public class Show_group_student extends AppCompatActivity {
         String typeName[] = {"id_group"};
         String value[] = {id_group};
         List<Student_Info> studentInfoList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class);
-         if (studentInfoList != null) {
+        Log.d("sssss", studentInfoList.size() + "size " + id_group);
+        if (studentInfoList != null) {
             arrayList.clear();
 
             for (int i = 0; i < studentInfoList.size(); i++) {

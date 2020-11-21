@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.activities.showDetails;
+package com.example.quranprojectdemo.Activities.showDetails;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -12,19 +12,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.activities.logIn.QuranCenter_Login;
+import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.group.CustomGroupRecyclerView;
 import com.example.quranprojectdemo.models.groups.Group;
 import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.activities.registrar.QuranCenter_Reg;
+import com.example.quranprojectdemo.Activities.registrar.QuranCenter_Reg;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-import static com.example.quranprojectdemo.activities.logIn.QuranCenter_Login.INFO_CENTER_LOGIN;
+import static com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login.INFO_CENTER_LOGIN;
 
 public class ShowmeMorizationLoops extends AppCompatActivity {
     TextView tv_ShowMemorizationLoops;
