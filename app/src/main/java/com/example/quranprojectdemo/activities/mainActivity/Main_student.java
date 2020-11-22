@@ -46,8 +46,6 @@ import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen
 
 public class Main_student extends AppCompatActivity {
 
-    public static final String CHECK_REG_STUDENT = "check_student";
-    public static final String CHECK_REG_STUDENT_ID = "check_student_id";
     Toolbar toolbar_student;
     Spinner spinner_year, spinner_month;
 
@@ -66,8 +64,7 @@ public class Main_student extends AppCompatActivity {
 
     RealmDataBaseItems dataBaseItems;
     RecyclerView rv;
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,30 +74,8 @@ public class Main_student extends AppCompatActivity {
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 2).commit();
         mAuth = FirebaseAuth.getInstance();
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
-        sp = getSharedPreferences(CHECK_REG_STUDENT, MODE_PRIVATE);
-        editor = sp.edit();
-        editor.putInt(CHECK_REG_STUDENT_ID, 1);
-        editor.commit();
-
-
-        image_backe_student = findViewById(R.id.student_main_image_center);
-        image_student = findViewById(R.id.student_main_image_student);
-        tv_student_name = findViewById(R.id.student_main_tv_name_student);
-        tv_student_name_ring = findViewById(R.id.student_main_tv_name_ring);
-        tv_student_phone = findViewById(R.id.student_main_tv_phone);
-        tv_student_identity = findViewById(R.id.student_main_tv_identity);
-//
-
-
-        spinner_year = findViewById(R.id.spinner_choose_date_year);
-        spinner_month = findViewById(R.id.spinner_choose_date_month);
-
-        btn_show_spinner = findViewById(R.id.btn_choose_spinner);
-        btn_disable_spinner = findViewById(R.id.btn_disable_spinner);
-        linearspinner = findViewById(R.id.linear_spinner);
-
-        toolbar_student = findViewById(R.id.student_main_tool);
-//        setSupportActionBar(toolbar_student);
+        def();
+        viewFont();
         toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -111,17 +86,10 @@ public class Main_student extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), AboutApp.class));
                         return true;
                     case R.id.MenuStudentHomeExit:
-                        sp = getSharedPreferences(Main_student.CHECK_REG_STUDENT, MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.clear();
-                        editor.commit();
                         getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
-
+                        getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE).edit().clear().commit();
                         dataBaseItems.deleteAllData();
-                        sp = getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.clear();
-                        editor.commit();
+
                         finish();
                         startActivity(new Intent(getBaseContext(), RegisterAs.class));
 
@@ -132,24 +100,34 @@ public class Main_student extends AppCompatActivity {
         });
 
 
-        rv = findViewById(R.id.student_main_recycler);
-
-
-
-
-
-      /*  TextView_EditFont(tv_attendess,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_date,"Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_day,"Hacen_Tunisia.ttf");*/
-        TextView_EditFont(tv_student_identity, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_student_name, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_student_name_ring, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_student_phone, "Hacen_Tunisia.ttf");
     }
 
-    //change font type for textview.
-    public void TextView_EditFont(TextView textView, String path) {
-        textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
+    private void def() {
+        rv = findViewById(R.id.student_main_recycler);
+
+        image_backe_student = findViewById(R.id.student_main_image_center);
+        image_student = findViewById(R.id.student_main_image_student);
+        tv_student_name = findViewById(R.id.student_main_tv_name_student);
+        tv_student_name_ring = findViewById(R.id.student_main_tv_name_ring);
+        tv_student_phone = findViewById(R.id.student_main_tv_phone);
+        tv_student_identity = findViewById(R.id.student_main_tv_identity);
+
+        spinner_year = findViewById(R.id.spinner_choose_date_year);
+        spinner_month = findViewById(R.id.spinner_choose_date_month);
+
+        btn_show_spinner = findViewById(R.id.btn_choose_spinner);
+        btn_disable_spinner = findViewById(R.id.btn_disable_spinner);
+        linearspinner = findViewById(R.id.linear_spinner);
+
+        toolbar_student = findViewById(R.id.student_main_tool);
+    }
+
+    public void viewFont() {
+
+        tv_student_identity.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_student_name.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_student_name_ring.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_student_phone.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
     }
 
     @Override
@@ -198,7 +176,6 @@ public class Main_student extends AppCompatActivity {
         String value[] = {String.valueOf(date_year), String.valueOf(date_month)};
         List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
 
-//        List<Student_data> student_dataList = dataBaseItems.getAllStudent_data(date_year, date_month);
         if (student_dataList != null) {
             Recycler_student r_s = new Recycler_student(student_dataList);
             rv.setAdapter(r_s);

@@ -1,5 +1,8 @@
 package com.example.quranprojectdemo.Activities.otherActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -25,6 +28,7 @@ import com.example.quranprojectdemo.Activities.mainActivity.Main_center;
 import com.example.quranprojectdemo.Activities.mainActivity.Main_student;
 import com.example.quranprojectdemo.Activities.mainActivity.Main_teacher;
 import com.example.quranprojectdemo.Activities.registrar.RegisterAs;
+import com.example.quranprojectdemo.service.AlarmBroadcastReceiverToGetData;
 import com.example.quranprojectdemo.service.GetDataService;
 
 import java.util.Locale;
@@ -65,6 +69,18 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), Main_student.class));
                 break;
             default:
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent IR = new Intent(getApplicationContext(), AlarmBroadcastReceiverToGetData.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                        0, IR, PendingIntent.FLAG_UPDATE_CURRENT);
+                if (Build.VERSION.SDK_INT >= 23) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
+                } else if (Build.VERSION.SDK_INT >= 19) {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
+                } else {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
+                }
+
                 blink(tv_Title);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -72,7 +88,7 @@ public class SplashScreen extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), RegisterAs.class));
                         finish();
                     }
-                }, 500);
+                }, 1000);
 
 
                 break;
