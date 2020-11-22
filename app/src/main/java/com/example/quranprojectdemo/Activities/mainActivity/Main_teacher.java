@@ -35,15 +35,10 @@ import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen
 public class Main_teacher extends AppCompatActivity {
 
 
-    public static final String CHECK_REG_TEACHER = "teacher_check";
-    public static final String CHECK_REG_TEACHER_ID = "id_teacher_check";
-
     ImageView image_backe_teacher;
     TextView tv_teacher_name, tv_teacher_name_ring, tv_teacher_phone, tv_teacher_count_student;
     FirebaseAuth mAuth;
     Toolbar toolbar_teacher;
-    private SharedPreferences sp;
-    SharedPreferences.Editor editor;
     ArrayList<Student_Info> student_infos;
     RecyclerView recyclerView;
     CustomStudentRecyclerView2 customStudentRecyclerView2;
@@ -58,19 +53,11 @@ public class Main_teacher extends AppCompatActivity {
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 1).commit();
         mAuth = FirebaseAuth.getInstance();
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
-        sp = getSharedPreferences(CHECK_REG_TEACHER, MODE_PRIVATE);
-        editor = sp.edit();
-        editor.putInt(CHECK_REG_TEACHER_ID, 1);
-        editor.commit();
 
 
-        image_backe_teacher = findViewById(R.id.teacher_main_image_center);
-        tv_teacher_name = findViewById(R.id.teacher_main_tv_name_teacher);
-        tv_teacher_name_ring = findViewById(R.id.teacher_main_tv_name_ring);
-        tv_teacher_phone = findViewById(R.id.teacher_main_tv_phone);
-        tv_teacher_count_student = findViewById(R.id.teacher_main_tv_count_student);
+        def();
+        viewFont();
 
-        toolbar_teacher = findViewById(R.id.teacher_main_tool);
         toolbar_teacher.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -91,17 +78,11 @@ public class Main_teacher extends AppCompatActivity {
                         return true;
                     case R.id.MenuTeacherHomeExit:
 
-                        sp = getSharedPreferences(Main_teacher.CHECK_REG_TEACHER, MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.clear();
-
                         getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
 
+                        getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE).edit().clear().commit();
                         dataBaseItems.deleteAllData();
-                        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.clear();
-                        editor.commit();
+
                         finish();
                         startActivity(new Intent(getBaseContext(), RegisterAs.class));
 
@@ -112,19 +93,27 @@ public class Main_teacher extends AppCompatActivity {
         });
 
 
-        TextView_EditFont(tv_teacher_count_student, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_teacher_name, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_teacher_name_ring, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_teacher_phone, "Hacen_Tunisia.ttf");
-
-        recyclerView = findViewById(R.id.mainTeacher_rv);
-
-
     }
 
-    //change font type for textview.
-    public void TextView_EditFont(TextView textView, String path) {
-        textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
+    private void def() {
+
+
+        image_backe_teacher = findViewById(R.id.teacher_main_image_center);
+        tv_teacher_name = findViewById(R.id.teacher_main_tv_name_teacher);
+        tv_teacher_name_ring = findViewById(R.id.teacher_main_tv_name_ring);
+        tv_teacher_phone = findViewById(R.id.teacher_main_tv_phone);
+        tv_teacher_count_student = findViewById(R.id.teacher_main_tv_count_student);
+        recyclerView = findViewById(R.id.mainTeacher_rv);
+
+        toolbar_teacher = findViewById(R.id.teacher_main_tool);
+    }
+
+    public void viewFont() {
+
+        tv_teacher_count_student.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_teacher_name.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_teacher_name_ring.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_teacher_phone.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
     }
 
     @Override
@@ -146,8 +135,6 @@ public class Main_teacher extends AppCompatActivity {
                 tv_teacher_name_ring.setText("حلقة " + val.getGroup_name());
                 toolbar_teacher.setTitle("حلقة " + val.getGroup_name());
                 tv_teacher_count_student.setText(val.getAuto_sutdent_id());
-//        RealmQuery<Student_Info> query1 = realm.where(Student_Info.class);
-//            finishAffinity();
 
             }
         }
@@ -161,13 +148,12 @@ public class Main_teacher extends AppCompatActivity {
     }
 
     public void get_student_group() {
-        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
 
         student_infos = new ArrayList<>();
 
         //id_group
         String typeName[] = {"id_group"};
-        String value[] = {sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "1")};
+        String value[] = {getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE).getString(TeacherLogin.ID_LOGIN_TEACHER, "1")};
         List<Student_Info> studentInfos = dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class);
         if (studentInfos != null) {
             student_infos.clear();

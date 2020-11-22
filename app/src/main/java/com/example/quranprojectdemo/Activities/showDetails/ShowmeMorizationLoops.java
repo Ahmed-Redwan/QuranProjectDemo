@@ -42,6 +42,10 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
         toolbar = findViewById(R.id.ShowMemorizationLoops_ToolBar);
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
+        tv_ShowMemorizationLoops = findViewById(R.id.ShowMemorizationLoops_tv_ShowMemorizationLoops);
+        rv_List = findViewById(R.id.ShowMemorizationLoops_Rv_List);
+
+        tv_ShowMemorizationLoops.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
 
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
@@ -65,12 +69,6 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
                 return false;
             }
         });
-
-        tv_ShowMemorizationLoops = findViewById(R.id.ShowMemorizationLoops_tv_ShowMemorizationLoops);
-        rv_List = findViewById(R.id.ShowMemorizationLoops_Rv_List);
-
-        tv_ShowMemorizationLoops.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-//          data.add(new Group(R.drawable.arabian, "ابو بكر الصديق", "احمد عبد الغفور"));
 
 
     }

@@ -46,13 +46,10 @@ public class Main_center extends AppCompatActivity {
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
     SharedPreferences sp;
     private String centerId;
-
     private SharedPreferences.Editor editor;
     RecyclerView.LayoutManager layoutManager;
     CustomGroupRecyclerView2 customGroupRecyclerView2;
     RecyclerView recyclerView;
-    static int x = 0;
-
     ArrayList<Group> data;
     RealmDataBaseItems dataBaseItems;
 
@@ -64,13 +61,6 @@ public class Main_center extends AppCompatActivity {
         getGroups(centerId);
     }
 
-    private void ref() {
-        if (x == 0) {
-            startActivity(new Intent(getBaseContext(), Main_center.class));
-            x = 1;
-        }
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +70,10 @@ public class Main_center extends AppCompatActivity {
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 0).commit();
 
         data = new ArrayList<>();
-        tv_center_name = findViewById(R.id.center_main_tv_name_center);
-        tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
-        tv_center_phone = findViewById(R.id.center_main_tv_phone);
-        tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
-        tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
+        def();
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
         dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
-        recyclerView = findViewById(R.id.mainCenter_rv);
-        ref();
+        viewFont();
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
             centerId = sp.getString(QuranCenter_Reg.ID_CENTER_REG, "a");
@@ -122,20 +107,10 @@ public class Main_center extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), JoinRequests.class).putExtra("CenterId", centerId));
                         return true;
                     case R.id.MenuCenterHomeExit:
-                        sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.clear();
-                        editor.commit();
-                        sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.clear();
-                        editor.commit();
+                        getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE).edit().clear().clear();
+                        getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE).edit().clear().commit();
                         getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
-                        sp = getSharedPreferences(Main_center.CHECK_REG_CENTER, MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.clear();
-                        editor.commit();
-
+                        getSharedPreferences(Main_center.CHECK_REG_CENTER, MODE_PRIVATE).edit().clear().commit();
                         dataBaseItems.deleteAllData();
                         FancyToast.makeText(getBaseContext(), "تم تسجيل الخروج.", FancyToast.LENGTH_LONG, FancyToast.DEFAULT, false).show();
                         finish();
@@ -152,18 +127,26 @@ public class Main_center extends AppCompatActivity {
             }
         });
 
-        TextView_EditFont(tv_center_count_ring, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_count_student, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_name, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_name_maneger, "Hacen_Tunisia.ttf");
-        TextView_EditFont(tv_center_phone, "Hacen_Tunisia.ttf");
-
 
     }
 
-    //change font type for textview.
-    public void TextView_EditFont(TextView textView, String path) {
-        textView.setTypeface(Typeface.createFromAsset(getAssets(), path));
+    private void def() {
+        tv_center_name = findViewById(R.id.center_main_tv_name_center);
+        tv_center_name_maneger = findViewById(R.id.center_main_tv_name_maneger);
+        tv_center_phone = findViewById(R.id.center_main_tv_phone);
+        tv_center_count_ring = findViewById(R.id.center_main_tv_count_ring);
+        tv_center_count_student = findViewById(R.id.center_main_tv_count_student);
+        recyclerView = findViewById(R.id.mainCenter_rv);
+
+    }
+
+    public void viewFont() {
+
+        tv_center_count_ring.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_center_count_student.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_center_name.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_center_name_maneger.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
+        tv_center_phone.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia.ttf"));
     }
 
 
