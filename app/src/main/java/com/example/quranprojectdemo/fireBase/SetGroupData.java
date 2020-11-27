@@ -1,18 +1,15 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.mainActivity.Main_center;
 import com.example.quranprojectdemo.Activities.registrar.AddNewGroup;
 import com.example.quranprojectdemo.models.centers.CenterUser;
@@ -39,13 +36,16 @@ public class SetGroupData {
     private CenterUser value;
     private Context context;
     private static SetGroupData instance;
+    AddNewGroup mAppContext;
 
     private RealmDataBaseItems dataBaseItems;
 
     private SetGroupData(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
-        dataBaseItems = RealmDataBaseItems.getinstance(context);
+        dataBaseItems = RealmDataBaseItems.getInstance(context);
+        if (context instanceof AppCompatActivity)
+            mAppContext= new AddNewGroup();
     }
 
     public static SetGroupData getinstance(Context context) {
@@ -58,7 +58,6 @@ public class SetGroupData {
 
     public void sign_up(final String email, final String password, final String groupName, final String teacherName, final String phone, final String centerID) {
 
-          AddNewGroup mAppContext = new AddNewGroup();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {

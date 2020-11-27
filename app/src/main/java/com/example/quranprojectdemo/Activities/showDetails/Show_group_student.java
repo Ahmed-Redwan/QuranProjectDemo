@@ -41,7 +41,7 @@ public class Show_group_student extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_group_student);
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         Intent i = getIntent();
         id_center_c = i.getStringExtra("id_center");
         id_group_c = i.getStringExtra("id_group");
@@ -104,7 +104,8 @@ public class Show_group_student extends AppCompatActivity {
 
                 String id_center = studentInfoList.get(i).getId_center();
                 String id_group = studentInfoList.get(i).getId_group();
-                arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
+                String tokenId = studentInfoList.get(i).getTokenId();
+                arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center, tokenId));
 
             }
 

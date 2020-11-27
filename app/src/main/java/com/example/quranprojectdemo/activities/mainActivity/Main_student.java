@@ -1,7 +1,6 @@
 package com.example.quranprojectdemo.Activities.mainActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -73,7 +72,7 @@ public class Main_student extends AppCompatActivity {
         if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 2).commit();
         mAuth = FirebaseAuth.getInstance();
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         def();
         viewFont();
         toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {

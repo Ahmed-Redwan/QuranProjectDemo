@@ -1,10 +1,13 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
@@ -34,10 +37,13 @@ public class GetGroupData {
     private static GetGroupData instance;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    TeacherLogin mLogTeacherActivity;
 
     private GetGroupData(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
+        if (context instanceof AppCompatActivity)
+            mLogTeacherActivity = new TeacherLogin();
 
     }
 
@@ -82,7 +88,6 @@ public class GetGroupData {
     public boolean log_in(String email, String password) {
         final Semaphore semaphore = new Semaphore(0);
         final boolean[] successLogIn = {false};
-        TeacherLogin mLogTeacherActivity = new TeacherLogin();
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mLogTeacherActivity, new OnCompleteListener<AuthResult>() {

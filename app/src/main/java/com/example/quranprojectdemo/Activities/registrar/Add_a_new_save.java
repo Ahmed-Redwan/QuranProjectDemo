@@ -2,6 +2,7 @@ package com.example.quranprojectdemo.Activities.registrar;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,17 +28,13 @@ import com.example.quranprojectdemo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.shashank.sony.fancytoastlib.FancyToast;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
 
 
 public class Add_a_new_save extends AppCompatActivity {
@@ -55,10 +52,11 @@ public class Add_a_new_save extends AppCompatActivity {
     private ArrayList<Sora> soras;
     private ArrayList<String> sorasName;
     private ArrayAdapter<String> adapter_save_from, adapter_save_to;
-    private boolean   check_show_spinner;
+    private boolean check_show_spinner;
     private Report report1;
     private CheckInternet checkInternet;
     private boolean isAbcens;
+    private String token;
 
     private void uploadAndSave(String id_groub) {
 
@@ -75,8 +73,8 @@ public class Add_a_new_save extends AppCompatActivity {
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
 
-        save_all = "السورة  " + text_save + " من  " + text_save_from + " الى      " + text_save_to;
-        review_all = "السورة  " + text_review + " من  " + text_review_from + " الى    " + text_review_to;
+        save_all = " سورة: " + text_save + " من " + text_save_from + " إلى " + text_save_to;
+        review_all = " سورة: " + text_review + " من " + text_review_from + " إلى " + text_review_to;
 
         Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
                 "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
@@ -90,7 +88,9 @@ public class Add_a_new_save extends AppCompatActivity {
 
         dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
         if (checkInternet()) {
-            setStudentData.uploadOneNewSave(student_data_cash);
+            setStudentData.uploadOneNewSave(student_data_cash, token);
+
+
         } else {
             dataBaseItems.insertObjectToDataToRealm(student_data_cash, Student_data_cash.class);
 
@@ -104,8 +104,8 @@ public class Add_a_new_save extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_add_a_new_save);
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
-        setStudentData = SetStudentData.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
+        setStudentData = SetStudentData.getinstance(this);
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
@@ -140,6 +140,8 @@ public class Add_a_new_save extends AppCompatActivity {
 
                 Toast.makeText(Add_a_new_save.this, infoArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
                 id_student = infoArrayList.get(position).getId_Student();
+                token = infoArrayList.get(position).getTokenId();
+                Log.d("ffffff", token + " tt " + id_student);
             }
 
             @Override
@@ -168,7 +170,8 @@ public class Add_a_new_save extends AppCompatActivity {
 
             String id_center = infoList.get(i).getId_center();
             String id_group = infoList.get(i).getId_group();
-            arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center));
+            String tokenId = infoList.get(i).getTokenId();
+            arrayList.add(new Student_Info(null, name_student, id_student, id_group, id_center, tokenId));
 
         }
         return arrayList;
@@ -205,7 +208,8 @@ public class Add_a_new_save extends AppCompatActivity {
 
             String student_id = arrayList.get(i).getId_Student();
             String student_name = arrayList.get(i).getName();
-            infoArrayList.add(new Student_Info(student_name, student_id, null));
+            Log.d("fffff", arrayList.get(i).getTokenId() + " t t");
+            infoArrayList.add(new Student_Info(student_name, student_id, null, arrayList.get(i).getTokenId()));
 
         }
 

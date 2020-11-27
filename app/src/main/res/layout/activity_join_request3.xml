@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="إسم الطالب"
-                android:padding="@dimen/_5sdp"
+                 android:padding="@dimen/_5sdp"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary"

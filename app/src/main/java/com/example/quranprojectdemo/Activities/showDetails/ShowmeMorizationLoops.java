@@ -39,7 +39,7 @@ public class ShowmeMorizationLoops extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_memorization_loops);
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         toolbar = findViewById(R.id.ShowMemorizationLoops_ToolBar);
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
         tv_ShowMemorizationLoops = findViewById(R.id.ShowMemorizationLoops_tv_ShowMemorizationLoops);

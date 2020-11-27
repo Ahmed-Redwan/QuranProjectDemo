@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.print.PrintJob;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Activities.mainActivity.Main_teacher;
@@ -25,18 +22,7 @@ import com.example.quranprojectdemo.models.CheckInternet;
 import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.models.students.Student_data;
-import com.example.quranprojectdemo.models.students.Student_data_cash;
 import com.example.quranprojectdemo.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
@@ -67,9 +53,9 @@ public class TeacherLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_login);
 
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
-        getGroupData = GetGroupData.getinstance(getBaseContext());
-        getStudentData = GetStudentData.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
+        getGroupData = GetGroupData.getinstance(this);
+        getStudentData = GetStudentData.getinstance(this);
         def();
 //        final List<Group_Info> group_infos = dataBaseItems.getAllDataFromRealm(Group_Info.class);
 //        if (group_infos != null) {

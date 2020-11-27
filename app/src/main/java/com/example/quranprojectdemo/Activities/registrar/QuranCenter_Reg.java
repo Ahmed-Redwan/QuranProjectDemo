@@ -2,16 +2,13 @@ package com.example.quranprojectdemo.Activities.registrar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Activities.mainActivity.Main_center;
@@ -20,11 +17,6 @@ import com.example.quranprojectdemo.fireBase.GetCenterData;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.models.centers.CenterUser;
 import com.example.quranprojectdemo.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -46,8 +38,8 @@ public class QuranCenter_Reg extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quran_center__reg);
         progressDialog = new ProgressDialog(QuranCenter_Reg.this);
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
-        getCenterData = GetCenterData.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
+        getCenterData = GetCenterData.getinstance(this);
         def();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference();

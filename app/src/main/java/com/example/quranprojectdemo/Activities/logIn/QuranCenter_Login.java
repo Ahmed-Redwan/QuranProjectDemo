@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Activities.mainActivity.Main_center;
@@ -25,16 +24,7 @@ import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.models.students.Student_data;
 import com.example.quranprojectdemo.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
@@ -71,8 +61,8 @@ public class QuranCenter_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quran_center__login);
         mAuth = FirebaseAuth.getInstance();
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
-        getCenterData = GetCenterData.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
+        getCenterData = GetCenterData.getinstance(this);
         getStudentData = GetStudentData.getinstance(getBaseContext());
 //        List<CenterUser> centerUserList = dataBaseItems.getAllDataFromRealm(CenterUser.class);
 //        if (centerUserList != null) {

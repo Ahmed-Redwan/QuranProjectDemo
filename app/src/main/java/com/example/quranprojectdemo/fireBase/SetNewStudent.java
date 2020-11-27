@@ -1,17 +1,15 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
 import com.example.quranprojectdemo.Activities.mainActivity.Main_teacher;
@@ -43,12 +41,14 @@ public class SetNewStudent {
     private FirebaseAuth mAuth;
     private String auto_student_id;
     RealmDataBaseItems dataBaseItems;
+    AddNewStudent mActivity;
 
     private SetNewStudent(Context context) {
         this.context = context;
-        this.dataBaseItems = RealmDataBaseItems.getinstance(context);
+        this.dataBaseItems = RealmDataBaseItems.getInstance(context);
         this.mAuth = FirebaseAuth.getInstance();
-
+        if (context instanceof AppCompatActivity)
+            mActivity = new AddNewStudent();
     }
 
     public static SetNewStudent getInstance(Context context) {
@@ -60,13 +60,12 @@ public class SetNewStudent {
     }
 
     public void sign_up(final String email, final String phone, final Student_Info student_info) {
-        AddNewStudent mActivity = new AddNewStudent();
 
         mAuth.createUserWithEmailAndPassword(email, phone)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("qqqq",email+phone+" q q q ");
+                        Log.d("qqqq", email + phone + " q q q ");
                         if (task.isSuccessful()) {
                             sp = context.getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
                             id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
@@ -106,6 +105,7 @@ public class SetNewStudent {
 
     private void create_new_student(Student_Info info, String id_student, String id_groub1, String id_center) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+
         DatabaseReference reference = rootNode.getReference("CenterUsers");//already found
         DatabaseReference center = reference.child(id_center);//already found
         DatabaseReference center_groups = center.child("groups");//already found or not
@@ -154,7 +154,7 @@ public class SetNewStudent {
                 updatename(user, id_center, id_group, auto_student_id);
                 save_new_id_group(val, id_center, id_group);
                 reference.removeEventListener(this);
-                 context.startActivity(new Intent(context, Main_teacher.class));
+                context.startActivity(new Intent(context, Main_teacher.class));
 
             }
 

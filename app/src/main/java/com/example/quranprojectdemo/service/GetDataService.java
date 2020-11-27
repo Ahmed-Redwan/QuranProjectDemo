@@ -6,13 +6,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
-import android.text.LoginFilter;
 import android.util.Log;
 
 import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
-import com.example.quranprojectdemo.Activities.mainActivity.Main_center;
-import com.example.quranprojectdemo.Activities.mainActivity.Main_student;
-import com.example.quranprojectdemo.Activities.mainActivity.Main_teacher;
 import com.example.quranprojectdemo.fireBase.GetCenterData;
 import com.example.quranprojectdemo.fireBase.GetGroupData;
 import com.example.quranprojectdemo.fireBase.GetStudentData;
@@ -23,17 +19,10 @@ import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.models.students.Student_data;
 import com.example.quranprojectdemo.models.students.Student_data_cash;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.List;
 
-import javax.xml.transform.sax.TemplatesHandler;
-
-import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.ID_LOGIN_TEACHER;
-import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.ID_LOGIN_TEC_CENTER;
-import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.INFO_TEACHER;
 import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.CHEACKHOWISLOGGED;
 import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.HOWISLOGGED;
 
@@ -54,15 +43,12 @@ public class GetDataService extends Service {
             public void run() {
                 sp = getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE);
                 int howIsLogged = sp.getInt(HOWISLOGGED, -1);
-                Log.d("ffff",howIsLogged+" , 1 ");
 
                 if (haveANewtWork()) {
                     if (true) {
                         switch (howIsLogged) {
                             case 0:
                                 centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
-                                Log.d("ffff",centerId+" , 1 ");
-
                                 getDataCenter();
                                 break;
                             case 1:
@@ -85,7 +71,7 @@ public class GetDataService extends Service {
     private void getDataCenter() {
 
 
-        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
         GetCenterData getCenterData = GetCenterData.getinstance(getBaseContext());
         if (centerId != null) {
@@ -101,7 +87,7 @@ public class GetDataService extends Service {
         List<Student_Info> studentInfos = getStudentData.getNewStudentInfoToCenter();
         if (studentInfos != null && !studentInfos.isEmpty())
             dataBaseItems.insertListDataToRealm(studentInfos);
-        Log.d("ffff",studentInfos.size()+" , 1 ");
+        Log.d("ffff", studentInfos.size() + " , 1 ");
 
         List<Student_data> studentData = getStudentData.getNewStudentsSaveToCenter();
         if (studentData != null && !studentData.isEmpty())
@@ -113,28 +99,30 @@ public class GetDataService extends Service {
 
     private void getDataGroup() {
 
-        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
         GetGroupData getGroupData = GetGroupData.getinstance(getBaseContext());
-        String typeName[] = {};
-        String value[] = {};
+//        String typeName[] = {};
+//        String value[] = {};
 
-        long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
-        int max = (int) maxMin[1];
-        int count = (int) maxMin[2];
+//        long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
+//        int max = (int) maxMin[1];
+//        int count = (int) maxMin[2];
 
-        List<Student_Info> infoList = getStudentData.getNewStudentInfoToGroup(count, max);
+        List<Student_Info> infoList = getStudentData.getAllStudentInfoToGroup();
+//        dataBaseItems.deleteTable(Student_Info.class);
         dataBaseItems.insertListDataToRealm(infoList);
+
+//        for (int i = 0; i < infoList.size(); i++) {
+//            dataBaseItems.insertObjectToDataToRealm(infoList.get(i), Student_Info.class);
+//            Log.d("vvvvv",infoList.get(i).getTokenId());
+//
+//        }
+
+
         Group_Info groupInfo = getGroupData.getGroupInfo();
         if (groupInfo != null)
             dataBaseItems.insertObjectToDataToRealm(groupInfo, Group_Info.class);
-//
-//                maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
-//                max = (int) maxMin[1];
-//                count = (int) maxMin[2];
-//
-//                List<Student_data> dataList = getStudentData.getNewStudentsSaveToGroup(max, count);
-//                dataBaseItems.insertListDataToRealm(dataList);
 
 
     }
@@ -142,7 +130,7 @@ public class GetDataService extends Service {
     private void getDataStudent() {
 
 
-        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
         String typeName[] = {};
         String value[] = {};
@@ -159,14 +147,14 @@ public class GetDataService extends Service {
 
     private void uploadSaveData() {
 
-        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         SetStudentData setStudentData = SetStudentData.getinstance(getBaseContext());
         List<Student_data_cash> student_data_cashes = dataBaseItems.getAllDataFromRealm(Student_data_cash.class);
         if (student_data_cashes != null) {
             if (!student_data_cashes.isEmpty()) {
                 boolean uploaded = setStudentData.uploadNewSave(student_data_cashes);
                 if (uploaded) {
-                    dataBaseItems.deleteCashData();
+                    dataBaseItems.deleteTable(Student_data_cash.class);
 
                 }
             }

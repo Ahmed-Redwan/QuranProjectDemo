@@ -3,10 +3,11 @@ package com.example.quranprojectdemo.Activities.mainActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,8 +30,16 @@ import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Activities.registrar.AddNewGroup;
 import com.example.quranprojectdemo.Activities.registrar.RegisterAs;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.protobuf.Api;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +51,7 @@ public class Main_center extends AppCompatActivity {
 
     public static final String CHECK_REG_CENTER = "check_center";
     public static final String CHECK_REG_CENTER_ID = "check_center_id";
+    //    private static final String SERVER_KEY = "AAAAkRwHS54:APA91bHo7rCE2XO3EDN-MZqYfN9wdn1R3kDYamiIwH-ZxQT_uQ2gJYBu_TyMS-HzkeeSW26324LnpET2VeLC4QG__f7R3sCHD_oRD5t8uOD7NNWv2c1DrthXIKLbHMYlvdSMYwpJdNng";
     public Toolbar toolbar_center;
     TextView tv_center_name, tv_center_name_maneger, tv_center_phone, tv_center_count_ring, tv_center_count_student;
     SharedPreferences sp;
@@ -53,12 +63,15 @@ public class Main_center extends AppCompatActivity {
     ArrayList<Group> data;
     RealmDataBaseItems dataBaseItems;
 
+    String tkn;
+
     @Override
     protected void onStart() {
         super.onStart();
 
         getInRealTimeUsers();
         getGroups(centerId);
+
     }
 
 
@@ -68,11 +81,12 @@ public class Main_center extends AppCompatActivity {
         setContentView(R.layout.main_center);
         if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 0).commit();
+        tkn = FirebaseInstanceId.getInstance().getToken();
 
         data = new ArrayList<>();
         def();
         sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         viewFont();
         if (sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a").equals("a")) {
             sp = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE);
@@ -95,6 +109,9 @@ public class Main_center extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.MenuCentreHomeAddGroub:
                         startActivity(new Intent(getBaseContext(), AddNewGroup.class));
+//                        new Notify().execute();
+//                        sendPostToFCM("hhelllo");
+//                        sendFireBaseNotification(SERVER_KEY, tkn, "hello how are you", "welcome to our app");
 
                         return true;
 //                    case R.id.MenuCentreHomeAddStudent:
@@ -209,5 +226,50 @@ public class Main_center extends AppCompatActivity {
         }
 
     }
+
+    private void sendFireBaseNotification(final String keyServer, final String token, final String title, final String body) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    URL url = new URL("https://fcm.googleapis.com/fcm/send");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                    conn.setUseCaches(false);
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Authorization", "key=" + keyServer);
+                    conn.setRequestProperty("Content-Type", "application/json");
+
+                    JSONObject json = new JSONObject();
+
+                    json.put("to", token);
+
+                    JSONObject info = new JSONObject();
+                    info.put("title", title);   // Notification title
+                    info.put("body", body); // Notification body
+
+                    json.put("notification", info);
+
+                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                    wr.write(json.toString());
+                    wr.flush();
+                    conn.getInputStream();
+
+                } catch (Exception e) {
+                    Log.d("Error", "" + e);
+                }
+
+
+            }
+        }).start();
+
+    }
+
+
 
 }

@@ -25,7 +25,7 @@ public class RealmDataBaseItems {
 
     }
 
-    public static RealmDataBaseItems getinstance(Context context) {
+    public static RealmDataBaseItems getInstance(Context context) {
 
         if (instance == null) {
             instance = new RealmDataBaseItems(context);
@@ -62,7 +62,9 @@ public class RealmDataBaseItems {
         }
     }
 
-    public <T> void insertListDataToRealm(List object) {
+    public void insertListDataToRealm(List object) {
+
+        Log.d("vvvvv",object.size()+"size ");
         if (object != null) {
             Realm.init(this.context);
             realm = Realm.getDefaultInstance();
@@ -78,9 +80,8 @@ public class RealmDataBaseItems {
         }
     }
 
-
     public <T> List<T> getAllDataFromRealm(Class classType) {
-        List<T> list;
+        List  list;
 
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
@@ -109,14 +110,16 @@ public class RealmDataBaseItems {
         realm.close();
     }
 
-    public void deleteCashData() {
+    public void deleteTable(Class classTableName) {
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
         if (!realm.isInTransaction())
             realm.beginTransaction();
-        realm.delete(Student_data_cash.class);
+        realm.delete(classTableName);
+
         realm.commitTransaction();
-        realm.close();
+        if (!realm.isClosed())
+            realm.close();
     }
 
 

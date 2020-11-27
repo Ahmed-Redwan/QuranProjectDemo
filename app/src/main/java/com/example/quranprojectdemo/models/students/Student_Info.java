@@ -21,18 +21,20 @@ public class Student_Info extends RealmObject {
     @Index
     private String id_group;
 
+    private String tokenId;
 
     public Student_Info(String name,
                         String id_number,
                         String phoneNo, String email,
                         String academic_level, String birth_date,
                         String img_student, String id_center,
-                        String id_group, String id_Student) {
+                        String id_group, String id_Student, String tokenId) {
         this.id_Student = id_Student;
         this.name = name;
         this.id_number = id_number;
         this.phoneNo = phoneNo;
         this.email = email;
+        this.tokenId = tokenId;
         this.academic_level = academic_level;
         this.birth_date = birth_date;
         this.img_student = img_student;
@@ -43,8 +45,17 @@ public class Student_Info extends RealmObject {
     public Student_Info() {
     }
 
-    public Student_Info(String name, String id_Student, String img_student) {
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
+
+    public Student_Info(String name, String id_Student, String img_student, String tokenId) {
         this.name = name;
+        this.tokenId = tokenId;
         this.id_Student = id_Student;
         this.img_student = img_student;
     }
@@ -54,12 +65,14 @@ public class Student_Info extends RealmObject {
         this.phoneNo = Phone;
     }
 
-    public Student_Info(String img_student, String name, String id_Student, String id_group, String id_center) {
+    public Student_Info(String img_student, String name, String id_Student, String id_group, String id_center, String tokenId) {
         this.name = name;
         this.id_Student = id_Student;
         this.img_student = img_student;
         this.id_center = id_center;
         this.id_group = id_group;
+        this
+                .tokenId = tokenId;
     }
 
 //

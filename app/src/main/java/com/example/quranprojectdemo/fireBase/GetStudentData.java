@@ -2,17 +2,16 @@ package com.example.quranprojectdemo.fireBase;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
-import com.example.quranprojectdemo.Activities.mainActivity.Main_student;
 import com.example.quranprojectdemo.models.CheckInternet;
 import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.models.students.Student_Info;
@@ -32,7 +31,6 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Semaphore;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -47,11 +45,18 @@ public class GetStudentData {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private RealmDataBaseItems dataBaseItems;
+    GuardianLogin mAppContext;
 
     private GetStudentData(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
-        dataBaseItems = RealmDataBaseItems.getinstance(context);
+        dataBaseItems = RealmDataBaseItems.getInstance(context);
+        if (context instanceof AppCompatActivity)
+            mAppContext = new GuardianLogin();
+
+//        centerId = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
+
+
     }
 
     public static GetStudentData getinstance(Context context) {
@@ -59,6 +64,7 @@ public class GetStudentData {
         if (instance == null) {
             instance = new GetStudentData(context);
         }
+
         return instance;
     }
 
@@ -161,9 +167,12 @@ public class GetStudentData {
     public List<Student_data> getNewSaveToStudent(final int count) {
         final List<Student_data> studentData = new ArrayList<>();
         if (checkInternet()) {
-
+            sp = context.getSharedPreferences(GuardianLogin.INFO_STUDENT_LOGIN, MODE_PRIVATE);
+            centerId = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
+            groupId = sp.getString(GuardianLogin.STD_ID_GROUP, "-1");
+            studentId = sp.getString(GuardianLogin.STD_ID_STUDENT, "-1");
             final Semaphore semaphore = new Semaphore(0);
-
+            Log.d("mmmmm", centerId + "g" + groupId + "s" + studentId);
             FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
             final DatabaseReference reference = rootNode.getReference("CenterUsers")
                     .child(centerId)
@@ -172,9 +181,16 @@ public class GetStudentData {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     int countSaveInFire = (int) (dataSnapshot.getChildrenCount() - 1);
+                    Log.d("mmmmm", "count" + count + " fire count : " + countSaveInFire);
+                    Log.d("mmmmm", reference.getKey());
+
                     if (countSaveInFire > count) {
+                        Log.d("mmmmm", "count" + centerId + "g" + groupId + "s" + studentId);
+
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             studentData.add(snapshot.getValue(Student_data.class));
+                            Log.d("mmmmm", "for" + centerId + "g" + groupId + "s" + studentId);
+
                         }
                     }
                     semaphore.release();
@@ -250,7 +266,6 @@ public class GetStudentData {
     public boolean logInStudent(final String email, final String password) {
         final boolean[] islogIn = {false};
         final Semaphore semaphore = new Semaphore(0);
-          GuardianLogin mAppContext = new GuardianLogin();
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {
@@ -268,8 +283,8 @@ public class GetStudentData {
                             sp = context.getSharedPreferences(GuardianLogin.INFO_STUDENT_LOGIN, MODE_PRIVATE);
                             editor = sp.edit();
 
-                            editor.putString(GuardianLogin.STD_ID_STUDENT, groupId);
-                            editor.putString(GuardianLogin.STD_ID_GROUP, studentId);
+                            editor.putString(GuardianLogin.STD_ID_STUDENT, studentId);
+                            editor.putString(GuardianLogin.STD_ID_GROUP, groupId);
                             editor.putString(GuardianLogin.STD_ID_CENTER, centerId);
                             editor.commit();
                             checkIsLogged = true;
@@ -306,15 +321,21 @@ public class GetStudentData {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("student_group");
-
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
-                    if (s != null)
-                        studentInfos.add(s);
+                Log.d("rrrrr", snapshot.getKey());
 
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Log.d("rrrrr", snapshot1.getKey());
+
+                    Student_Info s = snapshot1.child("student_info").getValue(Student_Info.class);
+
+                    if (s != null) {
+                        Log.d("rrrrr", s.getName() + " t : " + s.getTokenId());
+
+                        studentInfos.add(s);
+                    }
                 }
                 semaphore.release();
 

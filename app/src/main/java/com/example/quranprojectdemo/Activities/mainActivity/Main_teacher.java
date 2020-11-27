@@ -1,7 +1,6 @@
 package com.example.quranprojectdemo.Activities.mainActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -52,7 +51,7 @@ public class Main_teacher extends AppCompatActivity {
         if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 1).commit();
         mAuth = FirebaseAuth.getInstance();
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
 
 
         def();
@@ -167,7 +166,8 @@ public class Main_teacher extends AppCompatActivity {
 
                 String id_center = studentInfos.get(i).getId_center();
                 String id_group = studentInfos.get(i).getId_group();
-                student_infos.add(new Student_Info(null, name_student, id_student, id_group, id_center));
+                String tokenId=studentInfos.get(i).getTokenId();
+                student_infos.add(new Student_Info(null, name_student, id_student, id_group, id_center,tokenId));
 
             }
 

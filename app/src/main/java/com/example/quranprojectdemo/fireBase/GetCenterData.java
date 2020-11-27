@@ -1,11 +1,13 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
@@ -39,11 +41,13 @@ public class GetCenterData {
     private static GetCenterData instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    QuranCenter_Reg mAppContext;
 
     private GetCenterData(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
-
+        if (context instanceof AppCompatActivity)
+            mAppContext = new QuranCenter_Reg();
     }
 
     public static GetCenterData getinstance(Context context) {
@@ -125,7 +129,6 @@ public class GetCenterData {
     public String signUp(String email, String password, final CenterUser centerUser) {
         final String[] isLoggend = {null};
         final Semaphore semaphore = new Semaphore(0);
-        QuranCenter_Login mAppContext = new QuranCenter_Login();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {

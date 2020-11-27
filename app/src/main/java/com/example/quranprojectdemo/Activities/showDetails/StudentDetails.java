@@ -3,12 +3,10 @@ package com.example.quranprojectdemo.Activities.showDetails;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +19,6 @@ import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class StudentDetails extends AppCompatActivity {
         setContentView(R.layout.activity_student_details);
         mAuth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
-        dataBaseItems = RealmDataBaseItems.getinstance(getBaseContext());
+        dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
