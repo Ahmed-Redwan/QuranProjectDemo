@@ -56,7 +56,6 @@ public class Add_a_new_save extends AppCompatActivity {
     private Report report1;
     private CheckInternet checkInternet;
     private boolean isAbcens;
-    private String token;
 
     private void uploadAndSave(String id_groub) {
 
@@ -88,7 +87,7 @@ public class Add_a_new_save extends AppCompatActivity {
 
         dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
         if (checkInternet()) {
-            setStudentData.uploadOneNewSave(student_data_cash, token);
+            setStudentData.uploadOneNewSave(student_data_cash,"token");
 
 
         } else {
@@ -140,8 +139,6 @@ public class Add_a_new_save extends AppCompatActivity {
 
                 Toast.makeText(Add_a_new_save.this, infoArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
                 id_student = infoArrayList.get(position).getId_Student();
-                token = infoArrayList.get(position).getTokenId();
-                Log.d("ffffff", token + " tt " + id_student);
             }
 
             @Override

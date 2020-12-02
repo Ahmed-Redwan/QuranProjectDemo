@@ -45,7 +45,6 @@ public class MyMessagingService extends FirebaseMessagingService {// this servic
     }
 
     public void showNotification(String title, String body) {
-//        String refreshedToken = FirebaseInstanceId.getInstance().getToken();// to get token
 
 
         Intent intent = new Intent(getApplicationContext(), SplashScreen.class);

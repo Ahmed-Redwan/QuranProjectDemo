@@ -169,31 +169,10 @@ public class GetDataService extends Service {
         stopSelf();
     }
 
-    private boolean isOnline() {
-
-        Runtime runtime = Runtime.getRuntime();
-        try {
-
-            Process ipProcess = null;
-            try {
-                ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            int exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
 
     private boolean haveANewtWork() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.DISCONNECTED) {
             return true;
         } else
             return false;
