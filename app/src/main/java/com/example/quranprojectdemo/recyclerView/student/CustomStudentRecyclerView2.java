@@ -31,7 +31,7 @@ public class CustomStudentRecyclerView2 extends RecyclerView.Adapter<CustomStude
     public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_horizintal_student, null, false);
 
-        CustomStudentRecyclerView2.View_holder v = new CustomStudentRecyclerView2.View_holder(view);
+        View_holder v = new View_holder(view);
         return v;
     }
 

@@ -163,7 +163,7 @@ public class GuardianLogin extends AppCompatActivity {
 
     private void addTokenId(Student_Info student_info) {
 
-        student_info.setTokenId("token");
+        student_info.setTokenId(FirebaseInstanceId.getInstance().getToken());
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         rootNode.getReference("CenterUsers").child(student_info.getId_center()).child("groups")
                 .child(student_info.getId_group()).child("student_group")

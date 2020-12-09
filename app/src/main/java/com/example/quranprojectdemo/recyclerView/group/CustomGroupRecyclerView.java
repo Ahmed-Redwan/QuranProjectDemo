@@ -35,7 +35,7 @@ public class CustomGroupRecyclerView extends RecyclerView.Adapter<CustomGroupRec
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customgroup_recyclerview,
                 null, false);
 
-        CustomGroupRecyclerView.View_holder v = new CustomGroupRecyclerView.View_holder(view);
+        View_holder v = new View_holder(view);
         return v;
     }
 

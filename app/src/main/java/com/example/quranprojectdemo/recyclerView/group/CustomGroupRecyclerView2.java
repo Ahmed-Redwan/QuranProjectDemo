@@ -34,7 +34,7 @@ public class CustomGroupRecyclerView2 extends RecyclerView.Adapter<CustomGroupRe
     public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_horizintal_group, null, false);
 
-        CustomGroupRecyclerView2.View_holder v = new CustomGroupRecyclerView2.View_holder(view);
+        View_holder v = new View_holder(view);
         return v;
     }
 

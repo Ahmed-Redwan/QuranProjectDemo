@@ -26,9 +26,9 @@ public class CustomReport extends RecyclerView.Adapter<CustomReport.View_Holder>
 
     @NonNull
     @Override
-    public CustomReport.View_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public View_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row_reports, null, false);
-        CustomReport.View_Holder view_holder = new CustomReport.View_Holder(view);
+        View_Holder view_holder = new View_Holder(view);
         return view_holder;
     }
 

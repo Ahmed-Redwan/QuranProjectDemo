@@ -31,10 +31,10 @@ public class CustomRecyclerviewCenters extends RecyclerView.Adapter<CustomRecycl
 
     @NonNull
     @Override
-    public CustomRecyclerviewCenters.View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public View_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_center_item,null,false);
 
-        CustomRecyclerviewCenters.View_holder view_holder=new CustomRecyclerviewCenters.View_holder(view);
+        View_holder view_holder=new View_holder(view);
 
         return view_holder;
     }
@@ -43,7 +43,7 @@ public void addNewCenter(Center centers){
             notifyDataSetChanged();
 }
     @Override
-    public void onBindViewHolder(@NonNull final CustomRecyclerviewCenters.View_holder holder, final int position) {
+    public void onBindViewHolder(@NonNull final View_holder holder, final int position) {
 
         final Center center=centers.get(position);
 
