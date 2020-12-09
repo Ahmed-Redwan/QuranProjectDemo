@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo;
+package com.example.quranprojectdemo.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -16,6 +16,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.quranprojectdemo.Activities.mainActivity.Main_center;
 import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
+import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.service.GetDataService;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
