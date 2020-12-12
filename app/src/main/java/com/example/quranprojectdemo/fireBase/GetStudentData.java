@@ -465,7 +465,6 @@ public class GetStudentData {
                             for (DataSnapshot snapshot2 : dataSnapshot.getChildren()) {
                                 if (!snapshot2.getKey().equals("report")) {
                                     if (Integer.parseInt(snapshot2.getKey()) > maxValue) {
-
                                         Student_data student_data = snapshot2.getValue(Student_data.class);
                                         if (student_data != null) {
                                             studentData.add(student_data);

@@ -53,8 +53,6 @@ public class Reperts_pdf extends AppCompatActivity {
     // private ScrollView llPdf;
     private Bitmap bitmap;
     Button btn;
-    SharedPreferences sp ;
-    SharedPreferences.Editor editor;
 
 
     @Override
@@ -109,7 +107,7 @@ public class Reperts_pdf extends AppCompatActivity {
                 public void onClick(View v) {
                     Log.d("size", "********************************************* " + llPdf.getWidth() + "  " + llPdf.getWidth());
                     bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
-                    createPdf();
+//                    createPdf();
                 }
             });
         }

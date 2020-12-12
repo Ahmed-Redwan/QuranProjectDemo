@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_show_group_student.View_holder> {
 
-
     ArrayList<Student_Info> student_imageand_names;
 
 

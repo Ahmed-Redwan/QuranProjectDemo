@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Activities.registrar;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.Activities.mainActivity.Main_teacher;
 import com.example.quranprojectdemo.fireBase.SetStudentData;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.Adabter_student_image_and_name;
@@ -44,6 +46,7 @@ public class Add_a_new_save extends AppCompatActivity {
     private EditText et_numOfSavePages, et_numOfRevPages;
     private String id_center, text_save, review_all, text_review_to, text_review_from, text_review, save_all, text_save_to, text_save_from;
     private String id_student;
+    private int numSavePages = 0, numRevPages = 0;
     private String id_group;
     private SetStudentData setStudentData;
     private RealmDataBaseItems dataBaseItems;
@@ -57,6 +60,7 @@ public class Add_a_new_save extends AppCompatActivity {
     private CheckInternet checkInternet;
     private boolean isAbcens;
     private String token;
+    private String isAttetud;
 
     private void uploadAndSave(String id_groub) {
 
@@ -77,13 +81,13 @@ public class Add_a_new_save extends AppCompatActivity {
         review_all = " سورة: " + text_review + " من " + text_review_from + " إلى " + text_review_to;
 
         Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
-                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), String.valueOf(date_month), String.valueOf(date_year),
+                isAttetud, numSavePages,
+                numRevPages, String.valueOf(date_month), String.valueOf(date_year),
                 tt, id_student, date_now + id_student, id_groub);
 
         Student_data_cash student_data_cash = new Student_data_cash(date_now, getDay(), save_all, review_all,
-                "attendess_student", Double.parseDouble(et_numOfSavePages.getText().toString()),
-                Double.parseDouble(et_numOfRevPages.getText().toString()), String.valueOf(date_month), String.valueOf(date_year),
+                isAttetud, numSavePages,
+                numRevPages, String.valueOf(date_month), String.valueOf(date_year),
                 tt, id_student, date_now + id_student, id_group);
 
         dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
@@ -114,7 +118,28 @@ public class Add_a_new_save extends AppCompatActivity {
         soraname();
 
         setSaveAndrev();
+        btn_addAbcens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (et_numOfRevPages.getText().toString().isEmpty() || et_numOfSavePages.getText().toString().isEmpty()) {
+                    et_numOfSavePages.setText("");
+                    et_numOfRevPages.setText("");
+                    return;
+                }
+                if (check_show_spinner == false) {
+                    Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
+                } else {
 
+                    isAttetud = null;
+                    uploadAndSave(id_group);
+                    Toast.makeText(Add_a_new_save.this, "تم اضافة الحفظ بنجاح", Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(new Intent(getBaseContext(), Main_teacher.class));
+
+                }
+
+            }
+        });
         btn_addSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,12 +151,19 @@ public class Add_a_new_save extends AppCompatActivity {
                 if (check_show_spinner == false) {
                     Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
                 } else {
+                    numSavePages = Integer.parseInt(et_numOfSavePages.getText().toString());
+                    numRevPages = Integer.parseInt(et_numOfRevPages.getText().toString());
+                    isAttetud = "حاضر";
                     uploadAndSave(id_group);
+                    Toast.makeText(Add_a_new_save.this, "تم اضافة الحفظ بنجاح", Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
                 }
 
             }
         });
+
 
         show_spinner();
         spinner_select_student.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -613,63 +645,63 @@ public class Add_a_new_save extends AppCompatActivity {
     }
 
 
-    private void getReport(final DatabaseReference student, final int date_year, final int date_month) {
-        final DatabaseReference reports = student.child("student_save").child("report").
-                child(date_month + "/" + date_year);
-        reports.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot != null) {
-                    report1 = snapshot.getValue(Report.class);
-                    Report report2 = null;
-                    if (isAbcens) {
-                        if (report2 != null) {
-                            report2 = new Report(0 +
-                                    report1.getNumOfAttendanceDays(),
-                                    1 + report1.getNumOfNonAttendanceDays(),
-                                    0 + report1.getNumOfSavePages(),
-                                    0 + report1.getNumOfReviewPages());
-                        } else {
-                            report2 = new Report(0
-                                    ,
-                                    1,
-                                    0,
-                                    0);
-                        }
-                    } else {
-                        if (report2 != null) {
-                            report2 = new Report(1
-                                    + report1.getNumOfAttendanceDays()
-                                    , 0 + report1.getNumOfNonAttendanceDays()
-                                    , Integer.parseInt(et_numOfSavePages.getText().toString())
-                                    + report1.getNumOfSavePages(),
-                                    Integer.parseInt(et_numOfRevPages.getText().toString())
-                                            + report1.getNumOfReviewPages());
-                        } else {
-                            report2 = new Report(1
-                                    , 0
-                                    , Integer.parseInt(et_numOfSavePages.getText().toString())
-                                    ,
-                                    Integer.parseInt(et_numOfRevPages.getText().toString())
-                            );
-
-                        }
-                    }
-                    DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
-                    reports.setValue(report2);
-
-                }
-                reports.removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-    }
-
+//    private void getReport(final DatabaseReference student, final int date_year, final int date_month) {
+//        final DatabaseReference reports = student.child("student_save").child("report").
+//                child(date_month + "/" + date_year);
+//        reports.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot != null) {
+//                    report1 = snapshot.getValue(Report.class);
+//                    Report report2 = null;
+//                    if (isAbcens) {
+//                        if (report2 != null) {
+//                            report2 = new Report(0 +
+//                                    report1.getNumOfAttendanceDays(),
+//                                    1 + report1.getNumOfNonAttendanceDays(),
+//                                    0 + report1.getNumOfSavePages(),
+//                                    0 + report1.getNumOfReviewPages());
+//                        } else {
+//                            report2 = new Report(0
+//                                    ,
+//                                    1,
+//                                    0,
+//                                    0);
+//                        }
+//                    } else {
+//                        if (report2 != null) {
+//                            report2 = new Report(1
+//                                    + report1.getNumOfAttendanceDays()
+//                                    , 0 + report1.getNumOfNonAttendanceDays()
+//                                    , Integer.parseInt(et_numOfSavePages.getText().toString())
+//                                    + report1.getNumOfSavePages(),
+//                                    Integer.parseInt(et_numOfRevPages.getText().toString())
+//                                            + report1.getNumOfReviewPages());
+//                        } else {
+//                            report2 = new Report(1
+//                                    , 0
+//                                    , Integer.parseInt(et_numOfSavePages.getText().toString())
+//                                    ,
+//                                    Integer.parseInt(et_numOfRevPages.getText().toString())
+//                            );
+//
+//                        }
+//                    }
+//                    DatabaseReference reports = student.child("student_save").child("report").child(date_month + "/" + date_year);
+//                    reports.setValue(report2);
+//
+//                }
+//                reports.removeEventListener(this);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//
+//    }
+//
 
 }

@@ -36,16 +36,13 @@ public class TeacherLogin extends AppCompatActivity {
     EditText et_Email, et_password;
     Button btn_Login;
 
-    CheckInternet checkInternet;
     private GetStudentData getStudentData;
     private GetGroupData getGroupData;
-    private SetStudentData setStudentData;
     private CheckBox saveLoginCheckBox;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     private RealmDataBaseItems dataBaseItems;
-
 
 
     @Override

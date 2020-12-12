@@ -72,7 +72,9 @@
         </activity>
         <activity android:name=".Activities.joinRequsers.JoinRequest1" />
         <activity android:name=".Activities.joinRequsers.JoinRequest2" />
-        <activity android:name=".Activities.otherActivity.Reprts" />
+        <activity android:name=".Activities.otherActivity.Reprts">
+
+        </activity>
         <activity android:name=".Activities.joinRequsers.JoinRequest3" />
         <activity android:name=".Activities.showDetails.Show_group_student" />
         <activity android:name=".Activities.showDetails.ShowmeMorizationLoops" />

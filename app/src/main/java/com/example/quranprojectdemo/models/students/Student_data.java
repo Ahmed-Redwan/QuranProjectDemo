@@ -16,14 +16,10 @@ public class Student_data extends RealmObject {
 
     private String attendess_student;
     private double counnt_page_save;
-
     private double counnt_page_review;
-
     private String month_save;
-
     private String year_save;
     private long time_save;
-
     private String id_student;
     @PrimaryKey
     private String date_id;

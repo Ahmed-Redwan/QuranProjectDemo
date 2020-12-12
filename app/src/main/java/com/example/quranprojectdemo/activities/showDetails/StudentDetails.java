@@ -3,6 +3,7 @@ package com.example.quranprojectdemo.Activities.showDetails;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class StudentDetails extends AppCompatActivity {
         id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "a");
         id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "a");
 
-     def();
+        def();
 
         Intent i = getIntent();
 
@@ -75,12 +76,14 @@ public class StudentDetails extends AppCompatActivity {
         super.onStart();
         getStudnetInfo(id_student, id_group);
         getSavesStudent(id_student, id_group);
+        Log.d("ddddd" , " a ");
 
 
     }
 
 
     public void getSavesStudent(String id_student, String id_group) {
+        Log.d("ddddd" , " a ");
 
 
         Date date = new Date();
@@ -91,9 +94,11 @@ public class StudentDetails extends AppCompatActivity {
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
         String typeName[] = {"year_save", "month_save", "id_student", "id_group"};
-        String value[] = {String.valueOf(date_year), String.valueOf(date_month), id_student, id_group};
+        String value[] = {String.valueOf(date_year), String.valueOf(11), id_student, id_group};
         List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
-
+//        List<Student_data> studentData = dataBaseItems.getAllDataFromRealm(Student_data.class);
+//
+        Log.d("ddddd", student_dataList.size() + " a ");
 
 
         if (student_dataList != null) {

@@ -64,7 +64,7 @@ public class RealmDataBaseItems {
 
     public void insertListDataToRealm(List object) {
 
-        Log.d("vvvvv",object.size()+"size ");
+        Log.d("vvvvv", object.size() + "size ");
         if (object != null) {
             Realm.init(this.context);
             realm = Realm.getDefaultInstance();
@@ -81,7 +81,7 @@ public class RealmDataBaseItems {
     }
 
     public <T> List<T> getAllDataFromRealm(Class classType) {
-        List  list;
+        List list;
 
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
@@ -238,62 +238,98 @@ public class RealmDataBaseItems {
 
             switch (length) {
                 case 0:
-                    max = query.max(filedType);
-                    min = query.min(filedType);
+                    try {
+                        max = query.max(filedType);
+                        min = query.min(filedType);
+                        arr[0] = min.intValue();
+                        arr[1] = max.intValue();
+                    } catch (Exception e) {
+                    }
+
+
                     arr[2] = query.count();
-                    arr[0] = min.intValue();
-                    arr[1] = max.intValue();
+
+                    Log.d("zzz", " e e " + arr[2]);
+
                     break;
                 case 1:
-                    max = query.equalTo(nameType[0], value[0]).max(filedType);
-                    min = query.equalTo(nameType[0], value[0]).max(filedType);
+                    try {
+                        max = query.equalTo(nameType[0], value[0]).max(filedType);
+                        min = query.equalTo(nameType[0], value[0]).max(filedType);
+                        Log.d("zzz", max + " towd " + min + " e e " + arr[2]);
+                        arr[0] = min.intValue();
+                        arr[1] = max.intValue();
+                    } catch (Exception e) {
+                    }
+
+
                     arr[2] = query.equalTo(nameType[0], value[0]).count();
-
-                    arr[0] = min.intValue();
-                    arr[1] = max.intValue();
-
 
                     break;
                 case 2:
-                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
-                            .max(filedType);
-                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
-                            .max(filedType);
+                    try {
+                        max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
+                                .max(filedType);
+                        min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
+                                .max(filedType);
+                        arr[1] = max.intValue();
+                        arr[0] = min.intValue();
+
+                        Log.d("zzz", max + " tr d " + min + " e e " + arr[2]);
+                    } catch (Exception e) {
+                    }
+
                     arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1])
                             .count();
-                    arr[0] = min.intValue();
-                    arr[1] = max.intValue();
+
                     break;
                 case 3:
-                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
-                            .max(filedType);
-                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
-                            .max(filedType);
+                    try {
+                        max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
+                                .max(filedType);
+                        min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
+                                .max(filedType);
+
+                        arr[0] = min.intValue();
+                        arr[1] = max.intValue();
+                    } catch (Exception e) {
+                    }
+
                     arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2])
                             .count();
-                    arr[0] = min.intValue();
-                    arr[1] = max.intValue();
                     break;
                 case 4:
+                    try {
 
-                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
-                            .max(filedType);
-                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
-                            .max(filedType);
+                        max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
+                                .max(filedType);
+                        min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
+                                .max(filedType);
+                        arr[0] = min.intValue();
+                        arr[1] = max.intValue();
+                    } catch (Exception e) {
+                    }
+
                     arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3])
                             .count();
-                    arr[0] = min.intValue();
-                    arr[1] = max.intValue();
+
                     break;
                 case 5:
-                    max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
-                            .max(filedType);
-                    min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
-                            .max(filedType);
+                    try {
+
+                        max = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
+                                .max(filedType);
+                        min = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
+                                .max(filedType);
+                        arr[0] = min.intValue();
+                        arr[1] = max.intValue();
+                    } catch (Exception e) {
+                    }
+
+
                     arr[2] = query.equalTo(nameType[0], value[0]).and().equalTo(nameType[1], value[1]).and().equalTo(nameType[2], value[2]).and().equalTo(nameType[3], value[3]).and().equalTo(nameType[4], value[4])
                             .count();
-                    arr[0] = min.intValue();
-                    arr[1] = max.intValue();
+
                     break;
 
                 default:

@@ -1,4 +1,4 @@
-package com.example.quranprojectdemo.service;
+    package com.example.quranprojectdemo.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -52,6 +52,7 @@ public class GetDataService extends Service {
                                 getDataCenter();
                                 break;
                             case 1:
+                                Log.d("qqq", "hello tet0");
                                 getDataGroup();
                                 uploadSaveData();
                                 break;
@@ -91,7 +92,6 @@ public class GetDataService extends Service {
 
         List<Student_data> studentData = getStudentData.getNewStudentsSaveToCenter();
         if (studentData != null && !studentData.isEmpty())
-
             dataBaseItems.insertListDataToRealm(studentData);
 
 
@@ -99,31 +99,79 @@ public class GetDataService extends Service {
 
     private void getDataGroup() {
 
-        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
-        GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
-        GetGroupData getGroupData = GetGroupData.getinstance(getBaseContext());
+
+//        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
+//        GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
+//        GetGroupData getGroupData = GetGroupData.getinstance(getBaseContext());
+////        dataBaseItems.deleteTable(Student_data.class);
 //        String typeName[] = {};
 //        String value[] = {};
-
+//
 //        long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
 //        int max = (int) maxMin[1];
 //        int count = (int) maxMin[2];
-
-        List<Student_Info> infoList = getStudentData.getAllStudentInfoToGroup();
-//        dataBaseItems.deleteTable(Student_Info.class);
-        dataBaseItems.insertListDataToRealm(infoList);
-
-//        for (int i = 0; i < infoList.size(); i++) {
-//            dataBaseItems.insertObjectToDataToRealm(infoList.get(i), Student_Info.class);
-//            Log.d("vvvvv",infoList.get(i).getTokenId());
 //
-//        }
+//        List<Student_Info> infoList = getStudentData.getNewStudentInfoToGroup(count, max);
+//        dataBaseItems.insertListDataToRealm(infoList);
+//        Group_Info groupInfo = getGroupData.getGroupInfo();
+//        if (groupInfo != null)
+//            dataBaseItems.insertObjectToDataToRealm(groupInfo, Group_Info.class);
+////
+//        maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
+//        max = (int) maxMin[1];
+//        count = (int) maxMin[2];
+//
+//        List<Student_data> dataList = getStudentData.getNewStudentsSaveToGroup(max, count);
+//        dataBaseItems.insertListDataToRealm(dataList);
 
 
+        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
+        GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
+        GetGroupData getGroupData = GetGroupData.getinstance(getBaseContext());
+//        Group_Info group_info = (Group_Info) dataBaseItems.getAllDataFromRealm(Group_Info.class);
+//        Log.d("qqq", group_info.getAuto_sutdent_id() + " q");
+
+        String typeName[] = {};
+        String value[] = {};
+
+        long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
+        int max = (int) maxMin[1];
+        int count = (int) maxMin[2];
+
+        List<Student_Info> infoList = getStudentData.getNewStudentInfoToGroup(count, max);
+        dataBaseItems.insertListDataToRealm(infoList);
         Group_Info groupInfo = getGroupData.getGroupInfo();
         if (groupInfo != null)
             dataBaseItems.insertObjectToDataToRealm(groupInfo, Group_Info.class);
 
+        Log.d("qqq", "groupInfo.getAuto_sutdent_id()" + " q");
+        for (int i = 0; i < Integer.parseInt(groupInfo.getAuto_sutdent_id()); i++) {
+            String typeName1[] = {"id_student"};
+            Log.d("qqq", i + " q");
+            String value1[] = {String.valueOf(i)};
+            long maxMinCount[] = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName1, value1, Student_data.class);
+            int count1 = (int) maxMinCount[2];
+            List<Student_data> studentDataList = getStudentData.getNewSaveToStudent(count1);
+            if (studentDataList != null) {
+                if (!studentDataList.isEmpty())
+                    dataBaseItems.insertListDataToRealm(studentDataList);
+            }
+        }
+
+//                maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
+//                max = (int) maxMin[1];
+//                count = (int) maxMin[2];
+
+//                List<Student_data> dataList = getStudentData.getNewStudentsSaveToGroup(max, count);
+//                dataBaseItems.insertListDataToRealm(dataList);
+
+
+//                maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
+//                max = (int) maxMin[1];
+//                count = (int) maxMin[2];
+//
+//                List<Student_data> dataList = getStudentData.getNewStudentsSaveToGroup(max, count);
+//                dataBaseItems.insertListDataToRealm(dataList);
 
     }
 

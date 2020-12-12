@@ -34,6 +34,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.quranprojectdemo.BuildConfig;
 import com.example.quranprojectdemo.models.otherModels.Report;
+import com.example.quranprojectdemo.models.students.Student_Info;
+import com.example.quranprojectdemo.models.students.Student_data;
+import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.reportRequest.CustomReport;
 import com.example.quranprojectdemo.R;
 
@@ -42,6 +45,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Reprts extends AppCompatActivity {
 
@@ -50,40 +54,74 @@ public class Reprts extends AppCompatActivity {
     ArrayList<Report> reports;
     CustomReport customReport;
     private LinearLayout llPdf;
-   // private ScrollView llPdf;
+    // private ScrollView llPdf;
     private Bitmap bitmap;
     Button btn;
 
+    RealmDataBaseItems realmDataBaseItems;
 
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    private String CREATE_PDF="create_pdf";
-    private String ID_CREATE_PDF="id_create_pdf";
+    private String CREATE_PDF = "create_pdf";
+    private String ID_CREATE_PDF = "id_create_pdf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reprts);
-
+        realmDataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         rv = findViewById(R.id.reports_rv);
         reports = new ArrayList<>();
 //        for (int i = 0; i < 20; i++) {
-            reports.add(new Report(1, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-            reports.add(new Report( 1, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-            reports.add(new Report( 2, 1, 5, 5, 5, "أحمد عبدالغفور"));
-            reports.add(new Report(+ 3, 1, 5, 5, 5, "حسن داوود"));
-            reports.add(new Report(4, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-            reports.add(new Report(5, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-            reports.add(new Report(6, 1, 5, 5, 5, "أحمد عبدالغفور"));
-            reports.add(new Report(7+ 3, 1, 5, 5, 5, "حسن داوود"));
-            reports.add(new Report(8, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-            reports.add(new Report(9, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-            reports.add(new Report(10, 1, 5, 5, 5, "أحمد عبدالغفور"));
-            reports.add(new Report(11, 1, 5, 5, 5, "حسن داوود"));
-            reports.add(new Report(12, 1, 5, 5, 5, "حسن داوود"));
-            reports.add(new Report(13, 1, 5, 5, 5, "حسن داوود"));
-            reports.add(new Report(14, 1, 5, 5, 5, "حسن داوود"));
+        List<Student_Info> studentInfoList = realmDataBaseItems.getAllDataFromRealm(Student_Info.class);
+        for (int i = 0; i < studentInfoList.size(); i++) {
+            String name = studentInfoList.get(i).getName();
+            String id = studentInfoList.get(i).getId_Student();
+            String nameType[] = {"id_student"};
+            String valeu[] = {id};
+            String filedTypeAtt = "attendess_student";
+            int countAtt = (int) realmDataBaseItems.getMaxAndMinAndCountValue(filedTypeAtt, nameType, valeu, Student_data.class)[2];
+
+            String filedType = "id_student";
+            int countAll = (int) realmDataBaseItems.getMaxAndMinAndCountValue(filedType, nameType, valeu, Student_data.class)[2];
+            int notAtt = (countAll - countAtt);
+
+            List<Student_data> dataList = realmDataBaseItems.getDataWithAndStatement(nameType, valeu, Student_data.class);
+//            Log.d("rrrrr", dataList.size()+"   w w w");
+            int countSavePages = 0, countRevPages = 0;
+            for (int j = 0; j < dataList.size(); j++) {
+                try {
+                    countSavePages += dataList.get(j).getCounnt_page_save();
+
+                } catch (Exception e) {
+                }
+                try {
+                    countRevPages += dataList.get(j).getCounnt_page_review();
+
+                } catch (Exception e) {
+                }
+            }
+            reports.add(new Report(i + 1, countAtt, notAtt, countSavePages, countRevPages, name));
+        }
+
+//        String nameType[] = {};
+//        String value[] = {};
+//        reports.add(new Report(1, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
+//        reports.add(new Report(1, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
+//        reports.add(new Report(2, 1, 5, 5, 5, "أحمد عبدالغفور"));
+//        reports.add(new Report(3, 1, 5, 5, 5, "حسن داوود"));
+//        reports.add(new Report(4, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
+//        reports.add(new Report(5, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
+//        reports.add(new Report(6, 1, 5, 5, 5, "أحمد عبدالغفور"));
+//        reports.add(new Report(7 + 3, 1, 5, 5, 5, "حسن داوود"));
+//        reports.add(new Report(8, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
+//        reports.add(new Report(9, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
+//        reports.add(new Report(10, 1, 5, 5, 5, "أحمد عبدالغفور"));
+//        reports.add(new Report(11, 1, 5, 5, 5, "حسن داوود"));
+//        reports.add(new Report(12, 1, 5, 5, 5, "حسن داوود"));
+//        reports.add(new Report(13, 1, 5, 5, 5, "حسن داوود"));
+//        reports.add(new Report(14, 1, 5, 5, 5, "حسن داوود"));
 
 //        }
 
@@ -108,13 +146,11 @@ public class Reprts extends AppCompatActivity {
 //        });
 
 
-
         if (ContextCompat.checkSelfPermission(Reprts.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                !=PackageManager.PERMISSION_GRANTED){
-            String []permissions ={Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            ActivityCompat.requestPermissions(Reprts.this,permissions,0);
-        }
-        else {
+                != PackageManager.PERMISSION_GRANTED) {
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(Reprts.this, permissions, 0);
+        } else {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -124,7 +160,7 @@ public class Reprts extends AppCompatActivity {
                     editor.putInt(ID_CREATE_PDF, 1);
                     editor.commit();
 
-                    Intent intent=new Intent(getBaseContext(),Reperts_pdf.class);
+                    Intent intent = new Intent(getBaseContext(), Reperts_pdf.class);
                     startActivity(intent);
 
                     Log.d("size", "********************************************* " + llPdf.getWidth() + "  " + llPdf.getWidth());
@@ -240,7 +276,7 @@ public class Reprts extends AppCompatActivity {
 
 //*******************************************************************************************
 
-      // write the document content
+        // write the document content
       /*  String targetPdf = "pdffromlayout.pdf";
         File filePath;
         filePath = new File(targetPdf);
@@ -255,34 +291,32 @@ public class Reprts extends AppCompatActivity {
         // write the document content
 
 
-
-
 ///                         storage/emulated/0/pdffromlayout.pdf
-      //pdfs= Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdffromlayout.pdf";
+        //pdfs= Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdffromlayout.pdf";
         //Log.d("pdf","***********************************"+pdfs);
 
         try {
-          //String targetPdf = Environment.getExternalStorageDirectory().getAbsolutePath();
+            //String targetPdf = Environment.getExternalStorageDirectory().getAbsolutePath();
 //          "/sdcard/pdfmustafa.pdf"
 
 
-            Log.d("filePath_getAbsolut","******************************mustafa");
+            Log.d("filePath_getAbsolut", "******************************mustafa");
             File filePath;
-            filePath = new File( Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdfmustafa.pdf");
+            filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/pdfmustafa.pdf");
 
-            Log.d("file1","*******************************************"+filePath);
+            Log.d("file1", "*******************************************" + filePath);
 
-            FileOutputStream fileOutputStream =new FileOutputStream(filePath);
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
 
-            Log.d("filePath_getAbsolut","******************************"+filePath.getAbsolutePath());
-            Log.d("fileOutputStream","******************************"+fileOutputStream.toString());
+            Log.d("filePath_getAbsolut", "******************************" + filePath.getAbsolutePath());
+            Log.d("fileOutputStream", "******************************" + fileOutputStream.toString());
             document.writeTo(fileOutputStream);
 
             document.close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("mass","******************************"+e.toString());
+            Log.d("mass", "******************************" + e.toString());
 
             Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
         }
@@ -298,38 +332,36 @@ public class Reprts extends AppCompatActivity {
     private void openGeneratedPDF() {
 
         try {
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdfmustafa.pdf");
-        if (file.exists()) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-        //    Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", createImageFile());
-            Uri uri = FileProvider.getUriForFile(Reprts.this, BuildConfig.APPLICATION_ID + ".provider",file);
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/pdfmustafa.pdf");
+            if (file.exists()) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                //    Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", createImageFile());
+                Uri uri = FileProvider.getUriForFile(Reprts.this, BuildConfig.APPLICATION_ID + ".provider", file);
 
-         //   Uri uri = Uri.fromFile(file);
-            intent.setDataAndType(uri, "application/pdf");
-          intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            Log.d("file2","*******************************************"+file);
+                //   Uri uri = Uri.fromFile(file);
+                intent.setDataAndType(uri, "application/pdf");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                Log.d("file2", "*******************************************" + file);
 
-            startActivity(intent);
-        }
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(Reprts.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
+                startActivity(intent);
             }
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(Reprts.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
         }
+    }
 
 
-    private void openGeneratedPDFs(){
+    private void openGeneratedPDFs() {
 
-       // String pd=Environment.getExternalStorageDirectory().getAbsolutePath();
+        // String pd=Environment.getExternalStorageDirectory().getAbsolutePath();
 
-        try
-        {
-        final File file = new File( Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdfmustafa.pdf");
-         //   final File file = new File("/sdcard/download/somepdf.pdf");
+        try {
+            final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/pdfmustafa.pdf");
+            //   final File file = new File("/sdcard/download/somepdf.pdf");
 
-            if (file.exists())
-        {
+            if (file.exists()) {
 //            Intent intent = new Intent();
 //            intent.setAction(Intent.ACTION_GET_CONTENT);
 //            intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -341,9 +373,9 @@ public class Reprts extends AppCompatActivity {
 //                startActivityForResult(Intent.createChooser(intent, "Select Your .pdf File"), 1);
 //            } catch (ActivityNotFoundException e) {
 //                Toast.makeText(Reprts.this, "Please Install a File Manager",Toast.LENGTH_SHORT).show();
-       //     }
+                //     }
 
-            //*******
+                //*******
 
 
 //                Intent intent = new Intent("com.adobe.reader");
@@ -352,7 +384,6 @@ public class Reprts extends AppCompatActivity {
 //                Uri uri = Uri.fromFile(file);
 //                intent.setDataAndType(uri, "application/pdf");
 //                startActivity(intent);
-
 
 
 //            Intent intent=new Intent(Intent.ACTION_VIEW);
@@ -364,13 +395,13 @@ public class Reprts extends AppCompatActivity {
 //            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 //                startActivity(intent);
 
-            Intent target = new Intent(Intent.ACTION_VIEW);
-            Log.d("file2","*******************************************"+file);
-            target.setDataAndType(Uri.fromFile(file),"application/pdf");
-            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                Intent target = new Intent(Intent.ACTION_VIEW);
+                Log.d("file2", "*******************************************" + file);
+                target.setDataAndType(Uri.fromFile(file), "application/pdf");
+                target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-            Intent intent = Intent.createChooser(target, "Open File");
-            startActivity(intent);
+                Intent intent = Intent.createChooser(target, "Open File");
+                startActivity(intent);
 //            try {
 //                startActivity(intent);
 //            } catch (ActivityNotFoundException e) {
@@ -396,9 +427,7 @@ public class Reprts extends AppCompatActivity {
 //                }
 //            }).start();
             }
-        }
-         catch(ActivityNotFoundException e)
-        {
+        } catch (ActivityNotFoundException e) {
             Toast.makeText(Reprts.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
         }
     }
@@ -407,10 +436,10 @@ public class Reprts extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
+        switch (requestCode) {
 
             case 0:
-                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -426,7 +455,7 @@ public class Reprts extends AppCompatActivity {
                         }
                     });
                 }
-            return;
+                return;
         }
     }
 
@@ -434,23 +463,21 @@ public class Reprts extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==1){
-            if (resultCode==RESULT_OK){
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
                 try {
 
-                    Uri uri=data.getData();
-                    OutputStream outputStream=getContentResolver().openOutputStream(uri);
+                    Uri uri = data.getData();
+                    OutputStream outputStream = getContentResolver().openOutputStream(uri);
                     outputStream.write("Hi,welcom to my Android Classroom !!!".getBytes());
                     outputStream.close();
                     Toast.makeText(this, "file nor saved", Toast.LENGTH_SHORT).show();
 
-                }
-                catch (IOException e){
+                } catch (IOException e) {
 
                 }
             }
-        }
-        else
+        } else
             Toast.makeText(this, "file nor saved", Toast.LENGTH_SHORT).show();
     }
 

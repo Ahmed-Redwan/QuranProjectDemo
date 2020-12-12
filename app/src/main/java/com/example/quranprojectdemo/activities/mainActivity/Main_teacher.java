@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
+import com.example.quranprojectdemo.Activities.otherActivity.Reprts;
 import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
 import com.example.quranprojectdemo.Activities.showDetails.Show_group_student;
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
@@ -73,7 +74,7 @@ public class Main_teacher extends AppCompatActivity {
                     case R.id.MenuTeacherHomeSettings:
                         return true;
                     case R.id.MenuTeacherHomeAbout:
-                        startActivity(new Intent(getBaseContext(), AboutApp.class));
+                        startActivity(new Intent(getBaseContext(), Reprts.class));
                         return true;
                     case R.id.MenuTeacherHomeExit:
 
