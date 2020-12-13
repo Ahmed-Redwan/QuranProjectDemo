@@ -45,14 +45,12 @@ public class GetStudentData {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private RealmDataBaseItems dataBaseItems;
-    GuardianLogin mAppContext;
+    static GuardianLogin mAppContext;
 
     private GetStudentData(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
         dataBaseItems = RealmDataBaseItems.getInstance(context);
-        if (context instanceof AppCompatActivity)
-            mAppContext = new GuardianLogin();
 
 //        centerId = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
 
@@ -64,6 +62,8 @@ public class GetStudentData {
         if (instance == null) {
             instance = new GetStudentData(context);
         }
+        if (context instanceof AppCompatActivity)
+            mAppContext = new GuardianLogin();
 
         return instance;
     }
@@ -266,7 +266,7 @@ public class GetStudentData {
     public boolean logInStudent(final String email, final String password) {
         final boolean[] islogIn = {false};
         final Semaphore semaphore = new Semaphore(0);
-
+        Log.d("kkkkk", mAppContext + "this s");
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {
                     @Override

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
 import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
+import com.example.quranprojectdemo.chat.MassegeActivity;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.Recycler_student;
 import com.example.quranprojectdemo.models.students.Student_Info;
@@ -79,6 +80,19 @@ public class Main_student extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                     case R.id.MenuStudentChat:
+                     {     id_center = mAuth.getCurrentUser().getDisplayName();
+                        id_group = mAuth.getCurrentUser().getPhotoUrl().toString();
+                        id_student = mAuth.getCurrentUser().getUid();
+
+                        Intent i = new Intent(Main_student.this, MassegeActivity.class);
+                        i.putExtra("key", "student");
+                        i.putExtra("id_center", id_center);
+                        i.putExtra("id_group", id_group);
+                        i.putExtra("id_student", id_student);
+                        startActivity(i);
+                }
+                        return true;
                     case R.id.MenuStudentHomeSettings:
                         return true;
                     case R.id.MenuStudentHomeAbout:

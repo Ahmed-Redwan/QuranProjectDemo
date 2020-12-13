@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".chat.Show_student"
+        android:orientation="vertical"
+        android:background= "#E3E9EF"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chatStudentsList_ToolBar"
+            app:menu="@menu/group_list"
+            android:background="@color/colorPrimary"
+            app:title="اسم المركز"
+            app:titleTextColor="@android:color/white"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:text="كتبي"
+            android:textSize="@dimen/_26ssp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:shadowColor = "#D8000000"
+            android:shadowDx = "-2"
+            android:shadowDy = "-5"
+            android:shadowRadius = "20"
+            android:id="@+id/chatShowStudentsList_tv_show"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chatrecycler_show_group_student"
+            android:paddingStart="@dimen/_15sdp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/student_recycler_image_and_name"
+            />
+
+
+    </LinearLayout>

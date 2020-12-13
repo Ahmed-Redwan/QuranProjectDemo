@@ -7,6 +7,9 @@
         <item name="colorPrimaryDark">#671189D5</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="MenuStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/color_whigt
+        </item>
+    </style>
 
 </resources>

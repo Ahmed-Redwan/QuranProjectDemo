@@ -19,6 +19,7 @@ import com.example.quranprojectdemo.Activities.showDetails.Show_group_student;
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
 import com.example.quranprojectdemo.Activities.registrar.AddNewStudent;
 import com.example.quranprojectdemo.Activities.registrar.Add_a_new_save;
+import com.example.quranprojectdemo.chat.Show_student;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.CustomStudentRecyclerView2;
 import com.example.quranprojectdemo.models.groups.Group_Info;
@@ -62,6 +63,9 @@ public class Main_teacher extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.MenuTeacherChat:
+                        startActivity(new Intent(getBaseContext(), Show_student.class));
+                        return true;
                     case R.id.MenuTeacherHomeAddNewSave:
                         startActivity(new Intent(getBaseContext(), Add_a_new_save.class));
                         return true;

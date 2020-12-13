@@ -49,6 +49,7 @@ public class GetDataService extends Service {
                         switch (howIsLogged) {
                             case 0:
                                 centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+                                Log.d("aaaaa","rwg,wrplgwepgvw,pe"+centerId);
                                 getDataCenter();
                                 break;
                             case 1:

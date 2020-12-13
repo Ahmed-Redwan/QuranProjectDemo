@@ -41,8 +41,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         getCenterData = GetCenterData.getinstance(this);
         def();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference();
 
 
         viewFont();
@@ -68,7 +66,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
         btn_CreateNewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_CreateNewA.setEnabled(false);
+//                btn_CreateNewA.setEnabled(false);
 
                 if (et_centerName.getText().toString().isEmpty()) {
                     et_centerName.setError("Center name is required.");
@@ -167,7 +165,6 @@ public class QuranCenter_Reg extends AppCompatActivity {
                             et_Email.setError("تأكد من الإيميل و كلمة المرور.");
                             et_Password.setError("تأكد من الإيميل و كلمة المرور.");
                             FancyToast.makeText(getBaseContext(), "فشل في تسجيل الدخول.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();//
-
                         }
                     });
                 }

@@ -41,13 +41,17 @@ public class GetCenterData {
     private static GetCenterData instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    QuranCenter_Reg mAppContext;
+    QuranCenter_Reg mAppContext_Reg;
+    QuranCenter_Login mAppContext_login;
 
     private GetCenterData(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
         if (context instanceof AppCompatActivity)
-            mAppContext = new QuranCenter_Reg();
+            mAppContext_Reg = new QuranCenter_Reg();
+        if (context instanceof AppCompatActivity)
+            mAppContext_login=new QuranCenter_Login();
+
     }
 
     public static GetCenterData getinstance(Context context) {
@@ -92,10 +96,11 @@ public class GetCenterData {
     public String logIn(String email, String password) {
         final String[] isLoggend = {null};
         final Semaphore semaphore = new Semaphore(0);
-        QuranCenter_Login mAppContext = new QuranCenter_Login();
+
+
 
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(mAppContext_login, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -131,7 +136,7 @@ public class GetCenterData {
         final Semaphore semaphore = new Semaphore(0);
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(mAppContext_Reg, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {

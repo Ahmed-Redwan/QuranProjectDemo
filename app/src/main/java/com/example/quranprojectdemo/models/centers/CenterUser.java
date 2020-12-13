@@ -10,6 +10,7 @@ public class CenterUser extends RealmObject implements Serializable  {
 
     @Required
     private String centerName;
+
     @Required
     private String managerName;
     @Required
