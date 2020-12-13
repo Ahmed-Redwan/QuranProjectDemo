@@ -94,11 +94,11 @@ public class StudentDetails extends AppCompatActivity {
         SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
         String typeName[] = {"year_save", "month_save", "id_student", "id_group"};
-        String value[] = {String.valueOf(date_year), String.valueOf(11), id_student, id_group};
+        String value[] = {String.valueOf(date_year), String.valueOf(date_month), id_student, id_group};
         List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
 //        List<Student_data> studentData = dataBaseItems.getAllDataFromRealm(Student_data.class);
 //
-        Log.d("ddddd", student_dataList.size() + " a ");
+        Log.d("ddddd", student_dataList.size() + " a "+id_student+"lll"+id_group);
 
 
         if (student_dataList != null) {

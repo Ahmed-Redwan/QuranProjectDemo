@@ -54,7 +54,7 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), student_imageand_names.get(position).getId_Student() + "", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(view.getContext(), StudentDetails.class);
                 i.putExtra("id_center",student_imageand_names.get(position).getId_center());
                 i.putExtra("id_group",student_imageand_names.get(position).getId_group());
@@ -66,7 +66,7 @@ public class Recycler_show_group_student extends RecyclerView.Adapter<Recycler_s
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(), position + "", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

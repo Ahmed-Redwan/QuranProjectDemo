@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -96,10 +97,13 @@ public class MassegeActivity extends AppCompatActivity {
             id_student = i.getStringExtra("id_student");
             id_group = i.getStringExtra("id_group");
             id_center = i.getStringExtra("id_center");
+            Log.d("ccccc",id_student+"g"+id_group+"c"+id_center);
+
             if (id_student_c != null) {
                 id_group = id_group_c;
                 id_center = id_center_c;
                 id_student = id_student_c;
+                Log.d("ccccc",id_student+"g"+id_group+"c"+id_center);
             }
         }
 

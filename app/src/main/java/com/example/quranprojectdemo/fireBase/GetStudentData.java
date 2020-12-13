@@ -45,7 +45,7 @@ public class GetStudentData {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private RealmDataBaseItems dataBaseItems;
-    static GuardianLogin mAppContext;
+      GuardianLogin mAppContext;
 
     private GetStudentData(Context context) {
         this.context = context;
@@ -53,6 +53,8 @@ public class GetStudentData {
         dataBaseItems = RealmDataBaseItems.getInstance(context);
 
 //        centerId = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
+        if (context instanceof AppCompatActivity)
+            mAppContext = new GuardianLogin();
 
 
     }
@@ -62,8 +64,6 @@ public class GetStudentData {
         if (instance == null) {
             instance = new GetStudentData(context);
         }
-        if (context instanceof AppCompatActivity)
-            mAppContext = new GuardianLogin();
 
         return instance;
     }
@@ -266,7 +266,7 @@ public class GetStudentData {
     public boolean logInStudent(final String email, final String password) {
         final boolean[] islogIn = {false};
         final Semaphore semaphore = new Semaphore(0);
-        Log.d("kkkkk", mAppContext + "this s");
+//        Log.d("kkkkk", mAppContext + "this s");
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -690,6 +690,7 @@ public class GetStudentData {
             final Semaphore semaphore = new Semaphore(0);
             sp = context.getSharedPreferences(QuranCenter_Login.INFO_CENTER_LOGIN, MODE_PRIVATE);
             final String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+            Log.d("fffff", id_center + " oops!");
             FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
             final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                     .child("groups");
@@ -700,7 +701,6 @@ public class GetStudentData {
                     for (DataSnapshot groupsSnapShot : snapshot.getChildren()) {
 
                         DataSnapshot dataSnapshotStudentGroup = groupsSnapShot.child("student_group");
-                        DataSnapshot dataSnapshot = dataSnapshotStudentGroup.child("student_save");
                         String typeName[] = {"id_group"};
                         String value[] = {groupsSnapShot.getKey()};
 
@@ -709,14 +709,17 @@ public class GetStudentData {
                         int countSaves = (int) maxMin[2];
 
                         for (DataSnapshot snapshot1 : dataSnapshotStudentGroup.getChildren()) {
+                            DataSnapshot dataSnapshot = snapshot1.child("student_save");
 
-                            if ((dataSnapshot.getChildrenCount() - 1) > countSaves) {
+                            if ((dataSnapshot.getChildrenCount() - 1) > countSaves||true) {
                                 for (DataSnapshot snapshot2 : dataSnapshot.getChildren()) {
-                                    if (!snapshot2.getKey().equals("report")) {
-                                        if (Integer.parseInt(snapshot2.getKey()) > maxValue) {
+                                    if (!snapshot2.getKey().equals("report")||true) {
+                                        if (Integer.parseInt(snapshot2.getKey()) > maxValue||true) {
 
                                             Student_data student_data = snapshot2.getValue(Student_data.class);
+
                                             if (student_data != null) {
+                                            Log.d("ffffff",student_data.getId_student()+"dffd");
                                                 studentData.add(student_data);
 
                                             }

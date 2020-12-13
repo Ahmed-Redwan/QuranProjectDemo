@@ -1,4 +1,4 @@
-    package com.example.quranprojectdemo.service;
+package com.example.quranprojectdemo.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import java.io.IOException;
 import java.util.List;
 
+import static com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login.INFO_CENTER_LOGIN;
 import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.CHEACKHOWISLOGGED;
 import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.HOWISLOGGED;
 
@@ -48,8 +49,9 @@ public class GetDataService extends Service {
                     if (true) {
                         switch (howIsLogged) {
                             case 0:
-                                centerId = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
-                                Log.d("aaaaa","rwg,wrplgwepgvw,pe"+centerId);
+                                centerId = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE).
+                                        getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+                                Log.d("aaaaa", "rwg,wrplgwepgvw,pe" + centerId);
                                 getDataCenter();
                                 break;
                             case 1:
@@ -92,9 +94,11 @@ public class GetDataService extends Service {
         Log.d("ffff", studentInfos.size() + " , 1 ");
 
         List<Student_data> studentData = getStudentData.getNewStudentsSaveToCenter();
-        if (studentData != null && !studentData.isEmpty())
-            dataBaseItems.insertListDataToRealm(studentData);
-
+//        if (studentData != null && !studentData.isEmpty())
+        dataBaseItems.insertListDataToRealm(studentData);
+        Log.d("vvvv", "vvv" + studentData.size()+"data reakm :suzie"+   dataBaseItems.getAllDataFromRealm(Student_data.class).size());
+//        studentData.size();
+     ;
 
     }
 

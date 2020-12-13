@@ -63,21 +63,24 @@ public class RealmDataBaseItems {
     }
 
     public void insertListDataToRealm(List object) {
+        Log.d("asd", object.size() + ";;;");
 
-        Log.d("vvvvv", object.size() + "size ");
         if (object != null) {
             Realm.init(this.context);
             realm = Realm.getDefaultInstance();
             if (!realm.isInTransaction())
                 realm.beginTransaction();
 
-
             realm.insertOrUpdate(object);
 
             realm.commitTransaction();
+
+
             if (!realm.isClosed())
                 realm.close();
         }
+
+
     }
 
     public <T> List<T> getAllDataFromRealm(Class classType) {

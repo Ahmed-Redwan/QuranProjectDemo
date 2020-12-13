@@ -1,6 +1,7 @@
 package com.example.quranprojectdemo.Activities.mainActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
 import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
 import com.example.quranprojectdemo.chat.MassegeActivity;
@@ -55,7 +57,6 @@ public class Main_student extends AppCompatActivity {
 
     ImageView image_backe_student, image_student;
     TextView tv_student_name, tv_student_name_ring, tv_student_phone, tv_student_identity;
-    private FirebaseAuth mAuth;
     String id_center, id_group, id_student;
     List<Student_data> student_data = new ArrayList<>();
 
@@ -64,7 +65,7 @@ public class Main_student extends AppCompatActivity {
 
     RealmDataBaseItems dataBaseItems;
     RecyclerView rv;
-
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,11 @@ public class Main_student extends AppCompatActivity {
         setContentView(R.layout.main_student);
         if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 2).commit();
-        mAuth = FirebaseAuth.getInstance();
+
+        sp = getSharedPreferences(GuardianLogin.INFO_STUDENT_LOGIN, MODE_PRIVATE);
+        id_center = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
+        id_group = sp.getString(GuardianLogin.STD_ID_GROUP, "-1");
+        id_student = sp.getString(GuardianLogin.STD_ID_STUDENT, "-1");
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         def();
         viewFont();
@@ -80,10 +85,7 @@ public class Main_student extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                     case R.id.MenuStudentChat:
-                     {     id_center = mAuth.getCurrentUser().getDisplayName();
-                        id_group = mAuth.getCurrentUser().getPhotoUrl().toString();
-                        id_student = mAuth.getCurrentUser().getUid();
+                    case R.id.MenuStudentChat: {
 
                         Intent i = new Intent(Main_student.this, MassegeActivity.class);
                         i.putExtra("key", "student");
@@ -91,8 +93,8 @@ public class Main_student extends AppCompatActivity {
                         i.putExtra("id_group", id_group);
                         i.putExtra("id_student", id_student);
                         startActivity(i);
-                }
-                        return true;
+                    }
+                    return true;
                     case R.id.MenuStudentHomeSettings:
                         return true;
                     case R.id.MenuStudentHomeAbout:
@@ -147,9 +149,7 @@ public class Main_student extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-        id_center = mAuth.getCurrentUser().getDisplayName();
-        id_group = mAuth.getCurrentUser().getPhotoUrl().toString();
-        id_student = mAuth.getCurrentUser().getUid();
+
 
         getsave_showStudent();
 
@@ -204,13 +204,10 @@ public class Main_student extends AppCompatActivity {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
                 .child("groups").child(id_group).child("student_group").child(id_student).child("student_save");
-
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 list_spinner_year.add("اختر السنة");
-//
                 String typeName[] = {};
                 String value[] = {};
                 long[] maxMin = dataBaseItems.getMaxAndMinAndCountValue("year_save", typeName, value, Student_data.class);
@@ -314,7 +311,6 @@ public class Main_student extends AppCompatActivity {
     public void getStudnetInfo() {
         Student_Info studentInfo = (Student_Info) dataBaseItems.getAllDataFromRealm(Student_Info.class).get(0);
         if (studentInfo != null) {
-
             tv_student_name.setText("الطالب " + studentInfo.getName());
             tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
             tv_student_phone.setText(studentInfo.getPhoneNo());

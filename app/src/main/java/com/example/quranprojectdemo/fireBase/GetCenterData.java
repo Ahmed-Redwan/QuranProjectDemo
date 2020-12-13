@@ -50,7 +50,7 @@ public class GetCenterData {
         if (context instanceof AppCompatActivity)
             mAppContext_Reg = new QuranCenter_Reg();
         if (context instanceof AppCompatActivity)
-            mAppContext_login=new QuranCenter_Login();
+            mAppContext_login = new QuranCenter_Login();
 
     }
 
@@ -98,7 +98,6 @@ public class GetCenterData {
         final Semaphore semaphore = new Semaphore(0);
 
 
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mAppContext_login, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -108,7 +107,7 @@ public class GetCenterData {
                             isLoggend[0] = user.getUid();
                             sp = context.getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
                             editor = sp.edit();
-
+                            Log.d("aaaaa", "this is log in " + isLoggend[0]);
                             editor.putString(ID_CENTER_LOGIN, isLoggend[0]);
 
 
