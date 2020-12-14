@@ -31,8 +31,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.ID_LOGIN_TEACHER;
-import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.INFO_TEACHER;
 import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.CHEACKHOWISLOGGED;
 
 public class Main_teacher extends AppCompatActivity {
@@ -55,7 +53,7 @@ public class Main_teacher extends AppCompatActivity {
         if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 1).commit();
         mAuth = FirebaseAuth.getInstance();
-        id_group=getSharedPreferences(INFO_TEACHER,MODE_PRIVATE).getString(ID_LOGIN_TEACHER, "a");
+
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
 
 
