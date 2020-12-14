@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
 import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
+import com.example.quranprojectdemo.chat.Chat;
 import com.example.quranprojectdemo.chat.MassegeActivity;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.Recycler_student;
@@ -67,6 +72,46 @@ public class Main_student extends AppCompatActivity {
     RecyclerView rv;
     SharedPreferences sp;
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater =getMenuInflater();
+//        inflater.inflate(R.menu.studente_home_menu,menu);
+//        MenuItem item=menu.findItem(R.id.MenuStudentChat);
+//        View view=item.getActionView();
+//        final TextView tv=view.findViewById(R.id.chatText);
+//        Log.d("opop","");
+//        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("CenterUsers").child(id_center)
+//                .child("groups").child(id_group).child("student_group").child(id_student).child("chats");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                int i = 0;
+//                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+//                    Chat chat=dataSnapshot.getValue(Chat.class);
+//                    if (chat.isSeen()==false){
+//                        Log.d("zzz1",i+"");
+//                        i+=1;
+//                    }
+//                }
+//                if (i==0){
+//                    tv.setVisibility(View.GONE);
+//                }else {
+//                    tv.setVisibility(View.VISIBLE);
+//                    Log.d("zzz2",i+"");
+//                    tv.setText(""+i);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//            }
+//        });
+//        return true;
+//    }
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +126,13 @@ public class Main_student extends AppCompatActivity {
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         def();
         viewFont();
+
+        toolbar_student.findViewById(R.id.student_main_tool);
         toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.MenuStudentChat: {
-
                         Intent i = new Intent(Main_student.this, MassegeActivity.class);
                         i.putExtra("key", "student");
                         i.putExtra("id_center", id_center);
@@ -134,7 +180,7 @@ public class Main_student extends AppCompatActivity {
         btn_disable_spinner = findViewById(R.id.btn_disable_spinner);
         linearspinner = findViewById(R.id.linear_spinner);
 
-        toolbar_student = findViewById(R.id.student_main_tool);
+//        toolbar_student = findViewById(R.id.student_main_tool);
     }
 
     public void viewFont() {
@@ -171,12 +217,8 @@ public class Main_student extends AppCompatActivity {
             }
         });
         getStudnetInfo();
-
-
     }
-
     public void getsave_showStudent() {
-
 
         Date date = new Date();
 
@@ -188,7 +230,6 @@ public class Main_student extends AppCompatActivity {
         String typeName[] = {"year_save", "month_save"};
         String value[] = {String.valueOf(date_year), String.valueOf(date_month)};
         List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
-
         if (student_dataList != null) {
             Recycler_student r_s = new Recycler_student(student_dataList);
             rv.setAdapter(r_s);
@@ -196,9 +237,7 @@ public class Main_student extends AppCompatActivity {
             rv.setHasFixedSize(true);
             rv.setLayoutManager(lm);
         }
-
     }
-
 
     public void getSavesStudent(String id_center, String id_group, String id_student) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -214,9 +253,7 @@ public class Main_student extends AppCompatActivity {
                 for (int i = (int) maxMin[0]; i <= maxMin[1]; i++) {
 
                     list_spinner_year.add(i + "");
-
                 }
-
 
                 ArrayAdapter adapter_spinner_year = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, list_spinner_year);
                 spinner_year.setAdapter(adapter_spinner_year);
@@ -244,10 +281,7 @@ public class Main_student extends AppCompatActivity {
 
                             for (int i = 1; i <= max; i++) {
                                 list_spinner_month.add("" + i);
-
-
-                            }
-
+                           }
 
                             if (list_spinner_month.isEmpty()) {
                                 Toast.makeText(Main_student.this, "لايوجد لك اشهر في هذه السنة" + year, Toast.LENGTH_SHORT).show();
@@ -262,12 +296,10 @@ public class Main_student extends AppCompatActivity {
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     int month = 0;
                                     if (parent.getItemAtPosition(position).toString().equals("اختر الشهر")) {
-
                                         month = 0;
                                     } else {
                                         month = Integer.parseInt(parent.getItemAtPosition(position).toString());
                                     }
-
                                     String typeName[] = {"year_save", "month_save"};
                                     String value[] = {String.valueOf(year), String.valueOf(month)};
                                     List<Student_data> student_dataList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_data.class);
@@ -281,32 +313,23 @@ public class Main_student extends AppCompatActivity {
                                         rv.setHasFixedSize(true);
                                         rv.setLayoutManager(lm);
                                     }
-                                }
-
+                               }
                                 @Override
                                 public void onNothingSelected(AdapterView<?> parent) {
-
                                 }
                             });
                         }
                     }
-
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
-
-
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
-
             }
         });
-
     }
-
 
     public void getStudnetInfo() {
         Student_Info studentInfo = (Student_Info) dataBaseItems.getAllDataFromRealm(Student_Info.class).get(0);
@@ -319,6 +342,9 @@ public class Main_student extends AppCompatActivity {
         }
 
     }
+
+
+
 
     @Override
     public void onBackPressed() {

@@ -53,9 +53,11 @@ public class GetStudentData {
         dataBaseItems = RealmDataBaseItems.getInstance(context);
 
 //        centerId = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
-        if (context instanceof AppCompatActivity)
-            mAppContext = new GuardianLogin();
-
+        try {
+            if (context instanceof AppCompatActivity)
+                mAppContext = new GuardianLogin();
+        }catch (Exception e){
+        }
 
     }
 

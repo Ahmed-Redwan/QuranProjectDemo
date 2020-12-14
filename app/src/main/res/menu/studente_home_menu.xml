@@ -6,6 +6,7 @@
         android:title=""
         android:icon="@drawable/ic_baseline_chat_white_24"
         app:showAsAction="always"
+        android:actionLayout="@layout/chat_custom"
         />
 
     <item android:id="@+id/MenuStudentHomeSettings"

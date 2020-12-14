@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -45,6 +46,9 @@ public class MassegeActivity extends AppCompatActivity {
     String id_center_c, id_group_c, id_student_c;
     private SharedPreferences sp;
     String key;
+    DatabaseReference reference1;
+    ValueEventListener seenListener;
+
 
     ArrayList<Chat> arrayList;
 
@@ -111,7 +115,7 @@ public class MassegeActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+              FirebaseUser  user= FirebaseAuth.getInstance().getCurrentUser();
                 if (!send_massege.getText().toString().equals("")){
                     if (key.equals("teacher")){
                        sendMassege(user.getUid(),id_student,send_massege.getText().toString());
@@ -125,8 +129,16 @@ public class MassegeActivity extends AppCompatActivity {
                 send_massege.setText("");
             }
         });
+        FirebaseUser  user= FirebaseAuth.getInstance().getCurrentUser();
+        if (key.equals("teacher")){
+            seenMassege(user.getUid() );
+        }else {
+            seenMassege(user.getUid());
+        }
 
         showMassege();
+
+
     }
 
     private void sendMassege(String sender ,String reciver ,String massege) {
@@ -153,12 +165,12 @@ public class MassegeActivity extends AppCompatActivity {
                     Chat chats =dataSnapshot.getValue(Chat.class);
 
 //                    if (chats.getSender().equals(my_id)&&chats.getReciver().equals(user_id) ||
-//                           chats.getSender().equals(user_id)&&chats.getReciver().equals(my_id)){
+//                           chats.getSender().equals(user_id)&&chats.getReciver().equals(my_id))
                            arrayList.add(chats);
-//                    }
-                  RecyclerMassege adapter=new RecyclerMassege(MassegeActivity.this,arrayList);
-                    recyclerMassege.setAdapter(adapter);
+
                 }
+                RecyclerMassege adapter=new RecyclerMassege(MassegeActivity.this,arrayList);
+                recyclerMassege.setAdapter(adapter);
             }
 
             @Override
@@ -169,9 +181,41 @@ public class MassegeActivity extends AppCompatActivity {
 
     }
 
+
+    public  void seenMassege (final String uid ){
+
+        reference1 =FirebaseDatabase.getInstance().getReference("CenterUsers").child(id_center)
+                     .child("groups").child(id_group).child("student_group").child(id_student).child("chats");
+        seenListener = reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Chat chats=dataSnapshot.getValue(Chat.class);
+
+                    if (chats.getSender().equals(uid)  ) {
+
+                    }else{
+//                        Toast.makeText(MassegeActivity.this, "massege:"+chats.getMassege(), Toast.LENGTH_SHORT).show();
+                        HashMap<String ,Object> hashMap=new HashMap<>();
+                        hashMap.put("seen",true);
+
+                        dataSnapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+
+
+
     @Override
-    protected void onStart() {
-        super.onStart();
-//        showMassege();
+    protected void onPause() {
+        super.onPause();
+        reference1.removeEventListener(seenListener);
+        Toast.makeText(this, "pause", Toast.LENGTH_SHORT).show();
     }
 }

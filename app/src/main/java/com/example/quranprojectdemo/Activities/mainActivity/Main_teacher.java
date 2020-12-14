@@ -1,17 +1,23 @@
 package com.example.quranprojectdemo.Activities.mainActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.otherActivity.AboutApp;
 import com.example.quranprojectdemo.Activities.otherActivity.Reprts;
 import com.example.quranprojectdemo.Activities.otherActivity.SplashScreen;
@@ -19,6 +25,7 @@ import com.example.quranprojectdemo.Activities.showDetails.Show_group_student;
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
 import com.example.quranprojectdemo.Activities.registrar.AddNewStudent;
 import com.example.quranprojectdemo.Activities.registrar.Add_a_new_save;
+import com.example.quranprojectdemo.chat.Chat;
 import com.example.quranprojectdemo.chat.Show_student;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.recyclerView.student.CustomStudentRecyclerView2;
@@ -27,6 +34,11 @@ import com.example.quranprojectdemo.models.students.Student_Info;
 import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.Activities.registrar.RegisterAs;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +57,41 @@ public class Main_teacher extends AppCompatActivity {
     CustomStudentRecyclerView2 customStudentRecyclerView2;
     RecyclerView.LayoutManager layoutManager;
     RealmDataBaseItems dataBaseItems;
-    private String id_group;
+    SharedPreferences sp;
+    String id_center, id_group ;
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater =getMenuInflater();
+//        inflater.inflate(R.menu.teacher_home_menu,menu);
+//        MenuItem item=menu.findItem(R.id.MenuTeacherChat);
+//        View view=item.getActionView();
+//        final TextView tv=view.findViewById(R.id.chatText);
+//
+//        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("CenterUsers").child(id_center)
+//                .child("groups").child(id_group).child("student_group").child("chats");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                int i = 0;
+//                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+//                    Chat chat=dataSnapshot.getValue(Chat.class);
+//                    if (chat.isSeen()==false){
+//                        i+=1;
+//                    }
+//                }
+//                if (i==0){
+//                    tv.setVisibility(View.GONE);
+//                }else {
+//                    tv.setText(""+i);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//            }
+//        });
+//        return true;
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,16 +99,18 @@ public class Main_teacher extends AppCompatActivity {
         if (getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).getInt(SplashScreen.HOWISLOGGED, -1) == -1)
             getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().putInt(SplashScreen.HOWISLOGGED, 1).commit();
         mAuth = FirebaseAuth.getInstance();
-
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
 
-
+        sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
+        id_center = sp.getString(TeacherLogin.ID_LOGIN_TEC_CENTER, "0");
+        id_group = sp.getString(TeacherLogin.ID_LOGIN_TEACHER, "-1");
         def();
         viewFont();
 
         toolbar_teacher.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.MenuTeacherChat:
                         startActivity(new Intent(getBaseContext(), Show_student.class));

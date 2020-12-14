@@ -4,10 +4,11 @@
 
     <item android:id="@+id/MenuTeacherHomeAddNewSave"
         android:title="add new info"
-        android:icon="@drawable/ic_note_add_black_24dp"
+         android:icon="@drawable/ic_note_add_black_24dp"
         app:showAsAction="always"
         />
     <item android:id="@+id/MenuTeacherChat"
+
         android:title=""
         android:icon="@drawable/ic_baseline_chat_white_24"
         app:showAsAction="always"
