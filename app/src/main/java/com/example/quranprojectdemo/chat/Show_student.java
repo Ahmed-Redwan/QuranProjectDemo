@@ -1,44 +1,44 @@
-package com.example.quranprojectdemo.chat;
+        package com.example.quranprojectdemo.chat;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.TextView;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.graphics.Typeface;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.MenuItem;
+        import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.widget.Toolbar;
+        import androidx.recyclerview.widget.GridLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
-import com.example.quranprojectdemo.realm.RealmDataBaseItems;
-import com.example.quranprojectdemo.recyclerView.student.Recycler_show_group_student;
-import com.example.quranprojectdemo.models.students.Student_Info;
-import com.example.quranprojectdemo.R;
-import com.example.quranprojectdemo.recyclerView.student.Recycler_show_student;
+        import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
+        import com.example.quranprojectdemo.realm.RealmDataBaseItems;
+        import com.example.quranprojectdemo.recyclerView.student.Recycler_show_group_student;
+        import com.example.quranprojectdemo.models.students.Student_Info;
+        import com.example.quranprojectdemo.R;
+        import com.example.quranprojectdemo.recyclerView.student.Recycler_show_student;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 
-public class Show_student extends AppCompatActivity {
+        public class Show_student extends AppCompatActivity {
 
-    RecyclerView rv;
-    TextView tv_show;
-    Toolbar toolbar;
-    ArrayList<Student_Info> arrayList;
-    private SharedPreferences sp;
-    String id_group;
-    String id_center;
-    String id_group_c;
-    String id_center_c;
-    RealmDataBaseItems dataBaseItems;
+        RecyclerView rv;
+        TextView tv_show;
+        Toolbar toolbar;
+        ArrayList<Student_Info> arrayList;
+        private SharedPreferences sp;
+        String id_group;
+        String id_center;
+        String id_group_c;
+        String id_center_c;
+        RealmDataBaseItems dataBaseItems;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student);
         sp = getSharedPreferences(TeacherLogin.INFO_TEACHER, MODE_PRIVATE);
@@ -70,25 +70,25 @@ public class Show_student extends AppCompatActivity {
         arrayList = new ArrayList<>();
 
 
-    }
+        }
 
-    private void def() {
+        private void def() {
 
         toolbar = findViewById(R.id.chatStudentsList_ToolBar);
         rv = findViewById(R.id.chatrecycler_show_group_student);
         tv_show = findViewById(R.id.chatShowStudentsList_tv_show);
         tv_show.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
-    }
+        }
 
-    @Override
-    protected void onStart() {
+        @Override
+        protected void onStart() {
         super.onStart();
         get_student_group();
 
 
-    }
+        }
 
-    public void get_student_group() {
+        public void get_student_group() {
         String typeName[] = {"id_group"};
         String value[] = {id_group};
         List<Student_Info> studentInfoList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class);
@@ -115,8 +115,8 @@ public class Show_student extends AppCompatActivity {
             RecyclerView.LayoutManager lm = new GridLayoutManager(getBaseContext(), 2);
             rv.setLayoutManager(lm);
         }
-    }
+        }
 
 
-}
+        }
 
