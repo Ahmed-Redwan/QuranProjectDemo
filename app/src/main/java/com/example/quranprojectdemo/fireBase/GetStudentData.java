@@ -45,7 +45,7 @@ public class GetStudentData {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private RealmDataBaseItems dataBaseItems;
-      GuardianLogin mAppContext;
+    GuardianLogin mAppContext;
 
     private GetStudentData(Context context) {
         this.context = context;
@@ -372,12 +372,11 @@ public class GetStudentData {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     DataSnapshot dataSnapshot = snapshot1.child("student_save");
                     for (DataSnapshot snapshot2 : dataSnapshot.getChildren()) {
-                        if (!snapshot2.getKey().equals("report")) {
-                            Student_data student_data = snapshot2.getValue(Student_data.class);
-                            if (student_data != null) {
-                                studentData.add(student_data);
 
-                            }
+                        Student_data student_data = snapshot2.getValue(Student_data.class);
+                        if (student_data != null) {
+                            studentData.add(student_data);
+
 
                         }
                     }
@@ -461,16 +460,16 @@ public class GetStudentData {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         DataSnapshot dataSnapshot = snapshot1.child("student_save");
-                        if ((dataSnapshot.getChildrenCount() - 1) > countSaves) {
+                        if ((dataSnapshot.getChildrenCount() - 1) > countSaves || true) {
                             for (DataSnapshot snapshot2 : dataSnapshot.getChildren()) {
-                                if (!snapshot2.getKey().equals("report")) {
-                                    if (Integer.parseInt(snapshot2.getKey()) > maxValue) {
-                                        Student_data student_data = snapshot2.getValue(Student_data.class);
-                                        if (student_data != null) {
-                                            studentData.add(student_data);
 
-                                        }
+                                if (Integer.parseInt(snapshot2.getKey()) > maxValue || true) {
+                                    Student_data student_data = snapshot2.getValue(Student_data.class);
+                                    if (student_data != null) {
+                                        studentData.add(student_data);
+
                                     }
+
                                 }
                             }
                         }
@@ -711,15 +710,15 @@ public class GetStudentData {
                         for (DataSnapshot snapshot1 : dataSnapshotStudentGroup.getChildren()) {
                             DataSnapshot dataSnapshot = snapshot1.child("student_save");
 
-                            if ((dataSnapshot.getChildrenCount() - 1) > countSaves||true) {
+                            if ((dataSnapshot.getChildrenCount() - 1) > countSaves || true) {
                                 for (DataSnapshot snapshot2 : dataSnapshot.getChildren()) {
-                                    if (!snapshot2.getKey().equals("report")||true) {
-                                        if (Integer.parseInt(snapshot2.getKey()) > maxValue||true) {
+                                    if (!snapshot2.getKey().equals("report") || true) {
+                                        if (Integer.parseInt(snapshot2.getKey()) > maxValue || true) {
 
                                             Student_data student_data = snapshot2.getValue(Student_data.class);
 
                                             if (student_data != null) {
-                                            Log.d("ffffff",student_data.getId_student()+"dffd");
+                                                Log.d("ffffff", student_data.getId_student() + "dffd");
                                                 studentData.add(student_data);
 
                                             }

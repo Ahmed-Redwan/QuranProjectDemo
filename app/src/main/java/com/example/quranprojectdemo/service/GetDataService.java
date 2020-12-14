@@ -96,9 +96,9 @@ public class GetDataService extends Service {
         List<Student_data> studentData = getStudentData.getNewStudentsSaveToCenter();
 //        if (studentData != null && !studentData.isEmpty())
         dataBaseItems.insertListDataToRealm(studentData);
-        Log.d("vvvv", "vvv" + studentData.size()+"data reakm :suzie"+   dataBaseItems.getAllDataFromRealm(Student_data.class).size());
+        Log.d("vvvv", "vvv" + studentData.size() + "data reakm :suzie" + dataBaseItems.getAllDataFromRealm(Student_data.class).size());
 //        studentData.size();
-     ;
+        ;
 
     }
 
@@ -138,6 +138,9 @@ public class GetDataService extends Service {
 
         String typeName[] = {};
         String value[] = {};
+        long maxMin11[] = dataBaseItems.getMaxAndMinAndCountValue("id_student", typeName, value, Student_data.class);
+
+        Log.d("nnnnn", maxMin11[2] + "ssss");
 
         long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
         int max = (int) maxMin[1];
@@ -152,17 +155,20 @@ public class GetDataService extends Service {
         Log.d("qqq", "groupInfo.getAuto_sutdent_id()" + " q");
         for (int i = 0; i < Integer.parseInt(groupInfo.getAuto_sutdent_id()); i++) {
             String typeName1[] = {"id_student"};
-            Log.d("qqq", i + " q");
             String value1[] = {String.valueOf(i)};
             long maxMinCount[] = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName1, value1, Student_data.class);
             int count1 = (int) maxMinCount[2];
-            List<Student_data> studentDataList = getStudentData.getNewSaveToStudent(count1);
+            List<Student_data> studentDataList = getStudentData.getAllStudentSave();
             if (studentDataList != null) {
-                if (!studentDataList.isEmpty())
+                if (!studentDataList.isEmpty()) {
+                    Log.d("qqq", studentDataList.size() + " q");
+
                     dataBaseItems.insertListDataToRealm(studentDataList);
+                }
             }
         }
 
+//        dataBaseItems.getMaxAndMinAndCountValue();
 //                maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
 //                max = (int) maxMin[1];
 //                count = (int) maxMin[2];

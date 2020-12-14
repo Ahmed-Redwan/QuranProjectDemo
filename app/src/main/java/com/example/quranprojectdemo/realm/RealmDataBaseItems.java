@@ -231,7 +231,7 @@ public class RealmDataBaseItems {
     public long[] getMaxAndMinAndCountValue(String filedType, String[] nameType, String[] value, Class classType) {
         Realm.init(this.context);
         realm = Realm.getDefaultInstance();
-        RealmQuery<Student_data> query = realm.where(classType);
+        RealmQuery query = realm.where(classType);
         int length = nameType.length;
         Number max;
         Number min;
