@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -73,58 +74,33 @@ public class Reprts extends AppCompatActivity {
         realmDataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         rv = findViewById(R.id.reports_rv);
         reports = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
+
         List<Student_Info> studentInfoList = realmDataBaseItems.getAllDataFromRealm(Student_Info.class);
         for (int i = 0; i < studentInfoList.size(); i++) {
             String name = studentInfoList.get(i).getName();
             String id = studentInfoList.get(i).getId_Student();
-            String nameType[] = {"id_student"};
-            String valeu[] = {id};
-            String filedTypeAtt = "attendess_student";
-            int countAtt = (int) realmDataBaseItems.getMaxAndMinAndCountValue(filedTypeAtt, nameType, valeu, Student_data.class)[2];
+            String[] nameType = {"id_student","attendess_student"};
+            String[] valeu = {id,"حاضر"};
+            String[] valeuNotAtt = {id,"غائب"};
+//            String filedTypeAtt = "attendess_student";
+            int countAtt = (int) realmDataBaseItems.getDataWithAndStatement( nameType, valeu, Student_data.class).size();
 
-            String filedType = "id_student";
-            int countAll = (int) realmDataBaseItems.getMaxAndMinAndCountValue(filedType, nameType, valeu, Student_data.class)[2];
-            int notAtt = (countAll - countAtt);
+//            String filedType = "id_student";
+            int notAtt = (int) realmDataBaseItems.getDataWithAndStatement( nameType, valeuNotAtt, Student_data.class).size();
 
             List<Student_data> dataList = realmDataBaseItems.getDataWithAndStatement(nameType, valeu, Student_data.class);
-//            Log.d("rrrrr", dataList.size()+"   w w w");
             int countSavePages = 0, countRevPages = 0;
             for (int j = 0; j < dataList.size(); j++) {
-                try {
-                    countSavePages += dataList.get(j).getCounnt_page_save();
 
-                } catch (Exception e) {
-                }
-                try {
-                    countRevPages += dataList.get(j).getCounnt_page_review();
+                countSavePages += dataList.get(j).getCounnt_page_save();
 
-                } catch (Exception e) {
-                }
+
+                countRevPages += dataList.get(j).getCounnt_page_review();
+
+
             }
             reports.add(new Report(i + 1, countAtt, notAtt, countSavePages, countRevPages, name));
         }
-
-//        String nameType[] = {};
-//        String value[] = {};
-//        reports.add(new Report(1, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-//        reports.add(new Report(1, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-//        reports.add(new Report(2, 1, 5, 5, 5, "أحمد عبدالغفور"));
-//        reports.add(new Report(3, 1, 5, 5, 5, "حسن داوود"));
-//        reports.add(new Report(4, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-//        reports.add(new Report(5, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-//        reports.add(new Report(6, 1, 5, 5, 5, "أحمد عبدالغفور"));
-//        reports.add(new Report(7 + 3, 1, 5, 5, 5, "حسن داوود"));
-//        reports.add(new Report(8, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-//        reports.add(new Report(9, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-//        reports.add(new Report(10, 1, 5, 5, 5, "أحمد عبدالغفور"));
-//        reports.add(new Report(11, 1, 5, 5, 5, "حسن داوود"));
-//        reports.add(new Report(12, 1, 5, 5, 5, "حسن داوود"));
-//        reports.add(new Report(13, 1, 5, 5, 5, "حسن داوود"));
-//        reports.add(new Report(14, 1, 5, 5, 5, "حسن داوود"));
-
-//        }
-
 
         customReport = new CustomReport(getBaseContext(), reports);
         customReport.notifyDataSetChanged();
@@ -136,41 +112,41 @@ public class Reprts extends AppCompatActivity {
 
         llPdf = findViewById(R.id.reports_linearla);
         btn = findViewById(R.id.reports_btn_createa_report);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("size", " " + llPdf.getWidth() + "  " + llPdf.getWidth());
-//                bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
-//             //   createPdf();
-//            }
-//        });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("size", " " + llPdf.getWidth() + "  " + llPdf.getWidth());
+                bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
+                //   createPdf();
+            }
+        });
 
 
-        if (ContextCompat.checkSelfPermission(Reprts.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            ActivityCompat.requestPermissions(Reprts.this, permissions, 0);
-        } else {
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+//        if (ContextCompat.checkSelfPermission(Reprts.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//            ActivityCompat.requestPermissions(Reprts.this, permissions, 0);
+//        } else {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    sp = getSharedPreferences(CREATE_PDF, MODE_PRIVATE);
-                    editor = sp.edit();
-                    editor.putInt(ID_CREATE_PDF, 1);
-                    editor.commit();
+                sp = getSharedPreferences(CREATE_PDF, MODE_PRIVATE);
+                editor = sp.edit();
+                editor.putInt(ID_CREATE_PDF, 1);
+                editor.apply();
 
-                    Intent intent = new Intent(getBaseContext(), Reperts_pdf.class);
-                    startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), Reperts_pdf.class);
+                intent.putExtra("reports", reports);
+                startActivity(intent);
 
-                    Log.d("size", "********************************************* " + llPdf.getWidth() + "  " + llPdf.getWidth());
-                    bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
-                    createPdf();
-                }
-            });
+//                     bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
+//                    createPdf();
+            }
+        });
 
 
-        }
+//        }
 
 
     }

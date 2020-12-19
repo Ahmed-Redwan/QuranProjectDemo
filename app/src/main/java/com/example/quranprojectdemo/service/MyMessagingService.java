@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.service;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,10 +23,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+@SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class MyMessagingService extends FirebaseMessagingService {// this service to receive Notifications
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody().toLowerCase());
         // write code to do when you receive Notifications

@@ -1,6 +1,6 @@
 package com.example.quranprojectdemo.fireBase;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,23 +29,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import java.util.concurrent.Semaphore;
+
 public class SetGroupData {
     FirebaseAuth mAuth;
     private String auto_id_group = null;
     private Group_Info group_info;
     private CenterUser value;
-    private Context context;
+    private final Context context;
+    @SuppressLint("StaticFieldLeak")
     private static SetGroupData instance;
     AddNewGroup mAppContext;
 
-    private RealmDataBaseItems dataBaseItems;
+    private final RealmDataBaseItems dataBaseItems;
 
     private SetGroupData(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
         dataBaseItems = RealmDataBaseItems.getInstance(context);
         if (context instanceof AppCompatActivity)
-            mAppContext= new AddNewGroup();
+            mAppContext = new AddNewGroup();
     }
 
     public static SetGroupData getinstance(Context context) {
@@ -57,8 +60,7 @@ public class SetGroupData {
     }
 
     public void sign_up(final String email, final String password, final String groupName, final String teacherName, final String phone, final String centerID) {
-
-
+        Semaphore semaphore = new Semaphore(0);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mAppContext, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -72,6 +74,7 @@ public class SetGroupData {
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
+
                                     getAutoIdGroup(email, password, groupName, teacherName, phone, centerID, user);
 
 
@@ -117,7 +120,7 @@ public class SetGroupData {
 
     }
 
-    public Group_Info getAutoIdGroup(final String email, final String password, final String groupName, final String teacherName, final String phone, final String centerID, final FirebaseUser user) {
+    public void getAutoIdGroup(final String email, final String password, final String groupName, final String teacherName, final String phone, final String centerID, final FirebaseUser user) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         Group_Info groupInfo = new Group_Info();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(centerID)
@@ -130,6 +133,7 @@ public class SetGroupData {
 
                 value = snapshot.getValue(CenterUser.class);
 
+                assert value != null;
                 auto_id_group = value.getAuto_id_group();
                 int id_group = Integer.parseInt(auto_id_group) + 1;
                 String new_id_group = "";
@@ -171,7 +175,6 @@ public class SetGroupData {
             }
         });
 
-        return groupInfo;
     }//جلب البيانات
 
     private void save_new_id_group(CenterUser centerUser, String centerID) {
@@ -182,16 +185,15 @@ public class SetGroupData {
 
     }
 
-    private void addNewGroupDataBase(Group_Info group_info) {
-        try {
-            if (group_info != null) {
-                dataBaseItems.copyObjectToDataToRealm(group_info, Group.class);
-            } else
-                Toast.makeText(context, "لم تنجح الاضافة", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
+    private void addNewGroupDataBase(final Group_Info group_info) {
+
+        if (group_info != null) {
+
+            dataBaseItems.insertObjectToDataToRealm(group_info, Group_Info.class);
 
 
-        }
+        } else
+            Toast.makeText(context, "لم تنجح الاضافة", Toast.LENGTH_LONG).show();
 
 
     }

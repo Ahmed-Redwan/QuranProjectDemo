@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Activities.registrar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class Add_a_new_save extends AppCompatActivity {
@@ -56,7 +58,6 @@ public class Add_a_new_save extends AppCompatActivity {
     private ArrayList<String> sorasName;
     private ArrayAdapter<String> adapter_save_from, adapter_save_to;
     private boolean check_show_spinner;
-    private Report report1;
     private CheckInternet checkInternet;
     private boolean isAbcens;
     private String token;
@@ -65,30 +66,30 @@ public class Add_a_new_save extends AppCompatActivity {
     private void uploadAndSave(String id_groub) {
 
         Date date = new Date();
-        SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat Foramt_date = new SimpleDateFormat("dd-MM-yyyy");
         String date_now = Foramt_date.format(date);
 
-        SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat Foramt_date_time = new SimpleDateFormat("ddMMyyyy");
         String date_now_t = Foramt_date_time.format(date);
         int tt = Integer.parseInt(date_now_t);
-        SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat yearForamt = new SimpleDateFormat("yyyy");
         int date_year = Integer.parseInt(yearForamt.format(date));
 
-        SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat monthForamt = new SimpleDateFormat("MM");
         int date_month = Integer.parseInt(monthForamt.format(date));
 
-        save_all = " سورة: " + text_save + " من " + text_save_from + " إلى " + text_save_to;
-        review_all = " سورة: " + text_review + " من " + text_review_from + " إلى " + text_review_to;
 
+        String uIdDate = id_student + "." + date_now;
+        Log.d("sssss", uIdDate);
         Student_data student_data = new Student_data(date_now, getDay(), save_all, review_all,
                 isAttetud, numSavePages,
                 numRevPages, String.valueOf(date_month), String.valueOf(date_year),
-                tt, id_student, date_now + id_student, id_groub);
+                tt, id_student, (uIdDate), id_groub);
 
         Student_data_cash student_data_cash = new Student_data_cash(date_now, getDay(), save_all, review_all,
                 isAttetud, numSavePages,
                 numRevPages, String.valueOf(date_month), String.valueOf(date_year),
-                tt, id_student, date_now + id_student, id_group);
+                tt, id_student, (uIdDate), id_group);
 
         dataBaseItems.insertObjectToDataToRealm(student_data, Student_data.class);
         if (checkInternet()) {
@@ -121,18 +122,18 @@ public class Add_a_new_save extends AppCompatActivity {
         btn_addAbcens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (et_numOfRevPages.getText().toString().isEmpty() || et_numOfSavePages.getText().toString().isEmpty()) {
-                    et_numOfSavePages.setText("");
-                    et_numOfRevPages.setText("");
-                    return;
-                }
-                if (check_show_spinner == false) {
-                    Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
-                } else {
 
-                    isAttetud = null;
+                if (!check_show_spinner) {
+                    Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة غياب وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
+                } else {
+                    save_all = "غائب";
+                    review_all = "غائب";
+                    isAttetud = "غائب";
+                    numRevPages = 0;
+                    numSavePages = 0;
+
                     uploadAndSave(id_group);
-                    Toast.makeText(Add_a_new_save.this, "تم اضافة الحفظ بنجاح", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_a_new_save.this, "تم تسجيل غياب بنجاح", Toast.LENGTH_SHORT).show();
                     finish();
                     startActivity(new Intent(getBaseContext(), Main_teacher.class));
 
@@ -148,9 +149,12 @@ public class Add_a_new_save extends AppCompatActivity {
                     et_numOfRevPages.setError("يجب إدخال عدد صفحات المراجعة.");
                     return;
                 }
-                if (check_show_spinner == false) {
+                if (!check_show_spinner) {
                     Toast.makeText(Add_a_new_save.this, "لا يمكنك اضافة حفظ وانتا لم تختر اي طالب", Toast.LENGTH_SHORT).show();
                 } else {
+
+                    save_all = " سورة: " + text_save + " من " + text_save_from + " إلى " + text_save_to;
+                    review_all = " سورة: " + text_review + " من " + text_review_from + " إلى " + text_review_to;
                     numSavePages = Integer.parseInt(et_numOfSavePages.getText().toString());
                     numRevPages = Integer.parseInt(et_numOfRevPages.getText().toString());
                     isAttetud = "حاضر";

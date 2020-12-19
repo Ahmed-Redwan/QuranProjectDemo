@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
+import com.example.quranprojectdemo.Activities.registrar.QuranCenter_Reg;
 import com.example.quranprojectdemo.fireBase.GetCenterData;
 import com.example.quranprojectdemo.fireBase.GetGroupData;
 import com.example.quranprojectdemo.fireBase.GetStudentData;
@@ -22,6 +23,7 @@ import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login.INFO_CENTER_LOGIN;
 import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen.CHEACKHOWISLOGGED;
@@ -46,25 +48,70 @@ public class GetDataService extends Service {
                 int howIsLogged = sp.getInt(HOWISLOGGED, -1);
 
                 if (haveANewtWork()) {
-                    if (true) {
-                        switch (howIsLogged) {
-                            case 0:
-                                centerId = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE).
-                                        getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
-                                Log.d("aaaaa", "rwg,wrplgwepgvw,pe" + centerId);
-                                getDataCenter();
-                                break;
-                            case 1:
-                                Log.d("qqq", "hello tet0");
-                                getDataGroup();
-                                uploadSaveData();
-                                break;
-                            case 2:
-                                getDataStudent();
-                                break;
 
-                        }
+                    switch (howIsLogged) {
+                        case 0:
+                            centerId = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE).
+                                    getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+                            if (centerId.equals("a")) {
+
+                                centerId = getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE).
+                                        getString(QuranCenter_Reg.ID_CENTER_REG, "a");
+                            }
+                            try {
+                                getDataCenter();
+
+                            } catch (Exception e) {
+
+                                try {
+                                    getDataCenter();
+
+                                } catch (Exception e1) {
+                                }
+                            }
+                            break;
+                        case 1:
+                            try {
+                                getDataGroup();
+
+                            } catch (Exception e) {
+                                try {
+                                    getDataGroup();
+
+                                } catch (Exception eq) {
+
+                                }
+                            }
+                            try {
+
+                            } catch (Exception e) {
+
+                                try {
+                                    uploadSaveData();
+
+
+                                } catch (Exception e1) {
+                                    uploadSaveData();
+                                }
+                            }
+                            break;
+                        case 2:
+                            try {
+                                getDataStudent();
+
+                            } catch (Exception e) {
+                                try {
+                                    getDataStudent();
+
+                                } catch (Exception e1) {
+                                }
+
+
+                            }
+                            break;
+
                     }
+
                 }
             }
         }).start();
@@ -73,8 +120,6 @@ public class GetDataService extends Service {
     }
 
     private void getDataCenter() {
-
-
         RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
         GetCenterData getCenterData = GetCenterData.getinstance(getBaseContext());
@@ -91,98 +136,47 @@ public class GetDataService extends Service {
         List<Student_Info> studentInfos = getStudentData.getNewStudentInfoToCenter();
         if (studentInfos != null && !studentInfos.isEmpty())
             dataBaseItems.insertListDataToRealm(studentInfos);
-        Log.d("ffff", studentInfos.size() + " , 1 ");
 
         List<Student_data> studentData = getStudentData.getNewStudentsSaveToCenter();
-//        if (studentData != null && !studentData.isEmpty())
-        dataBaseItems.insertListDataToRealm(studentData);
-        Log.d("vvvv", "vvv" + studentData.size() + "data reakm :suzie" + dataBaseItems.getAllDataFromRealm(Student_data.class).size());
-//        studentData.size();
-        ;
+        if (studentData != null && !studentData.isEmpty())
+            dataBaseItems.insertListDataToRealm(studentData);
+
 
     }
 
     private void getDataGroup() {
 
-
-//        RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
-//        GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
-//        GetGroupData getGroupData = GetGroupData.getinstance(getBaseContext());
-////        dataBaseItems.deleteTable(Student_data.class);
-//        String typeName[] = {};
-//        String value[] = {};
-//
-//        long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
-//        int max = (int) maxMin[1];
-//        int count = (int) maxMin[2];
-//
-//        List<Student_Info> infoList = getStudentData.getNewStudentInfoToGroup(count, max);
-//        dataBaseItems.insertListDataToRealm(infoList);
-//        Group_Info groupInfo = getGroupData.getGroupInfo();
-//        if (groupInfo != null)
-//            dataBaseItems.insertObjectToDataToRealm(groupInfo, Group_Info.class);
-////
-//        maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
-//        max = (int) maxMin[1];
-//        count = (int) maxMin[2];
-//
-//        List<Student_data> dataList = getStudentData.getNewStudentsSaveToGroup(max, count);
-//        dataBaseItems.insertListDataToRealm(dataList);
-
-
         RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
         GetGroupData getGroupData = GetGroupData.getinstance(getBaseContext());
-//        Group_Info group_info = (Group_Info) dataBaseItems.getAllDataFromRealm(Group_Info.class);
-//        Log.d("qqq", group_info.getAuto_sutdent_id() + " q");
 
-        String typeName[] = {};
-        String value[] = {};
-        long maxMin11[] = dataBaseItems.getMaxAndMinAndCountValue("id_student", typeName, value, Student_data.class);
+        String[] typeName = {};
+        String[] value = {};
 
-        Log.d("nnnnn", maxMin11[2] + "ssss");
 
-        long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
+        long[] maxMin = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
         int max = (int) maxMin[1];
         int count = (int) maxMin[2];
 
         List<Student_Info> infoList = getStudentData.getNewStudentInfoToGroup(count, max);
+        assert infoList != null;
         dataBaseItems.insertListDataToRealm(infoList);
         Group_Info groupInfo = getGroupData.getGroupInfo();
         if (groupInfo != null)
             dataBaseItems.insertObjectToDataToRealm(groupInfo, Group_Info.class);
+        if (Integer.parseInt(groupInfo.getAuto_sutdent_id()) > 0) {
+            boolean isEmpty = dataBaseItems.idEmpty(Student_data.class);
+            if (isEmpty) {
+                List<Student_data> studentDataList = getStudentData.getAllStudentSaveToGroup();
+                if (studentDataList != null) {
+                    if (!studentDataList.isEmpty()) {
 
-        Log.d("qqq", "groupInfo.getAuto_sutdent_id()" + " q");
-        for (int i = 0; i < Integer.parseInt(groupInfo.getAuto_sutdent_id()); i++) {
-            String typeName1[] = {"id_student"};
-            String value1[] = {String.valueOf(i)};
-            long maxMinCount[] = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName1, value1, Student_data.class);
-            int count1 = (int) maxMinCount[2];
-            List<Student_data> studentDataList = getStudentData.getAllStudentSave();
-            if (studentDataList != null) {
-                if (!studentDataList.isEmpty()) {
-                    Log.d("qqq", studentDataList.size() + " q");
-
-                    dataBaseItems.insertListDataToRealm(studentDataList);
+                        dataBaseItems.insertListDataToRealm(studentDataList);
+                    }
                 }
             }
         }
 
-//        dataBaseItems.getMaxAndMinAndCountValue();
-//                maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
-//                max = (int) maxMin[1];
-//                count = (int) maxMin[2];
-
-//                List<Student_data> dataList = getStudentData.getNewStudentsSaveToGroup(max, count);
-//                dataBaseItems.insertListDataToRealm(dataList);
-
-
-//                maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
-//                max = (int) maxMin[1];
-//                count = (int) maxMin[2];
-//
-//                List<Student_data> dataList = getStudentData.getNewStudentsSaveToGroup(max, count);
-//                dataBaseItems.insertListDataToRealm(dataList);
 
     }
 
@@ -191,9 +185,9 @@ public class GetDataService extends Service {
 
         RealmDataBaseItems dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         GetStudentData getStudentData = GetStudentData.getinstance(getBaseContext());
-        String typeName[] = {};
-        String value[] = {};
-        long maxMinCount[] = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
+        String[] typeName = {};
+        String[] value = {};
+        long[] maxMinCount = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
         int count = (int) maxMinCount[2];
         List<Student_data> studentDataList = getStudentData.getNewSaveToStudent(count);
         if (studentDataList != null) {
@@ -251,11 +245,8 @@ public class GetDataService extends Service {
 
     private boolean haveANewtWork() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            return true;
-        } else
-            return false;
+        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
 
     }

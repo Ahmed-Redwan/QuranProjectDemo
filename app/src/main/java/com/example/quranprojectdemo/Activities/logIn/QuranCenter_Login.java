@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.Activities.logIn;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -37,8 +38,7 @@ public class QuranCenter_Login extends AppCompatActivity {
     EditText et_Email, et_password;
     Button btn_Login;
     public FirebaseAuth mAuth;
-    SharedPreferences sp;
-    private GetCenterData getCenterData;
+     private GetCenterData getCenterData;
     private GetStudentData getStudentData;
     private CheckBox saveLoginCheckBox;
     private SharedPreferences loginPreferences;
@@ -56,6 +56,7 @@ public class QuranCenter_Login extends AppCompatActivity {
     }
 
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,19 +65,13 @@ public class QuranCenter_Login extends AppCompatActivity {
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         getCenterData = GetCenterData.getinstance(this);
         getStudentData = GetStudentData.getinstance(getBaseContext());
-//        List<CenterUser> centerUserList = dataBaseItems.getAllDataFromRealm(CenterUser.class);
-//        if (centerUserList != null) {
-//            if (!centerUserList.isEmpty()) {
-//                sp = getSharedPreferences(INFO_CENTER_LOGIN, MODE_PRIVATE);
-//                getNewDataToCenter();
-//            }
-//        }
+
         def();
         viewFont();
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
+        if (saveLogin) {
             et_Email.setText(loginPreferences.getString("username", ""));
             et_password.setText(loginPreferences.getString("password", ""));
             saveLoginCheckBox.setChecked(true);

@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,8 +33,9 @@ import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.ID_LOGI
 import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.INFO_TEACHER;
 
 public class GetGroupData {
-    private FirebaseAuth mAuth;
-    private Context context;
+    private final FirebaseAuth mAuth;
+    private final Context context;
+    @SuppressLint("StaticFieldLeak")
     private static GetGroupData instance;
     SharedPreferences sp;
     SharedPreferences.Editor editor;

@@ -18,7 +18,7 @@
         import com.example.quranprojectdemo.recyclerView.student.Recycler_show_group_student;
         import com.example.quranprojectdemo.models.students.Student_Info;
         import com.example.quranprojectdemo.R;
-        import com.example.quranprojectdemo.recyclerView.student.Recycler_show_student;
+        import com.example.quranprojectdemo.recyclerView.student.Recycler_show_group_student;
 
         import java.util.ArrayList;
         import java.util.List;
@@ -89,7 +89,7 @@
         }
 
         public void get_student_group() {
-        String typeName[] = {"id_group"};
+        String[] typeName = {"id_group"};
         String value[] = {id_group};
         List<Student_Info> studentInfoList = dataBaseItems.getDataWithAndStatement(typeName, value, Student_Info.class);
         Log.d("sssss", studentInfoList.size() + "size " + id_group);

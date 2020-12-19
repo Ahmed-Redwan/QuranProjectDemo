@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.realm;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
@@ -18,6 +19,7 @@ import io.realm.RealmResults;
 public class RealmDataBaseItems {
     Context context;
     Realm realm;
+    @SuppressLint("StaticFieldLeak")
     private static RealmDataBaseItems instance;
 
     private RealmDataBaseItems(Context context) {
@@ -360,6 +362,20 @@ public class RealmDataBaseItems {
         if (!realm.isClosed())
             realm.close();
         return !isFound;
+    }
+
+    public boolean idEmpty(Class c) {
+        Realm.init(this.context);
+        realm = Realm.getDefaultInstance();
+        boolean isFound;
+        Object o = realm.where(c).findFirst();
+        if (o == null)
+            isFound = false;
+        else
+            isFound = true;
+        if (!realm.isClosed())
+            realm.close();
+        return isFound;
     }
 
 }

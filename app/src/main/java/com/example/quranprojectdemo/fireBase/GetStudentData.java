@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.quranprojectdemo.Activities.logIn.GuardianLogin;
 import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
 import com.example.quranprojectdemo.Activities.logIn.TeacherLogin;
+import com.example.quranprojectdemo.Activities.registrar.QuranCenter_Reg;
 import com.example.quranprojectdemo.models.CheckInternet;
 import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.models.students.Student_Info;
@@ -37,14 +39,16 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class GetStudentData {
-    private FirebaseAuth mAuth;
-    private Context context;
+    private final FirebaseAuth mAuth;
+    private final Context context;
     private static String centerId, studentId, groupId;
+    @SuppressLint("StaticFieldLeak")
     private static GetStudentData instance;
     private boolean checkIsLogged = false;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    private RealmDataBaseItems dataBaseItems;
+    private final RealmDataBaseItems dataBaseItems;
+    @SuppressLint("StaticFieldLeak")
     GuardianLogin mAppContext;
 
     private GetStudentData(Context context) {
@@ -53,11 +57,9 @@ public class GetStudentData {
         dataBaseItems = RealmDataBaseItems.getInstance(context);
 
 //        centerId = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
-        try {
-            if (context instanceof AppCompatActivity)
-                mAppContext = new GuardianLogin();
-        }catch (Exception e){
-        }
+
+        if (context instanceof AppCompatActivity)
+            mAppContext = new GuardianLogin();
 
     }
 
@@ -66,6 +68,7 @@ public class GetStudentData {
         if (instance == null) {
             instance = new GetStudentData(context);
         }
+
 
         return instance;
     }
@@ -540,7 +543,11 @@ public class GetStudentData {
     public List<Group_Info> getAllGroupInfoToCenter() {
         final Semaphore semaphore = new Semaphore(0);
         sp = context.getSharedPreferences(QuranCenter_Login.INFO_CENTER_LOGIN, MODE_PRIVATE);
-        final String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+        String id_center = sp.getString(QuranCenter_Login.ID_CENTER_LOGIN, "a");
+        if (id_center.equals("a")) {
+            id_center = context.getSharedPreferences(QuranCenter_Reg.INFO_CENTER_REG, MODE_PRIVATE).getString(QuranCenter_Reg.ID_CENTER_REG, "a");
+        }
+
         final List<Group_Info> group_infos = new ArrayList<>();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         final DatabaseReference reference = rootNode.getReference("CenterUsers").child(id_center)
@@ -702,25 +709,24 @@ public class GetStudentData {
                     for (DataSnapshot groupsSnapShot : snapshot.getChildren()) {
 
                         DataSnapshot dataSnapshotStudentGroup = groupsSnapShot.child("student_group");
-                        String typeName[] = {"id_group"};
-                        String value[] = {groupsSnapShot.getKey()};
+                        String[] typeName = {"id_group"};
+                        String[] value = {groupsSnapShot.getKey()};
 
-                        long maxMin[] = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
+                        long[] maxMin = dataBaseItems.getMaxAndMinAndCountValue("time_save", typeName, value, Student_data.class);
                         int maxValue = (int) maxMin[1];
                         int countSaves = (int) maxMin[2];
 
                         for (DataSnapshot snapshot1 : dataSnapshotStudentGroup.getChildren()) {
                             DataSnapshot dataSnapshot = snapshot1.child("student_save");
 
-                            if ((dataSnapshot.getChildrenCount() - 1) > countSaves || true) {
+                            if ((dataSnapshot.getChildrenCount() - 1) > countSaves) {
                                 for (DataSnapshot snapshot2 : dataSnapshot.getChildren()) {
-                                    if (!snapshot2.getKey().equals("report") || true) {
-                                        if (Integer.parseInt(snapshot2.getKey()) > maxValue || true) {
+                                    if (!snapshot2.getKey().equals("report")) {
+                                        if (Integer.parseInt(snapshot2.getKey()) > maxValue) {
 
                                             Student_data student_data = snapshot2.getValue(Student_data.class);
 
                                             if (student_data != null) {
-                                                Log.d("ffffff", student_data.getId_student() + "dffd");
                                                 studentData.add(student_data);
 
                                             }

@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -24,7 +25,8 @@ import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.ID_LOGI
 import static com.example.quranprojectdemo.Activities.logIn.TeacherLogin.INFO_TEACHER;
 
 public class SetStudentData {
-    private Context context;
+    private final Context context;
+    @SuppressLint("StaticFieldLeak")
     private static SetStudentData instance;
     private SharedPreferences sp;
     private static final String SERVER_KEY = "AAAAkRwHS54:APA91bEn3p73H7TmuMHzCQwiqlBrtD99NnHYAytBSHL6iC0bjgTXIBosoES0Qg8u5p0SdSsW6ZKEbp611nSgH6iaqMQQ7Ih3HZQfRaCbu7XhaDy5S2Q9pRAncWut0J8qeiF9D9acgdwM";
@@ -102,11 +104,10 @@ public class SetStudentData {
             Student_data s = new Student_data(data_cashe.getDate__student(), data_cashe.getDay_student()
                     , data_cashe.getSave_student(), data_cashe.getReview_student()
                     , data_cashe.getAttendess_student(), data_cashe.getCounnt_page_save(), data_cashe.getCounnt_page_review()
-                    , String.valueOf(data_cashe.getMonth_save()), String.valueOf(data_cashe.getYear_save()), data_cashe.getTime_save(), data_cashe.getId_student(), data_cashe.getDate__student(), data_cashe.getId_group());
+                    , String.valueOf(data_cashe.getMonth_save()), String.valueOf(data_cashe.getYear_save()), data_cashe.getTime_save(), data_cashe.getId_student(), data_cashe.getDate_id(), data_cashe.getId_group());
 
             student_save.setValue(s);
-//            Log.d("bbbb", token);
-            String title = "تسميع جديد";
+             String title = "تسميع جديد";
             String body = "حفظ جديد: " + s.getSave_student();
             String body2 = "مراجعة: " + s.getReview_student();
             sendFireBaseNotification(SERVER_KEY, token, title, body + "\n" + body2);

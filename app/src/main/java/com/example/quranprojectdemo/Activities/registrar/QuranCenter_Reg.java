@@ -155,7 +155,7 @@ public class QuranCenter_Reg extends AppCompatActivity {
                 String centerId = getCenterData.signUp(email, password, centerUser);
                 if (centerId != null) {
                     getCenterData.uploadCenterDataToFireBase(centerUser, centerId);
-                    dataBaseItems.copyObjectToDataToRealm(centerUser, CenterUser.class);
+                    dataBaseItems.insertObjectToDataToRealm(centerUser, CenterUser.class);
 
                     startActivity(new Intent(getBaseContext(), Main_center.class));
                 } else {

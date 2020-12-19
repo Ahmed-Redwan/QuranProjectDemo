@@ -61,28 +61,10 @@ public class Reperts_pdf extends AppCompatActivity {
         setContentView(R.layout.activity_reperts_pdf);
 
 
-
-
         rv = findViewById(R.id.reports_pdf_rv);
-        reports = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
-        reports.add(new Report(1, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-        reports.add(new Report( 1, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-        reports.add(new Report( 2, 1, 5, 5, 5, "أحمد عبدالغفور"));
-        reports.add(new Report(+ 3, 1, 5, 5, 5, "حسن داوود"));
-        reports.add(new Report(4, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-        reports.add(new Report(5, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-        reports.add(new Report(6, 1, 5, 5, 5, "أحمد عبدالغفور"));
-        reports.add(new Report(7+ 3, 1, 5, 5, 5, "حسن داوود"));
-        reports.add(new Report(8, 1, 5, 5, 5, "أحمد علي اليعقوبي"));
-        reports.add(new Report(9, 1, 5, 5, 5, "مصطفى محمد الأسطل"));
-        reports.add(new Report(10, 1, 5, 5, 5, "أحمد عبدالغفور"));
-        reports.add(new Report(11, 1, 5, 5, 5, "حسن داوود"));
-        reports.add(new Report(12, 1, 5, 5, 5, "حسن داوود"));
-        reports.add(new Report(13, 1, 5, 5, 5, "حسن داوود"));
-        reports.add(new Report(14, 1, 5, 5, 5, "حسن داوود"));
 
-//        }
+        Intent getIntent = getIntent();
+        reports = (ArrayList<Report>) getIntent.getSerializableExtra("reports");
 
         customReport = new CustomReport(getBaseContext(), reports);
         customReport.notifyDataSetChanged();
@@ -97,24 +79,23 @@ public class Reperts_pdf extends AppCompatActivity {
 
 
         if (ContextCompat.checkSelfPermission(Reperts_pdf.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
-            String []permissions ={Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            ActivityCompat.requestPermissions(Reperts_pdf.this,permissions,0);
-        }
-        else {
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("size", "********************************************* " + llPdf.getWidth() + "  " + llPdf.getWidth());
-                    bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
+                != PackageManager.PERMISSION_GRANTED) {
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(Reperts_pdf.this, permissions, 0);
+        } else {
+//            btn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+            Log.d("size", "********************************************* " + llPdf.getWidth() + "  " + llPdf.getWidth());
+            bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
 //                    createPdf();
-                }
-            });
+//                }
+//            });
         }
     }
 
     public static Bitmap loadBitmapFromView(View v, int width, int height) {
-        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
         v.draw(c);
 
@@ -148,23 +129,23 @@ public class Reperts_pdf extends AppCompatActivity {
         document.finishPage(page);
 
         try {
-            Log.d("filePath_getAbsolut","******************************mustafa");
+            Log.d("filePath_getAbsolut", "******************************mustafa");
             File filePath;
-            filePath = new File( Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdfmustafa.pdf");
+            filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/pdfmustafa.pdf");
 
-            Log.d("file1","*******************************************"+filePath);
+            Log.d("file1", "*******************************************" + filePath);
 
-            FileOutputStream fileOutputStream =new FileOutputStream(filePath);
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
 
-            Log.d("filePath_getAbsolut","******************************"+filePath.getAbsolutePath());
-            Log.d("fileOutputStream","******************************"+fileOutputStream.toString());
+            Log.d("filePath_getAbsolut", "******************************" + filePath.getAbsolutePath());
+            Log.d("fileOutputStream", "******************************" + fileOutputStream.toString());
             document.writeTo(fileOutputStream);
 
             document.close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("mass","******************************"+e.toString());
+            Log.d("mass", "******************************" + e.toString());
 
             Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
         }
@@ -180,18 +161,18 @@ public class Reperts_pdf extends AppCompatActivity {
     private void openGeneratedPDF() {
 
         try {
-            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdfmustafa.pdf");
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/pdfmustafa.pdf");
             if (file.exists()) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 //    Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", createImageFile());
-                Uri uri = FileProvider.getUriForFile(Reperts_pdf.this, BuildConfig.APPLICATION_ID + ".provider",file);
+                Uri uri = FileProvider.getUriForFile(Reperts_pdf.this, BuildConfig.APPLICATION_ID + ".provider", file);
 
                 //   Uri uri = Uri.fromFile(file);
                 intent.setDataAndType(uri, "application/pdf");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                Log.d("file2","*******************************************"+file);
+                Log.d("file2", "*******************************************" + file);
 
                 startActivity(intent);
             }
@@ -201,31 +182,27 @@ public class Reperts_pdf extends AppCompatActivity {
     }
 
 
-    private void openGeneratedPDFs(){
+    private void openGeneratedPDFs() {
 
         // String pd=Environment.getExternalStorageDirectory().getAbsolutePath();
 
-        try
-        {
-            final File file = new File( Environment.getExternalStorageDirectory().getAbsolutePath()+"/pdfmustafa.pdf");
+        try {
+            final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/pdfmustafa.pdf");
             //   final File file = new File("/sdcard/download/somepdf.pdf");
 
-            if (file.exists())
-            {
+            if (file.exists()) {
 
 
                 Intent target = new Intent(Intent.ACTION_VIEW);
-                Log.d("file2","*******************************************"+file);
-                target.setDataAndType(Uri.fromFile(file),"application/pdf");
+                Log.d("file2", "*******************************************" + file);
+                target.setDataAndType(Uri.fromFile(file), "application/pdf");
                 target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
                 Intent intent = Intent.createChooser(target, "Open File");
                 startActivity(intent);
 
             }
-        }
-        catch(ActivityNotFoundException e)
-        {
+        } catch (ActivityNotFoundException e) {
             Toast.makeText(Reperts_pdf.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
         }
     }
@@ -234,10 +211,10 @@ public class Reperts_pdf extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
+        switch (requestCode) {
 
             case 0:
-                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -256,24 +233,22 @@ public class Reperts_pdf extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==1){
-            if (resultCode==RESULT_OK){
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
                 try {
 
-                    Uri uri=data.getData();
-                    OutputStream outputStream=getContentResolver().openOutputStream(uri);
+                    Uri uri = data.getData();
+                    OutputStream outputStream = getContentResolver().openOutputStream(uri);
                     outputStream.write("Hi,welcom to my Android Classroom !!!".getBytes());
                     outputStream.close();
                     Toast.makeText(this, "file nor saved", Toast.LENGTH_SHORT).show();
 
-                }
-                catch (IOException e){
+                } catch (IOException e) {
 
                 }
             }
-        }
-        else
+        } else
             Toast.makeText(this, "file nor saved", Toast.LENGTH_SHORT).show();
     }
-    }
+}
 

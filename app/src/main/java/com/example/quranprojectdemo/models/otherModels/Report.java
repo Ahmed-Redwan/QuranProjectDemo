@@ -1,6 +1,8 @@
 package com.example.quranprojectdemo.models.otherModels;
 
-public class Report {
+import java.io.Serializable;
+
+public class Report implements Serializable {
 
     private int num;
     private int numOfAttendanceDays;

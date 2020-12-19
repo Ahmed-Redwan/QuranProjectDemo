@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quranprojectdemo.Activities.logIn.QuranCenter_Login;
 import com.example.quranprojectdemo.fireBase.SetGroupData;
+import com.example.quranprojectdemo.models.groups.Group_Info;
 import com.example.quranprojectdemo.realm.RealmDataBaseItems;
 import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,7 +80,6 @@ public class AddNewGroup extends AppCompatActivity {
                 }
                 setGroupData.sign_up(et_TeacherEmail.getText().toString(), et_TeacherPassword.getText().toString(), et_GroupName.getText().toString(), et_TeacherName.getText().toString()
                         , et_TeacherPhone.getText().toString(), id_center);
-
 
             }
 

@@ -1,233 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reports_pdf_linearla"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.otherActivity.Reperts_pdf"
-    android:id="@+id/reports_pdf_linearla"
     android:background="#ffffff"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
-    >
+    android:orientation="vertical"
+    tools:context=".Activities.otherActivity.Reperts_pdf">
 
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".Activities.otherActivity.Reprts"
+
 
             >
 
-
-
-            <LinearLayout
-
+            <TextView
+                android:id="@+id/reports_pdf_tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".Activities.otherActivity.Reprts"
-                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center|center_horizontal"
+                android:text="تقرير شهر :"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_30ssp"
+                android:textStyle="bold" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
 
                 >
+
                 <TextView
-                    android:id="@+id/reports_pdf_tv_title"
+                    android:id="@+id/reports_pdf_tv_teatcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:text="المحفظ: "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_25ssp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/reports_pdf_tv_name_teac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/reports_pdf_tv_teatcher"
+                    android:gravity="center"
+                    android:text="احمد"
+                    android:textColor="@color/colorPrimaryDark"
+
+                    android:textSize="@dimen/_25ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reports_pdf_tv_name_ring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:text="ابو بكر الصديق"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_25ssp"
+
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reports_pdf_tv_ring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/reports_pdf_tv_name_ring"
+                    android:gravity="center"
+                    android:text="الحلقة: "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_25ssp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="تقرير شهر :"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_30ssp"
-                    android:textStyle="bold"
-                    android:gravity="center|center_horizontal"
-                    android:layout_weight="1"
-                    />
+                    android:orientation="vertical">
 
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/reports_pdf_tv_teatcher"
-                        android:text="المحفظ: "
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/_25ssp"
-                        android:textStyle="bold"
-                       android:layout_marginStart="@dimen/_20sdp"
-                    android:gravity="center"
-                        />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/reports_pdf_tv_name_teac"
-                        android:text="احمد"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/_25ssp"
-                        android:textStyle="bold"
-
-                     android:layout_toLeftOf="@+id/reports_pdf_tv_teatcher"
-                        android:gravity="center"
-                        />
-
-                    <TextView
-                        android:id="@+id/reports_pdf_tv_name_ring"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="ابو بكر الصديق"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/_25ssp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="@dimen/_20sdp"
-                        android:layout_alignParentLeft="true"
-
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:id="@+id/reports_pdf_tv_ring"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="الحلقة: "
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/_25ssp"
-                        android:textStyle="bold"
-                        android:layout_toRightOf="@+id/reports_pdf_tv_name_ring"
-                        android:gravity="center"
-                        />
-                </RelativeLayout>
-
-                <HorizontalScrollView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/Reports_tv_Num"
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_1sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:text="م"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10ssp" />
 
-                            <TextView
-                                android:layout_width="@dimen/_22sdp"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/Reports_tv_Num"
-                                android:text="م"
-                                android:textSize="@dimen/_10ssp"
-                                android:background="@color/colorPrimaryDark"
-                                android:layout_marginStart="@dimen/_2sdp"
-                                android:layout_marginEnd="@dimen/_1sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:layout_marginBottom="@dimen/_2sdp"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@android:color/white"
-                                />
-                            <TextView
-                                android:layout_width="@dimen/_113sdp"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/Reports_tv_Name"
-                                android:text="الإسم"
-                                android:textSize="@dimen/_10ssp"
-                                android:background="@color/colorPrimaryDark"
-                                android:layout_marginStart="@dimen/_1sdp"
-                                android:layout_marginEnd="@dimen/_1sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:layout_marginBottom="@dimen/_2sdp"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@android:color/white"
-                                />
-                            <TextView
-                                android:layout_width="@dimen/_55sdp"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/Reports_tv_numOfAttendanceDays"
-                                android:text="أيام الحضور"
-                                android:textSize="@dimen/_10ssp"
-                                android:background="@color/colorPrimaryDark"
-                                android:layout_marginStart="@dimen/_1sdp"
-                                android:layout_marginEnd="@dimen/_1sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:layout_marginBottom="@dimen/_2sdp"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@android:color/white"
-                                />
-                            <TextView
-                                android:layout_width="@dimen/_49sdp"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/Reports_tv_numOfDays"
-                                android:text="أيام الغياب"
-                                android:textSize="@dimen/_10ssp"
-                                android:background="@color/colorPrimaryDark"
-                                android:layout_marginStart="@dimen/_1sdp"
-                                android:layout_marginEnd="@dimen/_1sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:layout_marginBottom="@dimen/_2sdp"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@android:color/white"
-                                />
-                            <TextView
-                                android:layout_width="@dimen/_65sdp"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/Reports_tv_numOfSavePages"
-                                android:text="صفحات الحفظ"
-                                android:textSize="@dimen/_10ssp"
-                                android:background="@color/colorPrimaryDark"
-                                android:layout_marginStart="@dimen/_1sdp"
-                                android:layout_marginEnd="@dimen/_1sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:layout_marginBottom="@dimen/_2sdp"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@android:color/white"
-                                />
-                            <TextView
-                                android:layout_width="@dimen/_73sdp"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/Reports_tv_numOfReviewPages"
-                                android:text="صفحات المراجعة"
-                                android:textSize="@dimen/_10ssp"
-                                android:background="@color/colorPrimaryDark"
-                                android:layout_marginStart="@dimen/_1sdp"
-                                android:layout_marginEnd="@dimen/_1sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:layout_marginBottom="@dimen/_2sdp"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@android:color/white"
-                                />
+                        <TextView
+                            android:id="@+id/Reports_tv_Name"
+                            android:layout_width="@dimen/_113sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_1sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:text="الإسم"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10ssp" />
+
+                        <TextView
+                            android:id="@+id/Reports_tv_numOfAttendanceDays"
+                            android:layout_width="@dimen/_55sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_1sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:text="أيام الحضور"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10ssp" />
+
+                        <TextView
+                            android:id="@+id/Reports_tv_numOfDays"
+                            android:layout_width="@dimen/_49sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_1sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:text="أيام الغياب"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10ssp" />
+
+                        <TextView
+                            android:id="@+id/Reports_tv_numOfSavePages"
+                            android:layout_width="@dimen/_65sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_1sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:text="صفحات الحفظ"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10ssp" />
+
+                        <TextView
+                            android:id="@+id/Reports_tv_numOfReviewPages"
+                            android:layout_width="@dimen/_73sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_1sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:text="صفحات المراجعة"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10ssp" />
 
 
-                        </LinearLayout>
-                        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:id="@+id/reports_pdf_rv"
-                            tools:listitem="@layout/custom_row_reports"
-                            app:shimmer_demo_child_count="10"
-                            app:shimmer_demo_grid_child_count="2"
-                            app:shimmer_demo_layout="@layout/custom_row_reports"
-                            app:shimmer_demo_layout_manager_type="grid"
-                            app:shimmer_demo_angle="20"
-                            />
                     </LinearLayout>
 
-                </HorizontalScrollView>
+                    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                        android:id="@+id/reports_pdf_rv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:shimmer_demo_angle="20"
+                        app:shimmer_demo_child_count="10"
+                        app:shimmer_demo_grid_child_count="2"
+                        app:shimmer_demo_layout="@layout/custom_row_reports"
+                        app:shimmer_demo_layout_manager_type="grid"
+                        tools:listitem="@layout/custom_row_reports" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
 
+        </LinearLayout>
 
+    </ScrollView>
 
-
-            </LinearLayout>
-
-        </ScrollView>
-
-    </LinearLayout>
+</LinearLayout>
 
 

@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -36,8 +37,9 @@ import static com.example.quranprojectdemo.Activities.registrar.QuranCenter_Reg.
 
 public class GetCenterData {
 
-    private FirebaseAuth mAuth;
-    private Context context;
+    private final FirebaseAuth mAuth;
+    private final Context context;
+    @SuppressLint("StaticFieldLeak")
     private static GetCenterData instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -111,7 +113,7 @@ public class GetCenterData {
                             editor.putString(ID_CENTER_LOGIN, isLoggend[0]);
 
 
-                            editor.commit();
+                            editor.apply();
                             sp = context.getSharedPreferences(INFO_CENTER_REG, MODE_PRIVATE);
                             editor = sp.edit();
                             editor.clear();
@@ -147,7 +149,7 @@ public class GetCenterData {
                             sp = context.getSharedPreferences(INFO_CENTER_REG, MODE_PRIVATE);
                             editor = sp.edit();
                             editor.putString(ID_CENTER_REG, user.getUid());
-                            editor.commit();
+                            editor.apply();
 
                             FancyToast.makeText(context, "تم إنشاء الحساب بنجاح", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                             semaphore.release();

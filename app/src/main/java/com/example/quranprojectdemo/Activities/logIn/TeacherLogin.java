@@ -175,7 +175,7 @@ public class TeacherLogin extends AppCompatActivity {
             @Override
             public void run() {
                 Group_Info group_info = getGroupData.getGroupInfo();
-                dataBaseItems.copyObjectToDataToRealm(group_info, Group_Info.class);
+                dataBaseItems.insertObjectToDataToRealm(group_info, Group_Info.class);
 
                 List<Student_Info> infoList = getStudentData.getAllStudentInfoToGroup();
                 dataBaseItems.insertListDataToRealm(infoList);

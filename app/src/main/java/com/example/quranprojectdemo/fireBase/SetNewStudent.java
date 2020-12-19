@@ -1,5 +1,6 @@
 package com.example.quranprojectdemo.fireBase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,12 +34,13 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import static android.content.Context.MODE_PRIVATE;
 
 public class SetNewStudent {
-    private Context context;
+    private final Context context;
+    @SuppressLint("StaticFieldLeak")
     private static SetNewStudent instance;
     private String id_group;
     private String id_center;
     SharedPreferences sp;
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth;
     private String auto_student_id;
     RealmDataBaseItems dataBaseItems;
     AddNewStudent mActivity;
@@ -117,7 +119,7 @@ public class SetNewStudent {
         DatabaseReference student_info = new_student.child("student_info");
         student_info.setValue(info);
         if (info != null) {
-            dataBaseItems.copyObjectToDataToRealm(info, Student_Info.class);
+            dataBaseItems.insertObjectToDataToRealm(info, Student_Info.class);
         } else Toast.makeText(context, "لم تتم الاضافة بنجاح", Toast.LENGTH_SHORT).show();
 
     }
