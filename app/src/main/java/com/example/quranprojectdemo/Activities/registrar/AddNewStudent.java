@@ -37,7 +37,7 @@ public class AddNewStudent extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_student);
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
-        setNewStudent = SetNewStudent.getInstance(AddNewStudent.this);
+        setNewStudent = SetNewStudent.getInstance(this);
         def();
         viewFont();
 

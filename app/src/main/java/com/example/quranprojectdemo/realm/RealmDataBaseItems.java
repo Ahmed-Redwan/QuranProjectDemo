@@ -224,8 +224,11 @@ public class RealmDataBaseItems {
             list = null;
 
         }
-        if (!realm.isClosed())
-            realm.close();
+        try {
+            if (!realm.isClosed())
+                realm.close();
+        }catch (Exception exception){}
+
         return list;
     }
 

@@ -154,11 +154,11 @@ public class GetDataService extends Service {
         String[] value = {};
 
 
-        long[] maxMin = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
-        int max = (int) maxMin[1];
-        int count = (int) maxMin[2];
+//        long[] maxMin = dataBaseItems.getMaxAndMinAndCountValue("id_Student", typeName, value, Student_Info.class);
+//        int max = (int) maxMin[1];
+//        int count = (int) maxMin[2];
 
-        List<Student_Info> infoList = getStudentData.getNewStudentInfoToGroup(count, max);
+        List<Student_Info> infoList = getStudentData.getAllStudentInfoToGroup();
         assert infoList != null;
         dataBaseItems.insertListDataToRealm(infoList);
         Group_Info groupInfo = getGroupData.getGroupInfo();

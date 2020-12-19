@@ -79,14 +79,12 @@ public class Reprts extends AppCompatActivity {
         for (int i = 0; i < studentInfoList.size(); i++) {
             String name = studentInfoList.get(i).getName();
             String id = studentInfoList.get(i).getId_Student();
-            String[] nameType = {"id_student","attendess_student"};
-            String[] valeu = {id,"حاضر"};
-            String[] valeuNotAtt = {id,"غائب"};
-//            String filedTypeAtt = "attendess_student";
-            int countAtt = (int) realmDataBaseItems.getDataWithAndStatement( nameType, valeu, Student_data.class).size();
-
-//            String filedType = "id_student";
-            int notAtt = (int) realmDataBaseItems.getDataWithAndStatement( nameType, valeuNotAtt, Student_data.class).size();
+            String[] nameType = {"id_student", "attendess_student"};
+            String[] valeu = {id, "حاضر"};
+            String[] valeuNotAtt = {id, "غائب"};
+            int countAtt = (int) realmDataBaseItems.getDataWithAndStatement(nameType, valeu, Student_data.class).size();
+ 
+            int notAtt = (int) realmDataBaseItems.getDataWithAndStatement(nameType, valeuNotAtt, Student_data.class).size();
 
             List<Student_data> dataList = realmDataBaseItems.getDataWithAndStatement(nameType, valeu, Student_data.class);
             int countSavePages = 0, countRevPages = 0;

@@ -46,7 +46,7 @@ public class GuardianLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guardian_login);
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
-        getStudentData = GetStudentData.getinstance(this);
+        getStudentData = GetStudentData.getinstance(GuardianLogin.this);
 
         def();
 

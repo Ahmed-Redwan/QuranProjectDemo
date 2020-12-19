@@ -46,6 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 import static com.example.quranprojectdemo.Activities.logIn.GuardianLogin.INFO_STUDENT_LOGIN;
@@ -53,7 +54,7 @@ import static com.example.quranprojectdemo.Activities.otherActivity.SplashScreen
 
 public class Main_student extends AppCompatActivity {
 
-    Toolbar toolbar_student;
+    //    Toolbar toolbar_student;
     Spinner spinner_year, spinner_month;
 
     Button btn_show_spinner;
@@ -72,41 +73,75 @@ public class Main_student extends AppCompatActivity {
     RecyclerView rv;
     SharedPreferences sp;
 
-    //    @Override
-    //    public boolean onCreateOptionsMenu(Menu menu) {
-    //        MenuInflater inflater =getMenuInflater();
-    //        inflater.inflate(R.menu.studente_home_menu,menu);
-    //        MenuItem item=menu.findItem(R.id.MenuStudentChat);
-    //        View view=item.getActionView();
-    //        final TextView tv=view.findViewById(R.id.chatText);
-    //        Log.d("opop","");
-    //        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("CenterUsers").child(id_center)
-    //                .child("groups").child(id_group).child("student_group").child(id_student).child("chats");
-    //        reference.addValueEventListener(new ValueEventListener() {
-    //            @Override
-    //            public void onDataChange(@NonNull DataSnapshot snapshot) {
-    //                int i = 0;
-    //                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-    //                    Chat chat=dataSnapshot.getValue(Chat.class);
-    //                    if (chat.isSeen()==false){
-    //                        Log.d("zzz1",i+"");
-    //                        i+=1;
-    //                    }
-    //                }
-    //                if (i==0){
-    //                    tv.setVisibility(View.GONE);
-    //                }else {
-    //                    tv.setVisibility(View.VISIBLE);
-    //                    Log.d("zzz2",i+"");
-    //                    tv.setText(""+i);
-    //                }
-    //            }
-    //            @Override
-    //            public void onCancelled(@NonNull DatabaseError error) {
-    //            }
-    //        });
-    //        return true;
-    //    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        Log.d("dddddd", item.getTitle() + "23324243");
+        switch (item.getItemId()) {
+            case R.id.MenuStudentChat: {
+                Intent i = new Intent(Main_student.this, MassegeActivity.class);
+                i.putExtra("key", "student");
+                i.putExtra("id_center", id_center);
+                i.putExtra("id_group", id_group);
+                i.putExtra("id_student", id_student);
+                startActivity(i);
+            }
+            return true;
+            case R.id.MenuStudentHomeSettings:
+                return true;
+            case R.id.MenuStudentHomeAbout:
+                startActivity(new Intent(getBaseContext(), AboutApp.class));
+                return true;
+            case R.id.MenuStudentHomeExit:
+                getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
+                getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE).edit().clear().commit();
+                dataBaseItems.deleteAllData();
+
+                finish();
+                startActivity(new Intent(getBaseContext(), RegisterAs.class));
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getMenuInflater().inflate(R.menu.studente_home_menu, menu);
+        MenuItem item = menu.findItem(R.id.MenuStudentChat);
+        View view = item.getActionView();
+        final TextView tv = view.findViewById(R.id.chatText);
+         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("CenterUsers").child(id_center)
+                .child("groups").child(id_group).child("student_group").child(id_student).child("chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Chat chat = dataSnapshot.getValue(Chat.class);
+                    if (chat.isSeen() == false) {
+                        Log.d("zzz1", i + "");
+                        i += 1;
+                    }
+                }
+                if (i == 0) {
+                    tv.setVisibility(View.GONE);
+                } else {
+                    tv.setVisibility(View.VISIBLE);
+                    Log.d("zzz2", i + "");
+                    tv.setText("" + i);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 
 
     @Override
@@ -125,37 +160,37 @@ public class Main_student extends AppCompatActivity {
         viewFont();
 
 
-        toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.MenuStudentChat: {
-                        Intent i = new Intent(Main_student.this, MassegeActivity.class);
-                        i.putExtra("key", "student");
-                        i.putExtra("id_center", id_center);
-                        i.putExtra("id_group", id_group);
-                        i.putExtra("id_student", id_student);
-                        startActivity(i);
-                    }
-                    return true;
-                    case R.id.MenuStudentHomeSettings:
-                        return true;
-                    case R.id.MenuStudentHomeAbout:
-                        startActivity(new Intent(getBaseContext(), AboutApp.class));
-                        return true;
-                    case R.id.MenuStudentHomeExit:
-                        getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
-                        getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE).edit().clear().commit();
-                        dataBaseItems.deleteAllData();
-
-                        finish();
-                        startActivity(new Intent(getBaseContext(), RegisterAs.class));
-
-                        return true;
-                }
-                return false;
-            }
-        });
+//        toolbar_student.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.MenuStudentChat: {
+//                        Intent i = new Intent(Main_student.this, MassegeActivity.class);
+//                        i.putExtra("key", "student");
+//                        i.putExtra("id_center", id_center);
+//                        i.putExtra("id_group", id_group);
+//                        i.putExtra("id_student", id_student);
+//                        startActivity(i);
+//                    }
+//                    return true;
+//                    case R.id.MenuStudentHomeSettings:
+//                        return true;
+//                    case R.id.MenuStudentHomeAbout:
+//                        startActivity(new Intent(getBaseContext(), AboutApp.class));
+//                        return true;
+//                    case R.id.MenuStudentHomeExit:
+//                        getSharedPreferences(CHEACKHOWISLOGGED, MODE_PRIVATE).edit().clear().commit();
+//                        getSharedPreferences(INFO_STUDENT_LOGIN, MODE_PRIVATE).edit().clear().commit();
+//                        dataBaseItems.deleteAllData();
+//
+//                        finish();
+//                        startActivity(new Intent(getBaseContext(), RegisterAs.class));
+//
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
 
 
     }
@@ -176,7 +211,7 @@ public class Main_student extends AppCompatActivity {
         btn_show_spinner = findViewById(R.id.btn_choose_spinner);
         btn_disable_spinner = findViewById(R.id.btn_disable_spinner);
         linearspinner = findViewById(R.id.linear_spinner);
-        toolbar_student=findViewById(R.id.student_main_tool);
+//        toolbar_student = findViewById(R.id.student_main_tool);
         //        toolbar_student = findViewById(R.id.student_main_tool);
     }
 
@@ -339,7 +374,7 @@ public class Main_student extends AppCompatActivity {
             tv_student_name_ring.setText("الإيميل:" + studentInfo.getEmail());
             tv_student_phone.setText(studentInfo.getPhoneNo());
             tv_student_identity.setText("رقم الهوية:" + studentInfo.getId_number());
-            toolbar_student.setTitle("الطالب " + studentInfo.getName());
+//            toolbar_student.setTitle("الطالب " + studentInfo.getName());
         }
 
     }
