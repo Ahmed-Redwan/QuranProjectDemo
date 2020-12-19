@@ -64,7 +64,7 @@ public class QuranCenter_Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         dataBaseItems = RealmDataBaseItems.getInstance(getBaseContext());
         getCenterData = GetCenterData.getinstance(this);
-        getStudentData = GetStudentData.getinstance(getBaseContext());
+        getStudentData = GetStudentData.getinstance(this);
 
         def();
         viewFont();

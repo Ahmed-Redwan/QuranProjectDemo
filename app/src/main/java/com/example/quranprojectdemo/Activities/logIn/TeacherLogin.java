@@ -35,7 +35,6 @@ public class TeacherLogin extends AppCompatActivity {
     TextView tv_Login;
     EditText et_Email, et_password;
     Button btn_Login;
-
     private GetStudentData getStudentData;
     private GetGroupData getGroupData;
     private CheckBox saveLoginCheckBox;

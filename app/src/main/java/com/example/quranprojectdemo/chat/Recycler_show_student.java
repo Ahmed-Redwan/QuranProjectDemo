@@ -61,7 +61,10 @@
                     i.putExtra("key","teacher");
                     i.putExtra("id_center",student_imageand_names.get(position).getId_center());
                     i.putExtra("id_group",student_imageand_names.get(position).getId_group());
-                    i.putExtra("id_student",student_imageand_names.get(position).getId_Student()    );
+                    i.putExtra("id_student",student_imageand_names.get(position).getId_Student());
+                    i.putExtra("id_token",student_imageand_names.get(position).getTokenId());
+
+
                     view.getContext().startActivity(i);
 
                 }

@@ -49,7 +49,7 @@ public class GetStudentData {
     private SharedPreferences.Editor editor;
     private final RealmDataBaseItems dataBaseItems;
     @SuppressLint("StaticFieldLeak")
-    GuardianLogin mAppContext;
+    static GuardianLogin mAppContext;
 
     private GetStudentData(Context context) {
         this.context = context;
@@ -58,8 +58,6 @@ public class GetStudentData {
 
 //        centerId = sp.getString(GuardianLogin.STD_ID_CENTER, "0");
 
-        if (context instanceof AppCompatActivity)
-            mAppContext = new GuardianLogin();
 
     }
 
@@ -68,6 +66,8 @@ public class GetStudentData {
         if (instance == null) {
             instance = new GetStudentData(context);
         }
+        if (context instanceof AppCompatActivity)
+            mAppContext = new GuardianLogin();
 
 
         return instance;

@@ -29,7 +29,6 @@ public class SetStudentData {
     @SuppressLint("StaticFieldLeak")
     private static SetStudentData instance;
     private SharedPreferences sp;
-    private static final String SERVER_KEY = "AAAAkRwHS54:APA91bEn3p73H7TmuMHzCQwiqlBrtD99NnHYAytBSHL6iC0bjgTXIBosoES0Qg8u5p0SdSsW6ZKEbp611nSgH6iaqMQQ7Ih3HZQfRaCbu7XhaDy5S2Q9pRAncWut0J8qeiF9D9acgdwM";
 
     private SetStudentData(Context context) {
         this.context = context;
@@ -82,7 +81,6 @@ public class SetStudentData {
     }
 
     public boolean uploadOneNewSave(Student_data_cash data_cashe, String token) {
-        Log.d("mmmm", token + " token ");
 
         sp = context.getSharedPreferences(INFO_TEACHER, MODE_PRIVATE);
         String id_center = sp.getString(ID_LOGIN_TEC_CENTER, "-1");
@@ -107,10 +105,10 @@ public class SetStudentData {
                     , String.valueOf(data_cashe.getMonth_save()), String.valueOf(data_cashe.getYear_save()), data_cashe.getTime_save(), data_cashe.getId_student(), data_cashe.getDate_id(), data_cashe.getId_group());
 
             student_save.setValue(s);
-             String title = "تسميع جديد";
+            String title = "تسميع جديد";
             String body = "حفظ جديد: " + s.getSave_student();
             String body2 = "مراجعة: " + s.getReview_student();
-            sendFireBaseNotification(SERVER_KEY, token, title, body + "\n" + body2);
+            PushNotification.sendNotification(token, title, body + "\n" + body2);
             return true;
 
         }
@@ -118,49 +116,5 @@ public class SetStudentData {
         return false;
     }
 
-    private void sendFireBaseNotification(final String keyServer, final String token, final String title, final String body) {
-        Log.d("mmmm", token + " token1  1 ");
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-
-                    URL url = new URL("https://fcm.googleapis.com/fcm/send");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-                    conn.setUseCaches(false);
-                    conn.setDoInput(true);
-                    conn.setDoOutput(true);
-
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Authorization", "key=" + keyServer);
-                    conn.setRequestProperty("Content-Type", "application/json");
-
-                    JSONObject json = new JSONObject();
-
-                    json.put("to", token);
-
-                    JSONObject info = new JSONObject();
-                    info.put("title", title);   // Notification title
-                    info.put("body", body); // Notification body
-
-                    json.put("notification", info);
-
-                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-                    wr.write(json.toString());
-                    wr.flush();
-                    conn.getInputStream();
-
-                } catch (Exception e) {
-                    Log.d("Error", "" + e);
-                }
-
-
-            }
-        }).start();
-
-    }
 
 }
