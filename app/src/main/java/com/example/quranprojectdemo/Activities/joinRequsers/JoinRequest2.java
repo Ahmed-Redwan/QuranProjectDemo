@@ -13,10 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranprojectdemo.R;
 import com.example.quranprojectdemo.models.centers.Center;
 import com.example.quranprojectdemo.models.centers.CenterUser;
 import com.example.quranprojectdemo.recyclerView.reportRequest.CustomRecyclerviewCenters;
-import com.example.quranprojectdemo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,7 +66,7 @@ public class JoinRequest2 extends AppCompatActivity {
         centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0594114029", "2"));
         centers.add(new Center(R.drawable.arabian, "مركز جنود الفتح القادم", "0594114029", "3"));
 */
-
+// الله اكبر ولله الحمد
 
         tv_ListOfCenters.setTypeface(Typeface.createFromAsset(getAssets(), "Hacen_Tunisia_Bold.ttf"));
 
