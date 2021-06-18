@@ -79,4 +79,7 @@
             android:resource="@array/preloaded_fonts" />
     </application>
 
+
 </manifest>
+
+
