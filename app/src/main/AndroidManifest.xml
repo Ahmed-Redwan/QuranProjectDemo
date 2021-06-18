@@ -74,7 +74,6 @@
         <activity android:name=".Activities.joinRequsers.JoinRequest3" />
         <activity android:name=".Activities.showDetails.Show_group_student" />
         <activity android:name=".Activities.showDetails.ShowmeMorizationLoops" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
